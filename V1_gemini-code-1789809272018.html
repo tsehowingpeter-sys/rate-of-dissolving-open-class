@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S1 IS Ch2: Factors Affecting Rate of Dissolving | Agent Water</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0f9ff;
+        }
+        .font-fun {
+            font-family: 'Fredoka', cursive, 'Noto Sans TC', sans-serif;
+        }
+        .chat-bubble-ai {
+            background-color: #e0f2fe;
+            border-radius: 18px 18px 18px 2px;
+        }
+        .chat-bubble-user {
+            background-color: #0284c7;
+            color: white;
+            border-radius: 18px 18px 2px 18px;
+        }
+    </style>
+</head>
+<body class="text-slate-800 pb-12">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-lg py-6 px-4 mb-8">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-md">
+                    <i data-lucide="waves" class="w-8 h-8 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold font-fun tracking-wide">Exp 2.5: Rate of Dissolving</h1>
+                    <p class="text-sky-100 text-sm">S1 Integrated Science • Data Analysis & AI Inquiry</p>
+                </div>
+            </div>
+            <div class="bg-white/10 px-4 py-2 rounded-xl border border-white/20 text-xs text-sky-100">
+                <span class="font-semibold">Objective:</span> Fair Test & Scientific Reasoning
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+        <!-- Left Column: Data Input & Visualization (5 Cols) -->
+        <section class="lg:col-span-5 space-y-6">
+            
+            <!-- Experiment Setup Card -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <h2 class="text-lg font-bold text-sky-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="beaker" class="w-5 h-5 text-sky-500"></i>
+                    公平測試變因 (Variables)
+                </h2>
+                <div class="space-y-2 text-xs">
+                    <div class="flex justify-between p-2 bg-sky-50 rounded-lg">
+                        <span class="font-semibold text-slate-600">Independent (操縱變因):</span>
+                        <span class="text-sky-700 font-bold">Volume of water (cm³)</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-emerald-50 rounded-lg">
+                        <span class="font-semibold text-slate-600">Dependent (應變變因):</span>
+                        <span class="text-emerald-700 font-bold">Dissolving Time (s)</span>
+                    </div>
+                    <div class="p-2 bg-slate-50 rounded-lg text-slate-500">
+                        <span class="font-semibold">Controlled (控制變因):</span> Temp, Mass of sugar, Stirring speed, Sugar piece size
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Input Card -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-bold text-sky-900 flex items-center gap-2">
+                        <i data-lucide="clipboard-edit" class="w-5 h-5 text-sky-500"></i>
+                        輸入實驗數據 (Data Entry)
+                    </h2>
+                    <button onclick="resetData()" class="text-xs text-slate-400 hover:text-slate-600 flex items-center gap-1">
+                        <i data-lucide="rotate-ccw" class="w-3 h-3"></i> 重置
+                    </button>
+                </div>
+
+                <form id="dataForm" class="space-y-4">
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">50 cm³ Water</label>
+                            <div class="relative">
+                                <input type="number" id="time50" placeholder="e.g. 120" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none" required>
+                                <span class="absolute right-3 top-2.5 text-xs text-slate-400">s</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">100 cm³ Water</label>
+                            <div class="relative">
+                                <input type="number" id="time100" placeholder="e.g. 80" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none" required>
+                                <span class="absolute right-3 top-2.5 text-xs text-slate-400">s</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">150 cm³ Water</label>
+                            <div class="relative">
+                                <input type="number" id="time150" placeholder="e.g. 55" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none" required>
+                                <span class="absolute right-3 top-2.5 text-xs text-slate-400">s</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">200 cm³ Water</label>
+                            <div class="relative">
+                                <input type="number" id="time200" placeholder="e.g. 35" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-xl focus:ring-2 focus:ring-sky-400 focus:outline-none" required>
+                                <span class="absolute right-3 top-2.5 text-xs text-slate-400">s</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="processData()" class="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2.5 rounded-xl shadow-md transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="bar-chart-2" class="w-4 h-4"></i> 生成圖表並傳送給 Agent Water
+                    </button>
+                </form>
+            </div>
+
+            <!-- Chart Visualization Card -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100">
+                <h2 class="text-lg font-bold text-sky-900 mb-4 flex items-center gap-2">
+                    <i data-lucide="line-chart" class="w-5 h-5 text-sky-500"></i>
+                    數據圖表 (Visualised Data)
+                </h2>
+                <div class="relative h-56 w-full">
+                    <canvas id="rateChart"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Right Column: AI Agent Water Interactive Chat (7 Cols) -->
+        <section class="lg:col-span-7 flex flex-col h-[750px] bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            
+            <!-- Agent Header -->
+            <div class="bg-sky-50 p-4 border-b border-sky-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="relative">
+                        <div class="w-10 h-10 bg-sky-400 rounded-full flex items-center justify-center text-white font-bold shadow">
+                            💧
+                        </div>
+                        <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full"></span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sky-900">Agent Water</h3>
+                        <p class="text-xs text-sky-600">AI Scientific Data Analyst • 蘇格拉底式引導者</p>
+                    </div>
+                </div>
+                <span class="text-xs bg-sky-200/60 text-sky-800 px-2.5 py-1 rounded-full font-medium">S1 Science Mode</span>
+            </div>
+
+            <!-- Quick Action Prompts for High-Order Thinking -->
+            <div class="p-3 bg-slate-50 border-b border-slate-100 flex gap-2 overflow-x-auto text-xs">
+                <button onclick="sendQuickPrompt('why_average')" class="bg-white border border-slate-200 hover:border-sky-300 text-slate-700 px-3 py-1.5 rounded-lg whitespace-nowrap shadow-sm transition">
+                    💡 為何計算8組平均值？
+                </button>
+                <button onclick="sendQuickPrompt('limitations')" class="bg-white border border-slate-200 hover:border-sky-300 text-slate-700 px-3 py-1.5 rounded-lg whitespace-nowrap shadow-sm transition">
+                    ⚠️ 探討實驗限制與人為誤差
+                </button>
+                <button onclick="sendQuickPrompt('improvements')" class="bg-white border border-slate-200 hover:border-sky-300 text-slate-700 px-3 py-1.5 rounded-lg whitespace-nowrap shadow-sm transition">
+                    🚀 如何改進實驗精準度？
+                </button>
+            </div>
+
+            <!-- Chat Messages Container -->
+            <div id="chatContainer" class="flex-1 p-4 overflow-y-auto space-y-4">
+                <!-- Welcome Message -->
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 bg-sky-100 rounded-full flex items-center justify-center text-sm flex-shrink-0">💧</div>
+                    <div class="chat-bubble-ai p-3.5 text-sm text-slate-700 max-w-[85%] space-y-2">
+                        <p class="font-semibold text-sky-900">Hello! 我是 Agent Water 🌊</p>
+                        <p>歡迎來到科學數據分析室！請先在左方輸入你小組得到的數據（水體積 vs 溶解時間），然後點擊「生成圖表」，我們再來一起評估數據的可靠性與誤差來源！</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Box -->
+            <div class="p-3 border-t border-slate-100 bg-white">
+                <form id="chatForm" onsubmit="handleUserSubmit(event)" class="flex gap-2">
+                    <input type="text" id="userInput" placeholder="回答 Agent Water 的問題，或提出你的疑問..." class="flex-1 px-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-sky-400 focus:outline-none">
+                    <button type="submit" class="bg-sky-500 hover:bg-sky-600 text-white p-2.5 rounded-xl shadow transition">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Chart Instance
+        let rateChart;
+
+        // Experimental Data Storage
+        let currentData = null;
+
+        // Initialize Empty Chart
+        const ctx = document.getElementById('rateChart').getContext('2d');
+        rateChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['50 cm³', '100 cm³', '150 cm³', '200 cm³'],
+                datasets: [{
+                    label: 'Time needed to dissolve (s)',
+                    data: [null, null, null, null],
+                    borderColor: '#0284c7',
+                    backgroundColor: 'rgba(2, 132, 199, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.3,
+                    fill: true,
+                    pointBackgroundColor: '#0284c7',
+                    pointRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Time (seconds)' }
+                    },
+                    x: {
+                        title: { display: true, text: 'Volume of Water (cm³)' }
+                    }
+                }
+            }
+        });
+
+        // Process Input Data
+        function processData() {
+            const t50 = parseFloat(document.getElementById('time50').value);
+            const t100 = parseFloat(document.getElementById('time100').value);
+            const t150 = parseFloat(document.getElementById('time150').value);
+            const t200 = parseFloat(document.getElementById('time200').value);
+
+            if ([t50, t100, t150, t200].some(isNaN)) {
+                alert("請填寫所有體積對應的溶解時間！");
+                return;
+            }
+
+            currentData = { 50: t50, 100: t100, 150: t150, 200: t200 };
+
+            // Update Chart
+            rateChart.data.datasets[0].data = [t50, t100, t150, t200];
+            rateChart.update();
+
+            // Trigger AI Agent Response
+            addAIMessage(`我已分析你的數據：
+            • 50 cm³: ${t50}s
+            • 100 cm³: ${t100}s
+            • 150 cm³: ${t150}s
+            • 200 cm³: ${t200}s
+
+            探究問題（High-Order Challenge）：
+            看圖表趨勢，當**水量增加**時，糖完全溶解所需的**時間**有何變化？這代表**溶解速率 (Rate of Dissolving)** 是變快了還是變慢了？`);
+        }
+
+        function resetData() {
+            document.getElementById('dataForm').reset();
+            rateChart.data.datasets[0].data = [null, null, null, null];
+            rateChart.update();
+            currentData = null;
+        }
+
+        // Chat UI Logic
+        function addUserMessage(text) {
+            const container = document.getElementById('chatContainer');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = "flex items-start justify-end gap-3";
+            msgDiv.innerHTML = `
+                <div class="chat-bubble-user p-3.5 text-sm max-w-[85%] space-y-1">
+                    <p>${escapeHtml(text)}</p>
+                </div>
+                <div class="w-8 h-8 bg-sky-600 text-white rounded-full flex items-center justify-center text-xs flex-shrink-0 font-bold">Me</div>
+            `;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addAIMessage(text) {
+            const container = document.getElementById('chatContainer');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = "flex items-start gap-3";
+            msgDiv.innerHTML = `
+                <div class="w-8 h-8 bg-sky-100 rounded-full flex items-center justify-center text-sm flex-shrink-0">💧</div>
+                <div class="chat-bubble-ai p-3.5 text-sm text-slate-700 max-w-[85%] space-y-2 whitespace-pre-line">
+                    ${text}
+                </div>
+            `;
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function handleUserSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            addUserMessage(text);
+            input.value = '';
+
+            // Simulate Agent Reasoning based on input keywords
+            setTimeout(() => {
+                respondAsAgentWater(text);
+            }, 800);
+        }
+
+        // Knowledge Base & High-Order Thinking Agent Logic
+        function respondAsAgentWater(userQuery) {
+            const q = userQuery.toLowerCase();
+
+            if (q.includes("快") || q.includes("faster") || q.includes("增加") || q.includes("高")) {
+                addAIMessage(`很好！答對了！水量越多，糖溶解所需的**時間越短**，即**溶解速率越高 (Rate increases)**。
+
+                🤔 深度思考：
+                你認為「**人手攪拌的速度**」會否影響這項實驗的準確度？如果不均勻，會造成什麼誤差？`);
+            } 
+            else if (q.includes("誤差") || q.includes("error") || q.includes("攪拌") || q.includes("限制") || q.includes("limitation")) {
+                addAIMessage(`觀察非常敏銳！這屬於**人為誤差 (Human Error)**：
+                1. 手動攪拌速度不一 (Inconsistent stirring)
+                2. 肉眼判斷完全溶解的終點較主觀 (Subjective endpoint decision)
+                3. 按停錶的反應時間延遲 (Reaction time lag)
+
+                💡 試建議一個能夠排除人為攪拌誤差的改進方法？`);
+            } 
+            else if (q.includes("磁力") || q.includes("感應") || q.includes("錄影") || q.includes("sensor") || q.includes("magnetic") || q.includes("video")) {
+                addAIMessage(`太棒了！這正是科學家使用的專業改進方法！✨
+                • **磁力攪拌器 (Magnetic stirrer)**：保持恆定攪拌速度。
+                • **濁度/光敏感應器 (Turbidity / Light Sensor)**：客觀精準判斷溶解終點。
+                • **錄影重播 (Video recording)**：準確記錄時間戳。
+
+                你已經掌握了科學探究的高階精神！嘗試點擊上方按鈕探討「計算全班8組平均值」的意義吧！`);
+            }
+            else {
+                addAIMessage(`這是一個很好的觀點！在科學探究中，我們需要不斷質疑與驗證數據。
+
+                你可以嘗試討論以下方向：
+                1. 為什麼實驗需要控制水溫與糖的份量保持不變（Controlled variables）？
+                2. 你的實驗結果是否符合最初的 Hypothesis（假設）？
+                3. 有何方法可以提高實驗的 **Reliability (可靠性)**？`);
+            }
+        }
+
+        // Quick Prompt Handler
+        function sendQuickPrompt(type) {
+            if (type === 'why_average') {
+                addUserMessage("為什麼我們要取全班8組數據的平均值 (Average)？");
+                setTimeout(() => {
+                    addAIMessage(`🔍 **科學思維解析：**
+                    取 8 組平均值的主要目的是：
+                    **減低隨機誤差 (To reduce random errors)**，使實驗結果更加**可靠 (More reliable)**！
+
+                    如果有一組數據特別異常（例如忘記攪拌），平均值能減低單一異常值對整體結論的影響。`);
+                }, 600);
+            } 
+            else if (type === 'limitations') {
+                addUserMessage("這個實驗有哪些限制 (Limitations) 與人為誤差來源？");
+                setTimeout(() => {
+                    addAIMessage(`⚠️ **實驗限制與誤差清單：**
+                    1. **攪拌速度不一致**：人手攪拌無法維持恆定轉速。
+                    2. **溶解終點判斷主觀**：每個人對「糖完全消失」的定義略有不同。
+                    3. **碼錶反應時間**：手動按碼錶存在 0.2~0.5 秒的反應延遲。`);
+                }, 600);
+            } 
+            else if (type === 'improvements') {
+                addUserMessage("有什麼方法可以改進實驗，使結果更精確可靠 (More reliable)？");
+                setTimeout(() => {
+                    addAIMessage(`🚀 **科學改進方案 (Improvements)：**
+                    • 針對攪拌速度 ➡️ 使用 **磁力攪拌器 (Magnetic Stirrer)**。
+                    • 針對終點判斷 ➡️ 使用 **數字光敏/濁度感應器 (Digital Light/Turbidity Sensor)**。
+                    • 針對反應時間 ➡️ 進行 **全程錄影 (Video Recording)** 並追蹤時間戳。`);
+                }, 600);
+            }
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S1 Science: Rate of Dissolving & Agent Water</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f0fdf4;
+        }
+        .font-fun { font-family: 'Fredoka', cursive, 'Noto Sans TC', sans-serif; }
+        .chat-bubble-ai {
+            background-color: #e0f2fe;
+            border-radius: 18px 18px 18px 2px;
+        }
+        .chat-bubble-user {
+            background-color: #0284c7;
+            color: white;
+            border-radius: 18px 18px 2px 18px;
+        }
+    </style>
+</head>
+<body class="text-slate-800 pb-12">
+
+    <!-- Bilingual Header -->
+    <header class="bg-gradient-to-r from-teal-500 to-sky-600 text-white shadow-md py-5 px-4 mb-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-md">
+                    <i data-lucide="droplets" class="w-8 h-8 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold font-fun tracking-wide">
+                        Exp 2.5: Factors Affecting Rate of Dissolving
+                    </h1>
+                    <p class="text-teal-100 text-xs md:text-sm">
+                        實驗 2.5：影響溶解速率的因素 • 跨組數據分析與 AI 探究
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Group Selector -->
+            <div class="bg-white/10 px-4 py-2 rounded-xl border border-white/20 flex items-center gap-3">
+                <label class="text-xs font-semibold text-teal-100 whitespace-nowrap">Your Group / 你的組別:</label>
+                <select id="groupSelect" onchange="switchGroup()" class="bg-white text-slate-800 text-sm font-bold px-3 py-1.5 rounded-lg focus:outline-none shadow">
+                    <option value="Group 1">Group 1 (第1組)</option>
+                    <option value="Group 2">Group 2 (第2組)</option>
+                    <option value="Group 3">Group 3 (第3組)</option>
+                    <option value="Group 4">Group 4 (第4組)</option>
+                    <option value="Group 5">Group 5 (第5組)</option>
+                    <option value="Group 6">Group 6 (第6組)</option>
+                    <option value="Group 7">Group 7 (第7組)</option>
+                    <option value="Group 8">Group 8 (第8組)</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left Column: Data Sync & Cross-Group Analysis (6 Cols) -->
+        <section class="lg:col-span-6 space-y-6">
+            
+            <!-- Data Entry Form -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                <div class="flex justify-between items-center mb-3">
+                    <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        <i data-lucide="edit-3" class="w-5 h-5 text-teal-500"></i>
+                        <span>1. Enter Group Data / 輸入本組數據</span>
+                    </h2>
+                    <span id="syncBadge" class="text-xs px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded-full flex items-center gap-1 font-medium">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span> Sync Active
+                    </span>
+                </div>
+
+                <form id="dataForm" class="space-y-3">
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-600">50 cm³ Water</label>
+                            <span class="text-[10px] text-slate-400 block mb-1">50 cm³ 水</span>
+                            <input type="number" id="t50" placeholder="e.g. 120" class="w-full px-2 py-1 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+                        </div>
+                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-600">100 cm³ Water</label>
+                            <span class="text-[10px] text-slate-400 block mb-1">100 cm³ 水</span>
+                            <input type="number" id="t100" placeholder="e.g. 80" class="w-full px-2 py-1 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+                        </div>
+                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-600">150 cm³ Water</label>
+                            <span class="text-[10px] text-slate-400 block mb-1">150 cm³ 水</span>
+                            <input type="number" id="t150" placeholder="e.g. 50" class="w-full px-2 py-1 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+                        </div>
+                        <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                            <label class="block text-xs font-bold text-slate-600">200 cm³ Water</label>
+                            <span class="text-[10px] text-slate-400 block mb-1">200 cm³ 水</span>
+                            <input type="number" id="t200" placeholder="e.g. 30" class="w-full px-2 py-1 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 pt-1">
+                        <button type="button" onclick="submitGroupData()" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 rounded-xl text-xs sm:text-sm shadow transition flex items-center justify-center gap-1">
+                            <i data-lucide="upload" class="w-4 h-4"></i> Submit Data / 上傳數據
+                        </button>
+                        <button type="button" onclick="generateSimulatedClassData()" class="bg-sky-100 hover:bg-sky-200 text-sky-700 font-semibold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1" title="Fill other groups with sample data for demonstration">
+                            <i data-lucide="sparkles" class="w-4 h-4"></i> Auto-fill Class / 模擬全班數據
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Graph Section -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100">
+                <h2 class="text-base font-bold text-slate-800 mb-2 flex items-center gap-2">
+                    <i data-lucide="line-chart" class="w-5 h-5 text-sky-500"></i>
+                    <span>2. Class Comparison Graph / 跨組數據分析圖表</span>
+                </h2>
+                <p class="text-xs text-slate-500 mb-4">Comparing My Group (My Data) with Class Average (8 Groups).</p>
+                <div class="relative h-64 w-full">
+                    <canvas id="classChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Class Data Sync Table -->
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-100 overflow-x-auto">
+                <h2 class="text-xs font-bold text-slate-700 mb-2 flex items-center justify-between">
+                    <span>8 Groups Overview / 8組數據總覽</span>
+                    <span id="submittedCount" class="text-teal-600">0/8 Submitted</span>
+                </h2>
+                <table class="w-full text-[11px] text-center border-collapse">
+                    <thead>
+                        <tr class="bg-slate-100 text-slate-600">
+                            <th class="p-1.5 border">Volume</th>
+                            <th class="p-1.5 border">G1</th>
+                            <th class="p-1.5 border">G2</th>
+                            <th class="p-1.5 border">G3</th>
+                            <th class="p-1.5 border">G4</th>
+                            <th class="p-1.5 border">G5</th>
+                            <th class="p-1.5 border">G6</th>
+                            <th class="p-1.5 border">G7</th>
+                            <th class="p-1.5 border">G8</th>
+                            <th class="p-1.5 border bg-teal-50 text-teal-800 font-bold">AVG</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody" class="text-slate-700">
+                        <!-- Dynamic Rows -->
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+        <!-- Right Column: Agent Water AI Companion (6 Cols) -->
+        <section class="lg:col-span-6 flex flex-col h-[780px] bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+            
+            <!-- Agent Header -->
+            <div class="bg-gradient-to-r from-sky-400 to-blue-500 p-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-xl shadow">
+                        💧
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-sm sm:text-base font-fun">Agent Water (水精靈)</h3>
+                        <p class="text-[11px] text-sky-100">Your Science Thinking Buddy • 你的科學思考好夥伴</p>
+                    </div>
+                </div>
+                <span class="text-[10px] bg-white/20 border border-white/30 px-2 py-1 rounded-full">Socratic AI Guide</span>
+            </div>
+
+            <!-- Chat Messages Window -->
+            <div id="chatContainer" class="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50/50">
+                <!-- Initial Welcome -->
+                <div class="flex items-start gap-2.5">
+                    <div class="w-8 h-8 bg-sky-200 text-sky-800 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">💧</div>
+                    <div class="chat-bubble-ai p-3.5 text-xs text-slate-700 max-w-[88%] space-y-2">
+                        <p class="font-bold text-sky-900">Hello my friend! 👋</p>
+                        <p>I am Agent Water! I am so happy to learn science with you today!</p>
+                        <p class="text-slate-500 text-[11px] border-t border-sky-200/60 pt-1">你好！我是水精靈！今天很高興跟你一起探索科學！請先在左邊上傳你小組的實驗數據吧！</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Interactive Response Panel (Multiple Choice Options + Custom Text Input) -->
+            <div class="p-3 bg-white border-t border-slate-100 space-y-2">
+                <!-- Multiple Choice Options Container -->
+                <div id="optionsContainer" class="grid grid-cols-1 gap-1.5 max-h-36 overflow-y-auto pr-1">
+                    <p class="text-[10px] text-slate-400 italic text-center">Submit your group data to start chat with Agent Water! / 請先提交數據以開啟對話！</p>
+                </div>
+
+                <!-- Text Input Form -->
+                <form id="chatForm" onsubmit="handleCustomTextSubmit(event)" class="flex gap-2 pt-1 border-t border-slate-100">
+                    <input type="text" id="userInput" placeholder="Or type your response... / 或輸入你的回答..." class="flex-1 px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-sky-400 focus:outline-none">
+                    <button type="submit" class="bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 rounded-xl text-xs font-semibold shadow transition flex items-center gap-1">
+                        <i data-lucide="send" class="w-3.5 h-3.5"></i> Send
+                    </button>
+                </form>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Script Logic -->
+    <script>
+        lucide.createIcons();
+
+        // 1. Multi-Group Data Broadcast & Sync System
+        const channel = new BroadcastChannel('science_dissolving_exp');
+        let currentGroup = "Group 1";
+        
+        // Data Structure for 8 Groups
+        let classData = {};
+        for(let i=1; i<=8; i++) {
+            classData[`Group ${i}`] = null;
+        }
+
+        // Initialize Chart
+        let classChart;
+        const ctx = document.getElementById('classChart').getContext('2d');
+        
+        function initChart() {
+            classChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['50 cm³', '100 cm³', '150 cm³', '200 cm³'],
+                    datasets: [
+                        {
+                            label: 'My Group (本組)',
+                            data: [null, null, null, null],
+                            borderColor: '#0284c7',
+                            backgroundColor: '#0284c7',
+                            borderWidth: 3,
+                            pointRadius: 6,
+                            tension: 0.2
+                        },
+                        {
+                            label: 'Class Average (8 Groups / 全班平均)',
+                            data: [null, null, null, null],
+                            borderColor: '#10b981',
+                            backgroundColor: '#10b981',
+                            borderDash: [6, 6],
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            tension: 0.2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Time (seconds / 秒)' } },
+                        x: { title: { display: true, text: 'Water Volume (水體積)' } }
+                    }
+                }
+            });
+        }
+
+        initChart();
+
+        // Load persisted local data
+        function loadFromStorage() {
+            const saved = localStorage.getItem('dissolving_class_data');
+            if (saved) {
+                classData = JSON.parse(saved);
+                updateAllUI();
+            }
+        }
+
+        // Broadcast Channel Listener
+        channel.onmessage = (event) => {
+            if (event.data && event.data.type === 'UPDATE_DATA') {
+                classData = event.data.payload;
+                localStorage.setItem('dissolving_class_data', JSON.stringify(classData));
+                updateAllUI();
+            }
+        };
+
+        function switchGroup() {
+            currentGroup = document.getElementById('groupSelect').value;
+            // Pre-fill form if current group has existing data
+            if (classData[currentGroup]) {
+                document.getElementById('t50').value = classData[currentGroup][50];
+                document.getElementById('t100').value = classData[currentGroup][100];
+                document.getElementById('t150').value = classData[currentGroup][150];
+                document.getElementById('t200').value = classData[currentGroup][200];
+            } else {
+                document.getElementById('dataForm').reset();
+            }
+            updateAllUI();
+        }
+
+        function submitGroupData() {
+            const t50 = parseFloat(document.getElementById('t50').value);
+            const t100 = parseFloat(document.getElementById('t100').value);
+            const t150 = parseFloat(document.getElementById('t150').value);
+            const t200 = parseFloat(document.getElementById('t200').value);
+
+            if ([t50, t100, t150, t200].some(isNaN)) {
+                alert("Please fill in all time values! / 請填寫所有數據！");
+                return;
+            }
+
+            classData[currentGroup] = { 50: t50, 100: t100, 150: t150, 200: t200 };
+            
+            // Save & Broadcast
+            localStorage.setItem('dissolving_class_data', JSON.stringify(classData));
+            channel.postMessage({ type: 'UPDATE_DATA', payload: classData });
+
+            updateAllUI();
+
+            // Trigger Agent Water if chat hasn't started
+            if (chatStage === 0) {
+                startAgentGuidedConversation();
+            }
+        }
+
+        function generateSimulatedClassData() {
+            // Generates realistic mock data for all groups with minor random deviations
+            const baselines = { 50: 120, 100: 75, 150: 45, 200: 30 };
+            for(let i=1; i<=8; i++) {
+                const gName = `Group ${i}`;
+                if (!classData[gName] || gName !== currentGroup) {
+                    classData[gName] = {
+                        50: Math.round(baselines[50] + (Math.random() * 20 - 10)),
+                        100: Math.round(baselines[100] + (Math.random() * 16 - 8)),
+                        150: Math.round(baselines[150] + (Math.random() * 12 - 6)),
+                        200: Math.round(baselines[200] + (Math.random() * 8 - 4))
+                    };
+                }
+            }
+            localStorage.setItem('dissolving_class_data', JSON.stringify(classData));
+            channel.postMessage({ type: 'UPDATE_DATA', payload: classData });
+            updateAllUI();
+
+            if (chatStage === 0 && classData[currentGroup]) {
+                startAgentGuidedConversation();
+            }
+        }
+
+        function calculateClassAverage() {
+            let sums = { 50: 0, 100: 0, 150: 0, 200: 0 };
+            let count = 0;
+
+            for(let i=1; i<=8; i++) {
+                const g = classData[`Group ${i}`];
+                if (g) {
+                    sums[50] += g[50];
+                    sums[100] += g[100];
+                    sums[150] += g[150];
+                    sums[200] += g[200];
+                    count++;
+                }
+            }
+
+            if (count === 0) return null;
+
+            return {
+                50: Math.round(sums[50] / count),
+                100: Math.round(sums[100] / count),
+                150: Math.round(sums[150] / count),
+                200: Math.round(sums[200] / count),
+                count: count
+            };
+        }
+
+        function updateAllUI() {
+            // 1. Update Chart
+            const myData = classData[currentGroup];
+            const avgData = calculateClassAverage();
+
+            if (myData) {
+                classChart.data.datasets[0].data = [myData[50], myData[100], myData[150], myData[200]];
+            } else {
+                classChart.data.datasets[0].data = [null, null, null, null];
+            }
+
+            if (avgData) {
+                classChart.data.datasets[1].data = [avgData[50], avgData[100], avgData[150], avgData[200]];
+                document.getElementById('submittedCount').innerText = `${avgData.count}/8 Groups Submitted`;
+            } else {
+                classChart.data.datasets[1].data = [null, null, null, null];
+                document.getElementById('submittedCount').innerText = `0/8 Submitted`;
+            }
+
+            classChart.update();
+
+            // 2. Update Table
+            const tbody = document.getElementById('dataTableBody');
+            tbody.innerHTML = '';
+            
+            const volumes = [50, 100, 150, 200];
+            volumes.forEach(v => {
+                let tr = document.createElement('tr');
+                tr.className = "border-b hover:bg-slate-50";
+                
+                let html = `<td class="p-1.5 font-bold border-r bg-slate-50">${v} cm³</td>`;
+                for(let i=1; i<=8; i++) {
+                    const gVal = classData[`Group ${i}`] ? classData[`Group ${i}`][v] : '-';
+                    const isMyGroup = `Group ${i}` === currentGroup;
+                    html += `<td class="p-1.5 border-r ${isMyGroup ? 'bg-sky-100 font-bold text-sky-900' : ''}">${gVal}</td>`;
+                }
+
+                const avgVal = avgData ? avgData[v] : '-';
+                html += `<td class="p-1.5 font-bold bg-teal-50 text-teal-800">${avgVal}</td>`;
+                
+                tr.innerHTML = html;
+                tbody.appendChild(tr);
+            });
+        }
+
+        loadFromStorage();
+
+
+        // 2. Agent Water Pedagogical Companion Logic (Scaffolding, Simple English, Options, Summary)
+        let chatStage = 0; // 0: Not started, 1: Trend observation, 2: Why class average?, 3: Human error/limitation, 4: Finished/Summary
+
+        const dialogueStages = {
+            1: {
+                aiEnglish: "Look at the graph! When water gets MORE (50cm³ -> 200cm³), what happens to the melting time?",
+                aiChinese: "看看圖表！當水量變多（50cm³ -> 200cm³）時，糖完全溶解的時間有何變化？",
+                options: [
+                    {
+                        labelEn: "⏱️ Time gets SHORTER! (Water dissolves faster!)",
+                        labelZh: "⏱️ 時間變短！(水量多，溶解更快！)",
+                        type: "scientific",
+                        feedbackEn: "Super job! High five! ✋ Yes! More water makes sugar dissolve FASTER! Time is shorter!",
+                        feedbackZh: "太棒了！答得非常準確！水量越多，糖溶解得越快，所需時間就越短！"
+                    },
+                    {
+                        labelEn: "⏳ Time gets LONGER!",
+                        labelZh: "⏳ 時間變長！",
+                        type: "incorrect",
+                        feedbackEn: "Good try! Let's look closely at the blue line again. Does it go DOWN or UP?",
+                        feedbackZh: "很好的嘗試！我們再細心看看藍色折線，它是向下走（時間減少）還是向上走呢？"
+                    },
+                    {
+                        labelEn: "🤷 Water is magical and random!",
+                        labelZh: "🤷 水很有魔法，時間是隨機的！",
+                        type: "subjective",
+                        feedbackEn: "Haha, water is fun! But scientists look at numbers! Let's see if the line goes down!",
+                        feedbackZh: "哈哈，水很有趣！但科學家注重數據，我們來看看折線是不是持續向下走？"
+                    }
+                ]
+            },
+            2: {
+                aiEnglish: "Look at the Green Line (Class Average of 8 groups)! Why do scientists collect data from 8 groups instead of 1 group?",
+                aiChinese: "看看綠色線（全班8組平均值）！為什麼科學家要收集全班 8 組的數據，而不是只看 1 組？",
+                options: [
+                    {
+                        labelEn: "🎯 To reduce errors & make data MORE reliable!",
+                        labelZh: "🎯 為了減少誤差，讓數據更可靠！",
+                        type: "scientific",
+                        feedbackEn: "Bingo! You are a brilliant young scientist! 🌟 Average helps reduce random mistakes!",
+                        feedbackZh: "答對了！你太有科學頭腦了！計算全班平均值可以減少隨機誤差，讓結果更可靠！"
+                    },
+                    {
+                        labelEn: "👥 Because 8 groups are more fun and noisy!",
+                        labelZh: "👥 因為8組人一起做比較熱鬧有趣！",
+                        type: "subjective",
+                        feedbackEn: "Haha, yes it is fun! But scientifically, does 1 student sometimes make a mistake with the timer?",
+                        feedbackZh: "哈哈，團體合作確實更有趣！但從科學角度看，如果只有1組按錯碼錶，數據會準確嗎？"
+                    },
+                    {
+                        labelEn: "❌ 1 group is already perfect, no need 8 groups.",
+                        labelZh: "❌ 1組已經很完美，不需要8組。",
+                        type: "biased",
+                        feedbackEn: "Hmm! What if Group 1 forgot to stir? Is 1 group always 100% correct?",
+                        feedbackZh: "嗯！如果第1組忘記攪拌，數據就會有偏差！那麼只看1組會不會有風險？"
+                    }
+                ]
+            },
+            3: {
+                aiEnglish: "My group line and Green average line are slightly different! What human error caused this difference during stirring?",
+                aiChinese: "本組數據與全班平均線有點微小差異！在攪拌過程中，什麼人為誤差會導致這個差異？",
+                options: [
+                    {
+                        labelEn: "🥣 Stirring speed was not constant (different people stir differently)!",
+                        labelZh: "🥣 人手攪拌速度不平均（不同人攪拌快慢不同）！",
+                        type: "scientific",
+                        feedbackEn: "A-MA-ZING! 🏆 Spot on! Human stirring speed is always slightly different!",
+                        feedbackZh: "太厲害了！完全切中要害！人手攪拌速度難以保持完全一致，這是主要的人為誤差！"
+                    },
+                    {
+                        labelEn: "👀 Sugar magically disappeared on its own!",
+                        labelZh: "👀 方糖自己施展魔法消失了！",
+                        type: "subjective",
+                        feedbackEn: "You are silly and fun! 😄 But is it really magic or human reaction time on stopwatch?",
+                        feedbackZh: "你真幽默！😄 但這是不是因為我們用肉眼判斷終點和按碼錶的反應時間不同呢？"
+                    },
+                    {
+                        labelEn: "⏱️ Everyone's reaction time when clicking timer is different!",
+                        labelZh: "⏱️ 每個人按停碼錶的反應時間不同！",
+                        type: "scientific",
+                        feedbackEn: "Yes, exactly! Fantastic observation! Reaction time causes random errors!",
+                        feedbackZh: "沒錯！觀察非常到位！人的反應延遲也會帶來隨機誤差！"
+                    }
+                ]
+            }
+        };
+
+        function startAgentGuidedConversation() {
+            chatStage = 1;
+            renderStageQuestion();
+        }
+
+        function renderStageQuestion() {
+            const stageData = dialogueStages[chatStage];
+            if (!stageData) return;
+
+            // Add AI Question Bubble
+            addAIBubble(stageData.aiEnglish, stageData.aiChinese);
+
+            // Render Options
+            const container = document.getElementById('optionsContainer');
+            container.innerHTML = '';
+
+            stageData.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-2.5 rounded-xl border border-sky-200 bg-sky-50/60 hover:bg-sky-100 text-xs text-slate-700 transition flex flex-col gap-0.5 shadow-sm";
+                btn.onclick = () => selectOption(opt);
+                btn.innerHTML = `
+                    <span class="font-bold text-sky-900">${opt.labelEn}</span>
+                    <span class="text-[10px] text-slate-500">${opt.labelZh}</span>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function selectOption(option) {
+            // Add User Choice Bubble
+            addUserBubble(option.labelEn, option.labelZh);
+
+            // Add AI Scaffolded Positive Feedback
+            setTimeout(() => {
+                addAIBubble(option.feedbackEn, option.feedbackZh);
+
+                // Progress to next stage after short pause
+                chatStage++;
+                setTimeout(() => {
+                    if (chatStage <= 3) {
+                        renderStageQuestion();
+                    } else {
+                        // Stage 4: Generate Learning Summary
+                        renderFinalSummaryCard();
+                    }
+                }, 1000);
+
+            }, 500);
+        }
+
+        function handleCustomTextSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('userInput');
+            const val = input.value.trim();
+            if (!val) return;
+
+            addUserBubble(val, val);
+            input.value = '';
+
+            // AI Socratic Encouragement for custom response
+            setTimeout(() => {
+                addAIBubble(
+                    "Great thinking! You used your own words! Proud of you! 🌟 Let's keep exploring!",
+                    "太棒了！你能用自己的話表達思考！為你感到驕傲！🌟 我們繼續探究！"
+                );
+
+                chatStage++;
+                setTimeout(() => {
+                    if (chatStage <= 3) {
+                        renderStageQuestion();
+                    } else {
+                        renderFinalSummaryCard();
+                    }
+                }, 1000);
+            }, 600);
+        }
+
+        function addAIBubble(en, zh) {
+            const container = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = "flex items-start gap-2.5";
+            div.innerHTML = `
+                <div class="w-8 h-8 bg-sky-200 text-sky-800 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">💧</div>
+                <div class="chat-bubble-ai p-3.5 text-xs text-slate-700 max-w-[88%] space-y-1.5">
+                    <p class="font-semibold text-sky-900">${en}</p>
+                    <p class="text-slate-500 text-[11px] border-t border-sky-200/60 pt-1">${zh}</p>
+                </div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addUserBubble(en, zh) {
+            const container = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = "flex items-start justify-end gap-2.5";
+            div.innerHTML = `
+                <div class="chat-bubble-user p-3.5 text-xs max-w-[88%] space-y-1">
+                    <p class="font-semibold">${en}</p>
+                    ${zh !== en ? `<p class="text-sky-100 text-[11px] border-t border-sky-400/60 pt-1">${zh}</p>` : ''}
+                </div>
+                <div class="w-8 h-8 bg-sky-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">Me</div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Final Learning Summary Card (For Students to Jot Down)
+        function renderFinalSummaryCard() {
+            document.getElementById('optionsContainer').innerHTML = `
+                <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-center">
+                    <p class="text-xs font-bold text-emerald-800">🎉 Conversation Completed! / 對話順利完成！</p>
+                    <p class="text-[10px] text-emerald-600">Please jot down the Key Learning Points below onto your worksheet.</p>
+                </div>
+            `;
+
+            const container = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = "bg-amber-50 border-2 border-amber-300 rounded-2xl p-4 my-2 text-slate-800 space-y-3 shadow-md";
+            div.innerHTML = `
+                <div class="flex items-center gap-2 border-b border-amber-200 pb-2">
+                    <span class="text-xl">📝</span>
+                    <div>
+                        <h4 class="font-bold text-xs text-amber-900">Key Learning Points Summary / 關鍵學習小結</h4>
+                        <p class="text-[10px] text-amber-700">Jot these down on your worksheet / 請將以下重點抄錄於工作紙上：</p>
+                    </div>
+                </div>
+
+                <ul class="text-[11px] space-y-2 text-slate-700">
+                    <li class="flex items-start gap-1.5">
+                        <span class="text-emerald-600 font-bold">1.</span>
+                        <div>
+                            <strong>More Water = Faster Dissolving:</strong> Larger water volume takes SHORTER time to dissolve sugar.
+                            <div class="text-[10px] text-slate-500">水量越多，方糖完全溶解所需的時間越短（溶解速率越高）。</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-1.5">
+                        <span class="text-emerald-600 font-bold">2.</span>
+                        <div>
+                            <strong>Why Class Average?</strong> Calculating average of 8 groups REDUCES random errors & makes data more reliable!
+                            <div class="text-[10px] text-slate-500">取全班8組平均值能減少隨機誤差，使實驗數據更可靠。</div>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-1.5">
+                        <span class="text-emerald-600 font-bold">3.</span>
+                        <div>
+                            <strong>Human Error Limitation:</strong> Inconsistent manual stirring speed & human stopwatch reaction delay cause differences.
+                            <div class="text-[10px] text-slate-500">人手攪拌速度不均勻及計時器反應時間延遲是主要誤差來源。</div>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="bg-white/80 p-2 rounded-xl text-[10px] text-amber-800 italic border border-amber-200 text-center">
+                    ✨ Well done! Agent Water is so proud of your scientific thinking!
+                </div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+</body>
+</html>

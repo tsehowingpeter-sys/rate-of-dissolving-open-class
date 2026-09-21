@@ -145,54 +145,87 @@
             <!-- Left Column: Data Entry & Graph & Table (6 Cols) -->
             <section class="lg:col-span-6 space-y-5">
                 
-                <!-- 1. Enter Group Data -->
+                <!-- 1. Enter Dissolving Time (seconds) -->
                 <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 transition hover:shadow-md">
-                    <div class="flex justify-between items-center mb-3">
-                        <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
-                            <i data-lucide="edit-3" class="w-5 h-5 text-teal-600"></i>
-                            <span>1. Enter Group Data / 輸入本組數據</span>
-                        </h2>
-                        <span class="text-[11px] px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-full flex items-center gap-1 font-semibold">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
+                                <i data-lucide="timer" class="w-5 h-5 text-teal-600"></i>
+                                <span>1. Enter Dissolving Time / 輸入本組溶解時間 (單位: 秒)</span>
+                            </h2>
+                            <p class="text-[11px] text-slate-500 mt-0.5 ml-7">
+                                請輸入 1 粒方糖在不同水量中完全溶解所需的時間（單位為<strong>秒 / seconds</strong>）。
+                            </p>
+                        </div>
+                        <span class="text-[11px] px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-full flex items-center gap-1 font-semibold flex-shrink-0">
                             <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span> Sync Active
                         </span>
                     </div>
 
-                    <form id="dataForm" onsubmit="event.preventDefault(); submitGroupData();" class="space-y-3.5">
+                    <form id="dataForm" onsubmit="event.preventDefault(); submitGroupData();" class="space-y-3 pt-1">
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                             <!-- 50 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
-                                <label class="block text-xs font-bold text-slate-700">50 cm³ Water</label>
-                                <span class="text-[10px] text-slate-400 block mb-1">50 cm³ 水</span>
-                                <input type="number" step="0.1" min="0" id="t50" placeholder="e.g. 120" 
-                                    class="w-full px-2.5 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none" required>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <label class="block text-xs font-bold text-slate-700">50 cm³ Water</label>
+                                    <span class="text-[10px] font-bold text-teal-700 bg-teal-50 px-1 py-0.2 rounded border border-teal-200">50 cm³ 水</span>
+                                </div>
+                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">溶解時間 Time (秒)</span>
+                                <div class="relative">
+                                    <input type="number" step="0.1" min="0" id="t50" placeholder="例如: 120" 
+                                        class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
+                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">秒 (s)</span>
+                                </div>
                             </div>
                             <!-- 100 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
-                                <label class="block text-xs font-bold text-slate-700">100 cm³ Water</label>
-                                <span class="text-[10px] text-slate-400 block mb-1">100 cm³ 水</span>
-                                <input type="number" step="0.1" min="0" id="t100" placeholder="e.g. 80" 
-                                    class="w-full px-2.5 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none" required>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <label class="block text-xs font-bold text-slate-700">100 cm³ Water</label>
+                                    <span class="text-[10px] font-bold text-teal-700 bg-teal-50 px-1 py-0.2 rounded border border-teal-200">100 cm³ 水</span>
+                                </div>
+                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">溶解時間 Time (秒)</span>
+                                <div class="relative">
+                                    <input type="number" step="0.1" min="0" id="t100" placeholder="例如: 80" 
+                                        class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
+                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">秒 (s)</span>
+                                </div>
                             </div>
                             <!-- 150 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
-                                <label class="block text-xs font-bold text-slate-700">150 cm³ Water</label>
-                                <span class="text-[10px] text-slate-400 block mb-1">150 cm³ 水</span>
-                                <input type="number" step="0.1" min="0" id="t150" placeholder="e.g. 50" 
-                                    class="w-full px-2.5 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none" required>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <label class="block text-xs font-bold text-slate-700">150 cm³ Water</label>
+                                    <span class="text-[10px] font-bold text-teal-700 bg-teal-50 px-1 py-0.2 rounded border border-teal-200">150 cm³ 水</span>
+                                </div>
+                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">溶解時間 Time (秒)</span>
+                                <div class="relative">
+                                    <input type="number" step="0.1" min="0" id="t150" placeholder="例如: 50" 
+                                        class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
+                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">秒 (s)</span>
+                                </div>
                             </div>
                             <!-- 200 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-400 focus-within:ring-2 focus-within:ring-teal-100 transition">
-                                <label class="block text-xs font-bold text-slate-700">200 cm³ Water</label>
-                                <span class="text-[10px] text-slate-400 block mb-1">200 cm³ 水</span>
-                                <input type="number" step="0.1" min="0" id="t200" placeholder="e.g. 30" 
-                                    class="w-full px-2.5 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none" required>
+                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <label class="block text-xs font-bold text-slate-700">200 cm³ Water</label>
+                                    <span class="text-[10px] font-bold text-teal-700 bg-teal-50 px-1 py-0.2 rounded border border-teal-200">200 cm³ 水</span>
+                                </div>
+                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">溶解時間 Time (秒)</span>
+                                <div class="relative">
+                                    <input type="number" step="0.1" min="0" id="t200" placeholder="例如: 30" 
+                                        class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
+                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">秒 (s)</span>
+                                </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 active:scale-[0.99] text-white font-bold py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2">
+                        <!-- Submit Button with Real-time Reaction Feedback -->
+                        <button type="submit" id="submitDataBtn" class="w-full bg-teal-600 hover:bg-teal-700 active:scale-[0.99] text-white font-bold py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition-all duration-200 flex items-center justify-center gap-2">
                             <i data-lucide="upload-cloud" class="w-4 h-4"></i>
-                            <span>Submit Data / 上傳小組數據</span>
+                            <span id="submitDataBtnText">Submit Timings (s) / 上傳本組溶解時間 (秒)</span>
                         </button>
+
+                        <!-- Dynamic Feedback Banner Container -->
+                        <div id="submitFeedbackMsg" class="hidden transition-all duration-300"></div>
                     </form>
                 </div>
 
@@ -1239,7 +1272,7 @@
         // MQTT Real-time Sync Configuration
         let mqttClient = null;
         let isMqttConnected = false;
-        const localBroadcastChannel = new BroadcastChannel('openclass_rate_of_dissolving_bc');
+        const localBroadcastChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('openclass_rate_of_dissolving_bc') : { postMessage: () => {}, onmessage: null };
 
         // ================= AI ENGINE & TOKEN MONITOR CONFIGURATION =================
         let aiSettings = {
@@ -1268,6 +1301,10 @@
             } catch (e) {
                 console.warn('Failed to load AI settings:', e);
             }
+            loadAiTokenStats();
+        }
+
+        function loadAiTokenStats() {
             try {
                 const savedStats = localStorage.getItem('rate_exp_ai_token_stats');
                 if (savedStats) {
@@ -1832,11 +1869,11 @@
             return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
         }
 
-        // Agent Water Student Chat via Gemini LLM
+        // Agent Water Student Chat via LLM (Gemini / OpenAI compatible) with 6s timeout
         async function callGeminiAgentWater(studentMessage, groupData, stage) {
             const model = getActiveAiModel();
             const apiKey = aiSettings.apiKey;
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            const provider = aiSettings.provider || 'gemini';
 
             const v50 = groupData ? groupData['50'] : 120;
             const v100 = groupData ? groupData['100'] : 70;
@@ -1869,41 +1906,85 @@
 }
 `;
 
-            const res = await fetch(endpoint, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    contents: [
-                        { parts: [{ text: `學生最新發言：「${studentMessage}」` }] }
-                    ],
-                    systemInstruction: {
-                        parts: [{ text: systemPrompt }]
-                    },
-                    generationConfig: {
-                        temperature: 0.6,
-                        maxOutputTokens: 500,
-                        responseMimeType: "application/json"
-                    }
-                })
-            });
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-            const data = await res.json();
-            if (!res.ok || data.error) {
-                throw new Error(data.error?.message || `HTTP ${res.status}`);
-            }
-
-            const usage = data.usageMetadata || {};
-            recordAiTokenUsage(`水精靈對話 (${currentRole})`, model, usage.promptTokenCount || 200, usage.candidatesTokenCount || 100, 'success');
-
-            const textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
-            let parsed = {};
             try {
-                parsed = JSON.parse(textOutput.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim());
-            } catch (e) {
-                console.warn('Agent Water JSON parsing error:', e);
-            }
+                let textOutput = '{}';
+                let usage = {};
 
-            return parsed;
+                if (provider === 'gemini') {
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        signal: controller.signal,
+                        body: JSON.stringify({
+                            contents: [
+                                { parts: [{ text: `學生最新發言：「${studentMessage}」` }] }
+                            ],
+                            systemInstruction: {
+                                parts: [{ text: systemPrompt }]
+                            },
+                            generationConfig: {
+                                temperature: 0.6,
+                                maxOutputTokens: 500,
+                                responseMimeType: "application/json"
+                            }
+                        })
+                    });
+
+                    const data = await res.json();
+                    if (!res.ok || data.error) {
+                        throw new Error(data.error?.message || `HTTP ${res.status}`);
+                    }
+                    usage = data.usageMetadata || {};
+                    textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+                } else {
+                    const baseUrl = aiSettings.baseUrl || 'https://api.openai.com/v1';
+                    const endpoint = `${baseUrl.replace(/\/+$/, '')}/chat/completions`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        signal: controller.signal,
+                        body: JSON.stringify({
+                            model: model,
+                            messages: [
+                                { role: 'system', content: systemPrompt },
+                                { role: 'user', content: `學生最新發言：「${studentMessage}」` }
+                            ],
+                            response_format: { type: "json_object" },
+                            temperature: 0.6,
+                            max_tokens: 500
+                        })
+                    });
+                    const data = await res.json();
+                    if (!res.ok || data.error) {
+                        throw new Error(data.error?.message || `HTTP ${res.status}`);
+                    }
+                    usage = {
+                        promptTokenCount: data.usage?.prompt_tokens || 200,
+                        candidatesTokenCount: data.usage?.completion_tokens || 100
+                    };
+                    textOutput = data.choices?.[0]?.message?.content || '{}';
+                }
+
+                recordAiTokenUsage(`水精靈對話 (${currentRole})`, model, usage.promptTokenCount || 200, usage.candidatesTokenCount || 100, 'success');
+
+                let parsed = {};
+                try {
+                    parsed = JSON.parse(textOutput.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim());
+                } catch (e) {
+                    console.warn('Agent Water JSON parsing error:', e);
+                }
+
+                return parsed;
+            } finally {
+                clearTimeout(timeoutId);
+            }
         }
 
         // Image Preprocessing helper for dark background inversion
@@ -1948,9 +2029,6 @@
             });
         }
 
-        // Main Data Store for 8 Groups
-        let classData = {};
-
         function initClassDataStructure() {
             const data = {};
             for(let i=1; i<=8; i++) {
@@ -1970,6 +2048,26 @@
             }
             return data;
         }
+
+        function ensureClassDataStructure(data) {
+            const fresh = initClassDataStructure();
+            if (!data || typeof data !== 'object') return fresh;
+            for(let i=1; i<=8; i++) {
+                const key = `Group ${i}`;
+                if (!data[key] || typeof data[key] !== 'object') {
+                    data[key] = fresh[key];
+                } else {
+                    if (!Array.isArray(data[key].chatLogs)) data[key].chatLogs = [];
+                    if (typeof data[key].stage !== 'number') data[key].stage = (data[key].data ? 1 : 0);
+                    if (!data[key].summaryEn) data[key].summaryEn = fresh[key].summaryEn;
+                    if (!data[key].summaryZh) data[key].summaryZh = fresh[key].summaryZh;
+                }
+            }
+            return data;
+        }
+
+        // Main Data Store for 8 Groups (Initialized with full structure immediately)
+        let classData = initClassDataStructure();
 
         // ================= AGENT WATER DIALOGUE STAGES (4 DIVERSE PERSPECTIVES) =================
         const dialogueStages = {
@@ -2169,6 +2267,52 @@
             const t100 = groupData ? groupData[100] : 70;
             const t150 = groupData ? groupData[150] : 45;
             const t200 = groupData ? groupData[200] : 30;
+
+            // 0. Pre-submission guidance if groupData is null and student chats before submitting
+            if (!groupData) {
+                if (typeof highlightDataFormInputs === 'function') highlightDataFormInputs();
+                if (/水量|快|慢|長|短|faster|slower|longer|shorter|water/i.test(lower)) {
+                    return {
+                        feedbackEn: "Brilliant question! 💧 Water volume is exactly what we are testing! Look at your beaker: do you think more water provides more space for sugar to dissolve? Enter your group's timings (in seconds) on the left to find out!",
+                        feedbackZh: "問得太好了！💧 水量正正是我們今天要測試的關鍵變因！你猜想水量多會讓糖溶得更快還是更慢呢？快在左側填寫你們組在各水量的溶解時間（秒），水精靈就能為你繪製圖表並揭曉答案！",
+                        summaryZh: "學生在未提交數據前主動提問，水精靈引導其輸入數據驗證猜想。",
+                        strengthZh: "具備主動猜想與探究意識",
+                        growthZh: "在左側輸入溶解時間以驗證猜想",
+                        focusTag: "Inquiry Prompt / 探究猜想",
+                        advanceStage: false
+                    };
+                } else if (/完全溶解|標準|幾時停|碼錶|停錶|stopwatch|disappear|end/i.test(lower)) {
+                    return {
+                        feedbackEn: "Great scientific question! ⏱️ 'Completely dissolved' means all white sugar crystals have disappeared into the water! Press stop on your stopwatch the exact moment you cannot see any sugar grains! Then enter the seconds on the left!",
+                        feedbackZh: "非常專業的科學問題！⏱️『完全溶解』是指燒杯底部的白色方糖晶體完全看不見的瞬間！當你看到最後一粒白糖消失時，立刻按停碼錶，並把時間（秒）填在左邊表格喔！",
+                        summaryZh: "學生詢問完全溶解判斷標準，水精靈提供具體觀察指引。",
+                        strengthZh: "注重實驗測量標準與公平測試細節",
+                        growthZh: "記錄準確秒數並填寫至左側表格",
+                        focusTag: "Measurement Standard / 測量標準",
+                        advanceStage: false
+                    };
+                } else if (/^(hello|hi|hey|good\s*morning|yo|你好|哈囉|早晨|午安|安安|嗨)/i.test(lower) || /水精靈|你是誰|你係邊個|who are you/i.test(lower)) {
+                    return {
+                        feedbackEn: "Hello young scientist! 👋 I am Agent Water! 💧 Please enter and submit your group's 4 dissolving timings (in seconds) on the left to start our scientific adventure!",
+                        feedbackZh: "你好呀小小科學家！👋 我是水精靈 💧！請先在左邊表格填寫並上傳你們組量得的 4 個水量溶解時間（單位為秒），我們就可以一起展開精彩的科學探究與圖表分析！",
+                        summaryZh: "學生向水精靈打招呼，水精靈引導其在左側輸入溶解時間。",
+                        strengthZh: "積極參與課堂交流",
+                        growthZh: "在左側輸入 4 個水量的溶解時間（秒）並按上傳",
+                        focusTag: "Welcome / 歡迎指引",
+                        advanceStage: false
+                    };
+                } else {
+                    return {
+                        feedbackEn: "Welcome young scientist! 💧 I am Agent Water! Please enter your group's dissolving times (in seconds) for 50, 100, 150, and 200 cm³ of water on the left, then click 'Submit Timings' so we can plot your graph and investigate together!",
+                        feedbackZh: "歡迎小小科學家！💧 水精靈正在等待你們組的實驗結果！請在左側輸入 50、100、150 及 200 cm³ 水量的溶解時間（秒），然後點擊『上傳本組溶解時間』，我們就能立即生成折線圖並開始探討！",
+                        summaryZh: "學生在未提交數據前與水精靈對話，水精靈提示輸入實驗數據。",
+                        strengthZh: "對探究主題保持好奇心與參與感",
+                        growthZh: "在左側填寫 4 個溶解時間（秒）並提交數據",
+                        focusTag: "Data Entry Guidance / 數據輸入引導",
+                        advanceStage: false
+                    };
+                }
+            }
 
             // 1. Social Greetings & Identity
             if (/^(hello|hi|hey|good\s*morning|yo|你好|哈囉|早晨|午安|安安|嗨)/i.test(lower) || /水精靈|你是誰|你係邊個|who are you/i.test(lower)) {
@@ -2573,7 +2717,8 @@
             const raw = localStorage.getItem(getStorageKey());
             if (raw) {
                 try {
-                    classData = JSON.parse(raw);
+                    const parsed = JSON.parse(raw);
+                    classData = ensureClassDataStructure(parsed);
                 } catch(e) {
                     console.warn("Storage parse error, resetting...", e);
                     classData = initClassDataStructure();
@@ -2599,9 +2744,10 @@
                         updateAiConfigFormUI();
                         updateAiStatusUI();
                     } else if (event.data.class === currentClass && event.data.type === 'SYNC_DATA') {
-                        classData = event.data.payload;
+                        classData = ensureClassDataStructure(event.data.payload);
                         saveToStorage();
                         updateAllUI();
+                        renderStudentChatHistory();
                     }
                 }
             };
@@ -2637,9 +2783,10 @@
                             updateAiConfigFormUI();
                             updateAiStatusUI();
                         } else if (parsed && parsed.payload) {
-                            classData = parsed.payload;
+                            classData = ensureClassDataStructure(parsed.payload);
                             saveToStorage();
                             updateAllUI();
+                            renderStudentChatHistory();
                         }
                     } catch(err) {
                         console.error("MQTT parse err:", err);
@@ -2894,29 +3041,114 @@
             });
         }
 
+        // ================= STUDENT SUBMISSION & FEEDBACK HELPERS =================
+        function showSubmitFeedback(type, message) {
+            const el = document.getElementById('submitFeedbackMsg');
+            if (!el) return;
+            el.classList.remove('hidden', 'bg-emerald-50', 'text-emerald-950', 'border-emerald-300', 'bg-amber-50', 'text-amber-950', 'border-amber-300', 'bg-rose-50', 'text-rose-950', 'border-rose-300');
+            
+            if (type === 'success') {
+                el.className = "text-xs rounded-xl p-3 border bg-emerald-50 text-emerald-950 border-emerald-300 flex items-center justify-between gap-2 shadow-sm animate-fade-in";
+                el.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 flex-shrink-0"></i>
+                        <span class="font-medium">${message}</span>
+                    </div>
+                    <button type="button" onclick="focusChatInput()" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-bold rounded-lg text-[11px] whitespace-nowrap shadow transition flex items-center gap-1">
+                        <span>與水精靈對話</span>
+                        <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                    </button>
+                `;
+            } else if (type === 'warning') {
+                el.className = "text-xs rounded-xl p-3 border bg-amber-50 text-amber-950 border-amber-300 flex items-center gap-2 shadow-sm";
+                el.innerHTML = `
+                    <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-600 flex-shrink-0"></i>
+                    <span>${message}</span>
+                `;
+            } else {
+                el.className = "text-xs rounded-xl p-3 border bg-rose-50 text-rose-950 border-rose-300 flex items-center gap-2 shadow-sm";
+                el.innerHTML = `
+                    <i data-lucide="alert-octagon" class="w-4 h-4 text-rose-600 flex-shrink-0"></i>
+                    <span>${message}</span>
+                `;
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function highlightDataFormInputs() {
+            ['t50', 't100', 't150', 't200'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.add('ring-2', 'ring-teal-400', 'border-teal-500');
+                    setTimeout(() => {
+                        el.classList.remove('ring-2', 'ring-teal-400', 'border-teal-500');
+                    }, 3000);
+                }
+            });
+            const firstEmpty = ['t50', 't100', 't150', 't200'].find(id => !document.getElementById(id)?.value);
+            if (firstEmpty) document.getElementById(firstEmpty)?.focus();
+        }
+
+        function focusChatInput() {
+            const input = document.getElementById('userInput');
+            if (input) {
+                input.focus();
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function quickStartSubmitOrGuide() {
+            const v50 = parseFloat(document.getElementById('t50')?.value);
+            const v100 = parseFloat(document.getElementById('t100')?.value);
+            const v150 = parseFloat(document.getElementById('t150')?.value);
+            const v200 = parseFloat(document.getElementById('t200')?.value);
+            if (!isNaN(v50) && !isNaN(v100) && !isNaN(v150) && !isNaN(v200) && v50 >= 0 && v100 >= 0 && v150 >= 0 && v200 >= 0) {
+                submitGroupData(false);
+            } else {
+                showSubmitFeedback('warning', '⚠️ 請先在上方 4 個空格填寫溶解時間（秒）後再按上傳！');
+                highlightDataFormInputs();
+            }
+        }
+
+        function askAgentWaterPreQuestion(question) {
+            const input = document.getElementById('userInput');
+            if (input) input.value = question;
+            handleCustomTextSubmit(new Event('submit'));
+        }
+
         // ================= STUDENT SUBMISSION & DIALOGUE =================
-        function submitGroupData() {
-            const t50 = parseFloat(document.getElementById('t50').value);
-            const t100 = parseFloat(document.getElementById('t100').value);
-            const t150 = parseFloat(document.getElementById('t150').value);
-            const t200 = parseFloat(document.getElementById('t200').value);
+        function submitGroupData(isSilent = false) {
+            const t50 = parseFloat(document.getElementById('t50')?.value);
+            const t100 = parseFloat(document.getElementById('t100')?.value);
+            const t150 = parseFloat(document.getElementById('t150')?.value);
+            const t200 = parseFloat(document.getElementById('t200')?.value);
 
             if ([t50, t100, t150, t200].some(isNaN)) {
-                alert("Please fill in all time values! / 請填寫完整 4 個水量組別的時間數據！");
+                if (!isSilent) {
+                    showSubmitFeedback('warning', '⚠️ 請完整填寫 4 個水量的溶解時間（單位為秒 / seconds）！');
+                    highlightDataFormInputs();
+                }
                 return;
             }
 
-            // RESTRICTION: Data must be >= 0 mL/seconds
+            // RESTRICTION: Data must be >= 0 seconds
             if (t50 < 0 || t100 < 0 || t150 < 0 || t200 < 0) {
-                alert("⚠️ 溶解時間數據必須為 0 秒或以上！請勿輸入負數。\nTime must be greater than or equal to 0 seconds!");
+                showSubmitFeedback('error', '⚠️ 溶解時間數據必須為 0 秒或以上！請勿輸入負數。Time must be >= 0 seconds!');
                 return;
+            }
+
+            // Ensure classData structure exists for currentRole
+            if (!classData[currentRole]) {
+                classData = ensureClassDataStructure(classData);
             }
 
             // Save group data
             classData[currentRole].data = { 50: t50, 100: t100, 150: t150, 200: t200 };
             
+            const wasStage0 = (classData[currentRole].stage === 0);
+
             // If first time submitting, start dialogue stage 1
-            if (classData[currentRole].stage === 0) {
+            if (wasStage0) {
                 classData[currentRole].stage = 1;
                 classData[currentRole].summaryEn = "Analyzing dissolving trend vs water volume...";
                 classData[currentRole].summaryZh = "正分析水量與溶解時間之變化關係...";
@@ -2925,7 +3157,37 @@
                     dialogueStages[1].aiEnglish,
                     dialogueStages[1].aiChinese
                 );
+            } else if (!isSilent) {
+                appendAIBubble(
+                    "Great! I received your updated dissolving timings! ⏱️ Let's check how they affect your line graph!",
+                    "太好了！水精靈已收到你組別更新的溶解時間數據！⏱️ 讓我們看看圖表走勢！"
+                );
             }
+
+            // Visual reaction on Submit Button
+            const submitBtn = document.getElementById('submitDataBtn');
+            const submitText = document.getElementById('submitDataBtnText');
+            if (submitBtn && submitText) {
+                submitBtn.classList.remove('bg-teal-600', 'hover:bg-teal-700');
+                submitBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700', 'ring-4', 'ring-emerald-200');
+                submitBtn.innerHTML = `
+                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-200 animate-bounce"></i>
+                    <span>✓ 數據已成功上傳！(Data Submitted!)</span>
+                `;
+                if (window.lucide) lucide.createIcons();
+
+                setTimeout(() => {
+                    submitBtn.classList.remove('bg-emerald-600', 'hover:bg-emerald-700', 'ring-4', 'ring-emerald-200');
+                    submitBtn.classList.add('bg-teal-600', 'hover:bg-teal-700');
+                    submitBtn.innerHTML = `
+                        <i data-lucide="upload-cloud" class="w-4 h-4"></i>
+                        <span>Submit Timings (s) / 上傳本組溶解時間 (秒)</span>
+                    `;
+                    if (window.lucide) lucide.createIcons();
+                }, 3000);
+            }
+
+            showSubmitFeedback('success', `✓ ${currentRole} 溶解時間數據上傳成功！折線圖已繪製。`);
 
             broadcastSync();
             updateAllUI();
@@ -2933,11 +3195,13 @@
         }
 
         function appendAIBubble(en, zh) {
+            if (!classData[currentRole]) classData = ensureClassDataStructure(classData);
             classData[currentRole].chatLogs.push({ sender: 'ai', en: en, zh: zh });
             renderStudentChatHistory();
         }
 
         function appendUserBubble(en, zh) {
+            if (!classData[currentRole]) classData = ensureClassDataStructure(classData);
             classData[currentRole].chatLogs.push({ sender: 'user', en: en, zh: zh });
             classData[currentRole].latestAnswer = en;
             renderStudentChatHistory();
@@ -2956,9 +3220,9 @@
                         <div class="w-8 h-8 bg-sky-200 text-sky-800 rounded-2xl flex items-center justify-center text-sm font-bold flex-shrink-0 shadow-sm">💧</div>
                         <div class="chat-bubble-ai p-3.5 text-xs sm:text-sm text-slate-700 max-w-[88%] space-y-2">
                             <p class="font-bold text-sky-900">Hello young scientist! 👋</p>
-                            <p>I am <strong>Agent Water (水精靈)</strong>. Enter and submit your group's 4 experiment timings on the left to start our scientific inquiry!</p>
+                            <p>I am <strong>Agent Water (水精靈)</strong>. Enter and submit your group's 4 experiment timings (in seconds) on the left to start our scientific inquiry!</p>
                             <p class="text-slate-500 text-[11px] border-t border-sky-200/60 pt-1.5">
-                                你好！我是水精靈！請在左側輸入並上傳你組別的 4 個水體積溶解時間，我們便可以開始深入探討！
+                                你好！我是水精靈！請在左側輸入並上傳你組別的 4 個水量溶解時間（秒），我們便可以開始深入探討！
                             </p>
                         </div>
                     </div>
@@ -3017,11 +3281,33 @@
                         </div>
                     `;
                 } else {
+                    // Interactive Quick-Start when not submitted yet
                     container.innerHTML = `
-                        <p class="text-xs text-slate-400 italic text-center py-2">
-                            Please submit your group data first to chat with Agent Water! / 請先在左側提交本組數據！
-                        </p>
+                        <div class="p-2.5 bg-sky-50/90 border border-sky-200 rounded-xl space-y-2 text-xs">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sky-900 flex items-center gap-1">
+                                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
+                                    <span>快速啟動探究對話 (Quick Start):</span>
+                                </span>
+                                <span class="text-[10px] text-slate-400">填寫左側時間數據即可開始</span>
+                            </div>
+                            <div class="grid grid-cols-1 gap-1.5">
+                                <button type="button" onclick="quickStartSubmitOrGuide()" class="text-left px-3 py-2 rounded-lg bg-white hover:bg-sky-100/80 border border-sky-200 text-sky-950 font-semibold transition flex items-center justify-between shadow-sm group">
+                                    <span class="group-hover:text-teal-700">⏱️ 我已量好溶解時間，立刻上傳！</span>
+                                    <span class="text-[10px] text-teal-700 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200 font-bold">上傳數據</span>
+                                </button>
+                                <button type="button" onclick="askAgentWaterPreQuestion('水量越多，方糖會溶得更快定更慢？')" class="text-left px-3 py-2 rounded-lg bg-white hover:bg-sky-100/80 border border-sky-200 text-sky-950 font-semibold transition flex items-center justify-between shadow-sm group">
+                                    <span class="group-hover:text-sky-700">💧 水量越多，溶解時間會變長定變短？</span>
+                                    <span class="text-[10px] text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 font-bold">提出猜想</span>
+                                </button>
+                                <button type="button" onclick="askAgentWaterPreQuestion('怎樣才算完全溶解？碼錶應該什麼時候按停？')" class="text-left px-3 py-2 rounded-lg bg-white hover:bg-sky-100/80 border border-sky-200 text-sky-950 font-semibold transition flex items-center justify-between shadow-sm group">
+                                    <span class="group-hover:text-indigo-700">❓ 怎樣才算『完全溶解』？碼錶幾時停？</span>
+                                    <span class="text-[10px] text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200 font-bold">測量標準</span>
+                                </button>
+                            </div>
+                        </div>
                     `;
+                    if (window.lucide) lucide.createIcons();
                 }
                 return;
             }
@@ -3041,12 +3327,14 @@
                 `;
                 container.appendChild(btn);
             });
+            if (window.lucide) lucide.createIcons();
         }
 
         function selectStudentOption(opt) {
             appendUserBubble(opt.labelEn, opt.labelZh);
 
             // Update Trajectory
+            if (!classData[currentRole]) classData = ensureClassDataStructure(classData);
             classData[currentRole].summaryEn = opt.summaryEn;
             classData[currentRole].summaryZh = opt.summaryZh;
             if (opt.strengthZh) classData[currentRole].strengthZh = opt.strengthZh;
@@ -3077,17 +3365,28 @@
             }, 400);
         }
 
-        // Handle Free-text typing with Autonomous Socratic AI Engine or Gemini LLM
+        // Handle Free-text typing with Autonomous Socratic AI Engine or LLM
         async function handleCustomTextSubmit(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             const input = document.getElementById('userInput');
-            const text = input.value.trim();
+            const text = input ? input.value.trim() : '';
             if (!text) return;
 
-            appendUserBubble(text, text);
-            input.value = '';
+            // Auto-detect if data was entered in the left boxes but not submitted yet!
+            if (!classData[currentRole]?.data) {
+                const v50 = parseFloat(document.getElementById('t50')?.value);
+                const v100 = parseFloat(document.getElementById('t100')?.value);
+                const v150 = parseFloat(document.getElementById('t150')?.value);
+                const v200 = parseFloat(document.getElementById('t200')?.value);
+                if (!isNaN(v50) && !isNaN(v100) && !isNaN(v150) && !isNaN(v200) && v50 >= 0 && v100 >= 0 && v150 >= 0 && v200 >= 0) {
+                    submitGroupData(true); // silent auto-submit
+                }
+            }
 
-            const currentStage = classData[currentRole]?.stage || 1;
+            appendUserBubble(text, text);
+            if (input) input.value = '';
+
+            const currentStage = classData[currentRole]?.stage || (classData[currentRole]?.data ? 1 : 0);
             const groupData = classData[currentRole]?.data || null;
 
             // Show typing indicator in chat container
@@ -3111,12 +3410,12 @@
 
             let aiResult = null;
 
-            // 1. If API Key is configured, query Gemini LLM
+            // 1. If API Key is configured, query LLM
             if (aiSettings.apiKey && aiSettings.apiKey.trim().length > 5) {
                 try {
                     aiResult = await callGeminiAgentWater(text, groupData, currentStage);
                 } catch (err) {
-                    console.warn('Gemini chat API call failed, falling back to heuristic engine:', err);
+                    console.warn('AI chat API call failed, falling back to heuristic engine:', err);
                 }
             }
 
@@ -4416,11 +4715,13 @@
         }
 
         // ================= APP INITIALIZATION =================
-        window.addEventListener('DOMContentLoaded', () => {
+        function initApp() {
             if (window.lucide) lucide.createIcons();
             
-            document.getElementById('classInput').value = currentClass;
-            document.getElementById('teacherClassBadge').innerText = currentClass;
+            const classInput = document.getElementById('classInput');
+            if (classInput) classInput.value = currentClass;
+            const teacherBadge = document.getElementById('teacherClassBadge');
+            if (teacherBadge) teacherBadge.innerText = currentClass;
 
             loadAiSettings();
             loadAiTokenStats();
@@ -4434,7 +4735,13 @@
             renderStudentChatHistory();
             updateAllUI();
             updateDynamicDiscussionPrompts();
-        });
+        }
+
+        if (document.readyState === 'loading') {
+            window.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
     </script>
 </body>
 </html>

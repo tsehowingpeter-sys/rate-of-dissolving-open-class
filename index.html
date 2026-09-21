@@ -380,6 +380,199 @@
                 </div>
             </div>
 
+            <!-- ================= AI ENGINE, MODEL CONFIGURATION & LIVE TOKEN MONITOR ================= -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Left: AI Engine & Model Configuration (6 Cols) -->
+                <div class="lg:col-span-6 bg-slate-900 text-white rounded-3xl p-6 shadow-xl border border-indigo-500/30 space-y-4 relative overflow-hidden">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div class="flex items-center gap-2.5">
+                            <div class="p-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl text-white shadow">
+                                <i data-lucide="cpu" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm sm:text-base font-bold text-white font-fun">
+                                    AI Engine & Model Setup / AI 引擎與模型配置
+                                </h3>
+                                <p class="text-[11px] text-slate-400">
+                                    連入 API Key 即可啟動多模態相片視覺分析與水精靈即時 LLM 推理
+                                </p>
+                            </div>
+                        </div>
+                        <span id="aiStatusBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-slate-500"></span> 離線 Heuristic 模式
+                        </span>
+                    </div>
+
+                    <!-- Config Form -->
+                    <div class="space-y-3.5 text-xs">
+                        <!-- Provider -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 mb-1">
+                                    API 服務商 (Provider)
+                                </label>
+                                <select id="aiProviderSelect" onchange="handleAiProviderChange()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-medium">
+                                    <option value="gemini" selected>Google Gemini API (推薦 • 多模態相片視覺)</option>
+                                    <option value="openai">OpenAI 兼容端點 (OpenAI / DeepSeek / OpenRouter)</option>
+                                </select>
+                            </div>
+
+                            <!-- Model Selector -->
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 mb-1 flex items-center justify-between">
+                                    <span>推論模型 (Model for Students)</span>
+                                    <span class="text-[10px] text-amber-400 font-normal">全班統一調用</span>
+                                </label>
+                                <select id="aiModelSelect" onchange="handleAiModelChange()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-medium">
+                                    <option value="gemini-2.5-flash" selected>gemini-2.5-flash (推薦 • 極速多模態視覺)</option>
+                                    <option value="gemini-2.0-flash">gemini-2.0-flash (超低延遲)</option>
+                                    <option value="gemini-1.5-flash">gemini-1.5-flash (穩定平衡)</option>
+                                    <option value="gemini-2.5-pro">gemini-2.5-pro (深度科學推理)</option>
+                                    <option value="gemini-1.5-pro">gemini-1.5-pro (高複雜度診斷)</option>
+                                    <option value="custom">自訂模型名稱 (Custom Model)...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Custom Model Input (Hidden unless selected) -->
+                        <div id="customModelContainer" class="hidden">
+                            <label class="block text-[11px] font-bold text-slate-300 mb-1">自訂模型識別碼 (Custom Model ID)</label>
+                            <input type="text" id="aiCustomModelInput" placeholder="例如: gpt-4o-mini, deepseek-chat, gemini-3.8-flash" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-mono">
+                        </div>
+
+                        <!-- Custom Base URL (For OpenAI / Proxy, hidden unless provider === 'openai') -->
+                        <div id="customBaseUrlContainer" class="hidden">
+                            <label class="block text-[11px] font-bold text-slate-300 mb-1">API Base URL 端點</label>
+                            <input type="text" id="aiBaseUrlInput" placeholder="https://api.openai.com/v1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-mono">
+                        </div>
+
+                        <!-- API Key Input with Eye Mask Toggle -->
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <label class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
+                                    <span>API 金鑰 (API Key)</span>
+                                    <span class="text-[10px] text-emerald-400 font-normal">保存在老師本機</span>
+                                </label>
+                                <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="text-[10px] text-sky-400 hover:text-sky-300 hover:underline flex items-center gap-0.5">
+                                    <span>獲取免費 Gemini Key</span>
+                                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+                            <div class="relative">
+                                <input type="password" id="aiApiKeyInput" placeholder="AIzaSy... (貼上 Google Gemini 或 OpenAI API Key)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 pr-20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-mono tracking-wider">
+                                <div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                                    <button type="button" onclick="toggleApiKeyVisibility()" class="p-1 text-slate-400 hover:text-white rounded-lg transition" title="顯示/隱藏金鑰">
+                                        <i id="apiKeyEyeIcon" data-lucide="eye" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sync to Students Toggle -->
+                        <div class="flex items-center justify-between p-2.5 bg-slate-800/80 rounded-xl border border-slate-700/60">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="radio" class="w-4 h-4 text-sky-400"></i>
+                                <div>
+                                    <span class="font-bold text-slate-200">全班自動同步 (Sync to Students)</span>
+                                    <p class="text-[10px] text-slate-400">學生平板無需手動輸入 Key，連線後自動共享此模型進行水精靈對話</p>
+                                </div>
+                            </div>
+                            <input type="checkbox" id="aiSyncCheckbox" checked class="w-4 h-4 accent-indigo-500 rounded cursor-pointer">
+                        </div>
+
+                        <!-- Action Buttons & Status Alert -->
+                        <div class="flex items-center justify-between gap-2 pt-1 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="testAiConnection()" id="btnTestAi" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-bold rounded-xl border border-slate-600 transition flex items-center gap-1.5 shadow-sm">
+                                    <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+                                    <span>測試連線 (Test)</span>
+                                </button>
+                                <button type="button" onclick="saveAiSettings(true)" class="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 active:scale-95 text-white font-bold rounded-xl shadow-md transition flex items-center gap-1.5">
+                                    <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                                    <span>儲存配置 (Save)</span>
+                                </button>
+                            </div>
+                            <button type="button" onclick="clearAiSettings()" class="text-[11px] text-rose-400 hover:text-rose-300 font-semibold underline">
+                                清除金鑰
+                            </button>
+                        </div>
+
+                        <!-- Connection Test Result Message Banner -->
+                        <div id="aiConnectionMsg" class="hidden p-2.5 rounded-xl text-xs flex items-center gap-2"></div>
+                    </div>
+                </div>
+
+                <!-- Right: AI Token Live Monitoring Dashboard (6 Cols) -->
+                <div class="lg:col-span-6 bg-slate-900 text-white rounded-3xl p-6 shadow-xl border border-indigo-500/30 space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-2.5">
+                                <div class="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl text-white shadow">
+                                    <i data-lucide="activity" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm sm:text-base font-bold text-white font-fun">
+                                        AI Token Monitor / Token 使用量監控
+                                    </h3>
+                                    <p class="text-[11px] text-slate-400">
+                                        即時統計水精靈對話與相片視覺分析之 Token 消耗及費用預估
+                                    </p>
+                                </div>
+                            </div>
+                            <button type="button" onclick="resetAiTokenStats()" class="text-[10px] text-slate-400 hover:text-rose-400 transition flex items-center gap-1">
+                                <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+                                <span>重設統計</span>
+                            </button>
+                        </div>
+
+                        <!-- 4 Token KPI Stat Cards -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-4">
+                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
+                                <span class="text-[10px] text-slate-400 font-medium block">總調用次數 (Calls)</span>
+                                <span id="tokenStatCalls" class="text-lg sm:text-xl font-black text-teal-400 mt-0.5 block">0</span>
+                                <span class="text-[9px] text-slate-500">API Requests</span>
+                            </div>
+                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
+                                <span class="text-[10px] text-slate-400 font-medium block">總 Tokens 消耗</span>
+                                <span id="tokenStatTotal" class="text-lg sm:text-xl font-black text-amber-400 mt-0.5 block">0</span>
+                                <span class="text-[9px] text-slate-500">Tokens Total</span>
+                            </div>
+                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
+                                <span class="text-[10px] text-slate-400 font-medium block">輸入 / 輸出明細</span>
+                                <span id="tokenStatBreakdown" class="text-xs font-bold text-sky-300 mt-1 block">0 / 0</span>
+                                <span class="text-[9px] text-slate-500">Prompt / Output</span>
+                            </div>
+                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
+                                <span class="text-[10px] text-slate-400 font-medium block">預估費用 (Cost)</span>
+                                <span id="tokenStatCost" class="text-sm sm:text-base font-black text-emerald-400 mt-1 block">免費額度內</span>
+                                <span class="text-[9px] text-slate-500">Google AI Studio</span>
+                            </div>
+                        </div>
+
+                        <!-- Real-time Request Audit Table / Feed -->
+                        <div class="mt-4 space-y-1.5">
+                            <div class="flex items-center justify-between text-[11px] text-slate-400 font-bold px-1">
+                                <span>實時調用明細記錄 (Recent Activity)</span>
+                                <span id="tokenLogCount" class="text-[10px] font-normal">最近 0 筆</span>
+                            </div>
+                            <div id="tokenAuditLogs" class="max-h-36 overflow-y-auto space-y-1.5 pr-1 text-[11px] font-mono">
+                                <div class="text-center py-6 text-slate-500 text-xs font-sans">
+                                    尚無 AI API 調用記錄 (等待學生對話或相片分析)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Help Tip -->
+                    <div class="pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex items-center justify-between">
+                        <span>💡 提示：Gemini Flash 模型享有極大免費額度，適合課堂高頻率互動。</span>
+                        <span class="text-slate-500">v2.5 Vision Ready</span>
+                    </div>
+                </div>
+
+            </div>
+
             <!-- SECTION: Whole-Class Discussion Prompts (Bilingual with Dynamic Adaptive Intelligence & Photo Upload) -->
             <div class="bg-gradient-to-br from-amber-50 via-orange-50/60 to-amber-100/70 rounded-3xl p-6 shadow-md border border-amber-200 space-y-6">
                 
@@ -1048,6 +1241,713 @@
         let isMqttConnected = false;
         const localBroadcastChannel = new BroadcastChannel('openclass_rate_of_dissolving_bc');
 
+        // ================= AI ENGINE & TOKEN MONITOR CONFIGURATION =================
+        let aiSettings = {
+            provider: 'gemini',
+            apiKey: '',
+            model: 'gemini-2.5-flash',
+            customModel: '',
+            baseUrl: 'https://generativelanguage.googleapis.com',
+            syncToStudents: true
+        };
+
+        let aiTokenStats = {
+            totalRequests: 0,
+            promptTokens: 0,
+            completionTokens: 0,
+            totalTokens: 0,
+            history: []
+        };
+
+        function loadAiSettings() {
+            try {
+                const saved = localStorage.getItem('rate_exp_ai_settings');
+                if (saved) {
+                    aiSettings = { ...aiSettings, ...JSON.parse(saved) };
+                }
+            } catch (e) {
+                console.warn('Failed to load AI settings:', e);
+            }
+            try {
+                const savedStats = localStorage.getItem('rate_exp_ai_token_stats');
+                if (savedStats) {
+                    aiTokenStats = { ...aiTokenStats, ...JSON.parse(savedStats) };
+                }
+            } catch (e) {
+                console.warn('Failed to load AI token stats:', e);
+            }
+        }
+
+        function saveAiSettings(showNotification = false) {
+            const provider = document.getElementById('aiProviderSelect')?.value || aiSettings.provider;
+            const model = document.getElementById('aiModelSelect')?.value || aiSettings.model;
+            const customModel = document.getElementById('aiCustomModelInput')?.value?.trim() || '';
+            const baseUrl = document.getElementById('aiBaseUrlInput')?.value?.trim() || aiSettings.baseUrl;
+            const apiKey = document.getElementById('aiApiKeyInput')?.value?.trim() || '';
+            const syncToStudents = document.getElementById('aiSyncCheckbox')?.checked ?? true;
+
+            aiSettings = {
+                provider,
+                apiKey,
+                model,
+                customModel,
+                baseUrl: baseUrl || (provider === 'gemini' ? 'https://generativelanguage.googleapis.com' : 'https://api.openai.com/v1'),
+                syncToStudents
+            };
+
+            try {
+                localStorage.setItem('rate_exp_ai_settings', JSON.stringify(aiSettings));
+            } catch (e) {
+                console.error('Failed to save AI settings:', e);
+            }
+
+            if (syncToStudents) {
+                broadcastAiSettings();
+            }
+
+            updateAiStatusUI();
+
+            if (showNotification) {
+                const msgEl = document.getElementById('aiConnectionMsg');
+                if (msgEl) {
+                    msgEl.className = "p-2.5 rounded-xl text-xs flex items-center gap-2 bg-emerald-950/80 text-emerald-200 border border-emerald-500/40";
+                    msgEl.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>✓ AI 配置已儲存！${aiSettings.apiKey ? 'API Key 已就緒並同步給全班學生。' : '未輸入 API Key，已切換至離線 Heuristic 模式。'}</span>`;
+                    msgEl.classList.remove('hidden');
+                    if (window.lucide) lucide.createIcons();
+                    setTimeout(() => { msgEl.classList.add('hidden'); }, 4000);
+                }
+            }
+        }
+
+        function clearAiSettings() {
+            if (!confirm('確定要清除儲存的 API Key 嗎？\n系統將切換回離線 Heuristic 引擎。')) return;
+            aiSettings.apiKey = '';
+            const input = document.getElementById('aiApiKeyInput');
+            if (input) input.value = '';
+            saveAiSettings(true);
+        }
+
+        function handleAiProviderChange() {
+            const provider = document.getElementById('aiProviderSelect')?.value;
+            const customBaseUrlCont = document.getElementById('customBaseUrlContainer');
+            if (provider === 'openai') {
+                if (customBaseUrlCont) customBaseUrlCont.classList.remove('hidden');
+            } else {
+                if (customBaseUrlCont) customBaseUrlCont.classList.add('hidden');
+            }
+        }
+
+        function handleAiModelChange() {
+            const model = document.getElementById('aiModelSelect')?.value;
+            const customModelCont = document.getElementById('customModelContainer');
+            if (model === 'custom') {
+                if (customModelCont) customModelCont.classList.remove('hidden');
+            } else {
+                if (customModelCont) customModelCont.classList.add('hidden');
+            }
+        }
+
+        function toggleApiKeyVisibility() {
+            const input = document.getElementById('aiApiKeyInput');
+            const icon = document.getElementById('apiKeyEyeIcon');
+            if (!input) return;
+            if (input.type === 'password') {
+                input.type = 'text';
+                if (icon) icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                input.type = 'password';
+                if (icon) icon.setAttribute('data-lucide', 'eye');
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function getActiveAiModel() {
+            const select = document.getElementById('aiModelSelect');
+            const customInput = document.getElementById('aiCustomModelInput');
+            const val = select ? select.value : aiSettings.model;
+            if (val === 'custom') {
+                return (customInput && customInput.value.trim()) || aiSettings.customModel || 'gemini-2.5-flash';
+            }
+            return val || 'gemini-2.5-flash';
+        }
+
+        function updateAiConfigFormUI() {
+            const providerEl = document.getElementById('aiProviderSelect');
+            const modelEl = document.getElementById('aiModelSelect');
+            const customModelEl = document.getElementById('aiCustomModelInput');
+            const baseUrlEl = document.getElementById('aiBaseUrlInput');
+            const keyEl = document.getElementById('aiApiKeyInput');
+            const syncEl = document.getElementById('aiSyncCheckbox');
+
+            if (providerEl) providerEl.value = aiSettings.provider || 'gemini';
+            if (modelEl) modelEl.value = aiSettings.model || 'gemini-2.5-flash';
+            if (customModelEl) customModelEl.value = aiSettings.customModel || '';
+            if (baseUrlEl) baseUrlEl.value = aiSettings.baseUrl || '';
+            if (keyEl) keyEl.value = aiSettings.apiKey || '';
+            if (syncEl) syncEl.checked = aiSettings.syncToStudents ?? true;
+
+            handleAiProviderChange();
+            handleAiModelChange();
+            updateAiStatusUI();
+        }
+
+        function updateAiStatusUI() {
+            const badge = document.getElementById('aiStatusBadge');
+            if (!badge) return;
+            const model = getActiveAiModel();
+            if (aiSettings.apiKey && aiSettings.apiKey.trim().length > 5) {
+                badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-full bg-emerald-950/70 text-emerald-300 border border-emerald-500/50 flex items-center gap-1.5 shadow-sm";
+                badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> <span>${aiSettings.provider === 'gemini' ? 'Gemini AI 在線' : 'OpenAI 在線'} (${model})</span>`;
+            } else {
+                badge.className = "text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700 flex items-center gap-1.5";
+                badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-slate-500"></span> <span>離線 Heuristic 模式</span>`;
+            }
+        }
+
+        function broadcastAiSettings() {
+            const payload = {
+                type: 'SYNC_AI_SETTINGS',
+                settings: {
+                    provider: aiSettings.provider,
+                    apiKey: aiSettings.apiKey,
+                    model: aiSettings.model === 'custom' ? aiSettings.customModel : aiSettings.model,
+                    baseUrl: aiSettings.baseUrl,
+                    timestamp: Date.now()
+                }
+            };
+            if (localBroadcastChannel) {
+                localBroadcastChannel.postMessage(payload);
+            }
+            if (mqttClient && isMqttConnected) {
+                try {
+                    const topic = `openclass_v4/${currentClass.replace(/\s+/g, '_')}/ai_settings`;
+                    mqttClient.publish(topic, JSON.stringify(payload), { qos: 0 });
+                } catch (e) {
+                    console.warn('MQTT AI settings publish error:', e);
+                }
+            }
+        }
+
+        function recordAiTokenUsage(moduleName, modelUsed, promptTokens = 0, completionTokens = 0, status = 'success', errorMsg = '') {
+            const total = (promptTokens || 0) + (completionTokens || 0);
+            aiTokenStats.totalRequests = (aiTokenStats.totalRequests || 0) + 1;
+            aiTokenStats.promptTokens = (aiTokenStats.promptTokens || 0) + (promptTokens || 0);
+            aiTokenStats.completionTokens = (aiTokenStats.completionTokens || 0) + (completionTokens || 0);
+            aiTokenStats.totalTokens = (aiTokenStats.totalTokens || 0) + total;
+
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+
+            const record = {
+                id: 'req_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+                time: timeStr,
+                module: moduleName,
+                model: modelUsed,
+                promptTokens: promptTokens || 0,
+                completionTokens: completionTokens || 0,
+                totalTokens: total,
+                status: status,
+                error: errorMsg
+            };
+
+            if (!Array.isArray(aiTokenStats.history)) {
+                aiTokenStats.history = [];
+            }
+            aiTokenStats.history.unshift(record);
+            if (aiTokenStats.history.length > 30) {
+                aiTokenStats.history = aiTokenStats.history.slice(0, 30);
+            }
+
+            try {
+                localStorage.setItem('rate_exp_ai_token_stats', JSON.stringify(aiTokenStats));
+            } catch (e) {
+                console.warn('Failed to persist token stats:', e);
+            }
+
+            updateTokenMonitorUI();
+        }
+
+        function resetAiTokenStats() {
+            if (!confirm('確定要重設 AI Token 用量與歷史統計記錄嗎？')) return;
+            aiTokenStats = {
+                totalRequests: 0,
+                promptTokens: 0,
+                completionTokens: 0,
+                totalTokens: 0,
+                history: []
+            };
+            try {
+                localStorage.setItem('rate_exp_ai_token_stats', JSON.stringify(aiTokenStats));
+            } catch (e) {}
+            updateTokenMonitorUI();
+        }
+
+        function updateTokenMonitorUI() {
+            const callsEl = document.getElementById('tokenStatCalls');
+            const totalEl = document.getElementById('tokenStatTotal');
+            const breakdownEl = document.getElementById('tokenStatBreakdown');
+            const costEl = document.getElementById('tokenStatCost');
+            const countEl = document.getElementById('tokenLogCount');
+            const logsEl = document.getElementById('tokenAuditLogs');
+
+            const totalCalls = aiTokenStats.totalRequests || 0;
+            const totalTokens = aiTokenStats.totalTokens || 0;
+            const promptTokens = aiTokenStats.promptTokens || 0;
+            const completionTokens = aiTokenStats.completionTokens || 0;
+
+            if (callsEl) callsEl.innerText = totalCalls.toLocaleString();
+            if (totalEl) totalEl.innerText = totalTokens.toLocaleString();
+            if (breakdownEl) breakdownEl.innerText = `${promptTokens.toLocaleString()} / ${completionTokens.toLocaleString()}`;
+            
+            if (costEl) {
+                const estCost = ((promptTokens * 0.000000075) + (completionTokens * 0.00000030)).toFixed(4);
+                if (totalTokens === 0) {
+                    costEl.innerText = "免費額度內";
+                } else {
+                    costEl.innerHTML = `<span class="text-xs text-slate-400 font-normal">約</span> $${estCost} <span class="text-[9px] text-slate-400 font-normal">USD</span>`;
+                }
+            }
+
+            if (countEl) countEl.innerText = `最近 ${(aiTokenStats.history || []).length} 筆`;
+
+            if (logsEl) {
+                const history = aiTokenStats.history || [];
+                if (history.length === 0) {
+                    logsEl.innerHTML = `
+                        <div class="text-center py-6 text-slate-500 text-xs font-sans">
+                            尚無 AI API 調用記錄 (等待學生對話或相片分析)
+                        </div>
+                    `;
+                } else {
+                    logsEl.innerHTML = history.map(item => {
+                        const isSuccess = item.status === 'success';
+                        const badgeColor = isSuccess ? 'text-emerald-400 bg-emerald-950/60 border-emerald-700/60' : 'text-rose-400 bg-rose-950/60 border-rose-700/60';
+                        return `
+                            <div class="p-2 rounded-xl bg-slate-800/60 border border-slate-700/60 flex items-center justify-between gap-2 hover:bg-slate-800 transition">
+                                <div class="flex items-center gap-2 overflow-hidden">
+                                    <span class="text-[10px] text-slate-400">${item.time}</span>
+                                    <span class="font-bold text-slate-200 truncate">${item.module}</span>
+                                    <span class="text-[10px] px-1.5 py-0.2 rounded bg-slate-700/80 text-slate-300 font-sans truncate">${item.model}</span>
+                                </div>
+                                <div class="flex items-center gap-2 flex-shrink-0">
+                                    <span class="text-[11px] text-amber-300 font-bold">${item.totalTokens.toLocaleString()} T</span>
+                                    <span class="text-[9px] px-1.5 py-0.5 rounded border ${badgeColor} uppercase font-bold">${item.status}</span>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            }
+        }
+
+        async function testAiConnection() {
+            const btn = document.getElementById('btnTestAi');
+            const msgEl = document.getElementById('aiConnectionMsg');
+            const provider = document.getElementById('aiProviderSelect')?.value || 'gemini';
+            const apiKey = document.getElementById('aiApiKeyInput')?.value?.trim();
+            const model = getActiveAiModel();
+
+            if (!apiKey) {
+                if (msgEl) {
+                    msgEl.className = "p-2.5 rounded-xl text-xs flex items-center gap-2 bg-amber-950/80 text-amber-200 border border-amber-500/40";
+                    msgEl.innerHTML = `<i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400"></i><span>請先輸入 API Key 後再進行測試！</span>`;
+                    msgEl.classList.remove('hidden');
+                    if (window.lucide) lucide.createIcons();
+                }
+                return;
+            }
+
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<i data-lucide="loader" class="w-3.5 h-3.5 animate-spin"></i><span>測試中...</span>`;
+                if (window.lucide) lucide.createIcons();
+            }
+
+            const startTime = Date.now();
+
+            try {
+                if (provider === 'gemini') {
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: "Hello, reply with only the word 'OK'." }] }],
+                            generationConfig: { maxOutputTokens: 10, temperature: 0 }
+                        })
+                    });
+
+                    const duration = Date.now() - startTime;
+                    const data = await res.json();
+
+                    if (!res.ok || data.error) {
+                        const errMsg = data.error?.message || `HTTP ${res.status}`;
+                        recordAiTokenUsage('連線測試 (Test)', model, 0, 0, 'failed', errMsg);
+                        throw new Error(errMsg);
+                    }
+
+                    const usage = data.usageMetadata || {};
+                    recordAiTokenUsage('連線測試 (Test)', model, usage.promptTokenCount || 5, usage.candidatesTokenCount || 2, 'success');
+
+                    if (msgEl) {
+                        msgEl.className = "p-2.5 rounded-xl text-xs flex items-center gap-2 bg-emerald-950/80 text-emerald-200 border border-emerald-500/40";
+                        msgEl.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>✓ 連線測試成功！[${model}] 延遲: ${duration}ms，金鑰運作正常！</span>`;
+                        msgEl.classList.remove('hidden');
+                    }
+                } else {
+                    const baseUrl = document.getElementById('aiBaseUrlInput')?.value?.trim() || 'https://api.openai.com/v1';
+                    const endpoint = `${baseUrl.replace(/\/+$/, '')}/chat/completions`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        body: JSON.stringify({
+                            model: model,
+                            messages: [{ role: 'user', content: "Hello, reply with only 'OK'." }],
+                            max_tokens: 10
+                        })
+                    });
+
+                    const duration = Date.now() - startTime;
+                    const data = await res.json();
+
+                    if (!res.ok || data.error) {
+                        const errMsg = data.error?.message || `HTTP ${res.status}`;
+                        recordAiTokenUsage('連線測試 (Test)', model, 0, 0, 'failed', errMsg);
+                        throw new Error(errMsg);
+                    }
+
+                    const usage = data.usage || {};
+                    recordAiTokenUsage('連線測試 (Test)', model, usage.prompt_tokens || 5, usage.completion_tokens || 2, 'success');
+
+                    if (msgEl) {
+                        msgEl.className = "p-2.5 rounded-xl text-xs flex items-center gap-2 bg-emerald-950/80 text-emerald-200 border border-emerald-500/40";
+                        msgEl.innerHTML = `<i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i><span>✓ OpenAI 兼容端點連線成功！延遲: ${duration}ms</span>`;
+                        msgEl.classList.remove('hidden');
+                    }
+                }
+
+                saveAiSettings(false);
+                updateAiStatusUI();
+            } catch (err) {
+                console.error('API Test Error:', err);
+                if (msgEl) {
+                    msgEl.className = "p-2.5 rounded-xl text-xs flex items-center gap-2 bg-rose-950/80 text-rose-200 border border-rose-500/40";
+                    msgEl.innerHTML = `<i data-lucide="x-circle" class="w-4 h-4 text-rose-400"></i><span>✗ 連線失敗：${err.message || err}</span>`;
+                    msgEl.classList.remove('hidden');
+                }
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i><span>測試連線 (Test)</span>`;
+                }
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        // Multimodal Vision Call for Student Worksheet Photos
+        async function callGeminiVisionPedagogy(base64Image, studentText) {
+            const model = getActiveAiModel();
+            const apiKey = aiSettings.apiKey;
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+            let mimeType = 'image/jpeg';
+            let rawBase64 = base64Image;
+            if (base64Image.startsWith('data:')) {
+                const parts = base64Image.split(',');
+                const match = parts[0].match(/:(.*?);/);
+                if (match) mimeType = match[1];
+                rawBase64 = parts[1];
+            }
+
+            const promptText = `
+你是一位具備頂尖教學素養的中小學科學與 STEM 教育專家 (Science Pedagogical Expert)。
+請仔細觀察並閱讀這張學生手寫/印刷工作紙相片（以及可能補充的文字：「${studentText || ''}」）。
+學生正在進行「Exp 2.5: 水的體積對方糖溶解速率的影響」的科學探究。
+
+【學情分析要點】：
+1. 學生可能會提出各種不同維度的思考，包括微觀水分子模型、空間阻力偏誤、溫度或攪拌誤差，甚至是極具創意的 STEM / 工程傳感器自動化方案（例如：光閘感測器 Light Gate Sensors、Micro:bit / Arduino 自動計時、手機 240fps 慢動作錄影等）。
+2. 請精確辨識相片中的字跡，絕不要產生胡亂拼湊的亂碼。
+3. 核心追問與深度挑戰必須「100% 針對相片中學生提出的具體方案與關鍵詞」進行量身打造，絕不要輸出通用罐頭題目！
+
+請嚴格輸出合法的 JSON 物件（不要包含任何 markdown 代碼塊標籤如 \`\`\`json，直接輸出 JSON 內容）：
+{
+  "transcription": "工整精確地抄錄相片中的手寫或印刷文字內容（繁中英兼顧，修正錯別字與排版）",
+  "focusTag": "核心思維標籤（例如：STEM 自動化與傳感器工程 / Sensor & Automation）",
+  "praise": "🌟 思維亮點：具體引用學生相片中的原話與核心構想給予高度肯定",
+  "diag": "🔍 概念診斷：深入剖析學生方案背後的科學原理、工程解決邏輯或潛在技術邊界",
+  "promptQ1": "1. 核心追問 1：針對相片中學生具體方案量身訂製的全班深入論證問題（繁體中文）",
+  "promptQ1En": "Question 1 in English translation",
+  "promptQ2": "2. 深度挑戰 2：針對相片中學生具體方案量身訂製的全班極限或認知衝突辯論問題（繁體中文）",
+  "promptQ2En": "Question 2 in English translation"
+}
+`;
+
+            const contentsParts = [];
+            if (rawBase64) {
+                contentsParts.push({
+                    inlineData: {
+                        mimeType: mimeType,
+                        data: rawBase64
+                    }
+                });
+            }
+            contentsParts.push({ text: promptText });
+
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: contentsParts }],
+                    generationConfig: {
+                        temperature: 0.3,
+                        maxOutputTokens: 1500,
+                        responseMimeType: "application/json"
+                    }
+                })
+            });
+
+            const data = await res.json();
+            if (!res.ok || data.error) {
+                throw new Error(data.error?.message || `HTTP ${res.status}`);
+            }
+
+            const usage = data.usageMetadata || {};
+            recordAiTokenUsage('相片多模態視覺分析 (Vision)', model, usage.promptTokenCount || 400, usage.candidatesTokenCount || 300, 'success');
+
+            const textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+            let parsed = {};
+            try {
+                parsed = JSON.parse(textOutput.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim());
+            } catch (e) {
+                console.warn('JSON parsing error from Gemini output, using raw text');
+            }
+
+            return parsed;
+        }
+
+        // Text-only Pedagogy Generator
+        async function callGeminiTextPedagogy(studentText) {
+            const model = getActiveAiModel();
+            const apiKey = aiSettings.apiKey;
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+            const promptText = `
+你是一位具備頂尖教學素養的中小學科學與 STEM 教育專家 (Science Pedagogical Expert)。
+請針對學生在「Exp 2.5: 水的體積對方糖溶解速率的影響」實驗中的作答內容進行深度學情診斷：
+學生作答：「${studentText}」
+
+請注意：
+1. 學生可能會提出各種不同維度的思考，包括微觀水分子碰撞、空間阻力偏誤、溫度或攪拌誤差、STEM傳感器工程（光閘、Micro:bit、慢動作錄影等）。
+2. 核心追問與深度挑戰必須「100% 針對學生具體提出的觀點與關鍵詞」進行量身打造，絕不要輸出通用罐頭題目！
+
+請嚴格輸出合法的 JSON 物件（不要包含任何 markdown 代碼塊標籤如 \`\`\`json，直接輸出 JSON 內容）：
+{
+  "transcription": "${studentText.replace(/"/g, '\\"')}",
+  "focusTag": "核心思維標籤（例如：STEM 自動化與傳感器工程 / Sensor & Automation）",
+  "praise": "🌟 思維亮點：具體引用學生的原話與核心構想給予高度肯定",
+  "diag": "🔍 概念診斷：深入剖析學生觀點背後的科學原理、工程解決邏輯或潛在認知邊界",
+  "promptQ1": "1. 核心追問 1：針對學生觀點量身訂製的全班深入論證問題（繁體中文）",
+  "promptQ1En": "Question 1 in English translation",
+  "promptQ2": "2. 深度挑戰 2：針對學生觀點量身訂製的全班極限或認知衝突辯論問題（繁體中文）",
+  "promptQ2En": "Question 2 in English translation"
+}
+`;
+
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{ parts: [{ text: promptText }] }],
+                    generationConfig: {
+                        temperature: 0.3,
+                        maxOutputTokens: 1200,
+                        responseMimeType: "application/json"
+                    }
+                })
+            });
+
+            const data = await res.json();
+            if (!res.ok || data.error) {
+                throw new Error(data.error?.message || `HTTP ${res.status}`);
+            }
+
+            const usage = data.usageMetadata || {};
+            recordAiTokenUsage('文本學情分析 (Pedagogy)', model, usage.promptTokenCount || 250, usage.candidatesTokenCount || 250, 'success');
+
+            const textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+            let parsed = {};
+            try {
+                parsed = JSON.parse(textOutput.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim());
+            } catch (e) {
+                console.warn('JSON parsing error from text pedagogy:', e);
+            }
+            return parsed;
+        }
+
+        // Quick Transcription using Vision
+        async function callGeminiQuickTranscription(base64Image) {
+            const model = getActiveAiModel();
+            const apiKey = aiSettings.apiKey;
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+            let mimeType = 'image/jpeg';
+            let rawBase64 = base64Image;
+            if (base64Image.startsWith('data:')) {
+                const parts = base64Image.split(',');
+                const match = parts[0].match(/:(.*?);/);
+                if (match) mimeType = match[1];
+                rawBase64 = parts[1];
+            }
+
+            const prompt = `請以繁體中文與英文精確抄錄這張工作紙照片中的全部文字內容。不要加入多餘分析或解釋，只需工整完整地輸出識別出的文字。`;
+
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [
+                            { inlineData: { mimeType, data: rawBase64 } },
+                            { text: prompt }
+                        ]
+                    }],
+                    generationConfig: {
+                        temperature: 0.1,
+                        maxOutputTokens: 1000
+                    }
+                })
+            });
+
+            const data = await res.json();
+            if (!res.ok || data.error) {
+                throw new Error(data.error?.message || `HTTP ${res.status}`);
+            }
+
+            const usage = data.usageMetadata || {};
+            recordAiTokenUsage('相片文字識字 (Vision OCR)', model, usage.promptTokenCount || 300, usage.candidatesTokenCount || 150, 'success');
+
+            return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+        }
+
+        // Agent Water Student Chat via Gemini LLM
+        async function callGeminiAgentWater(studentMessage, groupData, stage) {
+            const model = getActiveAiModel();
+            const apiKey = aiSettings.apiKey;
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+            const v50 = groupData ? groupData['50'] : 120;
+            const v100 = groupData ? groupData['100'] : 70;
+            const v150 = groupData ? groupData['150'] : 45;
+            const v200 = groupData ? groupData['200'] : 30;
+
+            const systemPrompt = `
+你是一位專為小學高年級至初中一年級學生設計的溫暖、具啟發性的科學探究 AI 導師「水精靈 (Agent Water)」。
+當前實驗主題：水的體積對方糖溶解速率的影響 (Exp 2.5: Rate of Dissolving)。
+當前小組：${currentRole}
+該組實測數據：50ml=${v50}s, 100ml=${v100}s, 150ml=${v150}s, 200ml=${v200}s。
+全班 8 組平均數據大約為：50ml≈120s, 100ml≈70s, 150ml≈45s, 200ml≈30s。
+當前探究階段：Stage ${stage} (1=觀察數據趨勢, 2=全班平均信度, 3=批判思考與操作誤差)。
+
+你的教學指令：
+1. 語氣生動親切，多給予正面激勵（如「太棒了小小科學家！」、「你觀察得非常敏銳！」）。
+2. 絕對不要直接把最終結論告訴學生，而是運用「蘇格拉底鷹架式提問」，引導學生對照自己組別的數據或全班平均線。
+3. 如果學生說「我不知道」、「好難」、「不懂」，請溫柔安慰，並提出最簡單具體的數字對比提問（如「看左側折線圖，50ml 用了 ${v50} 秒，200ml 用了 ${v200} 秒，秒數變少代表變快還是變慢？」）。
+4. 如果學生提出微觀分子碰撞或人為操作誤差（如手累攪拌變慢、碼錶延遲、光閘感測器等），請給予極高讚賞！
+5. 回覆需包含英文 (簡單初中英文) 與繁體中文。請嚴格輸出 JSON 格式：
+{
+  "feedbackEn": "Friendly encouraging Socratic response in simple English (under 40 words)",
+  "feedbackZh": "親切生動的繁體中文引導（50-80字內，關鍵概念加粗）",
+  "summaryZh": "簡短的學生觀點學情小結（20字內）",
+  "strengthZh": "本輪對答展現之思維強項（25字內）",
+  "growthZh": "建議下一步深入思考的方向（25字內）",
+  "focusTag": "思維標籤（如：微觀分子動力學 / 人為誤差批判）",
+  "advanceStage": true,
+  "nextStage": ${Math.min(stage + 1, 4)}
+}
+`;
+
+            const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    contents: [
+                        { parts: [{ text: `學生最新發言：「${studentMessage}」` }] }
+                    ],
+                    systemInstruction: {
+                        parts: [{ text: systemPrompt }]
+                    },
+                    generationConfig: {
+                        temperature: 0.6,
+                        maxOutputTokens: 500,
+                        responseMimeType: "application/json"
+                    }
+                })
+            });
+
+            const data = await res.json();
+            if (!res.ok || data.error) {
+                throw new Error(data.error?.message || `HTTP ${res.status}`);
+            }
+
+            const usage = data.usageMetadata || {};
+            recordAiTokenUsage(`水精靈對話 (${currentRole})`, model, usage.promptTokenCount || 200, usage.candidatesTokenCount || 100, 'success');
+
+            const textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+            let parsed = {};
+            try {
+                parsed = JSON.parse(textOutput.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim());
+            } catch (e) {
+                console.warn('Agent Water JSON parsing error:', e);
+            }
+
+            return parsed;
+        }
+
+        // Image Preprocessing helper for dark background inversion
+        function preprocessImageForOcr(imgSrc) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    try {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                        const data = imgData.data;
+                        let totalBrightness = 0;
+                        const step = Math.max(1, Math.floor(data.length / (4 * 1000)));
+                        let sampled = 0;
+                        for (let i = 0; i < data.length; i += step * 4) {
+                            totalBrightness += (data[i] * 0.299 + data[i+1] * 0.587 + data[i+2] * 0.114);
+                            sampled++;
+                        }
+                        const avgBrightness = totalBrightness / Math.max(1, sampled);
+                        // If dark background (avg brightness < 120), invert colors for Tesseract
+                        if (avgBrightness < 120) {
+                            for (let i = 0; i < data.length; i += 4) {
+                                data[i] = 255 - data[i];
+                                data[i+1] = 255 - data[i+1];
+                                data[i+2] = 255 - data[i+2];
+                            }
+                            ctx.putImageData(imgData, 0, 0);
+                            resolve(canvas.toDataURL('image/png'));
+                        } else {
+                            resolve(imgSrc);
+                        }
+                    } catch (err) {
+                        resolve(imgSrc);
+                    }
+                };
+                img.onerror = () => resolve(imgSrc);
+                img.src = imgSrc;
+            });
+        }
+
         // Main Data Store for 8 Groups
         let classData = {};
 
@@ -1690,8 +2590,15 @@
         // ================= MQTT CLOUD SYNC & LOCAL BROADCAST =================
         function initRealtimeSync() {
             localBroadcastChannel.onmessage = (event) => {
-                if (event.data && event.data.class === currentClass) {
-                    if (event.data.type === 'SYNC_DATA') {
+                if (event.data) {
+                    if (event.data.type === 'SYNC_AI_SETTINGS' && event.data.settings) {
+                        aiSettings = { ...aiSettings, ...event.data.settings };
+                        try {
+                            localStorage.setItem('rate_exp_ai_settings', JSON.stringify(aiSettings));
+                        } catch(e) {}
+                        updateAiConfigFormUI();
+                        updateAiStatusUI();
+                    } else if (event.data.class === currentClass && event.data.type === 'SYNC_DATA') {
                         classData = event.data.payload;
                         saveToStorage();
                         updateAllUI();
@@ -1713,14 +2620,23 @@
                 mqttClient.on('connect', () => {
                     isMqttConnected = true;
                     updateSyncBadge(true, "Cloud Sync Active (EMQX)");
-                    const topic = `openclass_v4/${currentClass.replace(/\s+/g, '_')}/sync`;
-                    mqttClient.subscribe(topic, { qos: 0 });
+                    const syncTopic = `openclass_v4/${currentClass.replace(/\s+/g, '_')}/sync`;
+                    const aiTopic = `openclass_v4/${currentClass.replace(/\s+/g, '_')}/ai_settings`;
+                    mqttClient.subscribe(syncTopic, { qos: 0 });
+                    mqttClient.subscribe(aiTopic, { qos: 0 });
                 });
 
                 mqttClient.on('message', (topic, message) => {
                     try {
                         const parsed = JSON.parse(message.toString());
-                        if (parsed && parsed.payload) {
+                        if (parsed && parsed.type === 'SYNC_AI_SETTINGS' && parsed.settings) {
+                            aiSettings = { ...aiSettings, ...parsed.settings };
+                            try {
+                                localStorage.setItem('rate_exp_ai_settings', JSON.stringify(aiSettings));
+                            } catch(e) {}
+                            updateAiConfigFormUI();
+                            updateAiStatusUI();
+                        } else if (parsed && parsed.payload) {
                             classData = parsed.payload;
                             saveToStorage();
                             updateAllUI();
@@ -2161,8 +3077,8 @@
             }, 400);
         }
 
-        // Handle Free-text typing with Autonomous Socratic AI Engine
-        function handleCustomTextSubmit(e) {
+        // Handle Free-text typing with Autonomous Socratic AI Engine or Gemini LLM
+        async function handleCustomTextSubmit(e) {
             e.preventDefault();
             const input = document.getElementById('userInput');
             const text = input.value.trim();
@@ -2174,45 +3090,79 @@
             const currentStage = classData[currentRole]?.stage || 1;
             const groupData = classData[currentRole]?.data || null;
 
-            // Generate autonomous intelligent response
-            const aiResult = generateAutonomousAgentWaterResponse(text, groupData, currentStage);
+            // Show typing indicator in chat container
+            const chatContainer = document.getElementById('chatContainer');
+            let typingIndicator = null;
+            if (chatContainer) {
+                typingIndicator = document.createElement('div');
+                typingIndicator.id = 'aiTypingIndicator';
+                typingIndicator.className = "flex items-center gap-2 text-xs text-sky-600 italic py-1 px-3";
+                typingIndicator.innerHTML = `
+                    <div class="w-6 h-6 bg-sky-100 text-sky-700 rounded-full flex items-center justify-center text-xs">💧</div>
+                    <span class="flex items-center gap-1">
+                        <i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i>
+                        <span>水精靈正在思考中... (Agent Water is thinking...)</span>
+                    </span>
+                `;
+                chatContainer.appendChild(typingIndicator);
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+                if (window.lucide) lucide.createIcons();
+            }
 
-            setTimeout(() => {
-                appendAIBubble(aiResult.feedbackEn, aiResult.feedbackZh);
-                
-                if (aiResult.summaryZh) classData[currentRole].summaryZh = aiResult.summaryZh;
-                if (aiResult.strengthZh) classData[currentRole].strengthZh = aiResult.strengthZh;
-                if (aiResult.growthZh) classData[currentRole].growthZh = aiResult.growthZh;
-                if (aiResult.focusTag) classData[currentRole].focusTag = aiResult.focusTag;
-                if (aiResult.personalizedPoint3En) classData[currentRole].personalizedPoint3En = aiResult.personalizedPoint3En;
-                if (aiResult.personalizedPoint3Zh) classData[currentRole].personalizedPoint3Zh = aiResult.personalizedPoint3Zh;
+            let aiResult = null;
 
-                // Advance stage only if answer warrants advancing!
-                if (aiResult.advanceStage && aiResult.nextStage) {
-                    classData[currentRole].stage = aiResult.nextStage;
-                    
-                    if (aiResult.nextStage <= 3 && dialogueStages[aiResult.nextStage]) {
-                        setTimeout(() => {
-                            appendAIBubble(
-                                dialogueStages[aiResult.nextStage].aiEnglish,
-                                dialogueStages[aiResult.nextStage].aiChinese
-                            );
-                            broadcastSync();
-                            updateAllUI();
-                        }, 800);
-                    } else if (aiResult.nextStage >= 4) {
-                        setTimeout(() => {
-                            renderStudentChatHistory();
-                            broadcastSync();
-                            updateAllUI();
-                        }, 600);
-                    }
+            // 1. If API Key is configured, query Gemini LLM
+            if (aiSettings.apiKey && aiSettings.apiKey.trim().length > 5) {
+                try {
+                    aiResult = await callGeminiAgentWater(text, groupData, currentStage);
+                } catch (err) {
+                    console.warn('Gemini chat API call failed, falling back to heuristic engine:', err);
                 }
+            }
 
-                broadcastSync();
-                updateAllUI();
+            // 2. If no API key or API call failed, fall back to autonomous heuristic engine
+            if (!aiResult || !aiResult.feedbackZh) {
+                aiResult = generateAutonomousAgentWaterResponse(text, groupData, currentStage);
+            }
 
-            }, 450);
+            // Remove typing indicator
+            if (typingIndicator && typingIndicator.parentNode) {
+                typingIndicator.parentNode.removeChild(typingIndicator);
+            }
+
+            appendAIBubble(aiResult.feedbackEn, aiResult.feedbackZh);
+            
+            if (aiResult.summaryZh) classData[currentRole].summaryZh = aiResult.summaryZh;
+            if (aiResult.strengthZh) classData[currentRole].strengthZh = aiResult.strengthZh;
+            if (aiResult.growthZh) classData[currentRole].growthZh = aiResult.growthZh;
+            if (aiResult.focusTag) classData[currentRole].focusTag = aiResult.focusTag;
+            if (aiResult.personalizedPoint3En) classData[currentRole].personalizedPoint3En = aiResult.personalizedPoint3En;
+            if (aiResult.personalizedPoint3Zh) classData[currentRole].personalizedPoint3Zh = aiResult.personalizedPoint3Zh;
+
+            // Advance stage only if answer warrants advancing!
+            if (aiResult.advanceStage && aiResult.nextStage) {
+                classData[currentRole].stage = aiResult.nextStage;
+                
+                if (aiResult.nextStage <= 3 && dialogueStages[aiResult.nextStage]) {
+                    setTimeout(() => {
+                        appendAIBubble(
+                            dialogueStages[aiResult.nextStage].aiEnglish,
+                            dialogueStages[aiResult.nextStage].aiChinese
+                        );
+                        broadcastSync();
+                        updateAllUI();
+                    }, 800);
+                } else if (aiResult.nextStage >= 4) {
+                    setTimeout(() => {
+                        renderStudentChatHistory();
+                        broadcastSync();
+                        updateAllUI();
+                    }, 600);
+                }
+            }
+
+            broadcastSync();
+            updateAllUI();
         }
 
         // ================= PRECISE REPRODUCTION OF LEARNING SUMMARY CARD =================
@@ -2420,6 +3370,9 @@
 
             renderTeacherGroupGrid();
             updateDynamicDiscussionPrompts();
+            updateAiConfigFormUI();
+            updateTokenMonitorUI();
+            updateAiStatusUI();
         }
 
         // ================= DYNAMIC ADAPTIVE WHOLE-CLASS DISCUSSION PROMPTS =================
@@ -2570,6 +3523,41 @@
             const detectedTag = document.getElementById('ocrDetectedTag');
             const textarea = document.getElementById('studentAnswerText');
 
+            // 1. If Gemini API Key is configured, use Gemini Multimodal Vision for direct OCR transcription
+            if (aiSettings.apiKey && aiSettings.apiKey.trim().length > 5 && aiSettings.provider === 'gemini') {
+                try {
+                    isOcrRunning = true;
+                    if (statusBar) {
+                        statusBar.classList.remove('hidden');
+                        statusBar.className = "w-full text-[11px] bg-indigo-50 border border-indigo-200 text-indigo-900 p-2 rounded-xl flex items-center justify-between";
+                    }
+                    if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 animate-spin text-indigo-600"></i><span>Gemini 多模態視覺識字中 (Vision OCR)...</span></span>`;
+                    if (progressBadge) progressBadge.innerText = "Vision AI";
+                    if (window.lucide) lucide.createIcons();
+
+                    const transcribed = await callGeminiQuickTranscription(imageSource);
+                    isOcrRunning = false;
+
+                    if (transcribed && transcribed.length > 2) {
+                        if (textarea) {
+                            textarea.value = transcribed;
+                            textarea.focus();
+                        }
+                        if (statusBar) {
+                            statusBar.className = "w-full text-[11px] bg-emerald-50 border border-emerald-200 text-emerald-800 p-2 rounded-xl flex items-center justify-between";
+                        }
+                        if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5 font-bold text-emerald-700"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>✓ Gemini 多模態視覺識字完成！文字已精準填入</span></span>`;
+                        if (progressBadge) progressBadge.innerText = "100%";
+                        if (detectedTag) detectedTag.classList.remove('hidden');
+                        if (window.lucide) lucide.createIcons();
+                        return;
+                    }
+                } catch (visionErr) {
+                    console.warn('Gemini Vision direct transcription failed, falling back to local Tesseract:', visionErr);
+                }
+            }
+
+            // 2. Fallback to client-side Tesseract.js (with dark background inversion)
             if (!window.Tesseract) {
                 console.warn('Tesseract.js not loaded, skipping OCR.');
                 if (statusBar) {
@@ -2590,6 +3578,8 @@
                 if (progressBadge) progressBadge.innerText = "15%";
                 if (window.lucide) lucide.createIcons();
 
+                const processedImg = await preprocessImageForOcr(imageSource);
+
                 const worker = await Tesseract.createWorker('chi_tra+eng', 1, {
                     logger: m => {
                         if (m.status === 'recognizing text' && m.progress) {
@@ -2599,7 +3589,7 @@
                     }
                 });
 
-                const ret = await worker.recognize(imageSource);
+                const ret = await worker.recognize(processedImg);
                 await worker.terminate();
 
                 const extractedText = (ret.data && ret.data.text) ? ret.data.text.trim().replace(/\s+/g, ' ') : '';
@@ -2696,7 +3686,7 @@
             textarea.focus();
         }
 
-        function generateStudentAnswerPedagogy() {
+        async function generateStudentAnswerPedagogy() {
             const textarea = document.getElementById('studentAnswerText');
             const text = textarea ? textarea.value.trim() : '';
             
@@ -2717,26 +3707,70 @@
                 if (window.lucide) lucide.createIcons();
             }
 
-            setTimeout(() => {
-                const lower = text.toLowerCase();
-                let praise = "";
-                let diag = "";
-                let promptQ1 = "";
-                let promptQ1En = "";
-                let promptQ2 = "";
-                let promptQ2En = "";
-                let focusTag = "科學探究 / Scientific Inquiry";
+            let praise = "";
+            let diag = "";
+            let promptQ1 = "";
+            let promptQ1En = "";
+            let promptQ2 = "";
+            let promptQ2En = "";
+            let focusTag = "科學探究 / Scientific Inquiry";
+            let usedAiApi = false;
+
+            // 1. Try Gemini Vision / Text API if API Key is configured
+            if (aiSettings.apiKey && aiSettings.apiKey.trim().length > 5) {
+                try {
+                    let aiPedagogy = null;
+                    if (currentStudentAnswerImageData) {
+                        aiPedagogy = await callGeminiVisionPedagogy(currentStudentAnswerImageData, text);
+                    } else {
+                        aiPedagogy = await callGeminiTextPedagogy(text);
+                    }
+
+                    if (aiPedagogy && aiPedagogy.praise && aiPedagogy.promptQ1) {
+                        praise = aiPedagogy.praise;
+                        diag = aiPedagogy.diag || '';
+                        promptQ1 = aiPedagogy.promptQ1;
+                        promptQ1En = aiPedagogy.promptQ1En || '';
+                        promptQ2 = aiPedagogy.promptQ2;
+                        promptQ2En = aiPedagogy.promptQ2En || '';
+                        focusTag = aiPedagogy.focusTag || focusTag;
+
+                        if (aiPedagogy.transcription && aiPedagogy.transcription.length > 5) {
+                            if (textarea) {
+                                textarea.value = aiPedagogy.transcription;
+                            }
+                        }
+                        usedAiApi = true;
+                    }
+                } catch (err) {
+                    console.warn('Gemini Pedagogy API failed, falling back to local heuristic engine:', err);
+                }
+            }
+
+            // 2. Fallback to local 12-category heuristic engine if API key wasn't provided or call failed
+            if (!usedAiApi) {
+                const lower = (textarea ? textarea.value.trim() : text).toLowerCase();
 
                 // Extract group citation if present
                 let groupPrefix = "同學";
-                const grpMatch = text.match(/第\s*([1-8一二三四五六七八])\s*組|Group\s*([1-8])/i);
+                const grpMatch = (textarea ? textarea.value : text).match(/第\s*([1-8一二三四五六七八])\s*組|Group\s*([1-8])/i);
                 if (grpMatch) {
                     const num = grpMatch[1] || grpMatch[2];
                     groupPrefix = `第 ${num} 組`;
                 }
 
+                // 0. STEM Instrumentation & Sensor Engineering (Light Gate, Micro:bit, 240fps Video, Sensors)
+                if (/(?:光閘|micro:?bit|arduino|感測器|傳感器|慢動作|240\s*fps|高幀率|幀率|錄影|重播|逐幀|開關|光敏|超聲波|濁度|light\s*gate|sensor|microbit|frame\s*by\s*frame|fps)/i.test(lower)) {
+                    focusTag = "STEM 自動化與傳感器工程 / Sensor & Automation Engineering";
+                    praise = `🌟 頂尖的工程與 STEM 創客思維！${groupPrefix}跳出傳統實驗框架，主動構思『光閘感測器、Micro:bit 自動化與 240fps 慢動作錄影』三大方案，試圖用現代科技徹底消除人手碼錶的反應時差！`;
+                    diag = `🔍 展現極佳的工程解決問題能力 (Engineering Design Process)。已從純粹的『反思誤差』躍升為『設計儀器消除誤差』。教學上應引導全班探討傳感器在液體濁度判定上的技術邊界。`;
+                    promptQ1 = `1. ${groupPrefix}提議使用『光閘感測器 (Light Gate)』或 Micro:bit。在方糖溶解過程中水會變混濁，光閘的透光率閾值該如何設定，才能客觀判定方糖已『完全溶解』而不是暫時被水流遮擋？`;
+                    promptQ1En = `When using Light Gate sensors, dissolving sugar creates turbidity. How should the light transmission threshold be calibrated to objectively confirm 100% dissolution?`;
+                    promptQ2 = `2. 手機 240 fps 慢動作錄影精確至 0.004 秒。如果肉眼在影片重播中依然難以看清最後一小粒晶體融解的精確瞬間，高幀率錄影是否能完全解決『肉眼主觀終點』的本質問題？`;
+                    promptQ2En = `240fps video achieves 0.004s resolution. If human eyes still struggle to pinpoint the final microscopic crystal disappearance in playback, does high frame rate fully eliminate subjective endpoint ambiguity?`;
+                }
                 // 1. Physical Limits & Asymptote Thinking
-                if (/5000|極限|不會是\s*0|不能是\s*0|非\s*0|不能瞬間|物理極限|漸近|最快時間|不可能\s*0|limit|asymptote|(?:^|[^0-9])0\s*秒|(?:^|[^0-9])0\s*s\b/i.test(lower)) {
+                else if (/5000|極限|不會是\s*0|不能是\s*0|非\s*0|不能瞬間|物理極限|漸近|最快時間|不可能\s*0|limit|asymptote|(?:^|[^0-9])0\s*秒|(?:^|[^0-9])0\s*s\b/i.test(lower)) {
                     focusTag = "物理極限思維 / Physical Limit";
                     praise = `🌟 卓越的極限思維！${groupPrefix}敏銳指出『水量加到 5000ml 也不會是 0 秒』，成功突破簡單線性外推的直覺盲點，洞察到物理擴散與晶格拆解的客觀時間極限。`;
                     diag = `🔍 具備高階科學批判素養與極限外推思維。學生懂得質疑數據邊界，教學上應引導全班觀察折線圖的『曲線漸近線（Asymptote）』特徵。`;
@@ -2845,50 +3879,50 @@
                     promptQ2 = `2. 對比單一組別的折線與全班 8 組的綠色平均線，為什麼科學家要以全班平均值為準，而不是只相信某一組的結果？`;
                     promptQ2En = `Comparing single group results against the 8-group average green line: why do scientists rely on class averages rather than single trials?`;
                 }
+            }
 
-                lastGeneratedPedagogy = {
-                    studentText: text || "學生工作紙手寫答案照片 (Student Worksheet Photo)",
-                    imageSrc: currentStudentAnswerImageData,
-                    praise,
-                    diag,
-                    promptQ1,
-                    promptQ1En,
-                    promptQ2,
-                    promptQ2En,
-                    focusTag,
-                    groupPrefix
-                };
+            const activeStudentText = (textarea && textarea.value.trim()) ? textarea.value.trim() : (text || "學生工作紙手寫答案照片 (Student Worksheet Photo)");
 
-                if (praiseEl) praiseEl.innerText = praise;
-                if (diagEl) diagEl.innerText = diag;
-                if (promptsEl) {
-                    promptsEl.innerHTML = `
-                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200/80 space-y-1">
-                            <div class="flex items-center gap-1.5 text-xs font-bold text-amber-900">
-                                <span class="bg-amber-200 text-amber-950 px-1.5 py-0.5 rounded text-[10px]">追問 1</span>
-                                <span>${promptQ1}</span>
-                            </div>
-                            <p class="text-[11px] text-amber-800/80 italic pl-6">${promptQ1En}</p>
+            lastGeneratedPedagogy = {
+                studentText: activeStudentText,
+                imageSrc: currentStudentAnswerImageData,
+                praise,
+                diag,
+                promptQ1,
+                promptQ1En,
+                promptQ2,
+                promptQ2En,
+                focusTag
+            };
+
+            if (praiseEl) praiseEl.innerText = praise;
+            if (diagEl) diagEl.innerText = diag;
+            if (promptsEl) {
+                promptsEl.innerHTML = `
+                    <div class="p-3 bg-amber-50 rounded-xl border border-amber-200/80 space-y-1">
+                        <div class="flex items-center gap-1.5 text-xs font-bold text-amber-900">
+                            <span class="bg-amber-200 text-amber-950 px-1.5 py-0.5 rounded text-[10px]">追問 1</span>
+                            <span>${promptQ1}</span>
                         </div>
-                        <div class="p-3 bg-sky-50 rounded-xl border border-sky-200/80 space-y-1">
-                            <div class="flex items-center gap-1.5 text-xs font-bold text-sky-900">
-                                <span class="bg-sky-200 text-sky-950 px-1.5 py-0.5 rounded text-[10px]">追問 2</span>
-                                <span>${promptQ2}</span>
-                            </div>
-                            <p class="text-[11px] text-sky-800/80 italic pl-6">${promptQ2En}</p>
+                        <p class="text-[11px] text-amber-800/80 italic pl-6">${promptQ1En}</p>
+                    </div>
+                    <div class="p-3 bg-sky-50 rounded-xl border border-sky-200/80 space-y-1">
+                        <div class="flex items-center gap-1.5 text-xs font-bold text-sky-900">
+                            <span class="bg-sky-200 text-sky-950 px-1.5 py-0.5 rounded text-[10px]">追問 2</span>
+                            <span>${promptQ2}</span>
                         </div>
-                    `;
-                }
+                        <p class="text-[11px] text-sky-800/80 italic pl-6">${promptQ2En}</p>
+                    </div>
+                `;
+            }
 
-                if (resultBox) resultBox.classList.remove('hidden');
+            if (resultBox) resultBox.classList.remove('hidden');
 
-                if (btn) {
-                    btn.disabled = false;
-                    btn.innerHTML = `<i data-lucide="brain-circuit" class="w-4 h-4"></i><span>✨ AI 即時生成啟發性提問 (Generate AI Pedagogy)</span>`;
-                    if (window.lucide) lucide.createIcons();
-                }
-
-            }, 600);
+            if (btn) {
+                btn.disabled = false;
+                btn.innerHTML = `<i data-lucide="brain-circuit" class="w-4 h-4"></i><span>✨ AI 即時生成啟發性提問 (Generate AI Pedagogy)</span>`;
+                if (window.lucide) lucide.createIcons();
+            }
         }
 
         function copyPedagogyPrompts() {
@@ -3387,6 +4421,12 @@
             
             document.getElementById('classInput').value = currentClass;
             document.getElementById('teacherClassBadge').innerText = currentClass;
+
+            loadAiSettings();
+            loadAiTokenStats();
+            updateAiConfigFormUI();
+            updateTokenMonitorUI();
+            updateAiStatusUI();
 
             loadFromStorage();
             initCharts();

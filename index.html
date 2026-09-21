@@ -12,6 +12,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <!-- MQTT over WebSocket for Real-time Multi-device Cross-classroom Sync -->
     <script src="https://unpkg.com/mqtt@5.3.5/dist/mqtt.min.js"></script>
+    <!-- Tesseract.js for Client-side Student Worksheet Handwriting OCR -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
         
@@ -574,7 +576,7 @@
                         <div class="md:col-span-5 space-y-2">
                             <input type="file" id="studentAnswerPhotoInput" accept="image/*" capture="environment" class="hidden" onchange="handleAnswerPhotoSelected(event)">
                             
-                            <div id="photoDropArea" onclick="document.getElementById('studentAnswerPhotoInput').click()" class="border-2 border-dashed border-slate-300 hover:border-amber-400 bg-slate-50 hover:bg-amber-50/50 rounded-2xl p-4 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[120px] group">
+                            <div id="photoDropArea" onclick="document.getElementById('studentAnswerPhotoInput').click()" class="border-2 border-dashed border-slate-300 hover:border-amber-400 bg-slate-50 hover:bg-amber-50/50 rounded-2xl p-4 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[135px] group">
                                 <div id="photoPlaceholder" class="space-y-1.5 flex flex-col items-center">
                                     <div class="w-10 h-10 rounded-full bg-amber-100 group-hover:bg-amber-200 text-amber-700 flex items-center justify-center transition">
                                         <i data-lucide="camera" class="w-5 h-5"></i>
@@ -583,25 +585,40 @@
                                         點擊開啟相機拍照 / 選擇工作紙照片
                                     </p>
                                     <p class="text-[10px] text-slate-400">
-                                        支援手機/平板相機即拍即傳 (JPG, PNG)
+                                        支援手機/平板相機即拍即傳 (JPG, PNG)，自動 OCR 光學識字
                                     </p>
                                 </div>
                                 
                                 <div id="photoPreviewContainer" class="hidden w-full flex flex-col items-center space-y-2">
                                     <img id="photoPreviewImg" src="" alt="Student Answer" class="max-h-28 rounded-xl border border-amber-200 shadow-sm object-contain bg-white">
-                                    <div class="flex items-center gap-2">
+                                    <div class="flex items-center gap-2 flex-wrap justify-center">
                                         <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">✓ 照片已加載</span>
+                                        <button type="button" onclick="event.stopPropagation(); reRunOcrOnCurrentPhoto();" class="text-[10px] text-sky-600 hover:text-sky-800 font-bold underline flex items-center gap-1">
+                                            <i data-lucide="scan-text" class="w-3 h-3"></i><span>重新辨識 (OCR)</span>
+                                        </button>
                                         <button type="button" onclick="event.stopPropagation(); removeAnswerPhoto();" class="text-[10px] text-rose-600 hover:text-rose-800 font-bold underline">✕ 移除</button>
                                     </div>
                                 </div>
+                            </div>
+
+                            <!-- Live OCR Scanning Progress Bar -->
+                            <div id="ocrStatusBar" class="hidden w-full text-[11px] bg-sky-50 border border-sky-200 text-sky-800 p-2 rounded-xl flex items-center justify-between">
+                                <span id="ocrStatusText" class="flex items-center gap-1.5 font-medium">
+                                    <i data-lucide="scan-line" class="w-3.5 h-3.5 animate-spin text-sky-600"></i>
+                                    <span>AI 光學識字 (OCR) 辨識中...</span>
+                                </span>
+                                <span id="ocrProgressBadge" class="text-[10px] bg-sky-200 text-sky-900 px-1.5 py-0.5 rounded font-bold">0%</span>
                             </div>
                         </div>
 
                         <!-- Text Input & Fast Presets (7 Cols) -->
                         <div class="md:col-span-7 space-y-2">
-                            <label class="block text-xs font-bold text-slate-700 flex items-center justify-between">
-                                <span>📝 學生作答內容 / 關鍵字補充：</span>
-                                <span class="text-[10px] text-slate-400 font-normal">可直接輸入或補充照片文字</span>
+                            <label class="block text-xs font-bold text-slate-700 flex items-center justify-between flex-wrap gap-1">
+                                <span class="flex items-center gap-1.5">
+                                    <span>📝 學生作答內容 / 關鍵字補充：</span>
+                                    <span id="ocrDetectedTag" class="hidden text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">✓ OCR 手寫辨識已填入</span>
+                                </span>
+                                <span class="text-[10px] text-slate-400 font-normal">可直接輸入或微調照片辨識文字</span>
                             </label>
                             
                             <textarea id="studentAnswerText" rows="3" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 bg-slate-50/50 resize-none leading-relaxed" placeholder="拍攝後可在此補充或直接輸入學生答案... 例如：第3組寫『水量增加時水分子變多，碰撞方糖頻率提高所以溶解加快；但加到5000ml不會是0秒因為水分子拆解晶格需要時間』"></textarea>
@@ -617,6 +634,12 @@
                                 </button>
                                 <button type="button" onclick="fillSampleStudentAnswer('human_error')" class="text-[10px] bg-amber-50 hover:bg-amber-100 text-amber-800 font-medium px-2 py-0.5 rounded-lg border border-amber-200 transition">
                                     🔍 範例C: 攪拌手速不均反思
+                                </button>
+                                <button type="button" onclick="fillSampleStudentAnswer('timer_latency')" class="text-[10px] bg-purple-50 hover:bg-purple-100 text-purple-800 font-medium px-2 py-0.5 rounded-lg border border-purple-200 transition">
+                                    ⏱️ 範例D: 碼錶反應延遲
+                                </button>
+                                <button type="button" onclick="fillSampleStudentAnswer('solubility_vs_rate')" class="text-[10px] bg-teal-50 hover:bg-teal-100 text-teal-800 font-medium px-2 py-0.5 rounded-lg border border-teal-200 transition">
+                                    🧊 範例E: 溶解度與速率混淆
                                 </button>
                             </div>
                         </div>
@@ -949,37 +972,61 @@
     </div>
 
     <!-- ================= PROJECTOR MODE MODAL FOR STUDENT ANSWER AI INQUIRY ================= -->
-    <div id="projectorModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md p-4 sm:p-8 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-4xl w-full shadow-2xl border-4 border-amber-400 max-h-[92vh] flex flex-col overflow-hidden my-auto">
+    <div id="projectorModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-xl p-3 sm:p-6 overflow-y-auto">
+        <div id="projectorCard" class="bg-slate-900 rounded-3xl max-w-6xl w-full shadow-2xl border border-slate-700/80 max-h-[94vh] flex flex-col overflow-hidden my-auto transition-colors duration-200">
             <!-- Modal Header -->
-            <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 p-5 text-white flex items-center justify-between">
+            <div id="projectorHeader" class="bg-slate-900 border-b border-slate-800 p-4 sm:p-5 text-white flex items-center justify-between flex-wrap gap-3">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl font-bold shadow-inner">
+                    <div class="w-10 h-10 rounded-2xl bg-indigo-500/20 border border-indigo-400/30 flex items-center justify-center text-xl font-bold text-indigo-300 shadow-inner">
                         📽️
                     </div>
                     <div>
-                        <h3 class="text-lg sm:text-xl font-bold font-fun">
-                            全班大螢幕投影模式 • 學生作答與 AI 延伸啟發追問
-                        </h3>
-                        <p class="text-amber-100 text-xs">Whole-Class Projection: Student Work & Inspiring Socratic Discussion Prompt</p>
+                        <div class="flex items-center gap-2">
+                            <h3 id="projectorHeaderTitle" class="text-base sm:text-xl font-black font-fun tracking-wide text-white">
+                                全班大螢幕投影模式 • 學生作答與 AI 延伸啟發追問
+                            </h3>
+                            <span id="projectorTag" class="hidden sm:inline-block text-[11px] bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 px-2.5 py-0.5 rounded-full font-bold">
+                                Socratic Projector Mode
+                            </span>
+                        </div>
+                        <p id="projectorHeaderSub" class="text-slate-400 text-xs font-medium">Whole-Class Projection: Student Work & Inspiring Socratic Discussion Prompts</p>
                     </div>
                 </div>
-                <button onclick="closeProjectorModal()" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white font-bold flex items-center justify-center text-lg transition" title="Close / 關閉">
-                    ✕
-                </button>
+
+                <div class="flex items-center gap-2">
+                    <!-- Projector Contrast Mode Toggle (Dark Theater vs Light High-Contrast) -->
+                    <button type="button" id="btnToggleProjectorTheme" onclick="toggleProjectorTheme()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 transition flex items-center gap-1.5" title="切換投影高對比亮色/暗色模式">
+                        <span id="themeIcon">☀️</span>
+                        <span id="themeText">切換亮色投影模式</span>
+                    </button>
+                    <button type="button" onclick="closeProjectorModal()" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-bold flex items-center justify-center text-lg transition border border-slate-700" title="Close / 關閉">
+                        ✕
+                    </button>
+                </div>
             </div>
-            <!-- Modal Body -->
-            <div class="p-6 sm:p-8 overflow-y-auto space-y-6 flex-1 bg-amber-50/30 text-slate-800">
-                <div id="projectorContent" class="space-y-6">
+
+            <!-- Modal Body (Split 2-Column Responsive Layout) -->
+            <div id="projectorBody" class="p-4 sm:p-6 overflow-y-auto flex-1 bg-slate-900/95 text-slate-100 transition-colors duration-200">
+                <div id="projectorContent">
                     <!-- Injected dynamically -->
                 </div>
             </div>
+
             <!-- Modal Footer -->
-            <div class="p-4 bg-white border-t border-amber-200 flex items-center justify-between flex-wrap gap-2">
-                <span class="text-xs text-slate-500">提示：按 ESC 鍵或點擊右側按鈕可退出大螢幕投影</span>
-                <button onclick="closeProjectorModal()" class="px-6 py-2.5 bg-slate-800 hover:bg-slate-900 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition">
-                    關閉退出投影 / Exit Projection
-                </button>
+            <div id="projectorFooter" class="p-3.5 sm:p-4 bg-slate-900 border-t border-slate-800 flex items-center justify-between flex-wrap gap-2 text-xs">
+                <div class="flex items-center gap-2 text-slate-400">
+                    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>投影提示：按 <kbd class="px-1.5 py-0.5 bg-slate-800 border border-slate-700 rounded text-slate-300 font-mono">ESC</kbd> 鍵可退出大螢幕投影模式</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="copyPedagogyPrompts()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-bold rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                        <span id="copyBtnTextProjector">複製追問文字</span>
+                    </button>
+                    <button type="button" onclick="closeProjectorModal()" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold rounded-xl shadow-lg transition">
+                        關閉退出投影 / Exit
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -2495,7 +2542,7 @@
             }
             if (t3Desc) {
                 t3Desc.innerHTML = `
-                    全班折線顯示前期下降快（50 $\\rightarrow$ 100 cm³ 減少約 ${dropEarly}s），後期趨緩（150 $\\rightarrow$ 200 cm³ 僅減少約 ${dropLate}s）。水量加速溶解效果是否存在物理極限？<br>
+                    全班折線顯示前期下降快（50 → 100 cm³ 減少約 ${dropEarly}s），後期趨緩（150 → 200 cm³ 僅減少約 ${dropLate}s）。水量加速溶解效果是否存在物理極限？<br>
                     <span class="text-[10px] text-slate-500 italic">Early drop is sharp (${dropEarly}s) while later drop flattens (${dropLate}s). Does dissolving acceleration have a physical limit?</span>
                 `;
             }
@@ -2510,8 +2557,84 @@
         }
 
         // ================= PHOTO CAPTURE & AI PEDAGOGICAL GENERATION =================
+        // ================= PHOTO CAPTURE & AI PEDAGOGICAL GENERATION WITH OCR =================
         let currentStudentAnswerImageData = null;
         let lastGeneratedPedagogy = null;
+        let isOcrRunning = false;
+        let isProjectorLightMode = false;
+
+        async function runOcrOnImage(imageSource) {
+            const statusBar = document.getElementById('ocrStatusBar');
+            const statusText = document.getElementById('ocrStatusText');
+            const progressBadge = document.getElementById('ocrProgressBadge');
+            const detectedTag = document.getElementById('ocrDetectedTag');
+            const textarea = document.getElementById('studentAnswerText');
+
+            if (!window.Tesseract) {
+                console.warn('Tesseract.js not loaded, skipping OCR.');
+                if (statusBar) {
+                    statusBar.classList.remove('hidden');
+                    if (statusText) statusText.innerHTML = `<span>💡 照片已加載，可直接於右側輸入關鍵字或點擊範例</span>`;
+                    if (progressBadge) progressBadge.innerText = "手動輸入";
+                }
+                return;
+            }
+
+            try {
+                isOcrRunning = true;
+                if (statusBar) {
+                    statusBar.classList.remove('hidden');
+                    statusBar.className = "w-full text-[11px] bg-sky-50 border border-sky-200 text-sky-800 p-2 rounded-xl flex items-center justify-between";
+                }
+                if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5"><i data-lucide="scan-line" class="w-3.5 h-3.5 animate-spin text-sky-600"></i><span>AI 光學識字 (OCR) 辨識中...</span></span>`;
+                if (progressBadge) progressBadge.innerText = "15%";
+                if (window.lucide) lucide.createIcons();
+
+                const worker = await Tesseract.createWorker('chi_tra+eng', 1, {
+                    logger: m => {
+                        if (m.status === 'recognizing text' && m.progress) {
+                            const pct = Math.round(m.progress * 100);
+                            if (progressBadge) progressBadge.innerText = `${pct}%`;
+                        }
+                    }
+                });
+
+                const ret = await worker.recognize(imageSource);
+                await worker.terminate();
+
+                const extractedText = (ret.data && ret.data.text) ? ret.data.text.trim().replace(/\s+/g, ' ') : '';
+                isOcrRunning = false;
+
+                if (extractedText && extractedText.length > 2) {
+                    if (textarea) {
+                        const prev = textarea.value.trim();
+                        textarea.value = prev ? `${prev}\n【OCR 識別】：${extractedText}` : extractedText;
+                        textarea.focus();
+                    }
+                    if (statusBar) {
+                        statusBar.className = "w-full text-[11px] bg-emerald-50 border border-emerald-200 text-emerald-800 p-2 rounded-xl flex items-center justify-between";
+                    }
+                    if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5 font-bold text-emerald-700"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>✓ 手寫工作紙識字完成！已填入文本框</span></span>`;
+                    if (progressBadge) progressBadge.innerText = "100%";
+                    if (detectedTag) detectedTag.classList.remove('hidden');
+                    if (window.lucide) lucide.createIcons();
+                } else {
+                    if (statusBar) {
+                        statusBar.className = "w-full text-[11px] bg-amber-50 border border-amber-200 text-amber-800 p-2 rounded-xl flex items-center justify-between";
+                    }
+                    if (statusText) statusText.innerHTML = `<span>💡 照片字跡較淡，建議直接於右側輸入關鍵字或點擊範例</span>`;
+                    if (progressBadge) progressBadge.innerText = "就緒";
+                }
+            } catch (err) {
+                console.warn('OCR Recognition failed or timed out:', err);
+                isOcrRunning = false;
+                if (statusBar) {
+                    statusBar.className = "w-full text-[11px] bg-slate-100 border border-slate-200 text-slate-700 p-2 rounded-xl flex items-center justify-between";
+                }
+                if (statusText) statusText.innerHTML = `<span>💡 照片已就緒，可直接於右側輸入關鍵字或點擊範例</span>`;
+                if (progressBadge) progressBadge.innerText = "手動輸入";
+            }
+        }
 
         function handleAnswerPhotoSelected(event) {
             const file = event.target.files[0];
@@ -2526,8 +2649,19 @@
                 if (img) img.src = currentStudentAnswerImageData;
                 if (container) container.classList.remove('hidden');
                 if (placeholder) placeholder.classList.add('hidden');
+                
+                // Run client-side OCR recognition
+                runOcrOnImage(currentStudentAnswerImageData);
             };
             reader.readAsDataURL(file);
+        }
+
+        function reRunOcrOnCurrentPhoto() {
+            if (!currentStudentAnswerImageData) {
+                alert("請先拍照或選擇工作紙照片！");
+                return;
+            }
+            runOcrOnImage(currentStudentAnswerImageData);
         }
 
         function removeAnswerPhoto() {
@@ -2536,8 +2670,12 @@
             if (input) input.value = '';
             const container = document.getElementById('photoPreviewContainer');
             const placeholder = document.getElementById('photoPlaceholder');
+            const statusBar = document.getElementById('ocrStatusBar');
+            const detectedTag = document.getElementById('ocrDetectedTag');
             if (container) container.classList.add('hidden');
             if (placeholder) placeholder.classList.remove('hidden');
+            if (statusBar) statusBar.classList.add('hidden');
+            if (detectedTag) detectedTag.classList.add('hidden');
         }
 
         function fillSampleStudentAnswer(type) {
@@ -2550,7 +2688,12 @@
                 textarea.value = "第2組工作紙：水量變多，水杯變重，方糖在水裡要走的路程更遠，所以溶解時間會變長。";
             } else if (type === 'human_error') {
                 textarea.value = "第6組工作紙：我們組的線比全班平均慢了20秒，因為攪拌時手累了轉速變慢，碼錶按停也慢了。";
+            } else if (type === 'timer_latency') {
+                textarea.value = "第5組工作紙：肉眼看最後一小塊方糖何時消失很難看準，每個人按停碼錶的時間有0.5秒反應時差，是主要隨機誤差。";
+            } else if (type === 'solubility_vs_rate') {
+                textarea.value = "第1組工作紙：水量越多可以溶解的糖量越多（容量更大），所以溶解速度自然就變快了。";
             }
+            textarea.focus();
         }
 
         function generateStudentAnswerPedagogy() {
@@ -2582,35 +2725,125 @@
                 let promptQ1En = "";
                 let promptQ2 = "";
                 let promptQ2En = "";
+                let focusTag = "科學探究 / Scientific Inquiry";
 
-                if (/水分子|碰撞|晶格|拆解|分子|微觀|molecule|collide|particle/.test(lower) || /5000|極限|不會是0|不能瞬間/.test(lower)) {
-                    praise = "🌟 思維極具深度！學生能從巨觀實驗現象（水量多溶解快）飛躍至微觀分子碰撞模型（水分子數量大增與碰撞頻率提升），並展現卓越的『物理極限思維』，洞察到化學晶格拆解必須消耗時間。";
-                    diag = "🔍 概念模型相當純熟。學生已具備高階科學視野，教學上應引導其將『水分子碰撞頻率』與折線圖的『曲線斜率平緩』相結合，促成數據與微觀機制的完美印證。";
-                    promptQ1 = "1. 水分子碰撞能解釋為什麼水多溶得快，那如果我們換成『熱水』，水分子的碰撞運動又會發生什麼驚人變化？";
-                    promptQ1En = "Water molecules explain faster dissolving with more volume; how would HOT water alter this molecular collision rate?";
-                    promptQ2 = "2. 既然 5000 ml 水量都絕不會變成 0 秒，如果請大家把這個趨勢畫在坐標圖上，這條線會如何『無限接近卻不碰到 0』？";
-                    promptQ2En = "Since 5000 ml will never reach 0 seconds, how does this curve asymptote towards a physical limit without touching zero?";
-                } else if (/變長|路程|重|阻力|更慢|慢咗|longer|slower|heavy/.test(lower)) {
-                    praise = "🌟 勇於提出個人假設！學生嘗試用日常經驗（杯子變重、空間變大、移動路程遠）構建因果模型，展現主動思考的探究勇氣。";
-                    diag = "🔍 存在典型宏觀直覺偏誤：誤把『容器變大/空間增長』當作溶解障礙，忽視了水分子是主動從四面八方包圍並撕扯方糖的微觀機制。";
-                    promptQ1 = "1. 請大家想像：把一顆方糖丟進小水杯或大泳池，方糖周圍是被更多水分子包圍，還是更少水分子包圍？";
-                    promptQ1En = "Imagine dropping sugar in a small beaker vs an Olympic pool: is it surrounded by more or fewer water molecules?";
-                    promptQ2 = "2. 讓我們回頭看剛才全班 8 組的折線圖：當水量由 50 增加到 200 cm³ 時，秒數到底是上升了還是下降了？實測證據告訴了我們什麼？";
-                    promptQ2En = "Looking back at the class chart: as volume rose from 50 to 200 cm³, did seconds rise or fall? What does the evidence prove?";
-                } else if (/攪拌|手速|轉速|手累|手酸|碼錶|按停|延遲|看錯|眼花|stir|timer|stopwatch/.test(lower)) {
-                    praise = "🌟 具備科研批判素養！誠實面對實驗操作細節，敏銳洞察手動攪拌轉速與眼手神經反應時間對實驗精確度的干擾。";
-                    diag = "🔍 準確抓取隨機誤差核心。學生已突破單純『記數據』層面，轉入『評估證據信度』。應引導其思考如何以工程儀器取代人為失誤。";
-                    promptQ1 = "1. 大家都提到人手攪拌容易手酸變慢，如果由你擔任實驗室工程師，你會如何設計一套保證『每分鐘 300 轉絕對恆定』的攪拌裝置？";
-                    promptQ1En = "Students noted manual fatigue alters stirring; as a lab engineer, how would you design a constant 300 RPM automated stirrer?";
-                    promptQ2 = "2. 肉眼判斷『方糖是否完全消失』難免因人而異，我們能用什麼光學或傳感技術（Sensor）來做最客觀的裁判？";
-                    promptQ2En = "Judging when sugar is 100% dissolved is subjective; what optical sensor technology could make an objective endpoint judgment?";
-                } else {
-                    praise = "🌟 學生能積極結合實驗記錄進行文字反思，展現參與課堂科學探究的主動性。";
-                    diag = "🔍 建議加強將個人觀察與全班折線圖數據比對的意識，並引導運用更規範的科學術語（如溶質、溶劑、速率）。";
-                    promptQ1 = "1. 針對這位同學的回答，其他組別在剛才的操作中有沒有觀察到相似或相反的現象？";
-                    promptQ1En = "Regarding this response, did other groups observe similar or contrasting phenomena during testing?";
-                    promptQ2 = "2. 我們如何從黑板上的全班平均折線圖中，找出最有力的證據來支持或質疑這個觀點？";
-                    promptQ2En = "How can we find the strongest evidence from the class average line chart to support or test this argument?";
+                // Extract group citation if present
+                let groupPrefix = "同學";
+                const grpMatch = text.match(/第\s*([1-8一二三四五六七八])\s*組|Group\s*([1-8])/i);
+                if (grpMatch) {
+                    const num = grpMatch[1] || grpMatch[2];
+                    groupPrefix = `第 ${num} 組`;
+                }
+
+                // 1. Physical Limits & Asymptote Thinking
+                if (/5000|極限|不會是\s*0|不能是\s*0|非\s*0|不能瞬間|物理極限|漸近|最快時間|不可能\s*0|limit|asymptote|(?:^|[^0-9])0\s*秒|(?:^|[^0-9])0\s*s\b/i.test(lower)) {
+                    focusTag = "物理極限思維 / Physical Limit";
+                    praise = `🌟 卓越的極限思維！${groupPrefix}敏銳指出『水量加到 5000ml 也不會是 0 秒』，成功突破簡單線性外推的直覺盲點，洞察到物理擴散與晶格拆解的客觀時間極限。`;
+                    diag = `🔍 具備高階科學批判素養與極限外推思維。學生懂得質疑數據邊界，教學上應引導全班觀察折線圖的『曲線漸近線（Asymptote）』特徵。`;
+                    promptQ1 = `1. 即使把方糖扔進全校游泳池甚至太平洋（無限大水量），水分子拆解方糖鍵結依然需要時間嗎？這個『物理最短極限時間』大約是多少？`;
+                    promptQ1En = `Even in an Olympic swimming pool, does water take time to break crystal bonds? What is this irreducible physical minimum time?`;
+                    promptQ2 = `2. 如果在坐標圖上把水量一直延伸到 5000 cm³，這條線會『無限接近橫軸卻永遠不碰 0』，這在數學與物理上代表什麼深刻原理？`;
+                    promptQ2En = `If we extrapolate to 5000 cm³, the curve asymptotes towards zero without touching it. What does this reveal about mathematical and physical limits?`;
+                }
+                // 2. Surface Area & Crushed Sugar
+                else if (/戳碎|搗碎|碎咗|壓爛|粒粒|表面積|整碎|整爛|散開|crush|smash|break|powder|surface\s*area/i.test(lower)) {
+                    focusTag = "公平測試：溶質表面積破壞 / Surface Area Control";
+                    praise = `🌟 誠實且具備高度變因警覺！${groupPrefix}能誠實反思操作細節，敏銳意識到方糖被戳碎會改變溶質顆粒大小，破壞了公平測試原則。`;
+                    diag = `🔍 深刻理解控制變因 (Controlled Variables)。方糖顆粒碎裂使接觸水的總表面積暴增，成為未受控的第二變因。應引導學生討論科研決策。`;
+                    promptQ1 = `1. 方糖被不小心戳碎成微小顆粒後，暴露在水中的『總表面積』大幅增加。這會讓它溶解得更快還是更慢？這還是一次只測試『水量影響』的公平測試嗎？`;
+                    promptQ1En = `Crushed sugar has dramatically increased total surface area. Does this accelerate dissolving, and does it violate our fair test on water volume?`;
+                    promptQ2 = `2. 如果實驗中方糖意外碎了，嚴謹的科學家應該：A. 裝作沒事繼續記數據 B. 在記錄表旁標註異常 C. 重換一顆方糖重做？為什麼？`;
+                    promptQ2En = `If a sugar cube accidentally breaks during testing, should scientists: A. Ignore it, B. Note the anomaly, or C. Discard and rerun with a fresh cube? Why?`;
+                }
+                // 3. Water Temperature Inconsistency
+                else if (/水溫|溫度|溫水|冷水|熱水|水喉水|放耐咗|放耐左|變凍|變熱|溫度計|temp|temperature|warm|cold|water\s*bath/i.test(lower)) {
+                    focusTag = "環境變因：水溫對熱運動之干擾 / Temperature Control";
+                    praise = `🌟 卓越的熱力學變因警覺！${groupPrefix}能注意到肉眼不易看見的水溫微小變化，意識到水溫對水分子布朗運動的深遠干擾。`;
+                    diag = `🔍 嚴格捍衛控制變因。水溫微小差異會直接改變水分子熱運動動能。應引導思考如何在實驗中監測並恆定水溫。`;
+                    promptQ1 = `1. 若 50ml 用的是剛接的自來水 (20°C)，而 200ml 用的是在室溫下放了半小時的水 (25°C)，這 5°C 的溫差會如何干擾我們對水量的判斷？`;
+                    promptQ1En = `If 50ml was cold tap water (20°C) and 200ml warmed to room temp (25°C), how does this 5°C difference confound our conclusion about volume?`;
+                    promptQ2 = `2. 專業實驗室會使用『恆溫水浴槽 (Constant Temperature Water Bath)』，這項技術如何保證所有組別的實驗達到 100% 公平？`;
+                    promptQ2En = `Professional labs use constant-temperature water baths; how does this engineering tool guarantee a 100% fair test?`;
+                }
+                // 4. Manual Stirring Variability & Fatigue
+                else if (/攪拌|手速|轉速|手累|手酸|手慢|攪快|攪慢|唔均勻|停頓|忘記攪|stir|manual|fatigue|rpm/i.test(lower)) {
+                    focusTag = "人為操作誤差：攪拌手速不均 / Stirring Speed Variance";
+                    praise = `🌟 具備科研反思素養！${groupPrefix}誠實審視實驗操作細節，敏銳捕捉到手動攪拌疲勞與手速差異對實驗精準度的干擾。`;
+                    diag = `🔍 精確鎖定主要隨機誤差來源。學生已從『單純記錄數據』昇華至『批判操作信度』的高階層次。教學上應引導思考工程自動化改進。`;
+                    promptQ1 = `1. ${groupPrefix}提到人手攪拌容易手酸變慢。如果由你們擔任實驗室儀器工程師，你會如何設計一套『定速磁力攪拌器 (Magnetic Stirrer)』來保證轉速絕對恆定？`;
+                    promptQ1En = `Students noted manual stirring fatigue; as laboratory engineers, how would you design a magnetic stirrer to ensure absolute constant RPM?`;
+                    promptQ2 = `2. 攪拌手速忽快忽慢，屬於『各次都有可能出現的隨機誤差 (Random Error)』，還是『讓所有數據都偏慢的系統誤差 (Systematic Error)』？全班取平均值能解決嗎？`;
+                    promptQ2En = `Does uneven stirring represent a random error or a systematic bias? How does calculating the class average help mitigate this variance?`;
+                }
+                // 5. Timing Latency & Subjective Visual Endpoint
+                else if (/碼錶|計時|延遲|按慢|反應時差|肉眼|睇唔清|主觀|睇錯|睇漏|眼花|timer|stopwatch|reaction|delay|subjective|naked\s*eye/i.test(lower)) {
+                    focusTag = "測量局限：碼錶延遲與主觀判斷 / Reaction Delay";
+                    praise = `🌟 觀察入微！${groupPrefix}洞察到人體神經反射時差（0.2-0.3秒）與肉眼主觀判斷『是否完全溶解』的模糊性，具備優秀的科學測量批判意識。`;
+                    diag = `🔍 敏銳發現感官測量局限。應引導學生思考光電濁度傳感器（Turbidity Sensor）在客觀判定終點上的應用。`;
+                    promptQ1 = `1. 肉眼很難精確看清最後幾顆微小糖晶體何時消失。我們能否在燒杯兩側安裝『光電濁度傳感器 (Turbidity Sensor)』，當光線穿透率達到 100% 時讓系統自動停錶？`;
+                    promptQ1En = `Naked-eye judgment of tiny residual crystals is subjective; how could optical turbidity sensors automate objective endpoint stopwatch triggers?`;
+                    promptQ2 = `2. 如果兩位同學同時用各自的碼錶為同一組計時，經常會出現 0.5-1 秒的落差。這對科學研究中的『重複觀察（Replication）』有何啟示？`;
+                    promptQ2En = `Two students timing the same beaker often disagree by 0.5-1s. What does this demonstrate about the need for multi-observer replication in science?`;
+                }
+                // 6. Everyday Metaphor & Melting vs Dissolving
+                else if (/吃掉|融化|溶化|化開|沖走|魔術|化咗|化左|eat|melt|melting|magic/i.test(lower)) {
+                    focusTag = "科學術語辨析：溶化 vs 溶解 / Vocabulary Distinction";
+                    praise = `🌟 生動形象的科學想像力！${groupPrefix}能用生動的語言描述方糖逐漸在水中消失的過程。`;
+                    diag = `🔍 需進行科學概念澄清：嚴格區分『溶化 (Melting, 固體受熱變液體)』與『溶解 (Dissolving, 溶質分散於溶劑中)』的本質區別。`;
+                    promptQ1 = `1. 冰淇淋在烈日下變成液體叫『溶化 (Melting)』需吸熱；方糖在水裡化開叫『溶解 (Dissolving)』不需加熱。你能用自己的話說說兩者最大的區別嗎？`;
+                    promptQ1En = `Ice cream melting in the sun requires heat absorption; sugar dissolving in water does not. How would you explain the core difference?`;
+                    promptQ2 = `2. 方糖在水裡『看不見了』，它是真的徹底消失了，還是變成無數肉眼看不見的微小分子均勻散佈在水中？我們可以用什麼稱重實驗來證明？`;
+                    promptQ2En = `When sugar disappears in water, does it vanish from the universe or disperse as invisible molecules? How could mass balance weighing prove it?`;
+                }
+                // 7. Spatial / Distance / Weight Misconception
+                else if (/路程|空間大|阻力|杯重|杯子重|走得遠|走遠|負擔|沉底|距離|太遠|distance|resistance|heavy/i.test(lower)) {
+                    focusTag = "認知衝突：空間與阻力偏誤 / Spatial Misconception";
+                    praise = `🌟 勇於提出因果假說！${groupPrefix}嘗試用生活中的宏觀直覺（水杯重量、空間距離）來構建解釋模型，展現了主動思考的科學探究勇氣。`;
+                    diag = `🔍 存在典型宏觀直覺偏誤：誤把『宏觀空間擴大』當成溶解障礙，忽視了水分子是從四面八方主動包圍並撕扯晶格的微觀動力學機制。`;
+                    promptQ1 = `1. ${groupPrefix}認為『路程變遠會變慢』。請大家對照剛才全班 8 組的折線圖：當水量由 50 增至 200 cm³ 時，秒數到底上升還是下降了？實測證據如何回應了這個假說？`;
+                    promptQ1En = `The student hypothesized longer distance slows dissolution. What do our 8-group class charts prove about seconds from 50 to 200 cm³?`;
+                    promptQ2 = `2. 想像一下：10 個人要在房間拆除一座積木城堡，是在狹窄小房間（50ml）容易施展，還是在寬敞大廳（200ml）大家能同時從四面八方一擁而上拆得更快？`;
+                    promptQ2En = `Imagine 10 workers dismantling a block castle: is it faster in a cramped room (50ml) or in a spacious hall (200ml) where everyone attacks from all angles?`;
+                }
+                // 8. Solubility vs Rate Misconception
+                else if (/溶更多|容量|裝得落|飽和|溶唔曬|溶解量|吃得多|裝得下|solubility|capacity|saturate|amount/i.test(lower)) {
+                    focusTag = "概念辨析：溶解度 vs 速率 / Solubility vs Rate";
+                    praise = `🌟 敏銳關注到了水量的容納能力！${groupPrefix}能主動將『水量多寡』與『能溶多少糖』建立聯想。`;
+                    diag = `🔍 存在『溶解度 (Solubility)』與『溶解速率 (Rate of Dissolving)』的典型混淆：誤以為『能裝更多』等於『溶得更快』。應以生活實例區分『容量』與『速度』。`;
+                    promptQ1 = `1. 『這輛巴士能坐 50 個人（容量）』和『這輛巴士能跑多快（速度）』是同一回事嗎？水量大能溶解更多糖，與它把這 1 塊方糖化開的速度有何區別？`;
+                    promptQ1En = `Is a bus's passenger capacity identical to its driving speed? How does water's capacity to hold sugar differ from how fast 1 cube dissolves?`;
+                    promptQ2 = `2. 在今天的實驗中，方糖固定都是 1 塊。既然糖的總量完全沒變，從 120 秒縮短至 30 秒，證明改變的是溶解的『容量上限』還是『溶解速率』？`;
+                    promptQ2En = `Sugar mass was constant at 1 cube. Since the solute amount didn't change, does the drop from 120s to 30s reflect capacity or dissolving rate?`;
+                }
+                // 9. Curve Gradient & Diminishing Marginal Returns
+                else if (/斜率|越來越平|前快後慢|前期快|前段快|後段慢|減得少|邊際|平緩|趨緩|遞減|gradient|curve|flatten|slope|marginal/i.test(lower)) {
+                    focusTag = "曲線斜率與邊際效應 / Gradient & Marginal Returns";
+                    praise = `🌟 具備頂尖的數據幾何洞察力！${groupPrefix}不僅看出整體時間縮短，更敏銳抓取到折線斜率『前段驟降、後段趨緩』的非線性特徵！`;
+                    diag = `🔍 展現微積分變化率與邊際效應思維萌芽。教學上應引導其將『斜率平緩』與『工業成本效益』建立連結。`;
+                    promptQ1 = `1. 折線在 50→100 cm³ 陡降近 50 秒，但在 150→200 cm³ 僅下降 15 秒。如果我們繼續加水到 250 或 300 cm³，每多加 50ml 換取的加速效果會越來越大還是越來越小？`;
+                    promptQ1En = `The drop is 50s from 50→100 cm³ but only 15s from 150→200 cm³. If we add water to 250 or 300 cm³, will the incremental time saved grow or shrink?`;
+                    promptQ2 = `2. 在製藥或飲料工業中，為了省下 1 秒鐘的溶解時間而額外消耗 1000 公升水是否符合經濟效益？折線圖的趨緩如何指導工程決策？`;
+                    promptQ2En = `In pharmaceutical factories, is wasting 1000L of water to save 1 second of dissolving cost-effective? How does curve flattening guide engineering decisions?`;
+                }
+                // 10. Microscopic Molecular Dynamics & Collision
+                else if (/水分子|碰撞|晶格|拆解|分子|微觀|擴散|撕扯|包圍|動能|molecule|collide|collision|particle|lattice|diffusion/i.test(lower)) {
+                    focusTag = "微觀分子動力學 / Microscopic Dynamics";
+                    praise = `🌟 思維極具深度！${groupPrefix}能跳脫巨觀現象，精準提出『水分子包圍與碰撞頻率提升』的微觀模型，展現極高層次的科學解釋力。`;
+                    diag = `🔍 概念模型相當成熟。學生已掌握粒子碰撞機制，教學上應引導其思考『若改變溫度（分子動能）或改變糖表面積，碰撞頻率會如何再次劇變』，將微觀機制串聯至更多變因。`;
+                    promptQ1 = `1. ${groupPrefix}提出水分子碰撞是加速關鍵。如果我們保持水量不變，而是換成『70°C 熱水』，水分子的碰撞劇烈程度與動能會發生什麼變化？`;
+                    promptQ1En = `Water molecular collision accelerates dissolving; how would a 70°C hot water bath alter molecular kinetic energy and collision frequency?`;
+                    promptQ2 = `2. 當方糖逐漸溶解，水裡的糖分子越來越多，『游離的自由水分子』相對減少，這能否解釋為什麼溶解後期（150→200 cm³）速度變慢？`;
+                    promptQ2En = `As more sugar dissolves, free water molecules decrease. Does this explain why acceleration slows down in later stages (150→200 cm³)?`;
+                }
+                // 11. Direct Qualitative Inverse Relation (Default Fallback)
+                else {
+                    focusTag = "水量與速率反比 / Volume vs Rate";
+                    praise = `🌟 結論精準！${groupPrefix}能準確歸納出水量與溶解時間的定性反比規律：水量越多，方糖完全溶解所需秒數越少。`;
+                    diag = `🔍 宏觀結論扎實。建議引導學生從『看見變快』深入探究『水分子在微觀層面到底如何加速撕扯方糖』，並引導思考全班平均值的意義。`;
+                    promptQ1 = `1. 全班都得出『水越多溶解越快』。如果我們戴上微觀顯微鏡看進水裡：更多的水分子到底是在對這顆方糖施加什麼動作，讓它更快分散？`;
+                    promptQ1En = `All groups agree more water means faster dissolving. Looking through a molecular microscope: what are the extra water molecules doing to speed this up?`;
+                    promptQ2 = `2. 對比單一組別的折線與全班 8 組的綠色平均線，為什麼科學家要以全班平均值為準，而不是只相信某一組的結果？`;
+                    promptQ2En = `Comparing single group results against the 8-group average green line: why do scientists rely on class averages rather than single trials?`;
                 }
 
                 lastGeneratedPedagogy = {
@@ -2621,20 +2854,28 @@
                     promptQ1,
                     promptQ1En,
                     promptQ2,
-                    promptQ2En
+                    promptQ2En,
+                    focusTag,
+                    groupPrefix
                 };
 
                 if (praiseEl) praiseEl.innerText = praise;
                 if (diagEl) diagEl.innerText = diag;
                 if (promptsEl) {
                     promptsEl.innerHTML = `
-                        <div class="p-2 bg-amber-100/70 rounded-lg border border-amber-200">
-                            <p class="font-bold text-amber-950">${promptQ1}</p>
-                            <p class="text-[10px] text-amber-800 italic mt-0.5">${promptQ1En}</p>
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200/80 space-y-1">
+                            <div class="flex items-center gap-1.5 text-xs font-bold text-amber-900">
+                                <span class="bg-amber-200 text-amber-950 px-1.5 py-0.5 rounded text-[10px]">追問 1</span>
+                                <span>${promptQ1}</span>
+                            </div>
+                            <p class="text-[11px] text-amber-800/80 italic pl-6">${promptQ1En}</p>
                         </div>
-                        <div class="p-2 bg-amber-100/70 rounded-lg border border-amber-200">
-                            <p class="font-bold text-amber-950">${promptQ2}</p>
-                            <p class="text-[10px] text-amber-800 italic mt-0.5">${promptQ2En}</p>
+                        <div class="p-3 bg-sky-50 rounded-xl border border-sky-200/80 space-y-1">
+                            <div class="flex items-center gap-1.5 text-xs font-bold text-sky-900">
+                                <span class="bg-sky-200 text-sky-950 px-1.5 py-0.5 rounded text-[10px]">追問 2</span>
+                                <span>${promptQ2}</span>
+                            </div>
+                            <p class="text-[11px] text-sky-800/80 italic pl-6">${promptQ2En}</p>
                         </div>
                     `;
                 }
@@ -2655,79 +2896,214 @@
             const textToCopy = `【全班延伸啟發追問 / Inspiring Prompts】\n${lastGeneratedPedagogy.promptQ1}\n${lastGeneratedPedagogy.promptQ1En}\n\n${lastGeneratedPedagogy.promptQ2}\n${lastGeneratedPedagogy.promptQ2En}`;
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const btnText = document.getElementById('copyBtnText');
+                const btnTextProjector = document.getElementById('copyBtnTextProjector');
                 if (btnText) {
                     btnText.innerText = "已複製 ✓";
                     setTimeout(() => { btnText.innerText = "複製提問"; }, 2000);
                 }
+                if (btnTextProjector) {
+                    btnTextProjector.innerText = "已複製 ✓";
+                    setTimeout(() => { btnTextProjector.innerText = "複製追問文字"; }, 2000);
+                }
             });
+        }
+
+        function toggleProjectorTheme() {
+            isProjectorLightMode = !isProjectorLightMode;
+            applyProjectorTheme();
+        }
+
+        function applyProjectorTheme() {
+            const card = document.getElementById('projectorCard');
+            const header = document.getElementById('projectorHeader');
+            const headerTitle = document.getElementById('projectorHeaderTitle');
+            const headerSub = document.getElementById('projectorHeaderSub');
+            const body = document.getElementById('projectorBody');
+            const footer = document.getElementById('projectorFooter');
+            const themeIcon = document.getElementById('themeIcon');
+            const themeText = document.getElementById('themeText');
+
+            if (!card || !body) return;
+
+            if (isProjectorLightMode) {
+                // Light mode for projectors needing bright background
+                card.className = "bg-white rounded-3xl max-w-6xl w-full shadow-2xl border-2 border-slate-300 max-h-[94vh] flex flex-col overflow-hidden my-auto transition-colors duration-200";
+                if (header) header.className = "bg-slate-100 border-b border-slate-200 p-4 sm:p-5 text-slate-800 flex items-center justify-between flex-wrap gap-3";
+                if (headerTitle) headerTitle.className = "text-base sm:text-xl font-black font-fun tracking-wide text-slate-900";
+                if (headerSub) headerSub.className = "text-slate-500 text-xs font-medium";
+                if (body) body.className = "p-4 sm:p-6 overflow-y-auto flex-1 bg-slate-50 text-slate-900 transition-colors duration-200";
+                if (footer) footer.className = "p-3.5 sm:p-4 bg-slate-100 border-t border-slate-200 flex items-center justify-between flex-wrap gap-2 text-xs text-slate-700";
+                if (themeIcon) themeIcon.innerText = "🌙";
+                if (themeText) themeText.innerText = "切換劇院暗色模式";
+            } else {
+                // High-contrast Theater Dark mode (default)
+                card.className = "bg-slate-900 rounded-3xl max-w-6xl w-full shadow-2xl border border-slate-700/80 max-h-[94vh] flex flex-col overflow-hidden my-auto transition-colors duration-200";
+                if (header) header.className = "bg-slate-900 border-b border-slate-800 p-4 sm:p-5 text-white flex items-center justify-between flex-wrap gap-3";
+                if (headerTitle) headerTitle.className = "text-base sm:text-xl font-black font-fun tracking-wide text-white";
+                if (headerSub) headerSub.className = "text-slate-400 text-xs font-medium";
+                if (body) body.className = "p-4 sm:p-6 overflow-y-auto flex-1 bg-slate-900/95 text-slate-100 transition-colors duration-200";
+                if (footer) footer.className = "p-3.5 sm:p-4 bg-slate-900 border-t border-slate-800 flex items-center justify-between flex-wrap gap-2 text-xs text-slate-300";
+                if (themeIcon) themeIcon.innerText = "☀️";
+                if (themeText) themeText.innerText = "切換亮色投影模式";
+            }
+
+            // Re-render projector content with current theme
+            renderProjectorInnerContent();
         }
 
         function openProjectorModal() {
             if (!lastGeneratedPedagogy) return;
             const modal = document.getElementById('projectorModal');
+            if (!modal) return;
+
+            renderProjectorInnerContent();
+            modal.classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function renderProjectorInnerContent() {
             const content = document.getElementById('projectorContent');
-            if (!modal || !content) return;
+            if (!content || !lastGeneratedPedagogy) return;
+
+            const p = lastGeneratedPedagogy;
+            const isLight = isProjectorLightMode;
+
+            // Styles based on theme
+            const leftCardBg = isLight 
+                ? "bg-white border-2 border-slate-200 shadow-sm text-slate-800" 
+                : "bg-slate-800/90 border border-slate-700 text-slate-100";
+            
+            const studentTextBg = isLight
+                ? "bg-amber-50 text-slate-950 border-2 border-amber-300 font-extrabold"
+                : "bg-slate-950/80 text-amber-300 border border-amber-500/40 font-extrabold shadow-inner";
+
+            const q1CardClass = isLight
+                ? "bg-white p-5 sm:p-6 rounded-2xl border-l-8 border-l-amber-500 border-2 border-slate-200 shadow-md space-y-2"
+                : "bg-slate-800/95 p-5 sm:p-6 rounded-2xl border-l-8 border-l-amber-400 border border-slate-700 shadow-lg space-y-2";
+            
+            const q1TitleClass = isLight
+                ? "text-slate-900 font-black text-xl sm:text-2xl leading-snug tracking-wide"
+                : "text-amber-300 font-black text-xl sm:text-2xl leading-snug tracking-wide";
+
+            const q1SubClass = isLight
+                ? "text-slate-600 font-semibold text-sm sm:text-base italic leading-relaxed"
+                : "text-slate-300 font-medium text-sm sm:text-base italic leading-relaxed";
+
+            const q2CardClass = isLight
+                ? "bg-white p-5 sm:p-6 rounded-2xl border-l-8 border-l-sky-500 border-2 border-slate-200 shadow-md space-y-2"
+                : "bg-slate-800/95 p-5 sm:p-6 rounded-2xl border-l-8 border-l-sky-400 border border-slate-700 shadow-lg space-y-2";
+
+            const q2TitleClass = isLight
+                ? "text-slate-900 font-black text-xl sm:text-2xl leading-snug tracking-wide"
+                : "text-sky-300 font-black text-xl sm:text-2xl leading-snug tracking-wide";
+
+            const q2SubClass = isLight
+                ? "text-slate-600 font-semibold text-sm sm:text-base italic leading-relaxed"
+                : "text-slate-300 font-medium text-sm sm:text-base italic leading-relaxed";
 
             content.innerHTML = `
-                <!-- Student Answer Display Section -->
-                <div class="bg-white rounded-3xl p-6 border-2 border-amber-200 shadow-sm space-y-4">
-                    <div class="flex items-center justify-between border-b border-amber-100 pb-3">
-                        <span class="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
-                            <i data-lucide="file-text" class="w-4 h-4 text-amber-600"></i>
-                            <span>學生作答實時展示 / Live Student Answer</span>
-                        </span>
-                        <span class="text-xs bg-amber-100 text-amber-900 font-extrabold px-3 py-1 rounded-full">
-                            Classroom Evidence
-                        </span>
-                    </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    
+                    <!-- Left Column: Student Original Work & AI Diagnostic (5 Cols) -->
+                    <div class="lg:col-span-5 ${leftCardBg} rounded-3xl p-5 sm:p-6 space-y-4">
+                        <div class="flex items-center justify-between border-b ${isLight ? 'border-slate-200' : 'border-slate-700'} pb-3">
+                            <span class="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${isLight ? 'text-slate-700' : 'text-slate-300'}">
+                                <i data-lucide="file-text" class="w-4 h-4 text-amber-500"></i>
+                                <span>學生作答實時原件 / Student Work</span>
+                            </span>
+                            <span class="text-[11px] ${isLight ? 'bg-indigo-100 text-indigo-900' : 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'} font-extrabold px-2.5 py-0.5 rounded-full">
+                                ${p.focusTag || 'Classroom Evidence'}
+                            </span>
+                        </div>
 
-                    <div class="flex flex-col md:flex-row items-center gap-6">
-                        ${lastGeneratedPedagogy.imageSrc ? `
-                            <div class="w-full md:w-1/3 flex justify-center">
-                                <img src="${lastGeneratedPedagogy.imageSrc}" alt="Student Worksheet" class="max-h-60 rounded-2xl border-2 border-amber-300 shadow-md object-contain bg-slate-50">
+                        ${p.imageSrc ? `
+                            <div class="flex flex-col items-center gap-1.5">
+                                <img src="${p.imageSrc}" alt="Student Worksheet" class="max-h-48 w-auto rounded-2xl border ${isLight ? 'border-slate-300' : 'border-slate-700'} shadow-md object-contain bg-white">
+                                <span class="text-[10px] text-slate-400 font-medium">手寫工作紙相片原件 (Original Worksheet Photo)</span>
                             </div>
                         ` : ''}
-                        <div class="w-full ${lastGeneratedPedagogy.imageSrc ? 'md:w-2/3' : 'md:w-full'}">
-                            <p class="text-base sm:text-xl font-bold text-slate-800 leading-relaxed bg-amber-50/70 p-4 rounded-2xl border border-amber-200">
-                                「${lastGeneratedPedagogy.studentText}」
-                            </p>
-                            <div class="mt-3 text-xs text-emerald-800 font-semibold bg-emerald-50 p-2.5 rounded-xl border border-emerald-200">
-                                💡 思維亮點：${lastGeneratedPedagogy.praise.replace('🌟 ', '')}
+
+                        <div>
+                            <span class="text-[11px] font-bold ${isLight ? 'text-slate-500' : 'text-slate-400'} block mb-1">
+                                學生作答文字記錄 / Transcribed Response：
+                            </span>
+                            <div class="${studentTextBg} p-4 rounded-2xl text-base sm:text-lg leading-relaxed">
+                                「${p.studentText}」
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 pt-1">
+                            <div class="${isLight ? 'bg-emerald-50 text-emerald-950 border border-emerald-300' : 'bg-emerald-950/50 text-emerald-200 border border-emerald-600/40'} p-3 rounded-xl text-xs leading-relaxed">
+                                <span class="font-bold">🌟 思維亮點：</span>${p.praise.replace('🌟 ', '')}
+                            </div>
+                            <div class="${isLight ? 'bg-indigo-50 text-indigo-950 border border-indigo-200' : 'bg-indigo-950/50 text-indigo-200 border border-indigo-600/40'} p-3 rounded-xl text-xs leading-relaxed">
+                                <span class="font-bold">🔍 概念診斷：</span>${p.diag.replace('🔍 ', '')}
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Big Inspiring Inquiry Question for Whole-Class Projection -->
-                <div class="bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl space-y-4 border-2 border-amber-300">
-                    <div class="flex items-center gap-2 text-amber-200 text-sm font-extrabold uppercase tracking-widest">
-                        <i data-lucide="sparkles" class="w-5 h-5"></i>
-                        <span>全班核心探究追問 / Whole-Class Socratic Inquiry</span>
-                    </div>
-                    
-                    <div class="space-y-4 pt-1">
-                        <div class="bg-white/15 backdrop-blur-md p-5 rounded-2xl border border-white/30 space-y-2">
-                            <p class="text-xl sm:text-2xl font-black leading-snug text-white">
-                                ${lastGeneratedPedagogy.promptQ1}
+                    <!-- Right Column: Socratic Prompts for Class Discussion (7 Cols) -->
+                    <div class="lg:col-span-7 space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="p-1.5 rounded-lg ${isLight ? 'bg-amber-100 text-amber-800' : 'bg-amber-400/20 text-amber-300'}">
+                                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                                </span>
+                                <h4 class="text-sm sm:text-base font-extrabold uppercase tracking-wide ${isLight ? 'text-slate-800' : 'text-slate-200'}">
+                                    全班核心啟發追問 / Whole-Class Discussion Prompts
+                                </h4>
+                            </div>
+                            <span class="text-[11px] ${isLight ? 'text-slate-500' : 'text-slate-400'}">
+                                請全班小組討論 60 秒
+                            </span>
+                        </div>
+
+                        <!-- Prompt 1 Card -->
+                        <div class="${q1CardClass}">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-extrabold px-2.5 py-0.5 rounded-full ${isLight ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-amber-400/20 text-amber-300 border border-amber-400/30'}">
+                                    🔥 核心追問 1 • 深度論證 / Question 1
+                                </span>
+                                <span class="text-[11px] text-amber-500 font-bold">Inquiry Core</span>
+                            </div>
+                            <p class="${q1TitleClass}">
+                                ${p.promptQ1}
                             </p>
-                            <p class="text-sm sm:text-base text-amber-100 font-medium italic">
-                                ${lastGeneratedPedagogy.promptQ1En}
+                            <p class="${q1SubClass}">
+                                ${p.promptQ1En}
                             </p>
                         </div>
 
-                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 space-y-1.5">
-                            <p class="text-lg sm:text-xl font-bold text-white">
-                                ${lastGeneratedPedagogy.promptQ2}
+                        <!-- Prompt 2 Card -->
+                        <div class="${q2CardClass}">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-extrabold px-2.5 py-0.5 rounded-full ${isLight ? 'bg-sky-100 text-sky-900 border border-sky-300' : 'bg-sky-400/20 text-sky-300 border border-sky-400/30'}">
+                                    ⚡ 深度挑戰 2 • 認知衝突 / Question 2
+                                </span>
+                                <span class="text-[11px] text-sky-500 font-bold">Cognitive Challenge</span>
+                            </div>
+                            <p class="${q2TitleClass}">
+                                ${p.promptQ2}
                             </p>
-                            <p class="text-xs sm:text-sm text-amber-100 font-medium italic">
-                                ${lastGeneratedPedagogy.promptQ2En}
+                            <p class="${q2SubClass}">
+                                ${p.promptQ2En}
                             </p>
                         </div>
+
+                        <div class="p-3.5 rounded-2xl ${isLight ? 'bg-slate-100 text-slate-600 border border-slate-200' : 'bg-slate-800/50 text-slate-400 border border-slate-700/60'} text-xs flex items-center justify-between">
+                            <span class="flex items-center gap-1.5">
+                                <i data-lucide="help-circle" class="w-3.5 h-3.5 text-indigo-400"></i>
+                                <span>教師導引：可邀請提出不同觀點的小組起立進行相互辯論與折線數據核驗</span>
+                            </span>
+                            <button type="button" onclick="copyPedagogyPrompts()" class="text-[11px] text-indigo-500 hover:underline font-bold">
+                                一鍵複製追問
+                            </button>
+                        </div>
                     </div>
+
                 </div>
             `;
 
-            modal.classList.remove('hidden');
             if (window.lucide) lucide.createIcons();
         }
 

@@ -378,9 +378,11 @@
                 </div>
             </div>
 
-            <!-- SECTION: Whole-Class Discussion Prompts (Bilingual with Collapsible Scaffolding) -->
-            <div class="bg-gradient-to-br from-amber-50 via-orange-50/60 to-amber-100/70 rounded-3xl p-6 shadow-md border border-amber-200">
-                <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+            <!-- SECTION: Whole-Class Discussion Prompts (Bilingual with Dynamic Adaptive Intelligence & Photo Upload) -->
+            <div class="bg-gradient-to-br from-amber-50 via-orange-50/60 to-amber-100/70 rounded-3xl p-6 shadow-md border border-amber-200 space-y-6">
+                
+                <!-- Section Header -->
+                <div class="flex items-center justify-between flex-wrap gap-3">
                     <div class="flex items-center gap-3">
                         <div class="p-2.5 bg-amber-500 text-white rounded-2xl shadow">
                             <i data-lucide="message-circle-question" class="w-6 h-6"></i>
@@ -390,16 +392,23 @@
                                 Whole-Class Discussion Prompts (全班開放式思考議題)
                             </h3>
                             <p class="text-xs text-amber-800">
-                                Open-ended questions designed to inspire student critical thinking & creative experimental design.
+                                Open-ended questions dynamically adapted to your 8 groups' actual data & chat responses.
                             </p>
                         </div>
                     </div>
-                    <span class="text-[11px] bg-amber-200/90 text-amber-900 font-bold px-3 py-1 rounded-full border border-amber-300">
-                        Creative & Critical Inquiry
-                    </span>
+                    
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span id="discussionSyncBadge" class="text-[11px] bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full border border-emerald-300 flex items-center gap-1.5 shadow-sm">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>實時動態學情連動中 / Live Synced</span>
+                        </span>
+                        <button onclick="updateDynamicDiscussionPrompts()" class="text-[11px] bg-amber-200/90 hover:bg-amber-300 active:scale-95 text-amber-950 font-bold px-3 py-1 rounded-full border border-amber-300 transition flex items-center gap-1 shadow-sm" title="Refresh dynamic discussion prompts">
+                            <i data-lucide="refresh-cw" class="w-3 h-3"></i> 刷新動態提問
+                        </button>
+                    </div>
                 </div>
 
-                <!-- 3 Open-Ended Discussion Topic Cards (FULL BILINGUAL) -->
+                <!-- 3 Open-Ended Discussion Topic Cards (FULL BILINGUAL & DYNAMIC) -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     
                     <!-- Topic 1 -->
@@ -411,13 +420,13 @@
                                 </span>
                                 <i data-lucide="help-circle" class="w-4 h-4 text-amber-600"></i>
                             </div>
-                            <h4 class="text-xs font-bold text-slate-800 leading-snug">
-                                🔍 假設第 3 組與第 7 組的折線走向完全相反，科學探究隊長會如何驗證？
+                            <h4 id="topic1Title" class="text-xs font-bold text-slate-800 leading-snug">
+                                🔍 假設第 3 組與第 7 組的折線走向完全相反，你會如何驗證？
                             </h4>
-                            <p class="text-[11px] text-sky-800 font-medium mt-0.5">
-                                If Group 3 and Group 7 have completely opposite line trends, how would the science captain verify it?
+                            <p id="topic1TitleEn" class="text-[11px] text-sky-800 font-medium mt-0.5">
+                                If Group 3 and Group 7 have completely opposite line trends, how would you verify it?
                             </p>
-                            <p class="text-[11px] text-slate-600 mt-1.5">
+                            <p id="topic1Desc" class="text-[11px] text-slate-600 mt-1.5">
                                 如果出現兩組數據走勢矛盾，我們應該直接刪除異常組別，還是重新檢查操作細節？<br>
                                 <span class="text-[10px] text-slate-500 italic">If two groups show contradictory trends, should we discard the outlier immediately, or re-examine experimental details?</span>
                             </p>
@@ -436,10 +445,12 @@
                                 <i id="icon-scaffold1" data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform"></i>
                             </button>
                             <div id="scaffold1" class="hidden mt-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-700 space-y-2">
-                                <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                                <p><strong>1. 基礎觀察 (Basic Observation)：</strong>比較兩組在 150 cm³ 的相差秒數，能否一眼看出離群走勢？<br><span class="text-[10px] text-slate-500 italic">Compare the time difference at 150 cm³ between both groups. Can you spot the outlier trend?</span></p>
-                                <p><strong>2. 變因排查 (Variable Check)：</strong>兩組的水溫、方糖質量是否確實相同？有沒有同學把方糖戳碎了？<br><span class="text-[10px] text-slate-500 italic">Were water temperature and sugar mass truly identical? Did anyone crush the sugar cube?</span></p>
-                                <p><strong>3. 科學決策 (Scientific Decision)：</strong>如果無法判定誰出錯，科學家會：A. 刪除異常值 B. 算平均 C. 重複實驗？為什麼？<br><span class="text-[10px] text-slate-500 italic">If unsure which is wrong, would scientists: A. Discard outlier, B. Average them, or C. Replicate test? Why?</span></p>
+                                <div id="topic1ScaffoldSteps">
+                                    <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
+                                    <p><strong>1. 基礎觀察 (Basic Observation)：</strong>比較兩組在 150 cm³ 的相差秒數，能否一眼看出離群走勢？<br><span class="text-[10px] text-slate-500 italic">Compare the time difference at 150 cm³ between both groups. Can you spot the outlier trend?</span></p>
+                                    <p><strong>2. 變因排查 (Variable Check)：</strong>兩組的水溫、方糖質量是否確實相同？有沒有同學把方糖戳碎了？<br><span class="text-[10px] text-slate-500 italic">Were water temperature and sugar mass truly identical? Did anyone crush the sugar cube?</span></p>
+                                    <p><strong>3. 科學決策 (Scientific Decision)：</strong>如果無法判定誰出錯，科學家會：A. 刪除異常值 B. 算平均 C. 重複實驗？為什麼？<br><span class="text-[10px] text-slate-500 italic">If unsure which is wrong, would scientists: A. Discard outlier, B. Average them, or C. Replicate test? Why?</span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -453,13 +464,13 @@
                                 </span>
                                 <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600"></i>
                             </div>
-                            <h4 class="text-xs font-bold text-slate-800 leading-snug">
+                            <h4 id="topic2Title" class="text-xs font-bold text-slate-800 leading-snug">
                                 🛠️ 如果要設計一個完全「零人為誤差」的溶解實驗，你會如何改進裝置？
                             </h4>
-                            <p class="text-[11px] text-sky-800 font-medium mt-0.5">
+                            <p id="topic2TitleEn" class="text-[11px] text-sky-800 font-medium mt-0.5">
                                 To design a "Zero Human Error" dissolving experiment, how would you improve the apparatus?
                             </p>
-                            <p class="text-[11px] text-slate-600 mt-1.5">
+                            <p id="topic2Desc" class="text-[11px] text-slate-600 mt-1.5">
                                 想像你可以使用任何 STEM 設備（例如磁力攪拌器、光學傳感器），你會如何改進這套實驗？<br>
                                 <span class="text-[10px] text-slate-500 italic">Imagine using any STEM apparatus (e.g. magnetic stirrers, optical sensors), how would you optimize the setup?</span>
                             </p>
@@ -478,10 +489,12 @@
                                 <i id="icon-scaffold2" data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform"></i>
                             </button>
                             <div id="scaffold2" class="hidden mt-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-700 space-y-2">
-                                <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                                <p><strong>1. 鎖定人為誤差 (Identify Human Error)：</strong>實驗中，最難用肉眼和雙手精確控制的步驟是什麼？（攪拌均勻度與終點判斷）<br><span class="text-[10px] text-slate-500 italic">Which steps are hardest to control manually? (Stirring consistency & visual endpoint judgment)</span></p>
-                                <p><strong>2. 工具替代 (Tool Replacement)：</strong>若引入實驗室「磁力攪拌器」，如何精確固定每分鐘轉速（RPM）？<br><span class="text-[10px] text-slate-500 italic">If using a magnetic stirrer, how would it fix the constant RPM?</span></p>
-                                <p><strong>3. 自動檢測 (Automated Detection)：</strong>怎樣利用光學濁度傳感器（Light Sensor），讓儀器自動判定方糖已 100% 溶解？<br><span class="text-[10px] text-slate-500 italic">How could a light/turbidity sensor automatically detect when sugar is 100% dissolved?</span></p>
+                                <div id="topic2ScaffoldSteps">
+                                    <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
+                                    <p><strong>1. 鎖定人為誤差 (Identify Human Error)：</strong>實驗中，最難用肉眼和雙手精確控制的步驟是什麼？（攪拌均勻度與終點判斷）<br><span class="text-[10px] text-slate-500 italic">Which steps are hardest to control manually? (Stirring consistency & visual endpoint judgment)</span></p>
+                                    <p><strong>2. 工具替代 (Tool Replacement)：</strong>若引入實驗室「磁力攪拌器」，如何精確固定每分鐘轉速（RPM）？<br><span class="text-[10px] text-slate-500 italic">If using a magnetic stirrer, how would it fix the constant RPM?</span></p>
+                                    <p><strong>3. 自動檢測 (Automated Detection)：</strong>怎樣利用光學濁度傳感器（Light Sensor），讓儀器自動判定方糖已 100% 溶解？<br><span class="text-[10px] text-slate-500 italic">How could a light/turbidity sensor automatically detect when sugar is 100% dissolved?</span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -495,13 +508,13 @@
                                 </span>
                                 <i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i>
                             </div>
-                            <h4 class="text-xs font-bold text-slate-800 leading-snug">
+                            <h4 id="topic3Title" class="text-xs font-bold text-slate-800 leading-snug">
                                 🌊 若將水量無限增加至 5000 cm³，溶解時間會無限制地變成 0 秒嗎？
                             </h4>
-                            <p class="text-[11px] text-sky-800 font-medium mt-0.5">
+                            <p id="topic3TitleEn" class="text-[11px] text-sky-800 font-medium mt-0.5">
                                 If water volume increases infinitely to 5000 cm³, will dissolving time drop to 0 seconds?
                             </p>
-                            <p class="text-[11px] text-slate-600 mt-1.5">
+                            <p id="topic3Desc" class="text-[11px] text-slate-600 mt-1.5">
                                 從數據曲線的趨勢來看，水量加速溶解效果是否存在物理極限？<br>
                                 <span class="text-[10px] text-slate-500 italic">Looking at the curve trend, does the dissolving acceleration effect have a physical limit?</span>
                             </p>
@@ -520,15 +533,171 @@
                                 <i id="icon-scaffold3" data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform"></i>
                             </button>
                             <div id="scaffold3" class="hidden mt-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-700 space-y-2">
-                                <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                                <p><strong>1. 觀察斜率 (Observe Gradient)：</strong>水量由 50 至 100 cm³ 減少的時間，比 150 至 200 cm³ 減少的時間是多還是少？<br><span class="text-[10px] text-slate-500 italic">Is the time saved from 50 to 100 cm³ larger or smaller than that from 150 to 200 cm³?</span></p>
-                                <p><strong>2. 物理常識 (Physical Reality)：</strong>即使扔進太平洋（極大水量），水分子拆解方糖晶格需要時間嗎？能否為 0 秒？<br><span class="text-[10px] text-slate-500 italic">Even in an ocean, does water take time to break sugar crystal bonds? Can it ever be 0s?</span></p>
-                                <p><strong>3. 外推批判 (Extrapolation Critique)：</strong>用有限的數據曲線去預測無窮大的極端情況，需要注意什麼限制？<br><span class="text-[10px] text-slate-500 italic">What are the risks of using limited data points to predict extreme conditions?</span></p>
+                                <div id="topic3ScaffoldSteps">
+                                    <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
+                                    <p><strong>1. 觀察斜率 (Observe Gradient)：</strong>水量由 50 至 100 cm³ 減少的時間，比 150 至 200 cm³ 減少的時間是多還是少？<br><span class="text-[10px] text-slate-500 italic">Is the time saved from 50 to 100 cm³ larger or smaller than that from 150 to 200 cm³?</span></p>
+                                    <p><strong>2. 物理常識 (Physical Reality)：</strong>即使扔進太平洋（極大水量），水分子拆解方糖晶格需要時間嗎？能否為 0 秒？<br><span class="text-[10px] text-slate-500 italic">Even in an ocean, does water take time to break sugar crystal bonds? Can it ever be 0s?</span></p>
+                                    <p><strong>3. 外推批判 (Extrapolation Critique)：</strong>用有限的數據曲線去預測無窮大的極端情況，需要注意什麼限制？<br><span class="text-[10px] text-slate-500 italic">What are the risks of using limited data points to predict extreme conditions?</span></p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
+
+                <!-- NEW COMPONENT: Teacher Photo Capture of Student Answer & Instant AI Pedagogical Generation -->
+                <div class="bg-white/95 rounded-2xl p-5 border-2 border-dashed border-amber-300 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <div class="flex items-center gap-2.5">
+                            <div class="p-2 bg-gradient-to-br from-amber-500 to-orange-500 text-white rounded-xl shadow">
+                                <i data-lucide="camera" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-800 font-fun flex items-center gap-1.5">
+                                    <span>📸 學生作答即時拍攝與 AI 啟發性提問生成</span>
+                                    <span class="text-[10px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded-md font-bold">Live AI Pedagogical Generator</span>
+                                </h4>
+                                <p class="text-xs text-slate-500">
+                                    拍下學生工作紙手寫答案或板書，AI 即刻深入診斷其科學概念，並生成全班延伸追問提問！
+                                </p>
+                            </div>
+                        </div>
+                        <span class="text-[11px] text-amber-800 font-semibold bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
+                            Teacher AI Scaffolding Assistant
+                        </span>
+                    </div>
+
+                    <!-- Input Controls: Photo Camera / Upload + Text Fallback -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
+                        
+                        <!-- Photo Upload & Camera Area (5 Cols) -->
+                        <div class="md:col-span-5 space-y-2">
+                            <input type="file" id="studentAnswerPhotoInput" accept="image/*" capture="environment" class="hidden" onchange="handleAnswerPhotoSelected(event)">
+                            
+                            <div id="photoDropArea" onclick="document.getElementById('studentAnswerPhotoInput').click()" class="border-2 border-dashed border-slate-300 hover:border-amber-400 bg-slate-50 hover:bg-amber-50/50 rounded-2xl p-4 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[120px] group">
+                                <div id="photoPlaceholder" class="space-y-1.5 flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full bg-amber-100 group-hover:bg-amber-200 text-amber-700 flex items-center justify-center transition">
+                                        <i data-lucide="camera" class="w-5 h-5"></i>
+                                    </div>
+                                    <p class="text-xs font-bold text-slate-700">
+                                        點擊開啟相機拍照 / 選擇工作紙照片
+                                    </p>
+                                    <p class="text-[10px] text-slate-400">
+                                        支援手機/平板相機即拍即傳 (JPG, PNG)
+                                    </p>
+                                </div>
+                                
+                                <div id="photoPreviewContainer" class="hidden w-full flex flex-col items-center space-y-2">
+                                    <img id="photoPreviewImg" src="" alt="Student Answer" class="max-h-28 rounded-xl border border-amber-200 shadow-sm object-contain bg-white">
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">✓ 照片已加載</span>
+                                        <button type="button" onclick="event.stopPropagation(); removeAnswerPhoto();" class="text-[10px] text-rose-600 hover:text-rose-800 font-bold underline">✕ 移除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text Input & Fast Presets (7 Cols) -->
+                        <div class="md:col-span-7 space-y-2">
+                            <label class="block text-xs font-bold text-slate-700 flex items-center justify-between">
+                                <span>📝 學生作答內容 / 關鍵字補充：</span>
+                                <span class="text-[10px] text-slate-400 font-normal">可直接輸入或補充照片文字</span>
+                            </label>
+                            
+                            <textarea id="studentAnswerText" rows="3" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 bg-slate-50/50 resize-none leading-relaxed" placeholder="拍攝後可在此補充或直接輸入學生答案... 例如：第3組寫『水量增加時水分子變多，碰撞方糖頻率提高所以溶解加快；但加到5000ml不會是0秒因為水分子拆解晶格需要時間』"></textarea>
+                            
+                            <!-- Quick Preset Demo Chips for Open Class -->
+                            <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
+                                <span class="text-[10px] font-bold text-slate-500">公開課快速範例：</span>
+                                <button type="button" onclick="fillSampleStudentAnswer('microscopic')" class="text-[10px] bg-sky-50 hover:bg-sky-100 text-sky-800 font-medium px-2 py-0.5 rounded-lg border border-sky-200 transition">
+                                    🌟 範例A: 分子碰撞與極限
+                                </button>
+                                <button type="button" onclick="fillSampleStudentAnswer('misconception')" class="text-[10px] bg-rose-50 hover:bg-rose-100 text-rose-800 font-medium px-2 py-0.5 rounded-lg border border-rose-200 transition">
+                                    ⚠️ 範例B: 誤解變多時間變長
+                                </button>
+                                <button type="button" onclick="fillSampleStudentAnswer('human_error')" class="text-[10px] bg-amber-50 hover:bg-amber-100 text-amber-800 font-medium px-2 py-0.5 rounded-lg border border-amber-200 transition">
+                                    🔍 範例C: 攪拌手速不均反思
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Action Button -->
+                    <div class="flex items-center justify-between pt-1 flex-wrap gap-2">
+                        <div class="text-[11px] text-slate-500 flex items-center gap-1">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
+                            <span>AI 引擎將即時進行思維肯定、概念微觀診斷與全班啟發式追問構建</span>
+                        </div>
+                        <button id="btnGeneratePedagogy" onclick="generateStudentAnswerPedagogy()" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2">
+                            <i data-lucide="brain-circuit" class="w-4 h-4"></i>
+                            <span>✨ AI 即時生成啟發性提問 (Generate AI Pedagogy)</span>
+                        </button>
+                    </div>
+
+                    <!-- AI Pedagogical Output Container -->
+                    <div id="pedagogyResultContainer" class="hidden mt-4 p-4 rounded-2xl bg-gradient-to-br from-amber-50/90 via-orange-50/50 to-white border border-amber-300 shadow-sm space-y-4">
+                        
+                        <!-- Header with Actions -->
+                        <div class="flex items-center justify-between border-b border-amber-200/80 pb-3 flex-wrap gap-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-base">🎯</span>
+                                <h5 class="text-xs sm:text-sm font-extrabold text-amber-950 font-fun">
+                                    AI 學生作答深度概念診斷與教學引導報告
+                                </h5>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="openProjectorModal()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs rounded-lg shadow transition flex items-center gap-1.5">
+                                    <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
+                                    <span>全班大螢幕投影模式 (Project)</span>
+                                </button>
+                                <button onclick="copyPedagogyPrompts()" class="px-3 py-1.5 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs rounded-lg border border-slate-200 transition flex items-center gap-1">
+                                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                                    <span id="copyBtnText">複製提問</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 3 Pedagogical Result Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <!-- Card 1: Praise & Strengths -->
+                            <div class="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 space-y-1.5 shadow-sm">
+                                <div class="flex items-center gap-1.5 text-emerald-900 font-extrabold text-xs">
+                                    <span class="text-emerald-600">🌟</span>
+                                    <span>肯定思維亮點 (Praise & Strengths)</span>
+                                </div>
+                                <p id="pedagogyPraise" class="text-slate-700 text-[11px] leading-relaxed">
+                                    --
+                                </p>
+                            </div>
+
+                            <!-- Card 2: Conceptual Diagnostic -->
+                            <div class="p-3.5 bg-rose-50/80 rounded-xl border border-rose-200 space-y-1.5 shadow-sm">
+                                <div class="flex items-center gap-1.5 text-rose-900 font-extrabold text-xs">
+                                    <span class="text-rose-600">🔍</span>
+                                    <span>認知盲點與微觀診斷 (Diagnostic)</span>
+                                </div>
+                                <p id="pedagogyDiagnostic" class="text-slate-700 text-[11px] leading-relaxed">
+                                    --
+                                </p>
+                            </div>
+
+                            <!-- Card 3: Inspiring Follow-up Prompts -->
+                            <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-300 space-y-1.5 shadow-sm">
+                                <div class="flex items-center gap-1.5 text-amber-950 font-extrabold text-xs">
+                                    <span class="text-amber-600">💡</span>
+                                    <span>全班延伸啟發追問 (Inspiring Prompts)</span>
+                                </div>
+                                <div id="pedagogyPrompts" class="text-slate-800 text-[11px] leading-relaxed space-y-1">
+                                    --
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
             <!-- SECTION: Synchronized Class Comparison Graph & 8 Groups Table (Same as Student End) -->
@@ -739,13 +908,15 @@
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
-                            <span class="font-bold text-emerald-800 block text-xs mb-1">💪 學生強項分析 (Strengths):</span>
+                        <div class="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 space-y-2">
+                            <span class="font-bold text-emerald-800 block text-xs">💪 學生答題強項與證據分析 (Evidence-Based Strengths):</span>
                             <p id="modalStrength" class="text-slate-700 leading-relaxed">--</p>
+                            <div id="modalStrengthEvidence" class="hidden p-2.5 bg-emerald-100/90 rounded-xl border border-emerald-300 text-emerald-950 text-xs shadow-sm"></div>
                         </div>
-                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200">
-                            <span class="font-bold text-amber-800 block text-xs mb-1">🎯 教學成長與介入建議 (Growth Advice):</span>
+                        <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-200 space-y-2">
+                            <span class="font-bold text-amber-800 block text-xs">🎯 教學成長與課堂介入建議 (Growth & Teacher Prompts):</span>
                             <p id="modalGrowth" class="text-slate-700 leading-relaxed">--</p>
+                            <div id="modalGrowthIntervention" class="hidden p-2.5 bg-amber-100/90 rounded-xl border border-amber-300 text-amber-950 text-xs shadow-sm"></div>
                         </div>
                     </div>
                 </div>
@@ -774,6 +945,42 @@
                 </button>
             </div>
 
+        </div>
+    </div>
+
+    <!-- ================= PROJECTOR MODE MODAL FOR STUDENT ANSWER AI INQUIRY ================= -->
+    <div id="projectorModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md p-4 sm:p-8 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-4xl w-full shadow-2xl border-4 border-amber-400 max-h-[92vh] flex flex-col overflow-hidden my-auto">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 p-5 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-white/20 flex items-center justify-center text-xl font-bold shadow-inner">
+                        📽️
+                    </div>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold font-fun">
+                            全班大螢幕投影模式 • 學生作答與 AI 延伸啟發追問
+                        </h3>
+                        <p class="text-amber-100 text-xs">Whole-Class Projection: Student Work & Inspiring Socratic Discussion Prompt</p>
+                    </div>
+                </div>
+                <button onclick="closeProjectorModal()" class="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 text-white font-bold flex items-center justify-center text-lg transition" title="Close / 關閉">
+                    ✕
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-6 flex-1 bg-amber-50/30 text-slate-800">
+                <div id="projectorContent" class="space-y-6">
+                    <!-- Injected dynamically -->
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="p-4 bg-white border-t border-amber-200 flex items-center justify-between flex-wrap gap-2">
+                <span class="text-xs text-slate-500">提示：按 ESC 鍵或點擊右側按鈕可退出大螢幕投影</span>
+                <button onclick="closeProjectorModal()" class="px-6 py-2.5 bg-slate-800 hover:bg-slate-900 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition">
+                    關閉退出投影 / Exit Projection
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1011,78 +1218,91 @@
         function generateAutonomousAgentWaterResponse(userText, groupData, stage) {
             const raw = userText.trim();
             const lower = raw.toLowerCase();
+            const t50 = groupData ? groupData[50] : 120;
+            const t100 = groupData ? groupData[100] : 70;
+            const t150 = groupData ? groupData[150] : 45;
+            const t200 = groupData ? groupData[200] : 30;
 
-            // 1. Social Greetings & Introduction
+            // 1. Social Greetings & Identity
             if (/^(hello|hi|hey|good\s*morning|yo|你好|哈囉|早晨|午安|安安|嗨)/i.test(lower) || /水精靈|你是誰|你係邊個|who are you/i.test(lower)) {
                 return {
                     feedbackEn: "Hello young scientist! 👋 I am Agent Water, your science buddy 💧! Look at the blue line on your chart: when water increases from 50 to 200 cm³, what happens to the dissolving time?",
                     feedbackZh: "你好呀小小科學家！👋 我是水精靈 💧，你的科學好夥伴！請看看左側圖表的藍色折線：當水量由 50 增加到 200 cm³ 時，方糖完全溶解所需的時間有何變化？",
                     summaryZh: "學生向水精靈打招呼，水精靈引導觀察折線圖走勢。",
-                    strengthZh: "積極參與對話交流",
+                    strengthZh: "積極參與課堂對話交流",
                     growthZh: "請嘗試直接回答問題：時間是變長還是變短？",
                     advanceStage: false
                 };
             }
 
-            // 2. Direct Answer: "No Change" / "一樣" / "無變化"
-            if (/無變|沒變|一樣|相同|no\s*change|same|constant/i.test(lower)) {
-                if (groupData) {
-                    const t50 = groupData[50];
-                    const t200 = groupData[200];
-                    return {
-                        feedbackEn: `Wait, look closely at your data! 🧐 At 50 cm³ it was ${t50}s, and at 200 cm³ it was ${t200}s! ${t50}s and ${t200}s are clearly DIFFERENT! Did the time become SHORTER or LONGER?`,
-                        feedbackZh: `等等，細心看看你剛才輸入的數據！🧐 50 cm³ 時是 ${t50} 秒，而 200 cm³ 時是 ${t200} 秒！${t50} 秒與 ${t200} 秒明顯不同喔！時間到底是縮短了還是變長了呢？`,
-                        summaryZh: `學生誤以為無變化，水精靈指引其比對 50 與 200 cm³ 的實測秒數。`,
-                        strengthZh: "勇於表達觀察感受",
-                        growthZh: "需仔細比對不同水量的實測數字大小",
-                        advanceStage: false
-                    };
-                } else {
-                    return {
-                        feedbackEn: "Look at the vertical axis! As water volume increases, does the blue line stay horizontal, or does it slant downward?",
-                        feedbackZh: "看看縱軸！當水量增加時，藍色折線是水平直線，還是向下傾斜呢？",
-                        advanceStage: false
-                    };
-                }
-            }
-
-            // 3. Misconception: "Longer" / "Increase" / "變長" / "慢咗"
-            if (/變長|長咗|增加|多咗|變多|慢咗|更慢|上升|longer|increase|more\s*time|slower/i.test(lower)) {
-                if (groupData) {
-                    const t50 = groupData[50];
-                    const t200 = groupData[200];
-                    return {
-                        feedbackEn: `Thoughtful try! But look at the numbers: 50 cm³ took ${t50}s, while 200 cm³ took only ${t200}s. The number goes DOWN from ${t50} to ${t200}! Does fewer seconds mean FASTER or SLOWER dissolving?`,
-                        feedbackZh: `很好的推測！但細看縱軸秒數：50 cm³ 用了 ${t50} 秒，而 200 cm³ 只用了 ${t200} 秒，數值由 ${t50} 降到 ${t200} 變小了！秒數減少代表溶解是『更快』還是『更慢』呢？`,
-                        summaryZh: `學生誤以為時間變長，水精靈以實測數據引導理解『秒數減少 = 溶解加速』。`,
-                        strengthZh: "具備主動推導意願",
-                        growthZh: "需注意『秒數變小』代表『溶解更快』之概念",
-                        advanceStage: false
-                    };
-                } else {
-                    return {
-                        feedbackEn: "Check the vertical axis numbers! The line goes DOWN, meaning fewer seconds! Does that mean faster or slower?",
-                        feedbackZh: "看看縱軸數字！折線是向下走的，代表所需秒數變少了！這代表溶解是更快還是更慢呢？",
-                        advanceStage: false
-                    };
-                }
-            }
-
-            // 4. Correct Trend: "Shorter" / "Faster" / "變短" / "快咗"
-            if (/變短|短咗|減少|變少|快咗|更快|降|跌|shorter|faster|less\s*time|decrease|drop/i.test(lower)) {
+            // 2. Help, Confusion & Frustration ("我不知道要怎樣做", "好難", "唔識", "教我", "help", "點做", "what should I do", "唔知點做")
+            if (/不知道|唔知|不懂|唔識|點做|怎樣做|怎麼做|好難|救命|教我|help|how to|idk|confused|don't know|點算|唔明|唔曉/i.test(lower)) {
                 return {
-                    feedbackEn: "Spot-on! Super job! 🏆 Larger water volume takes SHORTER time, meaning the sugar dissolves FASTER! Now look at the Green Line (Class Average of 8 groups): why do scientists calculate the class average instead of trusting just 1 group?",
-                    feedbackZh: "答得非常準確！太棒了！🏆 水量越多，方糖完全溶解所需的時間越短（溶解速率越高）！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均值，而不是只相信單一小組的結果？",
-                    summaryZh: "準確指出水量越多、溶解時間越短的反比規律，成功推進至平均值探究。",
-                    strengthZh: "概念清晰，能用自訂文字精確表達水量與溶解速率之反比關係",
-                    growthZh: "進一步探究全班平均值如何抵消人為隨機誤差",
-                    focusTag: "Water Volume / 水量反比",
-                    nextStage: 2,
-                    advanceStage: true
+                    feedbackEn: `Don't worry young scientist, Agent Water is right here with you! 💧 Let's take it step-by-step: look at your blue line on the left. At 50 cm³ it was ${t50}s, and at 200 cm³ it was ${t200}s. From ${t50} down to ${t200}, did the seconds increase or decrease?`,
+                    feedbackZh: `別擔心小小科學家，有水精靈陪著你呢！💧 我們一步一步來：請看左邊的藍色折線圖。50 cm³ 時你記錄了 ${t50} 秒，而 200 cm³ 時是 ${t200} 秒。數值由 ${t50} 跌到 ${t200}，秒數到底是變多還是變少了呢？`,
+                    summaryZh: "學生提出學習疑問，水精靈以階梯式讀圖提示化解困惑。",
+                    strengthZh: "勇於表達學習困惑並主動尋求指引，展現良好的求真態度",
+                    growthZh: "根據水精靈提示，先觀察 50 與 200 cm³ 兩點的秒數數值大小變化",
+                    focusTag: "Scaffolding Guidance / 階梯導引",
+                    advanceStage: false
                 };
             }
 
-            // 5. Questions from Student: "Why?" / "點解"
+            // 3. Tentative / Hesitant Responses with Modals ("變多了吧", "好像是變長", "可能變多", "應該長咗", "好像變短", "或者快咗", "maybe shorter", "guess")
+            const isTentative = /吧|好像|應該|可能|或者|估|maybe|guess|perhaps|seems/i.test(lower);
+            if (isTentative) {
+                if (/多|長|慢|增加|上升|more|longer|slower|up/i.test(lower)) {
+                    return {
+                        feedbackEn: `I noticed your thoughtful guess! 💧 But look closely at the vertical axis numbers: 50 cm³ took ${t50}s, while 200 cm³ took only ${t200}s! The number dropped from ${t50} down to ${t200}! When the seconds decrease, does it mean dissolving was FASTER or SLOWER?`,
+                        feedbackZh: `我留意到你帶著猶豫在推測呢！💧 讓我們一起對照縱軸上的數字：50 cm³ 用了 ${t50} 秒，而 200 cm³ 只有 ${t200} 秒，數值由 ${t50} 往下掉到了 ${t200}！秒數變少了，代表方糖溶解得更快還是更慢呢？再想想看！`,
+                        summaryZh: "學生試探性猜測時間變多，水精靈透過數字比對引導其重新校正。",
+                        strengthZh: "勇於表達初步思考與假設",
+                        growthZh: "仔細觀察縱軸數值從左到右是下降而非上升",
+                        focusTag: "Tentative Reasoning / 假設推導",
+                        advanceStage: false
+                    };
+                } else if (/少|短|快|減少|下降|跌|降|shorter|faster|less|drop|down/i.test(lower)) {
+                    return {
+                        feedbackEn: `Your intuition is spot on! 🌟 Look at your chart: the blue line indeed slopes downward from ${t50}s to ${t200}s! Fewer seconds means FASTER dissolving! Now, look at the Green Dashed Line (Class Average of 8 groups): why do scientists calculate the average instead of trusting just 1 group?`,
+                        feedbackZh: `你的科學直覺非常準確！🌟 看看圖表：藍色折線確實從 ${t50} 秒一路往下滑到 ${t200} 秒！秒數變少代表溶解『更快』！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要算全班平均，而不只相信 1 組呢？`,
+                        summaryZh: "學生試探性推測時間變短/加快，水精靈肯定其直覺並引導進入平均值探究。",
+                        strengthZh: "能憑藉圖表走勢做出正確推斷，具備良好科學直覺",
+                        growthZh: "嘗試更自信地使用科學因果句（如『水量越多，所需秒數越少，溶解速率越高』）",
+                        focusTag: "Water Volume / 水量反比",
+                        nextStage: 2,
+                        advanceStage: true
+                    };
+                }
+            }
+
+            // 4. Direct "No Change" / "一樣" / "無變化"
+            if (/無變|沒變|一樣|相同|no\s*change|same|constant/i.test(lower)) {
+                return {
+                    feedbackEn: `Wait, look closely at your data! 🧐 At 50 cm³ it was ${t50}s, and at 200 cm³ it was ${t200}s! ${t50}s and ${t200}s are clearly DIFFERENT! Did the time become SHORTER or LONGER?`,
+                    feedbackZh: `等等，細心看看你剛才輸入的數據！🧐 50 cm³ 時是 ${t50} 秒，而 200 cm³ 時是 ${t200} 秒！${t50} 秒與 ${t200} 秒明顯不同喔！時間到底是縮短了還是變長了呢？`,
+                    summaryZh: "學生誤以為無變化，水精靈指引其比對 50 與 200 cm³ 的實測秒數。",
+                    strengthZh: "勇於表達觀察感受",
+                    growthZh: "需仔細比對不同水量的實測數字大小",
+                    focusTag: "Data Check / 數據比對",
+                    advanceStage: false
+                };
+            }
+
+            // 5. Microscopic Particle Explanation from Student ("水分子", "碰撞", "包圍", "粒子", "晶格", "擴散", "molecule", "collide", "collision")
+            if (/水分子|碰撞|包圍|晶格|擴散|molecule|collide|collision|particle/i.test(lower)) {
+                return {
+                    feedbackEn: "Brilliant! You think like a real Physicist! 🌊 In a larger volume of water, more water molecules collide with the sugar crystals simultaneously, pulling them apart and diffusing them much faster! Now look at the Green Line (Class Average): why do scientists calculate the class average instead of relying on just 1 group?",
+                    feedbackZh: "太出色了！你已經具備高中科學家的微觀思維！🌊 水量越多，水分子就越多；億萬個水分子同時從四周包圍並碰撞方糖晶格，迅速把糖分子拉入水中擴散！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均，而不是只相信 1 組呢？",
+                    summaryZh: "學生自主運用微觀水分子碰撞與擴散原理解釋溶解加速，表現極高科研思維。",
+                    strengthZh: "思維達到微觀分子層面，能將巨觀數據與微觀水分子碰撞模型連結",
+                    growthZh: "嘗試進一步思考全班平均值如何幫助抵消實驗中的隨機失誤",
+                    focusTag: "Microscopic Mechanism / 微觀水分子碰撞",
+                    nextStage: 2,
+                    advanceStage: (stage <= 1)
+                };
+            }
+
+            // 6. Questions from Student: "Why?" / "點解" / "為什麼"
             if (/點解|為什麼|為何|why/i.test(lower)) {
                 if (/水多|快|短|water|faster/i.test(lower) || stage <= 1) {
                     return {
@@ -1106,23 +1326,36 @@
                 }
             }
 
-            // 6. Stage 2: Class Average / Reliability ("平均", "可靠", "8組", "信度", "average", "reliable", "error")
-            if (/平均|可靠|信度|抵消|減少誤差|全班|average|reliable|error|sample|8\s*group/i.test(lower)) {
+            // 7. Misconception: "Longer" / "Increase" / "變長" / "慢咗"
+            if (/變長|長咗|增加|多咗|變多|慢咗|更慢|上升|longer|increase|more\s*time|slower/i.test(lower)) {
                 return {
-                    feedbackEn: "Bingo! Young scientist! 🎯 Calculating the average of 8 groups cancels random human errors and increases reliability! Now, compare your group's blue line with the green average line: what human factor in stirring or timing caused the slight differences?",
-                    feedbackZh: "答得太棒了！🎯 計算全班 8 組平均值能互相抵消單一小組的隨機失誤，使數據更具信度！最後一步：對比你組藍線與綠色平均線，在實驗操作中，什麼人為因素會導致各組有些微差異？",
-                    summaryZh: "深刻理解計算全班平均值能抵消隨機人為誤差、提升數據信度。",
-                    strengthZh: "深刻理解大樣本平均值與實驗可靠性",
-                    growthZh: "深化人為誤差根源探究（攪拌或計時）",
-                    focusTag: "Class Average / 誤差抵消",
-                    nextStage: 3,
+                    feedbackEn: `Thoughtful try! But look at the numbers: 50 cm³ took ${t50}s, while 200 cm³ took only ${t200}s. The number goes DOWN from ${t50} to ${t200}! Does fewer seconds mean FASTER or SLOWER dissolving?`,
+                    feedbackZh: `很好的推測！但細看縱軸秒數：50 cm³ 用了 ${t50} 秒，而 200 cm³ 只用了 ${t200} 秒，數值由 ${t50} 降到 ${t200} 變小了！秒數減少代表溶解是『更快』還是『更慢』呢？`,
+                    summaryZh: "學生誤以為時間變長，水精靈以實測數據引導理解『秒數減少 = 溶解加速』。",
+                    strengthZh: "具備主動推導意願",
+                    growthZh: "需注意『秒數變小』代表『溶解更快』之概念",
+                    focusTag: "Rate vs Time / 速率與時間辨析",
+                    advanceStage: false
+                };
+            }
+
+            // 8. Correct Trend: "Shorter" / "Faster" / "變短" / "快咗"
+            if (/變短|短咗|減少|變少|快咗|更快|降|跌|shorter|faster|less\s*time|decrease|drop/i.test(lower)) {
+                return {
+                    feedbackEn: `Spot-on! Super job! 🏆 Larger water volume takes SHORTER time (from ${t50}s down to ${t200}s), meaning the sugar dissolves FASTER! Now look at the Green Line (Class Average of 8 groups): why do scientists calculate the class average instead of trusting just 1 group?`,
+                    feedbackZh: `答得非常準確！太棒了！🏆 水量越多，方糖完全溶解所需的時間越短（從 ${t50}s 減至 ${t200}s，溶解速率越高）！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均值，而不是只相信單一小組的結果？`,
+                    summaryZh: "準確指出水量越多、溶解時間越短的反比規律，成功推進至平均值探究。",
+                    strengthZh: "概念清晰，能用自訂文字精確表達水量與溶解速率之反比關係",
+                    growthZh: "進一步探究全班平均值如何抵消人為隨機誤差",
+                    focusTag: "Water Volume / 水量反比",
+                    nextStage: 2,
                     advanceStage: true
                 };
             }
 
-            // 7. Stage 3: Human Errors / Limitations
-            // 7a. Stirring
-            if (/stir|speed|manual|hand|攪拌|手速|轉速|手攪|快慢/i.test(lower)) {
+            // 9. Stage 3: Specific Human Errors / Limitations
+            // 9a. Stirring
+            if (/stir|speed|manual|hand|攪拌|手速|轉速|手攪|快慢|手酸|手累/i.test(lower)) {
                 return {
                     feedbackEn: "A-MA-ZING! 🏆 Human manual stirring speed is never 100% constant! Different people stir faster or slower, creating slight time differences! You have completed the scientific inquiry!",
                     feedbackZh: "太厲害了！完全切中要害！人手攪拌速度難以保持絕對恆定，不同同學手速快慢有別，這正是各組數據微小差異的核心局限！你已圓滿完成科學探究！",
@@ -1137,7 +1370,7 @@
                 };
             }
 
-            // 7b. Timer / Reaction
+            // 9b. Timer / Reaction
             if (/timer|stopwatch|delay|reaction|late|碼錶|計時|反應|延遲|按慢|手慢/i.test(lower)) {
                 return {
                     feedbackEn: "Terrific observation! ⏱️ The human brain takes about 0.2-0.3s to react, and naked-eye judgment of 'completely dissolved' is subjective! Outstanding scientific thinking!",
@@ -1153,8 +1386,8 @@
                 };
             }
 
-            // 7c. Smashed sugar
-            if (/smash|crush|break|戳碎|搗碎|碎咗|顆粒/i.test(lower)) {
+            // 9c. Smashed sugar / Particle size
+            if (/smash|crush|break|戳碎|搗碎|碎咗|顆粒|表面積/i.test(lower)) {
                 return {
                     feedbackEn: "Aha! Smashing the sugar changes the particle surface area! That alters a controlled variable and violates the Fair Test rules! What a deep reflection!",
                     feedbackZh: "哈哈！戳碎方糖就改變了方糖的顆粒大小（表面積），破壞了公平測試（Fair Test）的控制變因！這個反思非常深刻！恭喜你圓滿完成探究！",
@@ -1169,8 +1402,24 @@
                 };
             }
 
-            // 7d. STEM Sensors / Automation
-            if (/sensor|machine|motor|magnetic|robot|auto|傳感器|磁力|機器|機械|自動/i.test(lower)) {
+            // 9d. Water temperature
+            if (/temp|temperature|水溫|溫度|熱水|冷水/i.test(lower)) {
+                return {
+                    feedbackEn: "Brilliant check on Controlled Variables! 🌡️ Water temperature directly influences molecular energy! If temperatures differ, it wasn't a completely fair test!",
+                    feedbackZh: "非常敏銳的控制變因檢查！🌡️ 水溫會直接影響水分子的運動能量！如果各次測試水溫不一致，就破壞了公平測試！恭喜你圓滿完成探究！",
+                    summaryZh: "學生敏銳指出水溫微小變化可能造成實驗誤差。",
+                    strengthZh: "嚴謹遵守公平測試原則，具備良好變因控制意識",
+                    growthZh: "在實驗記錄表中增加溫度監測項",
+                    focusTag: "Temperature Control / 水溫控制",
+                    personalizedPoint3En: "Fair Test Limitation: Inadvertent temperature fluctuations impact molecular dissolution rates.",
+                    personalizedPoint3Zh: "水溫微小波動會影響水分子溶解速率，需嚴格控管控制變因。",
+                    nextStage: 4,
+                    advanceStage: true
+                };
+            }
+
+            // 9e. STEM Sensors / Automation
+            if (/sensor|machine|motor|magnetic|robot|auto|傳感器|磁力|機器|機械|自動|濁度/i.test(lower)) {
                 return {
                     feedbackEn: "Brilliant! You think like a STEM Engineer! 🛠️ Using magnetic stirrers and turbidity sensors eliminates human error entirely!",
                     feedbackZh: "太有遠見了！具備出色的 STEM 工程思維！使用定速磁力攪拌器與光學濁度傳感器，能完全消弭人為操作誤差！恭喜你圓滿完成探究！",
@@ -1185,10 +1434,49 @@
                 };
             }
 
-            // 8. General Contextual Socratic Fallback based on stage
+            // 10. Stage 2: Class Average / Reliability ("平均", "可靠", "8組", "信度", "抵消", "減少誤差", "更準確", "避免失誤")
+            if (/平均|可靠|信度|抵消|減少誤差|全班|準確|失誤|避免|average|reliable|sample|8\s*group|cancel|accurate/i.test(lower)) {
+                return {
+                    feedbackEn: "Bingo! Young scientist! 🎯 Calculating the average of 8 groups cancels random human errors and increases reliability! Now, compare your group's blue line with the green average line: what human factor in stirring or timing caused the slight differences?",
+                    feedbackZh: "答得太棒了！🎯 計算全班 8 組平均值能互相抵消單一小組的隨機失誤，使數據更具信度！最後一步：對比你組藍線與綠色平均線，在實驗操作中，什麼人為因素會導致各組有些微差異？",
+                    summaryZh: "深刻理解計算全班平均值能抵消隨機人為誤差、提升數據信度。",
+                    strengthZh: "深刻理解大樣本平均值與實驗可靠性",
+                    growthZh: "深化人為誤差根源探究（攪拌或計時）",
+                    focusTag: "Class Average / 誤差抵消",
+                    nextStage: 3,
+                    advanceStage: true
+                };
+            }
+
+            // 11. Off-topic & Casual Chit-chat
+            if (/食飯|吃飯|好熱|好肚餓|好累|好靚仔|無聊|haha|哈哈|bye|再見|打機|玩遊戲|落堂|放學|食嘢/i.test(lower)) {
+                return {
+                    feedbackEn: "Haha, Agent Water enjoys chatting with you! 💧 But our science mission is calling! Look at the beaker on your desk: did more water make the sugar disappear faster or slower?",
+                    feedbackZh: "哈哈，水精靈也喜歡跟你聊天！💧 不過我們的科學任務還在召喚你呢！看看桌上的燒杯：水量越多，方糖是溶得更快還是更慢呢？",
+                    summaryZh: "學生進行日常閒聊，水精靈以親切幽默語氣引導其回歸實驗探究。",
+                    strengthZh: "性格開朗活潑，樂於交流互動",
+                    growthZh: "將注意力集中回實驗數據與圖表走勢",
+                    focusTag: "Attentive Focus / 專注引導",
+                    advanceStage: false
+                };
+            }
+
+            // 12. Affirmations / Acknowledgment ("好的", "ok", "知道了", "明白", "yes", "好", "sure")
+            if (/^(好的|ok|知道了|明白|yes|好|好呀|可以|sure|fine|收到)$/i.test(lower)) {
+                return {
+                    feedbackEn: "Awesome! Ready for the challenge? 🚀 Tell me: looking at your blue line, does it slant downward or upward?",
+                    feedbackZh: "太好了！準備好接受挑戰了嗎？🚀 快告訴我：看看你的藍色折線，它是向下傾斜還是向上爬升呢？",
+                    summaryZh: "學生表示明白，水精靈鼓勵其主動提出具體觀察。",
+                    strengthZh: "積極配合對話引導",
+                    growthZh: "嘗試用文字直接回答時間的具體變化",
+                    advanceStage: false
+                };
+            }
+
+            // 13. General Contextual Socratic Fallback based on stage
             if (stage <= 1) {
                 return {
-                    feedbackEn: `Interesting thought! 💧 Let's check the numbers on your blue line: as water increases from 50 to 200 cm³, does the dissolving time get SHORTER or LONGER?`,
+                    feedbackEn: `收到你的想法！💧 Let's check the numbers on your blue line: as water increases from 50 to 200 cm³, does the dissolving time get SHORTER or LONGER?`,
                     feedbackZh: `收到你的想法！💧 讓我們回歸藍色折線的數據：當水量由 50 增加至 200 cm³ 時，溶解所需時間到底是變短（變少）還是變長（變多）呢？`,
                     summaryZh: `學生進行自主輸入，水精靈針對第一階段水量走向進行鷹架式引導。`,
                     strengthZh: "主動嘗試用個人語言表達觀點",
@@ -2084,7 +2372,377 @@
             document.getElementById('teacherStatFocus').innerText = topFocus;
 
             renderTeacherGroupGrid();
+            updateDynamicDiscussionPrompts();
         }
+
+        // ================= DYNAMIC ADAPTIVE WHOLE-CLASS DISCUSSION PROMPTS =================
+        function updateDynamicDiscussionPrompts() {
+            const avgData = calculateClassAverage();
+            
+            // 1. Data Heterogeneity: Find two groups with largest variance at 150 cm³
+            let submittedGroups = [];
+            for(let i=1; i<=8; i++) {
+                const gKey = `Group ${i}`;
+                if (classData[gKey]?.data) {
+                    submittedGroups.push({
+                        key: gKey,
+                        num: i,
+                        t150: classData[gKey].data[150],
+                        t200: classData[gKey].data[200],
+                        data: classData[gKey].data
+                    });
+                }
+            }
+
+            const t1Title = document.getElementById('topic1Title');
+            const t1TitleEn = document.getElementById('topic1TitleEn');
+            const t1Desc = document.getElementById('topic1Desc');
+            const t1Scaffold = document.getElementById('topic1ScaffoldSteps');
+
+            if (submittedGroups.length >= 2) {
+                // Sort by t150 to find max difference
+                submittedGroups.sort((a, b) => b.t150 - a.t150);
+                const maxG = submittedGroups[0];
+                const minG = submittedGroups[submittedGroups.length - 1];
+                const diff = Math.round((maxG.t150 - minG.t150) * 10) / 10;
+
+                if (t1Title) {
+                    t1Title.innerHTML = `🔍 實時學情聚焦：第 ${maxG.num} 組 (${maxG.t150}s) 與第 ${minG.num} 組 (${minG.t150}s) 在 150 cm³ 相差高達 ${diff} 秒！你會如何驗證原因？`;
+                }
+                if (t1TitleEn) {
+                    t1TitleEn.innerText = `Real-time Class Focus: Group ${maxG.num} (${maxG.t150}s) and Group ${minG.num} (${minG.t150}s) differ by ${diff}s at 150 cm³! How would you verify it?`;
+                }
+                if (t1Desc) {
+                    t1Desc.innerHTML = `
+                        實時檢測到全班第 ${maxG.num} 組與第 ${minG.num} 組在 150 cm³ 出現顯著落差（相差 ${diff} 秒）。如果出現兩組數據走勢矛盾或數值差距顯著，我們應該直接刪除異常組別，還是重新檢查操作細節？<br>
+                        <span class="text-[10px] text-slate-500 italic">Discrepancy of ${diff}s detected between Group ${maxG.num} and Group ${minG.num}. If groups show contradictory trends, should we discard outliers or inspect operational details?</span>
+                    `;
+                }
+                if (t1Scaffold) {
+                    t1Scaffold.innerHTML = `
+                        <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
+                        <p><strong>1. 實時數據對比 (Live Comparison)：</strong>第 ${maxG.num} 組 (${maxG.t150}s) 與第 ${minG.num} 組 (${minG.t150}s) 相差 ${diff} 秒！這是在各組中差距最大的點，能否看出哪組可能是離群值？<br><span class="text-[10px] text-slate-500 italic">Group ${maxG.num} (${maxG.t150}s) vs Group ${minG.num} (${minG.t150}s) has the largest gap of ${diff}s. Can you identify potential outliers?</span></p>
+                        <p><strong>2. 變因排查 (Variable Check)：</strong>兩組的水溫、方糖質量是否確實相同？有沒有同學中途戳碎方糖或忘記立刻按錶？<br><span class="text-[10px] text-slate-500 italic">Were water temperature and sugar mass identical? Did anyone crush the sugar or delay the timer?</span></p>
+                        <p><strong>3. 科學決策 (Scientific Decision)：</strong>如果無法判定誰出錯，科學家會：A. 刪除異常值 B. 算平均 C. 重複實驗？為什麼？<br><span class="text-[10px] text-slate-500 italic">If unsure which is wrong, would scientists: A. Discard outlier, B. Average them, or C. Replicate test? Why?</span></p>
+                    `;
+                }
+            } else {
+                if (t1Title) t1Title.innerHTML = `🔍 假設第 3 組與第 7 組的折線走向完全相反，你會如何驗證？`;
+                if (t1TitleEn) t1TitleEn.innerText = `If Group 3 and Group 7 have completely opposite line trends, how would you verify it?`;
+            }
+
+            // 2. Experimental Engineering: Analyze chat error topics across 8 groups
+            let errorCounts = { stirring: 0, stopwatch: 0, sugar: 0, temp: 0, stem: 0 };
+            let groupsCitingStir = [];
+            let groupsCitingTimer = [];
+
+            for(let i=1; i<=8; i++) {
+                const gKey = `Group ${i}`;
+                const logs = classData[gKey]?.chatLogs || [];
+                logs.forEach(msg => {
+                    const t = (msg.en + " " + msg.zh).toLowerCase();
+                    if (/stir|speed|攪拌|手速|轉速/.test(t)) {
+                        errorCounts.stirring++;
+                        if (!groupsCitingStir.includes(`第${i}組`)) groupsCitingStir.push(`第${i}組`);
+                    }
+                    if (/timer|stopwatch|reaction|delay|碼錶|計時|反應|延遲/.test(t)) {
+                        errorCounts.stopwatch++;
+                        if (!groupsCitingTimer.includes(`第${i}組`)) groupsCitingTimer.push(`第${i}組`);
+                    }
+                    if (/crush|smash|戳碎|碎/.test(t)) errorCounts.sugar++;
+                    if (/temp|temperature|水溫|溫度/.test(t)) errorCounts.temp++;
+                    if (/sensor|magnetic|自動|傳感器|磁力/.test(t)) errorCounts.stem++;
+                });
+            }
+
+            const t2Title = document.getElementById('topic2Title');
+            const t2TitleEn = document.getElementById('topic2TitleEn');
+            const t2Desc = document.getElementById('topic2Desc');
+
+            if (errorCounts.stirring >= errorCounts.stopwatch && errorCounts.stirring > 0) {
+                const citedList = groupsCitingStir.slice(0, 3).join('、') || '多數小組';
+                if (t2Title) t2Title.innerHTML = `🛠️ 實時學情焦點：${citedList}提出「人手攪拌速度不均」為主要誤差！如何改進裝置做到完全恆速？`;
+                if (t2TitleEn) t2TitleEn.innerText = `Class Live Focus: ${citedList} identified "Inconsistent manual stirring" as the main error! How to engineer constant stirring?`;
+                if (t2Desc) t2Desc.innerHTML = `各組在與 Agent Water 對話中普遍發現人手攪拌極難保持固定轉速。想像你可以引入任何科技工具，你會如何改進攪拌裝置？<br><span class="text-[10px] text-slate-500 italic">Students frequently noted the difficulty of manual stirring. How would you engineer automated constant RPM stirring?</span>`;
+            } else if (errorCounts.stopwatch > 0) {
+                const citedList = groupsCitingTimer.slice(0, 3).join('、') || '多數小組';
+                if (t2Title) t2Title.innerHTML = `🛠️ 實時學情焦點：${citedList}提到「按停碼錶反應延遲」為主要誤差！如何改進裝置實現自動檢測？`;
+                if (t2TitleEn) t2TitleEn.innerText = `Class Live Focus: ${citedList} noted "Stopwatch reaction delay"! How could apparatus detect endpoint automatically?`;
+                if (t2Desc) t2Desc.innerHTML = `肉眼主觀判斷與人腦反應延遲是隨機誤差根源。如何利用光學傳感器（Light Sensor）讓系統自動偵測方糖完全溶解並即時停錶？<br><span class="text-[10px] text-slate-500 italic">Subjective visual judgement and reaction delay cause errors. How could optical turbidity sensors automate endpoint detection?</span>`;
+            } else {
+                if (t2Title) t2Title.innerHTML = `🛠️ 如果要設計一個完全「零人為誤差」的溶解實驗，你會如何改進裝置？`;
+                if (t2TitleEn) t2TitleEn.innerText = `To design a "Zero Human Error" dissolving experiment, how would you improve the apparatus?`;
+            }
+
+            // 3. Limit Thinking: Use real class average at 200 cm³
+            const t3Title = document.getElementById('topic3Title');
+            const t3TitleEn = document.getElementById('topic3TitleEn');
+            const t3Desc = document.getElementById('topic3Desc');
+            const t3Scaffold = document.getElementById('topic3ScaffoldSteps');
+
+            const avg200 = avgData ? avgData[200] : 30;
+            const avg50 = avgData ? avgData[50] : 120;
+            const avg100 = avgData ? avgData[100] : 70;
+            const avg150 = avgData ? avgData[150] : 45;
+            const dropEarly = Math.round((avg50 - avg100) * 10) / 10;
+            const dropLate = Math.round((avg150 - avg200) * 10) / 10;
+
+            if (t3Title) {
+                t3Title.innerHTML = `🌊 全班實測 200 cm³ 平均為 ${avg200} 秒。若將水量無限增加至 5000 cm³，溶解時間會無限制地變成 0 秒嗎？`;
+            }
+            if (t3TitleEn) {
+                t3TitleEn.innerText = `Class average at 200 cm³ is ${avg200}s. If water volume increases to 5000 cm³, will dissolving time drop to 0 seconds?`;
+            }
+            if (t3Desc) {
+                t3Desc.innerHTML = `
+                    全班折線顯示前期下降快（50 $\\rightarrow$ 100 cm³ 減少約 ${dropEarly}s），後期趨緩（150 $\\rightarrow$ 200 cm³ 僅減少約 ${dropLate}s）。水量加速溶解效果是否存在物理極限？<br>
+                    <span class="text-[10px] text-slate-500 italic">Early drop is sharp (${dropEarly}s) while later drop flattens (${dropLate}s). Does dissolving acceleration have a physical limit?</span>
+                `;
+            }
+            if (t3Scaffold) {
+                t3Scaffold.innerHTML = `
+                    <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
+                    <p><strong>1. 觀察斜率 (Observe Gradient)：</strong>全班前期下降了 ${dropEarly} 秒，後期僅下降了 ${dropLate} 秒，曲線越來越平緩，代表什麼？<br><span class="text-[10px] text-slate-500 italic">Early decrease is ${dropEarly}s while later is only ${dropLate}s. The curve flattens—what does this signify?</span></p>
+                    <p><strong>2. 物理常識 (Physical Reality)：</strong>即使把方糖扔進太平洋（極大水量），水分子拆解方糖晶格需要時間嗎？能否為 0 秒？<br><span class="text-[10px] text-slate-500 italic">Even in an ocean, does water take time to break sugar crystal bonds? Can it ever be 0s?</span></p>
+                    <p><strong>3. 外推批判 (Extrapolation Critique)：</strong>用有限的數據曲線去預測無窮大的極端情況，需要注意什麼限制？<br><span class="text-[10px] text-slate-500 italic">What are the risks of using limited data points to predict extreme conditions?</span></p>
+                `;
+            }
+        }
+
+        // ================= PHOTO CAPTURE & AI PEDAGOGICAL GENERATION =================
+        let currentStudentAnswerImageData = null;
+        let lastGeneratedPedagogy = null;
+
+        function handleAnswerPhotoSelected(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentStudentAnswerImageData = e.target.result;
+                const img = document.getElementById('photoPreviewImg');
+                const container = document.getElementById('photoPreviewContainer');
+                const placeholder = document.getElementById('photoPlaceholder');
+                if (img) img.src = currentStudentAnswerImageData;
+                if (container) container.classList.remove('hidden');
+                if (placeholder) placeholder.classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeAnswerPhoto() {
+            currentStudentAnswerImageData = null;
+            const input = document.getElementById('studentAnswerPhotoInput');
+            if (input) input.value = '';
+            const container = document.getElementById('photoPreviewContainer');
+            const placeholder = document.getElementById('photoPlaceholder');
+            if (container) container.classList.add('hidden');
+            if (placeholder) placeholder.classList.remove('hidden');
+        }
+
+        function fillSampleStudentAnswer(type) {
+            const textarea = document.getElementById('studentAnswerText');
+            if (!textarea) return;
+
+            if (type === 'microscopic') {
+                textarea.value = "第4組工作紙：水量增加時水分子數量變多，每秒碰撞方糖的分子數量大增，所以溶解更快；但若加至5000ml時間不會是0秒，因為水分子拆解方糖晶格需要時間，不能瞬間完成。";
+            } else if (type === 'misconception') {
+                textarea.value = "第2組工作紙：水量變多，水杯變重，方糖在水裡要走的路程更遠，所以溶解時間會變長。";
+            } else if (type === 'human_error') {
+                textarea.value = "第6組工作紙：我們組的線比全班平均慢了20秒，因為攪拌時手累了轉速變慢，碼錶按停也慢了。";
+            }
+        }
+
+        function generateStudentAnswerPedagogy() {
+            const textarea = document.getElementById('studentAnswerText');
+            const text = textarea ? textarea.value.trim() : '';
+            
+            if (!text && !currentStudentAnswerImageData) {
+                alert("請先拍攝/上傳學生答案照片，或輸入學生作答文字！\nPlease take/upload a photo or enter student answer text!");
+                return;
+            }
+
+            const btn = document.getElementById('btnGeneratePedagogy');
+            const resultBox = document.getElementById('pedagogyResultContainer');
+            const praiseEl = document.getElementById('pedagogyPraise');
+            const diagEl = document.getElementById('pedagogyDiagnostic');
+            const promptsEl = document.getElementById('pedagogyPrompts');
+
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i><span>AI 深度學情分析中...</span>`;
+                if (window.lucide) lucide.createIcons();
+            }
+
+            setTimeout(() => {
+                const lower = text.toLowerCase();
+                let praise = "";
+                let diag = "";
+                let promptQ1 = "";
+                let promptQ1En = "";
+                let promptQ2 = "";
+                let promptQ2En = "";
+
+                if (/水分子|碰撞|晶格|拆解|分子|微觀|molecule|collide|particle/.test(lower) || /5000|極限|不會是0|不能瞬間/.test(lower)) {
+                    praise = "🌟 思維極具深度！學生能從巨觀實驗現象（水量多溶解快）飛躍至微觀分子碰撞模型（水分子數量大增與碰撞頻率提升），並展現卓越的『物理極限思維』，洞察到化學晶格拆解必須消耗時間。";
+                    diag = "🔍 概念模型相當純熟。學生已具備高階科學視野，教學上應引導其將『水分子碰撞頻率』與折線圖的『曲線斜率平緩』相結合，促成數據與微觀機制的完美印證。";
+                    promptQ1 = "1. 水分子碰撞能解釋為什麼水多溶得快，那如果我們換成『熱水』，水分子的碰撞運動又會發生什麼驚人變化？";
+                    promptQ1En = "Water molecules explain faster dissolving with more volume; how would HOT water alter this molecular collision rate?";
+                    promptQ2 = "2. 既然 5000 ml 水量都絕不會變成 0 秒，如果請大家把這個趨勢畫在坐標圖上，這條線會如何『無限接近卻不碰到 0』？";
+                    promptQ2En = "Since 5000 ml will never reach 0 seconds, how does this curve asymptote towards a physical limit without touching zero?";
+                } else if (/變長|路程|重|阻力|更慢|慢咗|longer|slower|heavy/.test(lower)) {
+                    praise = "🌟 勇於提出個人假設！學生嘗試用日常經驗（杯子變重、空間變大、移動路程遠）構建因果模型，展現主動思考的探究勇氣。";
+                    diag = "🔍 存在典型宏觀直覺偏誤：誤把『容器變大/空間增長』當作溶解障礙，忽視了水分子是主動從四面八方包圍並撕扯方糖的微觀機制。";
+                    promptQ1 = "1. 請大家想像：把一顆方糖丟進小水杯或大泳池，方糖周圍是被更多水分子包圍，還是更少水分子包圍？";
+                    promptQ1En = "Imagine dropping sugar in a small beaker vs an Olympic pool: is it surrounded by more or fewer water molecules?";
+                    promptQ2 = "2. 讓我們回頭看剛才全班 8 組的折線圖：當水量由 50 增加到 200 cm³ 時，秒數到底是上升了還是下降了？實測證據告訴了我們什麼？";
+                    promptQ2En = "Looking back at the class chart: as volume rose from 50 to 200 cm³, did seconds rise or fall? What does the evidence prove?";
+                } else if (/攪拌|手速|轉速|手累|手酸|碼錶|按停|延遲|看錯|眼花|stir|timer|stopwatch/.test(lower)) {
+                    praise = "🌟 具備科研批判素養！誠實面對實驗操作細節，敏銳洞察手動攪拌轉速與眼手神經反應時間對實驗精確度的干擾。";
+                    diag = "🔍 準確抓取隨機誤差核心。學生已突破單純『記數據』層面，轉入『評估證據信度』。應引導其思考如何以工程儀器取代人為失誤。";
+                    promptQ1 = "1. 大家都提到人手攪拌容易手酸變慢，如果由你擔任實驗室工程師，你會如何設計一套保證『每分鐘 300 轉絕對恆定』的攪拌裝置？";
+                    promptQ1En = "Students noted manual fatigue alters stirring; as a lab engineer, how would you design a constant 300 RPM automated stirrer?";
+                    promptQ2 = "2. 肉眼判斷『方糖是否完全消失』難免因人而異，我們能用什麼光學或傳感技術（Sensor）來做最客觀的裁判？";
+                    promptQ2En = "Judging when sugar is 100% dissolved is subjective; what optical sensor technology could make an objective endpoint judgment?";
+                } else {
+                    praise = "🌟 學生能積極結合實驗記錄進行文字反思，展現參與課堂科學探究的主動性。";
+                    diag = "🔍 建議加強將個人觀察與全班折線圖數據比對的意識，並引導運用更規範的科學術語（如溶質、溶劑、速率）。";
+                    promptQ1 = "1. 針對這位同學的回答，其他組別在剛才的操作中有沒有觀察到相似或相反的現象？";
+                    promptQ1En = "Regarding this response, did other groups observe similar or contrasting phenomena during testing?";
+                    promptQ2 = "2. 我們如何從黑板上的全班平均折線圖中，找出最有力的證據來支持或質疑這個觀點？";
+                    promptQ2En = "How can we find the strongest evidence from the class average line chart to support or test this argument?";
+                }
+
+                lastGeneratedPedagogy = {
+                    studentText: text || "學生工作紙手寫答案照片 (Student Worksheet Photo)",
+                    imageSrc: currentStudentAnswerImageData,
+                    praise,
+                    diag,
+                    promptQ1,
+                    promptQ1En,
+                    promptQ2,
+                    promptQ2En
+                };
+
+                if (praiseEl) praiseEl.innerText = praise;
+                if (diagEl) diagEl.innerText = diag;
+                if (promptsEl) {
+                    promptsEl.innerHTML = `
+                        <div class="p-2 bg-amber-100/70 rounded-lg border border-amber-200">
+                            <p class="font-bold text-amber-950">${promptQ1}</p>
+                            <p class="text-[10px] text-amber-800 italic mt-0.5">${promptQ1En}</p>
+                        </div>
+                        <div class="p-2 bg-amber-100/70 rounded-lg border border-amber-200">
+                            <p class="font-bold text-amber-950">${promptQ2}</p>
+                            <p class="text-[10px] text-amber-800 italic mt-0.5">${promptQ2En}</p>
+                        </div>
+                    `;
+                }
+
+                if (resultBox) resultBox.classList.remove('hidden');
+
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i data-lucide="brain-circuit" class="w-4 h-4"></i><span>✨ AI 即時生成啟發性提問 (Generate AI Pedagogy)</span>`;
+                    if (window.lucide) lucide.createIcons();
+                }
+
+            }, 600);
+        }
+
+        function copyPedagogyPrompts() {
+            if (!lastGeneratedPedagogy) return;
+            const textToCopy = `【全班延伸啟發追問 / Inspiring Prompts】\n${lastGeneratedPedagogy.promptQ1}\n${lastGeneratedPedagogy.promptQ1En}\n\n${lastGeneratedPedagogy.promptQ2}\n${lastGeneratedPedagogy.promptQ2En}`;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const btnText = document.getElementById('copyBtnText');
+                if (btnText) {
+                    btnText.innerText = "已複製 ✓";
+                    setTimeout(() => { btnText.innerText = "複製提問"; }, 2000);
+                }
+            });
+        }
+
+        function openProjectorModal() {
+            if (!lastGeneratedPedagogy) return;
+            const modal = document.getElementById('projectorModal');
+            const content = document.getElementById('projectorContent');
+            if (!modal || !content) return;
+
+            content.innerHTML = `
+                <!-- Student Answer Display Section -->
+                <div class="bg-white rounded-3xl p-6 border-2 border-amber-200 shadow-sm space-y-4">
+                    <div class="flex items-center justify-between border-b border-amber-100 pb-3">
+                        <span class="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+                            <i data-lucide="file-text" class="w-4 h-4 text-amber-600"></i>
+                            <span>學生作答實時展示 / Live Student Answer</span>
+                        </span>
+                        <span class="text-xs bg-amber-100 text-amber-900 font-extrabold px-3 py-1 rounded-full">
+                            Classroom Evidence
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        ${lastGeneratedPedagogy.imageSrc ? `
+                            <div class="w-full md:w-1/3 flex justify-center">
+                                <img src="${lastGeneratedPedagogy.imageSrc}" alt="Student Worksheet" class="max-h-60 rounded-2xl border-2 border-amber-300 shadow-md object-contain bg-slate-50">
+                            </div>
+                        ` : ''}
+                        <div class="w-full ${lastGeneratedPedagogy.imageSrc ? 'md:w-2/3' : 'md:w-full'}">
+                            <p class="text-base sm:text-xl font-bold text-slate-800 leading-relaxed bg-amber-50/70 p-4 rounded-2xl border border-amber-200">
+                                「${lastGeneratedPedagogy.studentText}」
+                            </p>
+                            <div class="mt-3 text-xs text-emerald-800 font-semibold bg-emerald-50 p-2.5 rounded-xl border border-emerald-200">
+                                💡 思維亮點：${lastGeneratedPedagogy.praise.replace('🌟 ', '')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Big Inspiring Inquiry Question for Whole-Class Projection -->
+                <div class="bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl space-y-4 border-2 border-amber-300">
+                    <div class="flex items-center gap-2 text-amber-200 text-sm font-extrabold uppercase tracking-widest">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i>
+                        <span>全班核心探究追問 / Whole-Class Socratic Inquiry</span>
+                    </div>
+                    
+                    <div class="space-y-4 pt-1">
+                        <div class="bg-white/15 backdrop-blur-md p-5 rounded-2xl border border-white/30 space-y-2">
+                            <p class="text-xl sm:text-2xl font-black leading-snug text-white">
+                                ${lastGeneratedPedagogy.promptQ1}
+                            </p>
+                            <p class="text-sm sm:text-base text-amber-100 font-medium italic">
+                                ${lastGeneratedPedagogy.promptQ1En}
+                            </p>
+                        </div>
+
+                        <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 space-y-1.5">
+                            <p class="text-lg sm:text-xl font-bold text-white">
+                                ${lastGeneratedPedagogy.promptQ2}
+                            </p>
+                            <p class="text-xs sm:text-sm text-amber-100 font-medium italic">
+                                ${lastGeneratedPedagogy.promptQ2En}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function closeProjectorModal() {
+            const modal = document.getElementById('projectorModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        // ESC key listener to close modals
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeProjectorModal();
+                closeGroupDetailModal();
+            }
+        });
 
         // Render 8 Groups Matrix with ample space for Strengths & Growth + Clickable detail modal
         function renderTeacherGroupGrid() {
@@ -2154,7 +2812,7 @@
             if (window.lucide) lucide.createIcons();
         }
 
-        // ================= GROUP DETAIL MODAL =================
+        // ================= GROUP DETAIL MODAL WITH EVIDENCE-BASED DIAGNOSTICS =================
         function openGroupDetailModal(gKey) {
             const modal = document.getElementById('groupDetailModal');
             const gInfo = classData[gKey];
@@ -2186,6 +2844,102 @@
             document.getElementById('modalStrength').innerText = gInfo.strengthZh;
             document.getElementById('modalGrowth').innerText = gInfo.growthZh;
 
+            // Find key student evidence message in chatLogs
+            let evidenceMsg = null;
+            let evidenceIndex = -1;
+            let evidenceRationale = "能正確解讀折線圖走向，建立水量與溶解速率之因果關係。";
+            let teacherFollowUp = "老師可引導追問：「如果水量加到 500 ml，時間還會以相同幅度減少嗎？為什麼？」";
+
+            // Traverse chatLogs to find significant student messages
+            for (let i = gInfo.chatLogs.length - 1; i >= 0; i--) {
+                const item = gInfo.chatLogs[i];
+                if (item.sender === 'user') {
+                    const raw = (item.zh || item.en || '').toLowerCase();
+                    if (/stir|speed|攪拌|手速|轉速|快慢|手累|手酸/.test(raw)) {
+                        evidenceMsg = item;
+                        evidenceIndex = i;
+                        evidenceRationale = "敏銳反思實驗操作人為局限，準確指出手動攪拌轉速難以保持恆定是造成數據波動的關鍵原因。";
+                        teacherFollowUp = "老師可邀請該組向全班分享：「你們組是如何發現攪拌速度會影響秒數的？有什麼工具可以改進？」";
+                        break;
+                    } else if (/timer|stopwatch|reaction|delay|碼錶|計時|反應|延遲|按慢/.test(raw)) {
+                        evidenceMsg = item;
+                        evidenceIndex = i;
+                        evidenceRationale = "準確捕捉到人體神經反應時間與肉眼主觀判斷對實驗終點記錄的隨機干擾。";
+                        teacherFollowUp = "老師可引導追問：「肉眼看方糖溶完可能會有誤差，如何用濁度傳感器（Light Sensor）讓它自動停止計時？」";
+                        break;
+                    } else if (/smash|crush|戳碎|碎|表面積/.test(raw)) {
+                        evidenceMsg = item;
+                        evidenceIndex = i;
+                        evidenceRationale = "誠實反思操作細節，深刻認識到戳碎方糖破壞了公平測試（Fair Test）的控制變因。";
+                        teacherFollowUp = "老師可肯定其誠實反思：「戳碎方糖增加了什麼面積？這對溶劑分子碰撞有何影響？」";
+                        break;
+                    } else if (/8組|平均|抵消|減少誤差|更準確|信度|average|reliable|cancel/.test(raw)) {
+                        evidenceMsg = item;
+                        evidenceIndex = i;
+                        evidenceRationale = "深刻理解大樣本全班平均值在抵消單一小組隨機操作誤差、提升數據信度方面的科學價值。";
+                        teacherFollowUp = "老師可追問：「如果有某一組數據嚴重離群（例如高出 100 秒），我們還應該直接算平均嗎？」";
+                        break;
+                    } else if (/短|少|快|減少|降|跌|shorter|faster|decrease|drop/.test(raw)) {
+                        evidenceMsg = item;
+                        evidenceIndex = i;
+                        evidenceRationale = "能正確解讀折線圖走向，精準建立『水量增加導致方糖溶解所需時間縮短』之反比規律。";
+                        teacherFollowUp = "老師可引導追問：「水量增加讓方糖溶得更快，那微觀上水分子是怎樣加速拆解方糖的呢？」";
+                        break;
+                    } else if (/不知道|不懂|唔識|點做|help|難/.test(raw)) {
+                        evidenceMsg = item;
+                        evidenceIndex = i;
+                        evidenceRationale = "誠實反映學習疑難並能跟隨水精靈之階梯提示逐步對比 50 與 200 cm³ 點位。";
+                        teacherFollowUp = "老師可給予口頭肯定，並引導學生用手指比對圖表縱軸數值的高低。";
+                        break;
+                    } else if (/多|長|慢|增加|longer|slower|increase/.test(raw)) {
+                        evidenceMsg = item;
+                        evidenceIndex = i;
+                        evidenceRationale = "勇於提出初步假設，經由實測數據比對後加深對『秒數少 = 溶解快』的認知。";
+                        teacherFollowUp = "老師可至該組旁，引導學生手指著縱軸數字「從 120 往下看」，追問「秒數變小代表快還是慢？」";
+                        break;
+                    }
+                }
+            }
+
+            if (!evidenceMsg) {
+                for (let i = 0; i < gInfo.chatLogs.length; i++) {
+                    if (gInfo.chatLogs[i].sender === 'user') {
+                        evidenceMsg = gInfo.chatLogs[i];
+                        evidenceIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            const strengthEvidenceEl = document.getElementById('modalStrengthEvidence');
+            const growthInterventionEl = document.getElementById('modalGrowthIntervention');
+
+            if (evidenceMsg) {
+                const quotedText = evidenceMsg.zh || evidenceMsg.en;
+                if (strengthEvidenceEl) {
+                    strengthEvidenceEl.innerHTML = `
+                        <div class="flex items-center gap-1 font-bold text-emerald-900 mb-1">
+                            <span>📌 對話證據 (Dialogue Evidence)：</span>
+                        </div>
+                        <p class="font-bold text-emerald-950 italic">學生回答：「${quotedText}」</p>
+                        <p class="text-[11px] text-emerald-800 mt-1">💡 證據解讀：${evidenceRationale}</p>
+                    `;
+                    strengthEvidenceEl.classList.remove('hidden');
+                }
+                if (growthInterventionEl) {
+                    growthInterventionEl.innerHTML = `
+                        <div class="flex items-center gap-1 font-bold text-amber-900 mb-1">
+                            <span>💡 建議教師課堂介入提問 (Targeted Follow-up)：</span>
+                        </div>
+                        <p class="font-semibold text-amber-950 leading-relaxed">「${teacherFollowUp}」</p>
+                    `;
+                    growthInterventionEl.classList.remove('hidden');
+                }
+            } else {
+                if (strengthEvidenceEl) strengthEvidenceEl.classList.add('hidden');
+                if (growthInterventionEl) growthInterventionEl.classList.add('hidden');
+            }
+
             // Chat Logs
             const chatList = document.getElementById('modalChatList');
             chatList.innerHTML = '';
@@ -2196,23 +2950,32 @@
             } else {
                 gInfo.chatLogs.forEach((msg, idx) => {
                     const row = document.createElement('div');
+                    const isKeyEvidence = (idx === evidenceIndex);
+                    const isFollowUpScaffold = (evidenceIndex !== -1 && idx === evidenceIndex + 1);
+
                     if (msg.sender === 'ai') {
                         row.className = "flex items-start gap-2 text-xs";
                         row.innerHTML = `
-                            <div class="w-6 h-6 rounded-full bg-sky-200 text-sky-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0">💧</div>
-                            <div class="bg-sky-100/90 text-slate-800 p-2.5 rounded-2xl rounded-tl-sm max-w-[85%] space-y-1">
-                                <p class="font-semibold text-sky-950">${msg.en}</p>
-                                <p class="text-slate-600 text-[11px] border-t border-sky-200 pt-0.5">${msg.zh}</p>
+                            <div class="w-6 h-6 rounded-full bg-sky-200 text-sky-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-1">💧</div>
+                            <div class="max-w-[85%] space-y-1">
+                                ${isFollowUpScaffold ? `<span class="inline-flex items-center gap-1 text-[9px] font-bold bg-sky-200 text-sky-900 px-2 py-0.5 rounded-full mb-0.5 shadow-sm">🤖 針對性鷹架引導 (Targeted Scaffolding)</span>` : ''}
+                                <div class="bg-sky-100/90 text-slate-800 p-2.5 rounded-2xl rounded-tl-sm space-y-1 shadow-sm ${isFollowUpScaffold ? 'border border-sky-300' : ''}">
+                                    <p class="font-semibold text-sky-950">${msg.en}</p>
+                                    <p class="text-slate-600 text-[11px] border-t border-sky-200 pt-0.5">${msg.zh}</p>
+                                </div>
                             </div>
                         `;
                     } else {
                         row.className = "flex items-start justify-end gap-2 text-xs";
                         row.innerHTML = `
-                            <div class="bg-sky-600 text-white p-2.5 rounded-2xl rounded-tr-sm max-w-[85%] space-y-0.5">
-                                <p class="font-medium">${msg.en}</p>
-                                ${msg.zh && msg.zh !== msg.en ? `<p class="text-sky-100 text-[11px] border-t border-sky-400 pt-0.5">${msg.zh}</p>` : ''}
+                            <div class="flex flex-col items-end max-w-[85%]">
+                                ${isKeyEvidence ? `<span class="inline-flex items-center gap-1 text-[10px] font-extrabold bg-amber-300 text-amber-950 px-2.5 py-0.5 rounded-full mb-1 border border-amber-400 shadow-sm animate-pulse">⭐ AI 評估證據點 (Key Evidence)</span>` : ''}
+                                <div class="${isKeyEvidence ? 'bg-gradient-to-r from-sky-600 to-indigo-600 ring-2 ring-amber-400 shadow-md' : 'bg-sky-600 shadow-sm'} text-white p-2.5 rounded-2xl rounded-tr-sm space-y-0.5">
+                                    <p class="font-medium">${msg.en}</p>
+                                    ${msg.zh && msg.zh !== msg.en ? `<p class="text-sky-100 text-[11px] border-t border-sky-400 pt-0.5">${msg.zh}</p>` : ''}
+                                </div>
                             </div>
-                            <div class="w-6 h-6 rounded-full bg-slate-700 text-white flex items-center justify-center text-[9px] font-bold flex-shrink-0">S</div>
+                            <div class="w-6 h-6 rounded-full ${isKeyEvidence ? 'bg-amber-500 font-black' : 'bg-slate-700 font-bold'} text-white flex items-center justify-center text-[9px] flex-shrink-0 mt-1 shadow">S</div>
                         `;
                     }
                     chatList.appendChild(row);
@@ -2254,6 +3017,7 @@
             initRealtimeSync();
             renderStudentChatHistory();
             updateAllUI();
+            updateDynamicDiscussionPrompts();
         });
     </script>
 </body>

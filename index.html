@@ -418,7 +418,7 @@
                         </button>
                         <button onclick="openAdminPasswordModal()" 
                             class="bg-purple-900/80 hover:bg-purple-800 active:scale-95 text-purple-200 hover:text-white font-bold px-3.5 py-2.5 rounded-xl text-xs shadow-lg transition flex items-center gap-1.5 border border-purple-500/40"
-                            title="管理敏感的 API Key、學生端模型派發與全班 Token 使用量 (需 teacheradmin 密碼)">
+                            title="管理敏感的 API Key、學生端模型派發與全班 Token 使用量 (需系統管理員密碼)">
                             <i data-lucide="shield" class="w-4 h-4 text-purple-300"></i>
                             <span>AI 系統管理員 (Admin)</span>
                         </button>
@@ -492,10 +492,10 @@
                     <div class="flex items-center gap-2 flex-wrap">
                         <span id="discussionSyncBadge" class="text-[11px] bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full border border-emerald-300 flex items-center gap-1.5 shadow-sm">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span>實時動態學情連動中 / Live Synced</span>
+                            <span id="discussionSyncText">實時動態學情連動中 / Live Synced</span>
                         </span>
-                        <button onclick="updateDynamicDiscussionPrompts()" class="text-[11px] bg-amber-200/90 hover:bg-amber-300 active:scale-95 text-amber-950 font-bold px-3 py-1 rounded-full border border-amber-300 transition flex items-center gap-1 shadow-sm" title="Refresh dynamic discussion prompts">
-                            <i data-lucide="refresh-cw" class="w-3 h-3"></i> 刷新動態提問
+                        <button onclick="refreshWholeClassDiscussionPrompts()" id="refreshPromptsBtn" class="text-[11px] bg-amber-200/90 hover:bg-amber-300 active:scale-95 text-amber-950 font-bold px-3 py-1 rounded-full border border-amber-300 transition flex items-center gap-1 shadow-sm" title="Refresh dynamic discussion prompts">
+                            <i data-lucide="refresh-cw" class="w-3 h-3"></i> <span id="refreshPromptsBtnText">刷新動態提問</span>
                         </button>
                     </div>
                 </div>
@@ -920,7 +920,7 @@
                                 <i data-lucide="shield-alert" class="w-3 h-3"></i> AI SYSTEM ADMIN / 系統管理員專屬後台
                             </span>
                             <span class="px-2.5 py-0.5 bg-purple-900/60 text-purple-200 border border-purple-400/30 text-[10px] font-bold rounded-full">
-                                敏感權限 (Protected by teacheradmin)
+                                管理員專屬後台 (Protected by System Password)
                             </span>
                         </div>
                         <h2 class="text-2xl md:text-3xl font-bold font-fun tracking-wide text-white flex items-center gap-2">
@@ -2052,26 +2052,36 @@
             const v200 = groupData ? groupData['200'] : 30;
 
             const systemPrompt = `
-你是一位專為小學高年級至初中一年級學生設計的溫暖、具啟發性的科學探究 AI 導師「水精靈 (Agent Water)」。
+你是一位專為小學高年級至初中一年級學生設計的溫暖、具啟發性的頂級科學探究 AI 導師「水精靈 (Agent Water)」。
 當前實驗主題：水的體積對方糖溶解速率的影響 (Exp 2.5: Rate of Dissolving)。
 當前小組：${currentRole}
 該組實測數據：50ml=${v50}s, 100ml=${v100}s, 150ml=${v150}s, 200ml=${v200}s。
 全班 8 組平均數據大約為：50ml≈120s, 100ml≈70s, 150ml≈45s, 200ml≈30s。
 當前探究階段：Stage ${stage} (1=觀察數據趨勢, 2=全班平均信度, 3=批判思考與操作誤差)。
 
-你的教學指令：
-1. 語氣生動親切，多給予正面激勵（如「太棒了小小科學家！」、「你觀察得非常敏銳！」）。
-2. 絕對不要直接把最終結論告訴學生，而是運用「蘇格拉底鷹架式提問」，引導學生對照自己組別的數據或全班平均線。
-3. 如果學生說「我不知道」、「好難」、「不懂」，請溫柔安慰，並提出最簡單具體的數字對比提問（如「看左側折線圖，50ml 用了 ${v50} 秒，200ml 用了 ${v200} 秒，秒數變少代表變快還是變慢？」）。
-4. 如果學生提出微觀分子碰撞或人為操作誤差（如手累攪拌變慢、碼錶延遲、光閘感測器等），請給予極高讚賞！
-5. 回覆需包含英文 (簡單初中英文) 與繁體中文。請嚴格輸出 JSON 格式：
+【核心溝通原則——嚴禁劇本感與套話】：
+1. 嚴禁使用生硬的罐頭回覆（絕對不要說「收到你的想法！💧 讓我們回歸藍色折線...」或「明白你的看法！🌟 現在請思考誤差問題...」）。
+2. 理解香港學生常用廣東話及口語（如「1組可能唔夠準」、「時間長咗」、「升咗」、「慢咗」、「點解」、「好奇怪」）。
+
+【關鍵情境 1：學生發現數據反常（例如 200 cm³ 反而比 150 cm³ 時間更長）】：
+- 該組實測 150ml=${v150}s, 200ml=${v200}s。若 ${v200} > ${v150} 或學生提到 200ml 時間變長/反彈/變慢/好奇怪：
+- 必須極大肯定學生的敏銳眼光（如「哇！你的科學眼光太銳利了！這是一個重大發現！」）。
+- 解釋理論上水量多溶解快，但在真實實驗中，人手攪拌速度可能放慢、水溫微涼、或碼錶按停延遲，這正是「隨機誤差（Random Error）」！
+- 追問學生在測 200 cm³ 時是否手酸攪慢了或水溫變涼，引導其體會全班平均值的必要性。
+
+【關鍵情境 2：學生回答「1組可能唔夠準」或指出單組誤差】：
+- 必須熱烈肯定學生已經直達科學核心（「太棒了！你的回答已經非常非常接近科學核心！沒錯，只做 1 組確實『唔夠準』！」）。
+- 明確指出這在科學上正是因為存在「隨機誤差 (Random Error)」。
+- 進一步追問：是什麼具體人為操作（例如手部攪拌不均或停錶延遲）導致了不夠準？而全班 8 組平均又如何將這些誤差抵消？
+
+【回覆格式】：輸出嚴格 JSON：
 {
-  "feedbackEn": "Friendly encouraging Socratic response in simple English (under 40 words)",
-  "feedbackZh": "親切生動的繁體中文引導（50-80字內，關鍵概念加粗）",
+  "feedbackEn": "Friendly, encouraging Socratic response in simple English addressing student's exact point (under 45 words)",
+  "feedbackZh": "生動親切的繁體中文引導（50-90字內，針對學生具體發言回應，嚴禁套話，適當加粗重點）",
   "summaryZh": "簡短的學生觀點學情小結（20字內）",
   "strengthZh": "本輪對答展現之思維強項（25字內）",
   "growthZh": "建議下一步深入思考的方向（25字內）",
-  "focusTag": "思維標籤（如：微觀分子動力學 / 人為誤差批判）",
+  "focusTag": "思維標籤（如：異常數據質疑 / 隨機誤差探究 / 微觀分子動力學）",
   "advanceStage": true,
   "nextStage": ${Math.min(stage + 1, 4)}
 }
@@ -2152,6 +2162,118 @@
                     console.warn('Agent Water JSON parsing error:', e);
                 }
 
+                return parsed;
+            } finally {
+                clearTimeout(timeoutId);
+            }
+        }
+
+        // Dynamic Whole-Class Discussion Prompts via Gemini / OpenAI
+        async function callGeminiDynamicDiscussionPrompts(summaryData) {
+            const model = getActiveAiModel();
+            const apiKey = aiSettings.apiKey;
+            const provider = aiSettings.provider || 'gemini';
+
+            const systemPrompt = `
+你是一位具備頂尖教學素養的中小學科學與 STEM 教育專家 (Science Pedagogical Expert)。
+當前公開課實驗主題：水的體積對方糖溶解速率的影響 (Exp 2.5: Rate of Dissolving)。
+全班 8 組實時上傳數據與學生最新課堂對話發言彙總：
+${JSON.stringify(summaryData, null, 2)}
+
+請為執教老師即時生成 3 個最能引發全班強烈共鳴、激發深入思維碰撞的開放式討論議題 (Whole-Class Discussion Prompts)：
+1. Topic 1 (數據異質性與反常排查)：
+   - 優先鎖定全班實測數據中的反常點（例如某組 200 cm³ 反而比 150 cm³ 時間更長、曲線反彈）或兩組差距最大的點，具體點名該組（如「第2組」）與實際秒數！
+   - 引導全班思考：出現反常時應該直接刪除異常值，還是排查操作隨機誤差？
+2. Topic 2 (實驗工程與學生思維火花)：
+   - 具體引用學生在對話中說出的真實原話（例如「1組可能唔夠準」、「戳碎方糖」、「攪拌手酸」等），點名組別！
+   - 引導全班討論隨機誤差、公平測試控制變因或 STEM 自動化傳感器改進。
+3. Topic 3 (極限思維與斜率邊際效應)：
+   - 結合全班實測平均曲線（50→100 cm³ 驟降，150→200 cm³ 趨緩）的特徵，提出極限挑戰（如加水至 10,000 cm³ 或太平洋，時間能否降至 0 秒？）。
+
+請嚴格輸出合法的 JSON 物件（不要包含任何 markdown 標籤如 \`\`\`json，直接輸出 JSON 內容）：
+{
+  "topic1": {
+    "title": "🔍 【實時學情聚焦】繁體中文標題（含組別與數據）",
+    "titleEn": "English Title for Topic 1",
+    "desc": "繁體中文核心引導情境描述（2-3句）<br><span class=\\"text-[10px] text-slate-500 italic\\">English description</span>",
+    "scaffoldSteps": "<p class=\\"font-bold text-slate-800\\">🪜 鷹架引導步驟 / Scaffolding Steps：</p><p><strong>1. 數據核驗 (Live Check)：</strong>...</p><p><strong>2. 變因排查 (Variable Check)：</strong>...</p><p><strong>3. 科學決策 (Scientific Decision)：</strong>...</p>"
+  },
+  "topic2": {
+    "title": "🛠️ 【課堂思維火花】繁體中文標題（引用學生原話與組別）",
+    "titleEn": "English Title for Topic 2",
+    "desc": "繁體中文核心引導描述<br><span class=\\"text-[10px] text-slate-500 italic\\">English description</span>",
+    "scaffoldSteps": "<p class=\\"font-bold text-slate-800\\">🪜 鷹架引導步驟 / Scaffolding Steps：</p><p><strong>1. 鎖定誤差 (Identify Error)：</strong>...</p><p><strong>2. 機制解析 (Mechanism)：</strong>...</p><p><strong>3. 工程改進 (Engineering)：</strong>...</p>"
+  },
+  "topic3": {
+    "title": "🌊 【極限思維探究】繁體中文標題（引用實測斜率變化）",
+    "titleEn": "English Title for Topic 3",
+    "desc": "繁體中文核心引導描述<br><span class=\\"text-[10px] text-slate-500 italic\\">English description</span>",
+    "scaffoldSteps": "<p class=\\"font-bold text-slate-800\\">🪜 鷹架引導步驟 / Scaffolding Steps：</p><p><strong>1. 觀察斜率 (Observe Gradient)：</strong>...</p><p><strong>2. 物理現實 (Physical Reality)：</strong>...</p><p><strong>3. 外推批判 (Extrapolation)：</strong>...</p>"
+  }
+}
+`;
+
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+            try {
+                let textOutput = '{}';
+                let usage = {};
+
+                if (provider === 'gemini') {
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        signal: controller.signal,
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: systemPrompt }] }],
+                            generationConfig: {
+                                temperature: 0.4,
+                                maxOutputTokens: 1500,
+                                responseMimeType: "application/json"
+                            }
+                        })
+                    });
+                    const data = await res.json();
+                    if (!res.ok || data.error) throw new Error(data.error?.message || `HTTP ${res.status}`);
+                    usage = data.usageMetadata || {};
+                    textOutput = data.candidates?.[0]?.content?.parts?.[0]?.text || '{}';
+                } else {
+                    const baseUrl = aiSettings.baseUrl || 'https://api.openai.com/v1';
+                    const endpoint = `${baseUrl.replace(/\/+$/, '')}/chat/completions`;
+                    const res = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${apiKey}`
+                        },
+                        signal: controller.signal,
+                        body: JSON.stringify({
+                            model: model,
+                            messages: [{ role: 'system', content: systemPrompt }],
+                            response_format: { type: "json_object" },
+                            temperature: 0.4,
+                            max_tokens: 1500
+                        })
+                    });
+                    const data = await res.json();
+                    if (!res.ok || data.error) throw new Error(data.error?.message || `HTTP ${res.status}`);
+                    usage = {
+                        promptTokenCount: data.usage?.prompt_tokens || 400,
+                        candidatesTokenCount: data.usage?.completion_tokens || 400
+                    };
+                    textOutput = data.choices?.[0]?.message?.content || '{}';
+                }
+
+                recordAiTokenUsage('全班提問動態生成 (Discussion Prompts)', model, usage.promptTokenCount || 400, usage.candidatesTokenCount || 400, 'success');
+
+                let parsed = {};
+                try {
+                    parsed = JSON.parse(textOutput.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim());
+                } catch (e) {
+                    console.warn('Discussion Prompts JSON parse error:', e);
+                }
                 return parsed;
             } finally {
                 clearTimeout(timeoutId);
@@ -2558,6 +2680,37 @@
                 };
             }
 
+            // ================= 2.5 DATA ANOMALY / INVERSION DETECTOR =================
+            // Specifically addresses when student notices that a higher volume took LONGER (e.g., 200 cm³ took 130s while 150 cm³ took 120s!)
+            const is200LongerThan150 = (typeof t200 === 'number' && typeof t150 === 'number' && t200 > t150);
+            const isAnyInversion = (typeof t200 === 'number' && typeof t150 === 'number' && t200 > t150) || 
+                                   (typeof t150 === 'number' && typeof t100 === 'number' && t150 > t100) || 
+                                   (typeof t100 === 'number' && typeof t50 === 'number' && t100 > t50);
+            const mentionsAnomaly = /好奇怪|奇怪|特別長|長咗|長左|變長|反而長|更長|多咗|多左|變慢|仲慢|慢咗|慢左|升咗|升左|反彈|反常|倒退|長過|慢過|點解.*(200|150|長|慢)|(200|150).*(長|慢)|longer|slower|weird|strange|anomaly|why.*(longer|slower|increase)/i.test(lower);
+            const asksWhy200Longer = /(200|150).*(反而|比|仲|更|反常|倒退).*(長|慢|耐|多)|為何.*(200|150).*(長|慢|耐)|為什麼.*(200|150).*(長|慢|耐)|點解.*(200|150).*(長|慢|耐)|為何.*時間.*長|為什麼.*時間.*長/i.test(lower);
+
+            if (((is200LongerThan150 || isAnyInversion) && mentionsAnomaly) || asksWhy200Longer) {
+                const diffAnomaly = (typeof t200 === 'number' && typeof t150 === 'number') ? Math.abs(t200 - t150) : null;
+                const compareTextEn = (is200LongerThan150 && diffAnomaly !== null)
+                    ? `150 cm³ took ${t150}s, but 200 cm³ took ${t200}s (+${diffAnomaly}s longer)`
+                    : `200 cm³ dissolving time took longer than 150 cm³`;
+                const compareTextZh = (is200LongerThan150 && diffAnomaly !== null)
+                    ? `150 cm³ 用了 ${t150} 秒，但 200 cm³ 反而用了 ${t200} 秒（多了 ${diffAnomaly} 秒）`
+                    : `200 cm³ 的溶解時間反而比 150 cm³ 更長`;
+
+                return {
+                    feedbackEn: `What an eagle eye! 🦅 That is an incredible scientific observation! You noticed that ${compareTextEn}! In theory, more water provides more solvent space to dissolve sugar faster. But in real lab experiments: did someone stir a bit slower at 200 cm³? Did the water temperature drop? Or was the stopwatch pressed late? This is what scientists call "Random Error" (隨機誤差)! What human factor or operational detail do you think caused this?`,
+                    feedbackZh: `哇！你的科學眼光太銳利了！🦅 這是一個極具探究價值的重大發現！你敏銳抓到了折線上的反常現象：${compareTextZh}！理論上水量越多溶得越快，但在真實實驗操作中：你們在測 200 cm³ 時是不是攪拌速度放慢了？還是水溫稍微變涼了？或者是按停碼錶延遲了？這種局部的「隨機誤差（Random Error）」，正正說明了為什麼科學不能只依賴單次試驗，而需要全班 8 組平均！回想一下，你覺得最可能是哪個操作細節影響了呢？`,
+                    summaryZh: "敏銳發現 200 cm³ 數據反常並主動質疑，水精靈深度引導排查操作隨機誤差。",
+                    strengthZh: "具備極敏銳的數據批判眼光，能主動發現非預期走勢而不盲從盲信",
+                    growthZh: "能將數據反常與人手攪拌、水溫控制或計時反射等隨機誤差連結排查",
+                    focusTag: "Data Anomaly Inquiry / 異常數據質疑",
+                    personalizedPoint3En: "Random Error Analysis: Inconsistent stirring or stopwatch latency can cause unexpected inversions in individual groups.",
+                    personalizedPoint3Zh: "隨機誤差分析：人手攪拌頻率波動或碼錶延遲會造成單組數據出現反常倒退現象。",
+                    advanceStage: false
+                };
+            }
+
             // 3. Tentative / Hesitant Responses with Modals ("變多了吧", "好像是變長", "可能變多", "應該長咗", "好像變短", "或者快咗", "maybe shorter", "guess")
             const isTentative = /吧|好像|應該|可能|或者|估|maybe|guess|perhaps|seems/i.test(lower);
             if (isTentative) {
@@ -2744,6 +2897,27 @@
                 };
             }
 
+            // ================= 9f. STAGE 2 DEDICATED: "1組可能唔夠準" & RANDOM ERROR DETECTOR =================
+            // Specifically validates student when they answer that 1 group might not be accurate enough (唔夠準 / 會有誤差)
+            const mentionsInaccuracyOrError = /唔夠準|不夠準|唔準|不準|有誤差|會有誤差|可能唔準|可能不準|可能會有誤差|唔係幾準|唔太準|不太準|偏差|誤差|random\s*error|not\s*accurate|inaccurate|imprecise/i.test(lower) ||
+                (/(1|一|只|淨係|得|single|only\s*1)\s*(組|group)/i.test(lower) && /唔|不|未|缺|少|差|準|not|never|less/i.test(lower)) ||
+                (/(1|一|只|淨係|得|single|only\s*1)\s*(次|個|個組|組)/i.test(lower) && /唔夠|不夠|唔準|不準/i.test(lower));
+
+            if (mentionsInaccuracyOrError) {
+                return {
+                    feedbackEn: `Spot on! Give yourself a big round of applause! 👏 You hit the exact scientific bullseye! You rightly noted that testing only 1 group "might not be accurate enough"! In science, every single manual test carries "Random Error" (隨機誤差) — like slight delays in pressing the stopwatch or tiny fluctuations in stirring speed. Now tell me: when all 8 groups combine their data and calculate the Class Average, how do these individual random errors cancel each other out?`,
+                    feedbackZh: `太棒了！掌聲鼓勵！👏 你的回答已經一針見血地切中了科學探究的核心！沒錯，只做 1 組實驗確實「唔夠準」！這在科學上正是因為每一次人手操作都存在不可避免的「隨機誤差（Random Error）」——例如每個人按停碼錶的手指反應快慢、人手攪拌節奏的些微起伏，都會讓單獨一組的數據產生微小偏差。那麼請你更具體地思考：當全班 8 組都做同一個測試並計算「平均值」時，這些有人按快了、有人按慢了的隨機誤差，是如何互相「抵消」從而讓結果更加可靠的？`,
+                    summaryZh: `學生敏銳指出單一組別實驗「唔夠準」並直擊隨機誤差核心，水精靈深度引導其闡釋全班平均值抵消隨機誤差的科學機制。`,
+                    strengthZh: `思維極具批判性與深度，能主動質疑單次實驗數據信度並精準洞察隨機誤差存在`,
+                    growthZh: `能進一步用科學術語說明全班平均值如何抵消正負隨機誤差、提升數據可靠性`,
+                    focusTag: "Random Error & Reliability / 隨機誤差與信度",
+                    personalizedPoint3En: "Scientific Reliability: A single group's data has random errors; calculating the 8-group average cancels them out to reveal the true trend.",
+                    personalizedPoint3Zh: "科學信度與誤差控制：單一組別存在人為操作的隨機誤差（Random Error），全班 8 組平均能互相抵消正負偏差，得出高信度結論。",
+                    nextStage: 3,
+                    advanceStage: true
+                };
+            }
+
             // 10. Stage 2: Class Average / Reliability ("平均", "可靠", "8組", "信度", "抵消", "減少誤差", "更準確", "避免失誤")
             if (/平均|可靠|信度|抵消|減少誤差|全班|準確|失誤|避免|average|reliable|sample|8\s*group|cancel|accurate/i.test(lower)) {
                 return {
@@ -2783,32 +2957,33 @@
                 };
             }
 
-            // 13. General Contextual Socratic Fallback based on stage
+            // 13. Dynamic Contextual Socratic Fallback (Zero Robotic Scripts)
+            const cleanQuote = raw.trim().length > 16 ? raw.trim().slice(0, 16) + '...' : raw.trim();
             if (stage <= 1) {
                 return {
-                    feedbackEn: `收到你的想法！💧 Let's check the numbers on your blue line: as water increases from 50 to 200 cm³, does the dissolving time get SHORTER or LONGER?`,
-                    feedbackZh: `收到你的想法！💧 讓我們回歸藍色折線的數據：當水量由 50 增加至 200 cm³ 時，溶解所需時間到底是變短（變少）還是變長（變多）呢？`,
-                    summaryZh: `學生進行自主輸入，水精靈針對第一階段水量走向進行鷹架式引導。`,
-                    strengthZh: "主動嘗試用個人語言表達觀點",
-                    growthZh: "請嘗試直接回答：時間是變短還是變長？",
+                    feedbackEn: `Interesting perspective on "${cleanQuote}"! 💧 Let's check your actual measurements: 50 cm³ took ${t50}s while 200 cm³ took ${t200}s. Comparing ${t50}s to ${t200}s, did more water make the dissolving time SHORTER or LONGER?`,
+                    feedbackZh: `你提到「${cleanQuote}」，這個觀察很有意思！💧 我們對照一下你組的實測數字：50 cm³ 用了 ${t50} 秒，而 200 cm³ 用了 ${t200} 秒。由 ${t50} 秒變到 ${t200} 秒，水量增加到底讓溶解時間變短（加快）還是變長了呢？`,
+                    summaryZh: `學生提出「${cleanQuote}」，水精靈引用其實測數據進行比對導引。`,
+                    strengthZh: "主動用個人觀察與語言嘗試探索問題",
+                    growthZh: "對比 50 與 200 cm³ 的實測秒數，判斷時間總體是變短還是變長",
                     advanceStage: false
                 };
             } else if (stage === 2) {
                 return {
-                    feedbackEn: `I see your point! 🌟 Now think about error reduction: why do scientists calculate the average of 8 groups instead of only testing 1 group?`,
-                    feedbackZh: `明白你的看法！🌟 現在請思考誤差問題：為什麼科學家要計算全班 8 組的平均值，而不是只做 1 組實驗呢？`,
-                    summaryZh: `水精靈針對第二階段全班平均值之意義進行深化引導。`,
-                    strengthZh: "持續參與課堂對話",
-                    growthZh: "請思考平均值如何幫助我們『減少誤差』",
+                    feedbackEn: `Thanks for sharing your thought on "${cleanQuote}"! 🌟 Now look at the green dashed line (Class Average of 8 groups): if only 1 group performs the test, stirring speed or timing delays might cause random variations. How does taking the average of all 8 groups help reduce these errors and make our scientific conclusion more reliable?`,
+                    feedbackZh: `你剛才提出的「${cleanQuote}」很有啟發性！🌟 我們一起看圖表上的綠色虛線（全班 8 組平均值）：如果全班只有 1 組做實驗，人手攪拌快慢或停錶反應很容易帶來隨機偏差；那麼全班 8 組的平均值，能怎樣幫我們抵消這些誤差、讓結論更可靠呢？`,
+                    summaryZh: `學生分享「${cleanQuote}」，水精靈引導其從全班 8 組平均值抵消偏差的角度深入思考。`,
+                    strengthZh: "積極參與小組對話並提出個人想法",
+                    growthZh: "嘗試思考 8 組平均值如何抵消單一小組的隨機操作誤差",
                     advanceStage: false
                 };
             } else {
                 return {
-                    feedbackEn: `Great reflection! 🔍 When stirring with hands or clicking the stopwatch, what human factor is hardest to keep 100% constant?`,
-                    feedbackZh: `很棒的反思！🔍 回想我們用手攪拌或按碼錶的過程，哪一個人為操作最難做到 100% 絕對一致？`,
-                    summaryZh: `水精靈針對第三階段實驗人為局限進行提示引導。`,
-                    strengthZh: "主動思考實驗過程細節",
-                    growthZh: "可回想攪拌快慢或碼錶反應時間",
+                    feedbackEn: `A very thoughtful reflection on "${cleanQuote}"! 🔍 Think back to your hands-on operation with beakers, sugar, and stirrers: which human step (stirring pace, temperature check, or stopwatch clicking) was most prone to random variations?`,
+                    feedbackZh: `你提出的「${cleanQuote}」切中了實驗的實際過程！🔍 回想你們在桌上倒水、放糖、攪拌和按碼錶時，哪一個由人手操作的步驟，最容易因為動作快慢而產生微小的隨機誤差？`,
+                    summaryZh: `學生提出「${cleanQuote}」，水精靈引導其回顧具體實驗操作中的人為隨機誤差來源。`,
+                    strengthZh: "能連結自身實驗操作經驗進行反思",
+                    growthZh: "具體指明攪拌頻率或碼錶反應時間對實驗精準度的影響",
                     advanceStage: false
                 };
             }
@@ -3163,7 +3338,7 @@
             if (role === 'Admin') {
                 if (title) title.innerText = "AI 系統管理員權限驗證";
                 if (subtitle) subtitle.innerText = "AI System Admin Verification";
-                if (prompt) prompt.innerText = "請輸入系統管理員密碼（teacheradmin），以管理 API Key、模型與 Token 預算：";
+                if (prompt) prompt.innerText = "請輸入系統管理員授權密碼，以進入 AI 引擎與模型配置後台：";
                 if (icon) {
                     icon.className = "w-10 h-10 rounded-2xl bg-purple-100 text-purple-800 flex items-center justify-center font-bold text-lg shadow-inner";
                     icon.innerText = "🛠️";
@@ -3174,7 +3349,7 @@
             } else {
                 if (title) title.innerText = "教師指揮中心權限驗證";
                 if (subtitle) subtitle.innerText = "Teacher Password Verification";
-                if (prompt) prompt.innerText = "請輸入教師後台密碼（teacherwater）解鎖教學指揮中心：";
+                if (prompt) prompt.innerText = "請輸入科任教師授權密碼以解鎖教學指揮中心：";
                 if (icon) {
                     icon.className = "w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-lg shadow-inner";
                     icon.innerText = "🔒";
@@ -3228,7 +3403,7 @@
                     if (window.lucide) lucide.createIcons();
                 } else {
                     err.classList.remove('hidden');
-                    err.innerText = "❌ 管理員密碼錯誤！請輸入 teacheradmin。";
+                    err.innerText = "❌ 系統管理員密碼錯誤，請重新輸入！";
                     input.value = '';
                     input.focus();
                 }
@@ -3252,7 +3427,7 @@
                     if (window.lucide) lucide.createIcons();
                 } else {
                     err.classList.remove('hidden');
-                    err.innerText = "❌ 教師密碼錯誤！請輸入 teacherwater。";
+                    err.innerText = "❌ 教師授權密碼錯誤，請重新輸入！";
                     input.value = '';
                     input.focus();
                 }
@@ -3895,12 +4070,17 @@
                         pointZh: aiResult.feedbackZh || "水量越多，溶劑空間越大，能加速方糖完全溶解。"
                     };
                 } else if (prevStage === 2) {
+                    const isRandomErrorFocused = aiResult.focusTag?.includes('隨機誤差') || /唔夠準|不夠準|random error|隨機誤差/i.test(text);
                     classData[currentRole].stage2Option = {
                         perspective: 'custom',
-                        pointTitleEn: "Sample Reliability & Class Average",
-                        pointTitleZh: "全班平均值與誤差抵消",
-                        pointEn: "Calculating class average cancels random human discrepancies and enhances scientific validity.",
-                        pointZh: "計算全班平均值能互相抵消個別小組之隨機人為誤差，提升科學推論信度。"
+                        pointTitleEn: isRandomErrorFocused ? "Random Error & Class Average" : "Sample Reliability & Class Average",
+                        pointTitleZh: isRandomErrorFocused ? "隨機誤差與全班平均值" : "全班平均值與誤差抵消",
+                        pointEn: isRandomErrorFocused
+                            ? "Single group data has random human errors ('might not be accurate'); calculating the 8-group average cancels them out for higher reliability."
+                            : "Calculating class average cancels random human discrepancies and enhances scientific validity.",
+                        pointZh: isRandomErrorFocused
+                            ? "單組實驗存在人為操作隨機誤差（『唔夠準』），全班 8 組平均能互相抵消正負偏差，得出高信度結論。"
+                            : "計算全班平均值能互相抵消個別小組之隨機人為誤差，提升科學推論信度。"
                     };
                 } else if (prevStage === 3) {
                     classData[currentRole].stage3Option = {
@@ -4225,52 +4405,124 @@
         }
 
         // ================= DYNAMIC ADAPTIVE WHOLE-CLASS DISCUSSION PROMPTS =================
-        function updateDynamicDiscussionPrompts() {
-            const avgData = calculateClassAverage();
-            
-            // 1. Data Heterogeneity: Find two groups with largest variance at 150 cm³
+        function buildClassContextForDiscussionPrompts() {
             let submittedGroups = [];
-            for(let i=1; i<=8; i++) {
+            let anomalies = [];
+            let studentQuotes = [];
+            const avgData = calculateClassAverage();
+
+            for (let i = 1; i <= 8; i++) {
                 const gKey = `Group ${i}`;
-                if (classData[gKey]?.data) {
+                const g = classData[gKey];
+                if (g && g.data) {
+                    const t50 = g.data[50];
+                    const t100 = g.data[100];
+                    const t150 = g.data[150];
+                    const t200 = g.data[200];
                     submittedGroups.push({
-                        key: gKey,
-                        num: i,
-                        t150: classData[gKey].data[150],
-                        t200: classData[gKey].data[200],
-                        data: classData[gKey].data
+                        group: gKey,
+                        groupNum: i,
+                        data: { 50: t50, 100: t100, 150: t150, 200: t200 }
                     });
+
+                    // Check for inversion (e.g. 200ml took longer than 150ml)
+                    if (typeof t200 === 'number' && typeof t150 === 'number' && t200 > t150) {
+                        anomalies.push({
+                            group: gKey,
+                            groupNum: i,
+                            type: '200ml_longer_than_150ml',
+                            detail: `200 cm³ (${t200}s) 反而比 150 cm³ (${t150}s) 慢了 ${Math.round((t200 - t150) * 10) / 10} 秒！`
+                        });
+                    } else if (typeof t150 === 'number' && typeof t100 === 'number' && t150 > t100) {
+                        anomalies.push({
+                            group: gKey,
+                            groupNum: i,
+                            type: '150ml_longer_than_100ml',
+                            detail: `150 cm³ (${t150}s) 反而比 100 cm³ (${t100}s) 慢了 ${Math.round((t150 - t100) * 10) / 10} 秒！`
+                        });
+                    }
+
+                    // Collect latest student quotes from chatLogs
+                    if (g.chatLogs && g.chatLogs.length > 0) {
+                        g.chatLogs.filter(m => m.sender === 'user').forEach(m => {
+                            const rawMsg = (m.zh || m.en || '').trim();
+                            if (rawMsg.length >= 2 && !/^(好的|ok|yes|明白|知道了|你好|hi)$/i.test(rawMsg)) {
+                                studentQuotes.push({
+                                    group: gKey,
+                                    groupNum: i,
+                                    quote: rawMsg
+                                });
+                            }
+                        });
+                    }
                 }
             }
+
+            return {
+                submittedGroups,
+                anomalies,
+                studentQuotes,
+                classAverage: avgData
+            };
+        }
+
+        function updateDynamicDiscussionPromptsHeuristic(contextData) {
+            const ctx = contextData || buildClassContextForDiscussionPrompts();
+            const submitted = ctx.submittedGroups || [];
+            const anomalies = ctx.anomalies || [];
+            const quotes = ctx.studentQuotes || [];
+            const avgData = ctx.classAverage || calculateClassAverage();
 
             const t1Title = document.getElementById('topic1Title');
             const t1TitleEn = document.getElementById('topic1TitleEn');
             const t1Desc = document.getElementById('topic1Desc');
             const t1Scaffold = document.getElementById('topic1ScaffoldSteps');
 
-            if (submittedGroups.length >= 2) {
-                // Sort by t150 to find max difference
-                submittedGroups.sort((a, b) => b.t150 - a.t150);
-                const maxG = submittedGroups[0];
-                const minG = submittedGroups[submittedGroups.length - 1];
-                const diff = Math.round((maxG.t150 - minG.t150) * 10) / 10;
-
+            // --- Topic 1: Live Anomaly or Max Heterogeneity ---
+            if (anomalies.length > 0) {
+                const anom = anomalies[0];
                 if (t1Title) {
-                    t1Title.innerHTML = `🔍 實時學情聚焦：第 ${maxG.num} 組 (${maxG.t150}s) 與第 ${minG.num} 組 (${minG.t150}s) 在 150 cm³ 相差高達 ${diff} 秒！你會如何驗證原因？`;
+                    t1Title.innerHTML = `🔍 【實時反常焦點】第 ${anom.groupNum} 組實測反常：${anom.detail}折線出現反彈！理論上水量多溶得快，你會如何排查？`;
                 }
                 if (t1TitleEn) {
-                    t1TitleEn.innerText = `Real-time Class Focus: Group ${maxG.num} (${maxG.t150}s) and Group ${minG.num} (${minG.t150}s) differ by ${diff}s at 150 cm³! How would you verify it?`;
+                    t1TitleEn.innerText = `Live Anomaly Focus: Group ${anom.groupNum} observed that dissolving time bounced back! How would you troubleshoot this unexpected trend?`;
                 }
                 if (t1Desc) {
                     t1Desc.innerHTML = `
-                        實時檢測到全班第 ${maxG.num} 組與第 ${minG.num} 組在 150 cm³ 出現顯著落差（相差 ${diff} 秒）。如果出現兩組數據走勢矛盾或數值差距顯著，我們應該直接刪除異常組別，還是重新檢查操作細節？<br>
-                        <span class="text-[10px] text-slate-500 italic">Discrepancy of ${diff}s detected between Group ${maxG.num} and Group ${minG.num}. If groups show contradictory trends, should we discard outliers or inspect operational details?</span>
+                        實時檢測到全班第 ${anom.groupNum} 組出現了逆勢反彈走勢（${anom.detail}）。在真實科研中，面對與理論相反的異常點，我們應該直接刪除數據，還是深入排查操作細節（如攪拌速度或水溫）？<br>
+                        <span class="text-[10px] text-slate-500 italic">Group ${anom.groupNum} showed an unexpected time bounce (${anom.detail}). In real scientific practice, should we delete this outlier or inspect manual factors?</span>
                     `;
                 }
                 if (t1Scaffold) {
                     t1Scaffold.innerHTML = `
                         <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                        <p><strong>1. 實時數據對比 (Live Comparison)：</strong>第 ${maxG.num} 組 (${maxG.t150}s) 與第 ${minG.num} 組 (${minG.t150}s) 相差 ${diff} 秒！這是在各組中差距最大的點，能否看出哪組可能是離群值？<br><span class="text-[10px] text-slate-500 italic">Group ${maxG.num} (${maxG.t150}s) vs Group ${minG.num} (${minG.t150}s) has the largest gap of ${diff}s. Can you identify potential outliers?</span></p>
+                        <p><strong>1. 實時數據核驗 (Live Check)：</strong>確認第 ${anom.groupNum} 組在該水量下的實測秒數，折線是否有明顯往上突起？<br><span class="text-[10px] text-slate-500 italic">Check the actual numbers for Group ${anom.groupNum}. Does the graph spike upward?</span></p>
+                        <p><strong>2. 變因排查 (Variable Check)：</strong>做這個水量時，攪拌手指是否手酸變慢？還是水溫放久變涼了？有沒有及時停錶？<br><span class="text-[10px] text-slate-500 italic">Did manual stirring tire out and slow down? Did water cool down? Was timer delayed?</span></p>
+                        <p><strong>3. 科學決策 (Scientific Decision)：</strong>單獨一組有隨機誤差，全班 8 組平均如何幫助我們得出更具信度的規律？<br><span class="text-[10px] text-slate-500 italic">Single groups have random errors. How does the 8-group class average restore high validity?</span></p>
+                    `;
+                }
+            } else if (submitted.length >= 2) {
+                submitted.sort((a, b) => (b.data[150] || 0) - (a.data[150] || 0));
+                const maxG = submitted[0];
+                const minG = submitted[submitted.length - 1];
+                const diff = Math.round(((maxG.data[150] || 0) - (minG.data[150] || 0)) * 10) / 10;
+
+                if (t1Title) {
+                    t1Title.innerHTML = `🔍 實時學情聚焦：第 ${maxG.groupNum} 組 (${maxG.data[150]}s) 與第 ${minG.groupNum} 組 (${minG.data[150]}s) 在 150 cm³ 相差高達 ${diff} 秒！你會如何驗證原因？`;
+                }
+                if (t1TitleEn) {
+                    t1TitleEn.innerText = `Real-time Class Focus: Group ${maxG.groupNum} (${maxG.data[150]}s) and Group ${minG.groupNum} (${minG.data[150]}s) differ by ${diff}s at 150 cm³! How would you verify it?`;
+                }
+                if (t1Desc) {
+                    t1Desc.innerHTML = `
+                        實時檢測到全班第 ${maxG.groupNum} 組與第 ${minG.groupNum} 組在 150 cm³ 出現顯著落差（相差 ${diff} 秒）。如果出現兩組數據走勢矛盾或數值差距顯著，我們應該直接刪除異常組別，還是重新檢查操作細節？<br>
+                        <span class="text-[10px] text-slate-500 italic">Discrepancy of ${diff}s detected between Group ${maxG.groupNum} and Group ${minG.groupNum}. If groups show contradictory trends, should we discard outliers or inspect operational details?</span>
+                    `;
+                }
+                if (t1Scaffold) {
+                    t1Scaffold.innerHTML = `
+                        <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
+                        <p><strong>1. 實時數據對比 (Live Comparison)：</strong>第 ${maxG.groupNum} 組 (${maxG.data[150]}s) 與第 ${minG.groupNum} 組 (${minG.data[150]}s) 相差 ${diff} 秒！這是在各組中差距最大的點，能否看出哪組可能是離群值？<br><span class="text-[10px] text-slate-500 italic">Group ${maxG.groupNum} (${maxG.data[150]}s) vs Group ${minG.groupNum} (${minG.data[150]}s) has the largest gap of ${diff}s. Can you spot potential outliers?</span></p>
                         <p><strong>2. 變因排查 (Variable Check)：</strong>兩組的水溫、方糖質量是否確實相同？有沒有同學中途戳碎方糖或忘記立刻按錶？<br><span class="text-[10px] text-slate-500 italic">Were water temperature and sugar mass identical? Did anyone crush the sugar or delay the timer?</span></p>
                         <p><strong>3. 科學決策 (Scientific Decision)：</strong>如果無法判定誰出錯，科學家會：A. 刪除異常值 B. 算平均 C. 重複實驗？為什麼？<br><span class="text-[10px] text-slate-500 italic">If unsure which is wrong, would scientists: A. Discard outlier, B. Average them, or C. Replicate test? Why?</span></p>
                     `;
@@ -4280,50 +4532,75 @@
                 if (t1TitleEn) t1TitleEn.innerText = `If Group 3 and Group 7 have completely opposite line trends, how would you verify it?`;
             }
 
-            // 2. Experimental Engineering: Analyze chat error topics across 8 groups
-            let errorCounts = { stirring: 0, stopwatch: 0, sugar: 0, temp: 0, stem: 0 };
-            let groupsCitingStir = [];
-            let groupsCitingTimer = [];
-
-            for(let i=1; i<=8; i++) {
-                const gKey = `Group ${i}`;
-                const logs = classData[gKey]?.chatLogs || [];
-                logs.forEach(msg => {
-                    const t = (msg.en + " " + msg.zh).toLowerCase();
-                    if (/stir|speed|攪拌|手速|轉速/.test(t)) {
-                        errorCounts.stirring++;
-                        if (!groupsCitingStir.includes(`第${i}組`)) groupsCitingStir.push(`第${i}組`);
-                    }
-                    if (/timer|stopwatch|reaction|delay|碼錶|計時|反應|延遲/.test(t)) {
-                        errorCounts.stopwatch++;
-                        if (!groupsCitingTimer.includes(`第${i}組`)) groupsCitingTimer.push(`第${i}組`);
-                    }
-                    if (/crush|smash|戳碎|碎/.test(t)) errorCounts.sugar++;
-                    if (/temp|temperature|水溫|溫度/.test(t)) errorCounts.temp++;
-                    if (/sensor|magnetic|自動|傳感器|磁力/.test(t)) errorCounts.stem++;
-                });
-            }
-
+            // --- Topic 2: Student Chat Quotes & Reflections ---
             const t2Title = document.getElementById('topic2Title');
             const t2TitleEn = document.getElementById('topic2TitleEn');
             const t2Desc = document.getElementById('topic2Desc');
+            const t2Scaffold = document.getElementById('topic2ScaffoldSteps');
 
-            if (errorCounts.stirring >= errorCounts.stopwatch && errorCounts.stirring > 0) {
-                const citedList = groupsCitingStir.slice(0, 3).join('、') || '多數小組';
-                if (t2Title) t2Title.innerHTML = `🛠️ 實時學情焦點：${citedList}提出「人手攪拌速度不均」為主要誤差！如何改進裝置做到完全恆速？`;
-                if (t2TitleEn) t2TitleEn.innerText = `Class Live Focus: ${citedList} identified "Inconsistent manual stirring" as the main error! How to engineer constant stirring?`;
-                if (t2Desc) t2Desc.innerHTML = `各組在與 Agent Water 對話中普遍發現人手攪拌極難保持固定轉速。想像你可以引入任何科技工具，你會如何改進攪拌裝置？<br><span class="text-[10px] text-slate-500 italic">Students frequently noted the difficulty of manual stirring. How would you engineer automated constant RPM stirring?</span>`;
-            } else if (errorCounts.stopwatch > 0) {
-                const citedList = groupsCitingTimer.slice(0, 3).join('、') || '多數小組';
-                if (t2Title) t2Title.innerHTML = `🛠️ 實時學情焦點：${citedList}提到「按停碼錶反應延遲」為主要誤差！如何改進裝置實現自動檢測？`;
-                if (t2TitleEn) t2TitleEn.innerText = `Class Live Focus: ${citedList} noted "Stopwatch reaction delay"! How could apparatus detect endpoint automatically?`;
-                if (t2Desc) t2Desc.innerHTML = `肉眼主觀判斷與人腦反應延遲是隨機誤差根源。如何利用光學傳感器（Light Sensor）讓系統自動偵測方糖完全溶解並即時停錶？<br><span class="text-[10px] text-slate-500 italic">Subjective visual judgement and reaction delay cause errors. How could optical turbidity sensors automate endpoint detection?</span>`;
+            const quoteInaccurate = quotes.find(q => /唔夠準|不夠準|唔準|不準/i.test(q.quote));
+            const quoteCrushedSugar = quotes.find(q => /戳碎|搗碎|碎咗|碎/i.test(q.quote));
+            const quoteStirring = quotes.find(q => /手酸|慢咗|攪拌|轉速|攪得慢/i.test(q.quote));
+            const quoteStem = quotes.find(q => /傳感器|自動|磁力|機器|sensor/i.test(q.quote));
+            const quoteRandomError = quoteInaccurate || quotes.find(q => /誤差|偏差|random error/i.test(q.quote));
+
+            if (quoteRandomError) {
+                if (t2Title) {
+                    t2Title.innerHTML = `🛠️ 【課堂思維火花】第 ${quoteRandomError.groupNum} 組同學提出「${quoteRandomError.quote}」！全班討論：只做 1 組實驗到底存在什麼隨機誤差？8組平均如何抵消？`;
+                }
+                if (t2TitleEn) {
+                    t2TitleEn.innerText = `Classroom Thought Spark: Group ${quoteRandomError.groupNum} noted "${quoteRandomError.quote}"! What random errors make a single group imprecise, and how does the 8-group average balance them out?`;
+                }
+                if (t2Desc) {
+                    t2Desc.innerHTML = `
+                        第 ${quoteRandomError.groupNum} 組同學非常敏銳地提出只做 1 組可能「唔夠準」。人手操作時碼錶反應、攪拌速度都有不可避免的正負誤差。全班 8 組平均值是如何像天平一樣抵消這些誤差的？<br>
+                        <span class="text-[10px] text-slate-500 italic">Group ${quoteRandomError.groupNum} keenly observed that 1 group might not be accurate enough. How does taking an 8-group average balance out manual random errors like a balance scale?</span>
+                    `;
+                }
+                if (t2Scaffold) {
+                    t2Scaffold.innerHTML = `
+                        <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
+                        <p><strong>1. 具體化「唔夠準」(Clarify Inaccuracy)：</strong>單獨一組操作時，手指按錶反應快慢或攪拌節奏，會令秒數偏大還是偏小？<br><span class="text-[10px] text-slate-500 italic">Does reaction latency make measured seconds larger or smaller?</span></p>
+                        <p><strong>2. 正負抵消原理 (Cancellation Effect)：</strong>全班 8 組中，有人按早了幾秒，有人按遲了幾秒，將 8 組數據加起來算平均會發生什麼？<br><span class="text-[10px] text-slate-500 italic">When some groups press early and some late, what happens when averaging 8 groups?</span></p>
+                        <p><strong>3. 信度結論 (Reliability)：</strong>為什麼大樣本的平均值比單獨一組的數據更具科學說服力？<br><span class="text-[10px] text-slate-500 italic">Why does larger sample size average provide stronger scientific validity?</span></p>
+                    `;
+                }
+            } else if (quoteCrushedSugar) {
+                if (t2Title) {
+                    t2Title.innerHTML = `🛠️ 【公平測試反思】第 ${quoteCrushedSugar.groupNum} 組同學提到「${quoteCrushedSugar.quote}」！方糖碎裂如何改變了控制變因？這對測試公平性有何影響？`;
+                }
+                if (t2TitleEn) {
+                    t2TitleEn.innerText = `Fair Test Critique: Group ${quoteCrushedSugar.groupNum} noted "${quoteCrushedSugar.quote}"! How did crushing the sugar alter controlled variables?`;
+                }
+                if (t2Desc) {
+                    t2Desc.innerHTML = `
+                        第 ${quoteCrushedSugar.groupNum} 組同學誠實反思了實驗操作中的細節。方糖碎成小顆粒後，表面積大幅增加，這是否違反了公平測試（Fair Test）的原則？<br>
+                        <span class="text-[10px] text-slate-500 italic">Group ${quoteCrushedSugar.groupNum} reflected on crushing the sugar. Did increasing the surface area violate the controlled variables of a Fair Test?</span>
+                    `;
+                }
+            } else if (quoteStirring) {
+                if (t2Title) {
+                    t2Title.innerHTML = `🛠️ 【人為誤差分析】第 ${quoteStirring.groupNum} 組同學反映「${quoteStirring.quote}」！如何改進實驗設備做到完全恆速攪拌？`;
+                }
+                if (t2TitleEn) {
+                    t2TitleEn.innerText = `Operational Limitation: Group ${quoteStirring.groupNum} reported "${quoteStirring.quote}"! How to engineer constant stirring apparatus?`;
+                }
+                if (t2Desc) {
+                    t2Desc.innerHTML = `人手攪拌極難保持固定頻率與力道。想像你可以引入任何實驗室科技工具，你會如何改進攪拌裝置？<br><span class="text-[10px] text-slate-500 italic">Manual stirring cannot maintain constant RPM. How could laboratory automated devices eliminate this?</span>`;
+                }
+            } else if (quoteStem) {
+                if (t2Title) {
+                    t2Title.innerHTML = `🛠️ 【STEM 工程創新】第 ${quoteStem.groupNum} 組提出「${quoteStem.quote}」！如何利用光學傳感器實現零人為誤差？`;
+                }
+                if (t2TitleEn) {
+                    t2TitleEn.innerText = `STEM Innovation: Group ${quoteStem.groupNum} suggested "${quoteStem.quote}"! How can optical turbidity sensors achieve zero human error?`;
+                }
             } else {
                 if (t2Title) t2Title.innerHTML = `🛠️ 如果要設計一個完全「零人為誤差」的溶解實驗，你會如何改進裝置？`;
                 if (t2TitleEn) t2TitleEn.innerText = `To design a "Zero Human Error" dissolving experiment, how would you improve the apparatus?`;
             }
 
-            // 3. Limit Thinking: Use real class average at 200 cm³
+            // --- Topic 3: Class Curve Deceleration & Limit Thinking ---
             const t3Title = document.getElementById('topic3Title');
             const t3TitleEn = document.getElementById('topic3TitleEn');
             const t3Desc = document.getElementById('topic3Desc');
@@ -4337,25 +4614,108 @@
             const dropLate = Math.round((avg150 - avg200) * 10) / 10;
 
             if (t3Title) {
-                t3Title.innerHTML = `🌊 全班實測 200 cm³ 平均為 ${avg200} 秒。若將水量無限增加至 5000 cm³，溶解時間會無限制地變成 0 秒嗎？`;
+                t3Title.innerHTML = `🌊 【極限思維探究】全班實測 50→100 cm³ 大幅縮短了 ${dropEarly} 秒，但 150→200 cm³ 僅減少約 ${dropLate} 秒！若將水量加至 10,000 cm³，溶解時間可能變成 0 秒嗎？`;
             }
             if (t3TitleEn) {
-                t3TitleEn.innerText = `Class average at 200 cm³ is ${avg200}s. If water volume increases to 5000 cm³, will dissolving time drop to 0 seconds?`;
+                t3TitleEn.innerText = `Limit Thinking: Dissolving time dropped by ${dropEarly}s from 50→100 cm³, but only by ${dropLate}s from 150→200 cm³! If water volume is 10,000 cm³, can time ever reach 0s?`;
             }
             if (t3Desc) {
                 t3Desc.innerHTML = `
-                    全班折線顯示前期下降快（50 → 100 cm³ 減少約 ${dropEarly}s），後期趨緩（150 → 200 cm³ 僅減少約 ${dropLate}s）。水量加速溶解效果是否存在物理極限？<br>
-                    <span class="text-[10px] text-slate-500 italic">Early drop is sharp (${dropEarly}s) while later drop flattens (${dropLate}s). Does dissolving acceleration have a physical limit?</span>
+                    全班實測曲線清楚顯示「前段劇降、後段趨緩」的邊際效應特徵。即便把方糖投入整座水塘或太平洋中，水分子破壞晶格依然需要時間，這揭示了科學規律在極端條件下的什麼物理極限？<br>
+                    <span class="text-[10px] text-slate-500 italic">The class curve exhibits diminishing returns. Even in an entire reservoir or ocean, molecular bond breaking takes time. What physical limit does this reveal?</span>
                 `;
             }
             if (t3Scaffold) {
                 t3Scaffold.innerHTML = `
                     <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
                     <p><strong>1. 觀察斜率 (Observe Gradient)：</strong>全班前期下降了 ${dropEarly} 秒，後期僅下降了 ${dropLate} 秒，曲線越來越平緩，代表什麼？<br><span class="text-[10px] text-slate-500 italic">Early decrease is ${dropEarly}s while later is only ${dropLate}s. The curve flattens—what does this signify?</span></p>
-                    <p><strong>2. 物理常識 (Physical Reality)：</strong>即使把方糖扔進太平洋（極大水量），水分子拆解方糖晶格需要時間嗎？能否為 0 秒？<br><span class="text-[10px] text-slate-500 italic">Even in an ocean, does water take time to break sugar crystal bonds? Can it ever be 0s?</span></p>
+                    <p><strong>2. 物理常識 (Physical Reality)：</strong>即便把方糖扔進太平洋（極大水量），水分子拆解方糖晶格需要時間嗎？能否為 0 秒？<br><span class="text-[10px] text-slate-500 italic">Even in an ocean, does water take time to break sugar crystal bonds? Can it ever be 0s?</span></p>
                     <p><strong>3. 外推批判 (Extrapolation Critique)：</strong>用有限的數據曲線去預測無窮大的極端情況，需要注意什麼限制？<br><span class="text-[10px] text-slate-500 italic">What are the risks of using limited data points to predict extreme conditions?</span></p>
                 `;
             }
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        async function refreshWholeClassDiscussionPrompts() {
+            const btn = document.getElementById('refreshPromptsBtn');
+            const badge = document.getElementById('discussionSyncBadge');
+            const syncText = document.getElementById('discussionSyncText');
+
+            if (btn) {
+                btn.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> <span>AI 生成中...</span>`;
+                btn.disabled = true;
+            }
+            if (badge) {
+                badge.className = "text-[11px] bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full border border-amber-300 flex items-center gap-1.5 shadow-sm";
+                badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span><span>AI 正在分析全班數據與發言...</span>`;
+            }
+            if (window.lucide) lucide.createIcons();
+
+            const classContext = buildClassContextForDiscussionPrompts();
+
+            // 1. If API Key is configured, call Gemini
+            if (aiSettings.apiKey && aiSettings.apiKey.trim().length > 5) {
+                try {
+                    const aiPrompts = await callGeminiDynamicDiscussionPrompts(classContext);
+                    if (aiPrompts && aiPrompts.topic1 && aiPrompts.topic2 && aiPrompts.topic3) {
+                        applyDiscussionPromptsToDOM(aiPrompts);
+                        if (badge) {
+                            badge.className = "text-[11px] bg-purple-100 text-purple-900 font-bold px-3 py-1 rounded-full border border-purple-300 flex items-center gap-1.5 shadow-sm";
+                            badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span><span>✓ AI 實時學情提問已生成 (Live AI Synced)</span>`;
+                        }
+                        if (btn) {
+                            btn.innerHTML = `<i data-lucide="sparkles" class="w-3 h-3 text-purple-700"></i> <span>刷新 AI 動態提問</span>`;
+                            btn.disabled = false;
+                        }
+                        if (window.lucide) lucide.createIcons();
+                        return;
+                    }
+                } catch (err) {
+                    console.warn('AI Discussion Prompts generation failed, falling back to heuristic engine:', err);
+                }
+            }
+
+            // 2. Offline / Heuristic fallback
+            updateDynamicDiscussionPromptsHeuristic(classContext);
+
+            if (badge) {
+                badge.className = "text-[11px] bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full border border-emerald-300 flex items-center gap-1.5 shadow-sm";
+                badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span>實時動態學情連動中 / Live Synced</span>`;
+            }
+            if (btn) {
+                btn.innerHTML = `<i data-lucide="refresh-cw" class="w-3 h-3"></i> <span>刷新動態提問</span>`;
+                btn.disabled = false;
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function applyDiscussionPromptsToDOM(prompts) {
+            if (prompts.topic1) {
+                const t1 = prompts.topic1;
+                if (document.getElementById('topic1Title') && t1.title) document.getElementById('topic1Title').innerHTML = t1.title;
+                if (document.getElementById('topic1TitleEn') && t1.titleEn) document.getElementById('topic1TitleEn').innerText = t1.titleEn;
+                if (document.getElementById('topic1Desc') && t1.desc) document.getElementById('topic1Desc').innerHTML = t1.desc;
+                if (document.getElementById('topic1ScaffoldSteps') && t1.scaffoldSteps) document.getElementById('topic1ScaffoldSteps').innerHTML = t1.scaffoldSteps;
+            }
+            if (prompts.topic2) {
+                const t2 = prompts.topic2;
+                if (document.getElementById('topic2Title') && t2.title) document.getElementById('topic2Title').innerHTML = t2.title;
+                if (document.getElementById('topic2TitleEn') && t2.titleEn) document.getElementById('topic2TitleEn').innerText = t2.titleEn;
+                if (document.getElementById('topic2Desc') && t2.desc) document.getElementById('topic2Desc').innerHTML = t2.desc;
+                if (document.getElementById('topic2ScaffoldSteps') && t2.scaffoldSteps) document.getElementById('topic2ScaffoldSteps').innerHTML = t2.scaffoldSteps;
+            }
+            if (prompts.topic3) {
+                const t3 = prompts.topic3;
+                if (document.getElementById('topic3Title') && t3.title) document.getElementById('topic3Title').innerHTML = t3.title;
+                if (document.getElementById('topic3TitleEn') && t3.titleEn) document.getElementById('topic3TitleEn').innerText = t3.titleEn;
+                if (document.getElementById('topic3Desc') && t3.desc) document.getElementById('topic3Desc').innerHTML = t3.desc;
+                if (document.getElementById('topic3ScaffoldSteps') && t3.scaffoldSteps) document.getElementById('topic3ScaffoldSteps').innerHTML = t3.scaffoldSteps;
+            }
+        }
+
+        function updateDynamicDiscussionPrompts() {
+            updateDynamicDiscussionPromptsHeuristic();
         }
 
         // ================= PHOTO CAPTURE & AI PEDAGOGICAL GENERATION =================

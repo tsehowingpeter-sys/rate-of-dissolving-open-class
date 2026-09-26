@@ -109,8 +109,8 @@
                         class="bg-white/10 hover:bg-white/20 focus:bg-white focus:text-slate-800 text-amber-200 focus:ring-2 focus:ring-amber-300 transition text-xs font-bold px-2 py-0.5 rounded-md w-24 text-center outline-none cursor-pointer">
                 </div>
 
-                <!-- Mode / Group Dropdown -->
-                <div class="bg-slate-900/40 px-2.5 py-1 rounded-xl border border-white/20 flex items-center gap-1.5 shadow-inner">
+                <!-- Mode / Group Dropdown + Switch Group Button -->
+                <div class="bg-slate-900/40 px-2 py-1 rounded-xl border border-white/20 flex items-center gap-1.5 shadow-inner">
                     <i data-lucide="users" class="w-3.5 h-3.5 text-sky-200"></i>
                     <span class="text-[11px] font-semibold text-sky-100 whitespace-nowrap">Group / 組別:</span>
                     <select id="groupSelect" onchange="handleRoleSelectChange()" class="bg-white text-slate-800 text-xs font-bold px-2.5 py-1 rounded-lg focus:outline-none shadow cursor-pointer">
@@ -123,7 +123,18 @@
                         <option value="Group 7">Group 7 (第7組)</option>
                         <option value="Group 8">Group 8 (第8組)</option>
                         <option value="Teacher" class="font-bold text-amber-700 bg-amber-50">🔒 Teacher Mode (教師指揮中心)</option>
+                        <option value="Admin" class="font-bold text-purple-700 bg-purple-50">🛠️ Admin Mode (AI 系統管理後台)</option>
                     </select>
+                    <button type="button" onclick="openActivationModal()" title="重新確認或切換班別與組別" class="px-2 py-1 bg-white/20 hover:bg-white/30 active:scale-95 text-white rounded-md text-[11px] font-bold transition flex items-center gap-1">
+                        <i data-lucide="repeat" class="w-3 h-3"></i>
+                        <span>切換</span>
+                    </button>
+                </div>
+
+                <!-- Workspace Activation Status Pill -->
+                <div id="workspaceStatusPill" class="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-200 border border-amber-300/30">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    <span id="workspaceStatusText">請先確認組別</span>
                 </div>
 
                 <!-- Live Sync Pill -->
@@ -140,7 +151,31 @@
     <main class="max-w-7xl mx-auto px-4 py-6 w-full flex-1">
 
         <!-- ================= STUDENT VIEW ================= -->
-        <div id="studentViewSection" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div id="studentViewSection" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start relative">
+
+            <!-- Workspace Activation Lock Overlay (Shown until student confirms Class & Group) -->
+            <div id="activationLockOverlay" class="hidden absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] rounded-3xl z-30 flex flex-col items-center justify-center p-4 sm:p-6 text-center shadow-2xl transition-all duration-300">
+                <div class="bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-sky-200 text-center space-y-4">
+                    <div class="w-16 h-16 bg-gradient-to-tr from-sky-400 to-indigo-500 text-white rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-md">
+                        🔒
+                    </div>
+                    <div>
+                        <h3 class="text-base sm:text-lg font-bold text-slate-800 font-fun">
+                            請先確認班別與組別
+                        </h3>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Please select your Class & Group to unlock experiment tools!
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-600 bg-sky-50 p-3 rounded-xl border border-sky-100 text-left leading-relaxed">
+                        👋 為了確保本組實驗數據正確記錄、跨組圖表同步，並為你量身生成專屬的學習小結，請先確認你所在的班級與組別。
+                    </p>
+                    <button type="button" onclick="openActivationModal()" class="w-full bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 active:scale-[0.99] text-white font-bold py-3 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2">
+                        <i data-lucide="users" class="w-4 h-4"></i>
+                        <span>選擇班別與組別 (Select Class & Group)</span>
+                    </button>
+                </div>
+            </div>
 
             <!-- Left Column: Data Entry & Graph & Table (6 Cols) -->
             <section class="lg:col-span-6 space-y-5">
@@ -381,6 +416,12 @@
                             <i data-lucide="trash-2" class="w-4 h-4"></i>
                             <span>清空本班數據</span>
                         </button>
+                        <button onclick="openAdminPasswordModal()" 
+                            class="bg-purple-900/80 hover:bg-purple-800 active:scale-95 text-purple-200 hover:text-white font-bold px-3.5 py-2.5 rounded-xl text-xs shadow-lg transition flex items-center gap-1.5 border border-purple-500/40"
+                            title="管理敏感的 API Key、學生端模型派發與全班 Token 使用量 (需 teacheradmin 密碼)">
+                            <i data-lucide="shield" class="w-4 h-4 text-purple-300"></i>
+                            <span>AI 系統管理員 (Admin)</span>
+                        </button>
                     </div>
                 </div>
 
@@ -413,197 +454,20 @@
                 </div>
             </div>
 
-            <!-- ================= AI ENGINE, MODEL CONFIGURATION & LIVE TOKEN MONITOR ================= -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                
-                <!-- Left: AI Engine & Model Configuration (6 Cols) -->
-                <div class="lg:col-span-6 bg-slate-900 text-white rounded-3xl p-6 shadow-xl border border-indigo-500/30 space-y-4 relative overflow-hidden">
-                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                        <div class="flex items-center gap-2.5">
-                            <div class="p-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl text-white shadow">
-                                <i data-lucide="cpu" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <h3 class="text-sm sm:text-base font-bold text-white font-fun">
-                                    AI Engine & Model Setup / AI 引擎與模型配置
-                                </h3>
-                                <p class="text-[11px] text-slate-400">
-                                    連入 API Key 即可啟動多模態相片視覺分析與水精靈即時 LLM 推理
-                                </p>
-                            </div>
-                        </div>
-                        <span id="aiStatusBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700 flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full bg-slate-500"></span> 離線 Heuristic 模式
-                        </span>
-                    </div>
-
-                    <!-- Config Form -->
-                    <div class="space-y-3.5 text-xs">
-                        <!-- Provider -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-300 mb-1">
-                                    API 服務商 (Provider)
-                                </label>
-                                <select id="aiProviderSelect" onchange="handleAiProviderChange()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-medium">
-                                    <option value="gemini" selected>Google Gemini API (推薦 • 多模態相片視覺)</option>
-                                    <option value="openai">OpenAI 兼容端點 (OpenAI / DeepSeek / OpenRouter)</option>
-                                </select>
-                            </div>
-
-                            <!-- Model Selector -->
-                            <div>
-                                <label class="block text-[11px] font-bold text-slate-300 mb-1 flex items-center justify-between">
-                                    <span>推論模型 (Model for Students)</span>
-                                    <span class="text-[10px] text-amber-400 font-normal">全班統一調用</span>
-                                </label>
-                                <select id="aiModelSelect" onchange="handleAiModelChange()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-medium">
-                                    <option value="gemini-2.5-flash" selected>gemini-2.5-flash (推薦 • 極速多模態視覺)</option>
-                                    <option value="gemini-2.0-flash">gemini-2.0-flash (超低延遲)</option>
-                                    <option value="gemini-1.5-flash">gemini-1.5-flash (穩定平衡)</option>
-                                    <option value="gemini-2.5-pro">gemini-2.5-pro (深度科學推理)</option>
-                                    <option value="gemini-1.5-pro">gemini-1.5-pro (高複雜度診斷)</option>
-                                    <option value="custom">自訂模型名稱 (Custom Model)...</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Custom Model Input (Hidden unless selected) -->
-                        <div id="customModelContainer" class="hidden">
-                            <label class="block text-[11px] font-bold text-slate-300 mb-1">自訂模型識別碼 (Custom Model ID)</label>
-                            <input type="text" id="aiCustomModelInput" placeholder="例如: gpt-4o-mini, deepseek-chat, gemini-3.8-flash" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-mono">
-                        </div>
-
-                        <!-- Custom Base URL (For OpenAI / Proxy, hidden unless provider === 'openai') -->
-                        <div id="customBaseUrlContainer" class="hidden">
-                            <label class="block text-[11px] font-bold text-slate-300 mb-1">API Base URL 端點</label>
-                            <input type="text" id="aiBaseUrlInput" placeholder="https://api.openai.com/v1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-mono">
-                        </div>
-
-                        <!-- API Key Input with Eye Mask Toggle -->
-                        <div>
-                            <div class="flex items-center justify-between mb-1">
-                                <label class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
-                                    <span>API 金鑰 (API Key)</span>
-                                    <span class="text-[10px] text-emerald-400 font-normal">保存在老師本機</span>
-                                </label>
-                                <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="text-[10px] text-sky-400 hover:text-sky-300 hover:underline flex items-center gap-0.5">
-                                    <span>獲取免費 Gemini Key</span>
-                                    <i data-lucide="external-link" class="w-3 h-3"></i>
-                                </a>
-                            </div>
-                            <div class="relative">
-                                <input type="password" id="aiApiKeyInput" placeholder="AIzaSy... (貼上 Google Gemini 或 OpenAI API Key)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 pr-20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-mono tracking-wider">
-                                <div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                                    <button type="button" onclick="toggleApiKeyVisibility()" class="p-1 text-slate-400 hover:text-white rounded-lg transition" title="顯示/隱藏金鑰">
-                                        <i id="apiKeyEyeIcon" data-lucide="eye" class="w-4 h-4"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sync to Students Toggle -->
-                        <div class="flex items-center justify-between p-2.5 bg-slate-800/80 rounded-xl border border-slate-700/60">
-                            <div class="flex items-center gap-2">
-                                <i data-lucide="radio" class="w-4 h-4 text-sky-400"></i>
-                                <div>
-                                    <span class="font-bold text-slate-200">全班自動同步 (Sync to Students)</span>
-                                    <p class="text-[10px] text-slate-400">學生平板無需手動輸入 Key，連線後自動共享此模型進行水精靈對話</p>
-                                </div>
-                            </div>
-                            <input type="checkbox" id="aiSyncCheckbox" checked class="w-4 h-4 accent-indigo-500 rounded cursor-pointer">
-                        </div>
-
-                        <!-- Action Buttons & Status Alert -->
-                        <div class="flex items-center justify-between gap-2 pt-1 flex-wrap">
-                            <div class="flex items-center gap-2">
-                                <button type="button" onclick="testAiConnection()" id="btnTestAi" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-bold rounded-xl border border-slate-600 transition flex items-center gap-1.5 shadow-sm">
-                                    <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
-                                    <span>測試連線 (Test)</span>
-                                </button>
-                                <button type="button" onclick="saveAiSettings(true)" class="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 active:scale-95 text-white font-bold rounded-xl shadow-md transition flex items-center gap-1.5">
-                                    <i data-lucide="save" class="w-3.5 h-3.5"></i>
-                                    <span>儲存配置 (Save)</span>
-                                </button>
-                            </div>
-                            <button type="button" onclick="clearAiSettings()" class="text-[11px] text-rose-400 hover:text-rose-300 font-semibold underline">
-                                清除金鑰
-                            </button>
-                        </div>
-
-                        <!-- Connection Test Result Message Banner -->
-                        <div id="aiConnectionMsg" class="hidden p-2.5 rounded-xl text-xs flex items-center gap-2"></div>
-                    </div>
+            <!-- Discreet AI Status Ribbon in Teacher View (Sensitive keys & metrics protected in Admin Center) -->
+            <div class="bg-slate-900/90 text-slate-300 rounded-2xl px-5 py-3 border border-slate-800 flex items-center justify-between flex-wrap gap-3 shadow-sm">
+                <div class="flex items-center gap-2.5">
+                    <span id="aiTeacherStatusBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span> AI 連線就緒
+                    </span>
+                    <span class="text-xs text-slate-400">
+                        🔒 API 金鑰與 Token 使用量監控已移至專屬管理員後台，大螢幕投影安全無虞。
+                    </span>
                 </div>
-
-                <!-- Right: AI Token Live Monitoring Dashboard (6 Cols) -->
-                <div class="lg:col-span-6 bg-slate-900 text-white rounded-3xl p-6 shadow-xl border border-indigo-500/30 space-y-4 flex flex-col justify-between">
-                    <div>
-                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                            <div class="flex items-center gap-2.5">
-                                <div class="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl text-white shadow">
-                                    <i data-lucide="activity" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <h3 class="text-sm sm:text-base font-bold text-white font-fun">
-                                        AI Token Monitor / Token 使用量監控
-                                    </h3>
-                                    <p class="text-[11px] text-slate-400">
-                                        即時統計水精靈對話與相片視覺分析之 Token 消耗及費用預估
-                                    </p>
-                                </div>
-                            </div>
-                            <button type="button" onclick="resetAiTokenStats()" class="text-[10px] text-slate-400 hover:text-rose-400 transition flex items-center gap-1">
-                                <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
-                                <span>重設統計</span>
-                            </button>
-                        </div>
-
-                        <!-- 4 Token KPI Stat Cards -->
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-4">
-                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
-                                <span class="text-[10px] text-slate-400 font-medium block">總調用次數 (Calls)</span>
-                                <span id="tokenStatCalls" class="text-lg sm:text-xl font-black text-teal-400 mt-0.5 block">0</span>
-                                <span class="text-[9px] text-slate-500">API Requests</span>
-                            </div>
-                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
-                                <span class="text-[10px] text-slate-400 font-medium block">總 Tokens 消耗</span>
-                                <span id="tokenStatTotal" class="text-lg sm:text-xl font-black text-amber-400 mt-0.5 block">0</span>
-                                <span class="text-[9px] text-slate-500">Tokens Total</span>
-                            </div>
-                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
-                                <span class="text-[10px] text-slate-400 font-medium block">輸入 / 輸出明細</span>
-                                <span id="tokenStatBreakdown" class="text-xs font-bold text-sky-300 mt-1 block">0 / 0</span>
-                                <span class="text-[9px] text-slate-500">Prompt / Output</span>
-                            </div>
-                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
-                                <span class="text-[10px] text-slate-400 font-medium block">預估費用 (Cost)</span>
-                                <span id="tokenStatCost" class="text-sm sm:text-base font-black text-emerald-400 mt-1 block">免費額度內</span>
-                                <span class="text-[9px] text-slate-500">Google AI Studio</span>
-                            </div>
-                        </div>
-
-                        <!-- Real-time Request Audit Table / Feed -->
-                        <div class="mt-4 space-y-1.5">
-                            <div class="flex items-center justify-between text-[11px] text-slate-400 font-bold px-1">
-                                <span>實時調用明細記錄 (Recent Activity)</span>
-                                <span id="tokenLogCount" class="text-[10px] font-normal">最近 0 筆</span>
-                            </div>
-                            <div id="tokenAuditLogs" class="max-h-36 overflow-y-auto space-y-1.5 pr-1 text-[11px] font-mono">
-                                <div class="text-center py-6 text-slate-500 text-xs font-sans">
-                                    尚無 AI API 調用記錄 (等待學生對話或相片分析)
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Footer Help Tip -->
-                    <div class="pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex items-center justify-between">
-                        <span>💡 提示：Gemini Flash 模型享有極大免費額度，適合課堂高頻率互動。</span>
-                        <span class="text-slate-500">v2.5 Vision Ready</span>
-                    </div>
-                </div>
-
+                <button type="button" onclick="openAdminPasswordModal()" class="text-xs bg-purple-950/80 hover:bg-purple-900 text-purple-200 hover:text-white font-bold px-3 py-1.5 rounded-xl border border-purple-700/50 flex items-center gap-1.5 transition">
+                    <i data-lucide="shield" class="w-3.5 h-3.5 text-purple-300"></i>
+                    <span>開啟管理員後台 (Admin Only)</span>
+                </button>
             </div>
 
             <!-- SECTION: Whole-Class Discussion Prompts (Bilingual with Dynamic Adaptive Intelligence & Photo Upload) -->
@@ -1044,22 +908,256 @@
 
         </div>
 
+        <!-- ================= AI SYSTEM ADMIN DASHBOARD (PASSWORD PROTECTED: teacheradmin) ================= -->
+        <div id="adminViewSection" class="hidden space-y-6">
+
+            <!-- Admin Header Banner -->
+            <div class="bg-gradient-to-r from-slate-950 via-purple-950 to-slate-900 text-white rounded-3xl p-6 shadow-2xl border border-purple-500/40 relative overflow-hidden">
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                            <span class="px-2.5 py-0.5 bg-purple-500 text-white font-black text-[10px] rounded-full uppercase tracking-wider flex items-center gap-1 shadow-sm">
+                                <i data-lucide="shield-alert" class="w-3 h-3"></i> AI SYSTEM ADMIN / 系統管理員專屬後台
+                            </span>
+                            <span class="px-2.5 py-0.5 bg-purple-900/60 text-purple-200 border border-purple-400/30 text-[10px] font-bold rounded-full">
+                                敏感權限 (Protected by teacheradmin)
+                            </span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold font-fun tracking-wide text-white flex items-center gap-2">
+                            <span>AI Engine & Token Budget Admin • 系統管理控制台</span>
+                        </h2>
+                        <p class="text-slate-300 text-xs md:text-sm mt-1">
+                            管理 Google Gemini API Key、學生端推理模型派發與全班 Token 使用量審計監控
+                        </p>
+                    </div>
+
+                    <!-- Admin Navigation Actions -->
+                    <div class="flex items-center gap-2.5 flex-wrap">
+                        <button type="button" onclick="switchToTeacherFromAdmin()" 
+                            class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 hover:text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 border border-amber-400/30">
+                            <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                            <span>返回教師指揮中心</span>
+                        </button>
+                        <button type="button" onclick="switchToStudentRole(lastSelectedRole || 'Group 1')" 
+                            class="bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 border border-slate-700">
+                            <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                            <span>返回學生視圖</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= AI ENGINE, MODEL CONFIGURATION & LIVE TOKEN MONITOR ================= -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Left: AI Engine & Model Configuration (6 Cols) -->
+                <div class="lg:col-span-6 bg-slate-900 text-white rounded-3xl p-6 shadow-xl border border-indigo-500/30 space-y-4 relative overflow-hidden">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                        <div class="flex items-center gap-2.5">
+                            <div class="p-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl text-white shadow">
+                                <i data-lucide="cpu" class="w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-sm sm:text-base font-bold text-white font-fun">
+                                    AI Engine & Model Setup / AI 引擎與模型配置
+                                </h3>
+                                <p class="text-[11px] text-slate-400">
+                                    連入 API Key 即可啟動多模態相片視覺分析與水精靈即時 LLM 推理
+                                </p>
+                            </div>
+                        </div>
+                        <span id="aiStatusBadge" class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-slate-500"></span> 離線 Heuristic 模式
+                        </span>
+                    </div>
+
+                    <!-- Config Form -->
+                    <div class="space-y-3.5 text-xs">
+                        <!-- Provider -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 mb-1">
+                                    API 服務商 (Provider)
+                                </label>
+                                <select id="aiProviderSelect" onchange="handleAiProviderChange()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-medium">
+                                    <option value="gemini" selected>Google Gemini API (推薦 • 多模態相片視覺)</option>
+                                    <option value="openai">OpenAI 兼容端點 (OpenAI / DeepSeek / OpenRouter)</option>
+                                </select>
+                            </div>
+
+                            <!-- Model Selector -->
+                            <div>
+                                <label class="block text-[11px] font-bold text-slate-300 mb-1 flex items-center justify-between">
+                                    <span>推論模型 (Model for Students)</span>
+                                    <span class="text-[10px] text-amber-400 font-normal">全班統一調用</span>
+                                </label>
+                                <select id="aiModelSelect" onchange="handleAiModelChange()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-medium">
+                                    <option value="gemini-2.5-flash" selected>gemini-2.5-flash (推薦 • 極速多模態視覺)</option>
+                                    <option value="gemini-2.0-flash">gemini-2.0-flash (超低延遲)</option>
+                                    <option value="gemini-1.5-flash">gemini-1.5-flash (穩定平衡)</option>
+                                    <option value="gemini-2.5-pro">gemini-2.5-pro (深度科學推理)</option>
+                                    <option value="gemini-1.5-pro">gemini-1.5-pro (高複雜度診斷)</option>
+                                    <option value="custom">自訂模型名稱 (Custom Model)...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Custom Model Input (Hidden unless selected) -->
+                        <div id="customModelContainer" class="hidden">
+                            <label class="block text-[11px] font-bold text-slate-300 mb-1">自訂模型識別碼 (Custom Model ID)</label>
+                            <input type="text" id="aiCustomModelInput" placeholder="例如: gpt-4o-mini, deepseek-chat, gemini-3.8-flash" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-mono">
+                        </div>
+
+                        <!-- Custom Base URL (For OpenAI / Proxy, hidden unless provider === 'openai') -->
+                        <div id="customBaseUrlContainer" class="hidden">
+                            <label class="block text-[11px] font-bold text-slate-300 mb-1">API Base URL 端點</label>
+                            <input type="text" id="aiBaseUrlInput" placeholder="https://api.openai.com/v1" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-mono">
+                        </div>
+
+                        <!-- API Key Input with Eye Mask Toggle -->
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <label class="text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
+                                    <span>API 金鑰 (API Key)</span>
+                                    <span class="text-[10px] text-emerald-400 font-normal">保存在老師本機</span>
+                                </label>
+                                <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="text-[10px] text-sky-400 hover:text-sky-300 hover:underline flex items-center gap-0.5">
+                                    <span>獲取免費 Gemini Key</span>
+                                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                                </a>
+                            </div>
+                            <div class="relative">
+                                <input type="password" id="aiApiKeyInput" placeholder="AIzaSy... (貼上 Google Gemini 或 OpenAI API Key)" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2.5 pr-20 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs font-mono tracking-wider">
+                                <div class="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                                    <button type="button" onclick="toggleApiKeyVisibility()" class="p-1 text-slate-400 hover:text-white rounded-lg transition" title="顯示/隱藏金鑰">
+                                        <i id="apiKeyEyeIcon" data-lucide="eye" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sync to Students Toggle -->
+                        <div class="flex items-center justify-between p-2.5 bg-slate-800/80 rounded-xl border border-slate-700/60">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="radio" class="w-4 h-4 text-sky-400"></i>
+                                <div>
+                                    <span class="font-bold text-slate-200">全班自動同步 (Sync to Students)</span>
+                                    <p class="text-[10px] text-slate-400">學生平板無需手動輸入 Key，連線後自動共享此模型進行水精靈對話</p>
+                                </div>
+                            </div>
+                            <input type="checkbox" id="aiSyncCheckbox" checked class="w-4 h-4 accent-indigo-500 rounded cursor-pointer">
+                        </div>
+
+                        <!-- Action Buttons & Status Alert -->
+                        <div class="flex items-center justify-between gap-2 pt-1 flex-wrap">
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="testAiConnection()" id="btnTestAi" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-bold rounded-xl border border-slate-600 transition flex items-center gap-1.5 shadow-sm">
+                                    <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+                                    <span>測試連線 (Test)</span>
+                                </button>
+                                <button type="button" onclick="saveAiSettings(true)" class="px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 active:scale-95 text-white font-bold rounded-xl shadow-md transition flex items-center gap-1.5">
+                                    <i data-lucide="save" class="w-3.5 h-3.5"></i>
+                                    <span>儲存配置 (Save)</span>
+                                </button>
+                            </div>
+                            <button type="button" onclick="clearAiSettings()" class="text-[11px] text-rose-400 hover:text-rose-300 font-semibold underline">
+                                清除金鑰
+                            </button>
+                        </div>
+
+                        <!-- Connection Test Result Message Banner -->
+                        <div id="aiConnectionMsg" class="hidden p-2.5 rounded-xl text-xs flex items-center gap-2"></div>
+                    </div>
+                </div>
+
+                <!-- Right: AI Token Live Monitoring Dashboard (6 Cols) -->
+                <div class="lg:col-span-6 bg-slate-900 text-white rounded-3xl p-6 shadow-xl border border-indigo-500/30 space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <div class="flex items-center gap-2.5">
+                                <div class="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl text-white shadow">
+                                    <i data-lucide="activity" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm sm:text-base font-bold text-white font-fun">
+                                        AI Token Monitor / Token 使用量監控
+                                    </h3>
+                                    <p class="text-[11px] text-slate-400">
+                                        即時統計水精靈對話與相片視覺分析之 Token 消耗及費用預估
+                                    </p>
+                                </div>
+                            </div>
+                            <button type="button" onclick="resetAiTokenStats()" class="text-[10px] text-slate-400 hover:text-rose-400 transition flex items-center gap-1">
+                                <i data-lucide="rotate-ccw" class="w-3 h-3"></i>
+                                <span>重設統計</span>
+                            </button>
+                        </div>
+
+                        <!-- 4 Token KPI Stat Cards -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-4">
+                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
+                                <span class="text-[10px] text-slate-400 font-medium block">總調用次數 (Calls)</span>
+                                <span id="tokenStatCalls" class="text-lg sm:text-xl font-black text-teal-400 mt-0.5 block">0</span>
+                                <span class="text-[9px] text-slate-500">API Requests</span>
+                            </div>
+                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
+                                <span class="text-[10px] text-slate-400 font-medium block">總 Tokens 消耗</span>
+                                <span id="tokenStatTotal" class="text-lg sm:text-xl font-black text-amber-400 mt-0.5 block">0</span>
+                                <span class="text-[9px] text-slate-500">Tokens Total</span>
+                            </div>
+                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
+                                <span class="text-[10px] text-slate-400 font-medium block">輸入 / 輸出明細</span>
+                                <span id="tokenStatBreakdown" class="text-xs font-bold text-sky-300 mt-1 block">0 / 0</span>
+                                <span class="text-[9px] text-slate-500">Prompt / Output</span>
+                            </div>
+                            <div class="bg-slate-800/80 p-3 rounded-2xl border border-slate-700/80">
+                                <span class="text-[10px] text-slate-400 font-medium block">預估費用 (Cost)</span>
+                                <span id="tokenStatCost" class="text-sm sm:text-base font-black text-emerald-400 mt-1 block">免費額度內</span>
+                                <span class="text-[9px] text-slate-500">Google AI Studio</span>
+                            </div>
+                        </div>
+
+                        <!-- Real-time Request Audit Table / Feed -->
+                        <div class="mt-4 space-y-1.5">
+                            <div class="flex items-center justify-between text-[11px] text-slate-400 font-bold px-1">
+                                <span>實時調用明細記錄 (Recent Activity)</span>
+                                <span id="tokenLogCount" class="text-[10px] font-normal">最近 0 筆</span>
+                            </div>
+                            <div id="tokenAuditLogs" class="max-h-36 overflow-y-auto space-y-1.5 pr-1 text-[11px] font-mono">
+                                <div class="text-center py-6 text-slate-500 text-xs font-sans">
+                                    尚無 AI API 調用記錄 (等待學生對話或相片分析)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Help Tip -->
+                    <div class="pt-2 border-t border-slate-800 text-[10px] text-slate-400 flex items-center justify-between">
+                        <span>💡 提示：Gemini Flash 模型享有極大免費額度，適合課堂高頻率互動。</span>
+                        <span class="text-slate-500">v2.5 Vision Ready</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
     </main>
 
     <!-- ================= PASSWORD MODAL (MASKED INPUT) ================= -->
     <div id="passwordModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
         <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-slate-200 space-y-4 transition transform">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-lg shadow-inner">
+                <div id="passwordModalIcon" class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-lg shadow-inner">
                     🔒
                 </div>
                 <div>
-                    <h3 class="font-bold text-slate-800 text-sm sm:text-base">教師指揮中心權限驗證</h3>
-                    <p class="text-xs text-slate-500">Teacher Password Verification</p>
+                    <h3 id="passwordModalTitle" class="font-bold text-slate-800 text-sm sm:text-base">教師指揮中心權限驗證</h3>
+                    <p id="passwordModalSubtitle" class="text-xs text-slate-500">Teacher Password Verification</p>
                 </div>
             </div>
             
-            <p class="text-xs text-slate-600">
+            <p id="passwordModalPrompt" class="text-xs text-slate-600">
                 請輸入教師後台密碼解鎖權限（密碼以星號掩碼保護）：
             </p>
             
@@ -1075,11 +1173,84 @@
                     class="flex-1 px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition">
                     取消 / Cancel
                 </button>
-                <button type="button" onclick="confirmPasswordModal()" 
+                <button type="button" id="passwordModalConfirmBtn" onclick="confirmPasswordModal()" 
                     class="flex-1 px-4 py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 active:scale-95 text-white shadow-md transition">
                     確認進入 / Confirm
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- ================= CLASS & GROUP ACTIVATION MODAL ================= -->
+    <div id="activationModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 backdrop-blur-md p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl p-6 sm:p-7 max-w-lg w-full shadow-2xl border border-sky-100 space-y-5 my-auto">
+            
+            <!-- Header -->
+            <div class="text-center space-y-1">
+                <div class="w-14 h-14 bg-gradient-to-tr from-sky-400 to-teal-400 text-white rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-md mb-2">
+                    💧
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold font-fun text-slate-900">
+                    歡迎進入科學探究課堂！
+                </h3>
+                <p class="text-xs text-slate-500">
+                    Exp 2.5: Factors Affecting Rate of Dissolving • 學生端啟動
+                </p>
+                <p class="text-xs text-slate-600 pt-1">
+                    請先確認你的<strong>班別</strong>與<strong>組別</strong>，系統將為你啟動專屬的實驗記錄與水精靈對話通道：
+                </p>
+            </div>
+
+            <!-- Class Selection -->
+            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200 space-y-2">
+                <label class="block text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                    <i data-lucide="school" class="w-3.5 h-3.5 text-amber-500"></i>
+                    <span>1. 選擇你的班別 (Select Class)</span>
+                </label>
+                <div class="flex items-center gap-2 flex-wrap" id="activationClassChips">
+                    <button type="button" onclick="selectClassChip('Class 1A')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">Class 1A</button>
+                    <button type="button" onclick="selectClassChip('Class 1B')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">Class 1B</button>
+                    <button type="button" onclick="selectClassChip('Class 1C')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">Class 1C</button>
+                    <button type="button" onclick="selectClassChip('Class 1D')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">Class 1D</button>
+                </div>
+                <div class="flex items-center gap-2 pt-1">
+                    <span class="text-[11px] text-slate-400 whitespace-nowrap">或自訂班別:</span>
+                    <input type="text" id="activationClassInput" placeholder="例如: Class 1B" 
+                        class="flex-1 px-3 py-1.5 text-xs font-bold text-slate-800 bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-400">
+                </div>
+            </div>
+
+            <!-- Group Selection -->
+            <div class="space-y-2">
+                <label class="block text-xs font-bold text-slate-700 flex items-center justify-between">
+                    <span class="flex items-center gap-1.5">
+                        <i data-lucide="users" class="w-3.5 h-3.5 text-sky-600"></i>
+                        <span>2. 選擇你的組別 (Select Group 1 ~ 8)</span>
+                    </span>
+                    <span class="text-[11px] font-normal text-slate-400">點擊卡片選取</span>
+                </label>
+                <div class="grid grid-cols-4 gap-2" id="activationGroupGrid">
+                    <!-- Rendered by JS: Group 1 to Group 8 -->
+                </div>
+            </div>
+
+            <!-- Confirmation Action -->
+            <div class="space-y-2 pt-1">
+                <button type="button" onclick="confirmActivationModal()" class="w-full bg-gradient-to-r from-teal-500 via-sky-600 to-indigo-600 hover:from-teal-600 hover:to-indigo-700 active:scale-[0.99] text-white font-bold py-3 rounded-2xl text-xs sm:text-sm shadow-lg transition flex items-center justify-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i>
+                    <span>確認並啟動本組實驗通道 (Activate Workspace)</span>
+                </button>
+                
+                <div class="flex items-center justify-between px-2 pt-1 text-[11px] text-slate-400">
+                    <button type="button" onclick="openPasswordModal('Teacher')" class="hover:text-amber-600 underline">
+                        🔒 我是授課老師 (Teacher Login)
+                    </button>
+                    <button type="button" onclick="openPasswordModal('Admin')" class="hover:text-purple-600 underline">
+                        🛠️ AI 系統管理 (Admin Login)
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -2087,7 +2258,11 @@
                         summaryZh: "準確辨析水量與溶解時間之反比關係，明白水量多溶解快。",
                         strengthZh: "能準確解讀折線走向與反比關係，概念紮實",
                         growthZh: "可進一步嘗試從微觀分子碰撞深入解釋",
-                        focusTag: "Water Volume / 水量反比"
+                        focusTag: "Water Volume / 水量反比",
+                        pointTitleEn: "More Water = Faster Dissolving",
+                        pointTitleZh: "水量越多，溶解越快",
+                        pointEn: "Larger water volume provides more solvent space to dissolve sugar faster, significantly shortening dissolving time.",
+                        pointZh: "水量越多，溶劑空間越大，方糖完全溶解所需時間顯著縮短。"
                     },
                     {
                         perspective: "subjective",
@@ -2101,7 +2276,11 @@
                         summaryZh: "表達童趣想像，已溫和引導觀察折線真實斜率走向。",
                         strengthZh: "想像力豐富且課堂參與積極",
                         growthZh: "需由直覺轉向客觀坐標軸數據依據",
-                        focusTag: "Subjective Intuition / 直覺思維"
+                        focusTag: "Subjective Intuition / 直覺思維",
+                        pointTitleEn: "Empirical Downward Trend",
+                        pointTitleZh: "客觀折線向下傾斜",
+                        pointEn: "Experimental evidence shows the dissolving time consistently decreases as water volume increases from 50 to 200 cm³.",
+                        pointZh: "客觀數據折線向下傾斜：水量由 50 cm³ 增至 200 cm³，所需溶解時間持續減少。"
                     },
                     {
                         perspective: "misconception",
@@ -2115,7 +2294,11 @@
                         summaryZh: "澄清了『倒水時間』與『溶解速率』之概念混淆。",
                         strengthZh: "勇於提出推測，具備探究精神",
                         growthZh: "需注意坐標軸數值大小走向與實際物理意義",
-                        focusTag: "Axis Interpretation / 讀圖細緻度"
+                        focusTag: "Axis Interpretation / 讀圖細緻度",
+                        pointTitleEn: "Dissolving Speed vs. Volume",
+                        pointTitleZh: "水量與溶解速率之關係",
+                        pointEn: "Clarified that more water accelerates sugar dissolving rather than slowing it down.",
+                        pointZh: "釐清了迷思：水量增加能加速方糖完全溶解，縮短溶解所需時間。"
                     },
                     {
                         perspective: "critical",
@@ -2129,7 +2312,11 @@
                         summaryZh: "敏銳批判曲線斜率變化，指出前段驟降、後段趨緩之特徵。",
                         strengthZh: "卓越的數據批判與斜率邊際效應洞察力",
                         growthZh: "可探索是否存在物理溶解速率的極限",
-                        focusTag: "Non-linear Trend / 曲線斜率批判"
+                        focusTag: "Non-linear Trend / 曲線斜率批判",
+                        pointTitleEn: "Diminishing Returns & Curve Slope",
+                        pointTitleZh: "邊際效益遞減與曲線斜率",
+                        pointEn: "Observed non-linear diminishing returns: dissolving time drops steeply between 50–100 cm³ but flattens out between 150–200 cm³.",
+                        pointZh: "敏銳洞察邊際效應：50至100 cm³溶解時間驟降，而150至200 cm³降幅漸趨平緩。"
                     }
                 ]
             },
@@ -2149,7 +2336,11 @@
                         summaryZh: "深刻理解取全班平均值以消除隨機誤差、提升數據信度之核心概念。",
                         strengthZh: "深刻理解全班平均值與數據信度，科學思維清晰",
                         growthZh: "可嘗試提出更多控制變因以提升實驗嚴謹性",
-                        focusTag: "Class Average / 誤差抵消"
+                        focusTag: "Class Average / 誤差抵消",
+                        pointTitleEn: "Averaging Cancels Random Errors",
+                        pointTitleZh: "多組平均消除隨機誤差",
+                        pointEn: "Calculating the average of 8 groups cancels out individual timing and stirring variances, ensuring high reliability.",
+                        pointZh: "計算全班8組平均值能互相抵消個別小組的計時與攪拌隨機誤差，使數據信度大幅提升。"
                     },
                     {
                         perspective: "subjective",
@@ -2163,7 +2354,11 @@
                         summaryZh: "喜愛課堂合作，已引導從單組手滑誤操作思考平均值的必要性。",
                         strengthZh: "課堂投入度高，富有協作熱情",
                         growthZh: "需連結科學方法之嚴謹性與客觀性",
-                        focusTag: "Team Collaboration / 團隊合作"
+                        focusTag: "Team Collaboration / 團隊合作",
+                        pointTitleEn: "Collective Sample Reliability",
+                        pointTitleZh: "群體協作與大樣本信度",
+                        pointEn: "Pooling 8 groups' independent trials transforms individual measurements into collective scientific evidence.",
+                        pointZh: "匯聚全班8組獨立試驗數據，將個人操作轉化為穩健的集體科學證據。"
                     },
                     {
                         perspective: "misconception",
@@ -2177,7 +2372,11 @@
                         summaryZh: "針對單組過度自信進行引導，建立科學界複現性與隨機誤差之敬畏心。",
                         strengthZh: "動手操作自信度極高，操作專注",
                         growthZh: "需理解客觀人為誤差無處不在，培養大樣本意識",
-                        focusTag: "Replication / 實驗重複性"
+                        focusTag: "Replication / 實驗重複性",
+                        pointTitleEn: "Scientific Replication & Variance",
+                        pointTitleZh: "科學複現性與單次試驗局限",
+                        pointEn: "Recognized that even careful single trials contain hidden human variations, requiring multi-group replication.",
+                        pointZh: "認識到單次試驗難免存在隱性誤差，必須依賴多組重複試驗以驗證規律。"
                     },
                     {
                         perspective: "critical",
@@ -2191,7 +2390,11 @@
                         summaryZh: "具備優秀批判性，指出離群值會誤導結論，而多組平均能抗干擾。",
                         strengthZh: "優秀的異常值辨識與抗偏差批判思維",
                         growthZh: "可進一步討論嚴重離群值是否需剔除並重測",
-                        focusTag: "Outlier Mitigation / 離群值防禦"
+                        focusTag: "Outlier Mitigation / 離群值防禦",
+                        pointTitleEn: "Outlier Defense & Robustness",
+                        pointTitleZh: "防禦異常離群值干擾",
+                        pointEn: "A class-wide sample protects the final conclusion from being misled by single-group outliers or timer delays.",
+                        pointZh: "大樣本平均能有效防禦單一組別的離群值（如按慢碼錶）對科學推論的干擾。"
                     }
                 ]
             },
@@ -2211,7 +2414,11 @@
                         summaryZh: "成功指出人手攪拌速度不均為主要實驗局限，具備高階誤差歸因能力。",
                         strengthZh: "精準鎖定人手攪拌變因為主要誤差源",
                         growthZh: "可構思自動化恆速攪拌裝置之改進方案",
-                        focusTag: "Stirring Speed / 攪拌速率不均"
+                        focusTag: "Stirring Speed / 攪拌速率不均",
+                        pointTitleEn: "Manual Stirring Inconsistency",
+                        pointTitleZh: "人手攪拌速率不均",
+                        pointEn: "Inconsistent manual stirring cadence and circular speed across trials formed the primary experimental limitation.",
+                        pointZh: "各次試驗中人手攪拌的頻率、圈數與力道難以完全恆定，是導致數據微小差異的主要人為局限。"
                     },
                     {
                         perspective: "critical",
@@ -2225,7 +2432,11 @@
                         summaryZh: "深刻批判肉眼觀察主觀性與碼錶反應延遲，具備科研級探究素養。",
                         strengthZh: "敏銳洞察主觀判斷終點與神經反應延遲",
                         growthZh: "可嘗試引入光電濁度傳感器進行客觀客觀監測",
-                        focusTag: "Reaction Delay / 主觀終點判斷"
+                        focusTag: "Reaction Delay / 主觀終點判斷",
+                        pointTitleEn: "Visual Endpoint & Reaction Delay",
+                        pointTitleZh: "主觀終點判斷與反應延遲",
+                        pointEn: "Subjective naked-eye judgement of 'completely dissolved' and human stopwatch reflex latency created natural measurement variance.",
+                        pointZh: "肉眼判斷方糖完全消失的主觀標準不一，加上人體按停碼錶的神經反射延遲，是客觀存在的測量局限。"
                     },
                     {
                         perspective: "misconception",
@@ -2239,7 +2450,11 @@
                         summaryZh: "透過戳碎方糖反思了控制變因的破壞，加深了對公平測試的敬畏。",
                         strengthZh: "誠實反思操作細節並敏銳意識到控制變因被破壞",
                         growthZh: "進行公平測試時務必保持非測試變因完全不變",
-                        focusTag: "Fair Test Control / 公平測試變因"
+                        focusTag: "Fair Test Control / 公平測試變因",
+                        pointTitleEn: "Solute Surface Area Control",
+                        pointTitleZh: "顆粒表面積與公平測試",
+                        pointEn: "Crushing sugar unintentionally altered solute surface area, demonstrating why Fair Test controls must be strictly maintained.",
+                        pointZh: "戳碎方糖意外改變了接觸表面積，深刻體會到公平測試中必須嚴格控制其他非測試變因。"
                     },
                     {
                         perspective: "subjective",
@@ -2253,7 +2468,11 @@
                         summaryZh: "以幽默擬人化理解物理現象，已順利引導至科學知識卡片。",
                         strengthZh: "形象化思維生動活潑，對科學保有好奇心",
                         growthZh: "建議多用科學術語解釋物理現象",
-                        focusTag: "Metaphorical Thinking / 擬人化思考"
+                        focusTag: "Metaphorical Thinking / 擬人化思考",
+                        pointTitleEn: "Experimental Human Factors",
+                        pointTitleZh: "操作細節與環境變因",
+                        pointEn: "Subtle variations in stirring cadence and minor pauses during measurement contributed to slight timing variations.",
+                        pointZh: "人手攪拌的微小節奏變化與微小停頓，皆會對溶解時間產生可被量度的微小影響。"
                     }
                 ]
             }
@@ -2857,28 +3076,44 @@
             }
         }
 
+        let pendingTargetRole = 'Teacher';
+        let isWorkspaceActivated = false;
+        let pendingActivationGroup = 'Group 1';
+
         // Role select change with Custom Password Modal
         function handleRoleSelectChange() {
             const select = document.getElementById('groupSelect');
             const val = select.value;
 
             if (val === 'Teacher') {
-                openPasswordModal();
+                openPasswordModal('Teacher');
+            } else if (val === 'Admin') {
+                openPasswordModal('Admin');
             } else {
                 switchToStudentRole(val);
+                if (!isWorkspaceActivated) {
+                    openActivationModal();
+                }
             }
         }
 
         function switchToStudentRole(val) {
             lastSelectedRole = val;
             currentRole = val;
-            document.getElementById('groupSelect').value = val;
-            document.getElementById('roleBadge').innerText = "Student View";
-            document.getElementById('roleBadge').className = "text-[10px] bg-emerald-400 text-slate-900 font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm";
+            const select = document.getElementById('groupSelect');
+            if (select) select.value = val;
+            const badge = document.getElementById('roleBadge');
+            if (badge) {
+                badge.innerText = "Student View";
+                badge.className = "text-[10px] bg-emerald-400 text-slate-900 font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm";
+            }
             
-            document.getElementById('studentGroupTag').innerText = currentRole;
-            document.getElementById('teacherViewSection').classList.add('hidden');
-            document.getElementById('studentViewSection').classList.remove('hidden');
+            const groupTag = document.getElementById('studentGroupTag');
+            if (groupTag) groupTag.innerText = currentRole;
+
+            document.getElementById('teacherViewSection')?.classList.add('hidden');
+            document.getElementById('adminViewSection')?.classList.add('hidden');
+            document.getElementById('studentViewSection')?.classList.remove('hidden');
 
             const gData = classData[currentRole]?.data;
             if (gData) {
@@ -2887,29 +3122,83 @@
                 document.getElementById('t150').value = gData[150];
                 document.getElementById('t200').value = gData[200];
             } else {
-                document.getElementById('dataForm').reset();
+                document.getElementById('dataForm')?.reset();
             }
 
             renderStudentChatHistory();
             updateAllUI();
+            updateWorkspaceActivationUI();
         }
 
-        // Password Modal Management
-        function openPasswordModal() {
+        function switchToTeacherFromAdmin() {
+            currentRole = "Teacher";
+            const select = document.getElementById('groupSelect');
+            if (select) select.value = "Teacher";
+            const badge = document.getElementById('roleBadge');
+            if (badge) {
+                badge.innerText = "TEACHER COMMAND CENTER";
+                badge.className = "text-[10px] bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm";
+            }
+            
+            document.getElementById('studentViewSection')?.classList.add('hidden');
+            document.getElementById('adminViewSection')?.classList.add('hidden');
+            document.getElementById('teacherViewSection')?.classList.remove('hidden');
+            
+            renderTeacherDashboardUI();
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // Password Modal Management (Handles both Teacher and Admin)
+        function openPasswordModal(role = 'Teacher') {
+            pendingTargetRole = role;
             const modal = document.getElementById('passwordModal');
             const input = document.getElementById('teacherPasswordInput');
             const err = document.getElementById('passwordErrorMsg');
+            const title = document.getElementById('passwordModalTitle');
+            const subtitle = document.getElementById('passwordModalSubtitle');
+            const prompt = document.getElementById('passwordModalPrompt');
+            const icon = document.getElementById('passwordModalIcon');
+            const confirmBtn = document.getElementById('passwordModalConfirmBtn');
             
+            if (role === 'Admin') {
+                if (title) title.innerText = "AI 系統管理員權限驗證";
+                if (subtitle) subtitle.innerText = "AI System Admin Verification";
+                if (prompt) prompt.innerText = "請輸入系統管理員密碼（teacheradmin），以管理 API Key、模型與 Token 預算：";
+                if (icon) {
+                    icon.className = "w-10 h-10 rounded-2xl bg-purple-100 text-purple-800 flex items-center justify-center font-bold text-lg shadow-inner";
+                    icon.innerText = "🛠️";
+                }
+                if (confirmBtn) {
+                    confirmBtn.className = "flex-1 px-4 py-2.5 rounded-xl text-xs font-bold bg-purple-600 hover:bg-purple-700 active:scale-95 text-white shadow-md transition";
+                }
+            } else {
+                if (title) title.innerText = "教師指揮中心權限驗證";
+                if (subtitle) subtitle.innerText = "Teacher Password Verification";
+                if (prompt) prompt.innerText = "請輸入教師後台密碼（teacherwater）解鎖教學指揮中心：";
+                if (icon) {
+                    icon.className = "w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-lg shadow-inner";
+                    icon.innerText = "🔒";
+                }
+                if (confirmBtn) {
+                    confirmBtn.className = "flex-1 px-4 py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-600 active:scale-95 text-white shadow-md transition";
+                }
+            }
+
             input.value = '';
             err.classList.add('hidden');
             modal.classList.remove('hidden');
             input.focus();
         }
 
+        function openAdminPasswordModal() {
+            openPasswordModal('Admin');
+        }
+
         function cancelPasswordModal() {
             const modal = document.getElementById('passwordModal');
             modal.classList.add('hidden');
-            document.getElementById('groupSelect').value = lastSelectedRole;
+            const select = document.getElementById('groupSelect');
+            if (select) select.value = lastSelectedRole || 'Group 1';
         }
 
         function confirmPasswordModal() {
@@ -2917,20 +3206,164 @@
             const err = document.getElementById('passwordErrorMsg');
             const modal = document.getElementById('passwordModal');
 
-            if (input.value === "teacherwater") {
-                modal.classList.add('hidden');
-                currentRole = "Teacher";
-                document.getElementById('roleBadge').innerText = "TEACHER COMMAND CENTER";
-                document.getElementById('roleBadge').className = "text-[10px] bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm";
-                
-                document.getElementById('studentViewSection').classList.add('hidden');
-                document.getElementById('teacherViewSection').classList.remove('hidden');
-                
-                renderTeacherDashboardUI();
+            if (pendingTargetRole === 'Admin') {
+                if (input.value === "teacheradmin") {
+                    modal.classList.add('hidden');
+                    currentRole = "Admin";
+                    const select = document.getElementById('groupSelect');
+                    if (select) select.value = "Admin";
+                    const badge = document.getElementById('roleBadge');
+                    if (badge) {
+                        badge.innerText = "AI SYSTEM ADMIN";
+                        badge.className = "text-[10px] bg-purple-500 text-white font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm";
+                    }
+                    
+                    document.getElementById('studentViewSection')?.classList.add('hidden');
+                    document.getElementById('teacherViewSection')?.classList.add('hidden');
+                    document.getElementById('adminViewSection')?.classList.remove('hidden');
+                    
+                    updateAiConfigFormUI();
+                    updateTokenMonitorUI();
+                    updateAiStatusUI();
+                    if (window.lucide) lucide.createIcons();
+                } else {
+                    err.classList.remove('hidden');
+                    err.innerText = "❌ 管理員密碼錯誤！請輸入 teacheradmin。";
+                    input.value = '';
+                    input.focus();
+                }
             } else {
-                err.classList.remove('hidden');
-                input.value = '';
-                input.focus();
+                if (input.value === "teacherwater") {
+                    modal.classList.add('hidden');
+                    currentRole = "Teacher";
+                    const select = document.getElementById('groupSelect');
+                    if (select) select.value = "Teacher";
+                    const badge = document.getElementById('roleBadge');
+                    if (badge) {
+                        badge.innerText = "TEACHER COMMAND CENTER";
+                        badge.className = "text-[10px] bg-amber-400 text-slate-950 font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm";
+                    }
+                    
+                    document.getElementById('studentViewSection')?.classList.add('hidden');
+                    document.getElementById('adminViewSection')?.classList.add('hidden');
+                    document.getElementById('teacherViewSection')?.classList.remove('hidden');
+                    
+                    renderTeacherDashboardUI();
+                    if (window.lucide) lucide.createIcons();
+                } else {
+                    err.classList.remove('hidden');
+                    err.innerText = "❌ 教師密碼錯誤！請輸入 teacherwater。";
+                    input.value = '';
+                    input.focus();
+                }
+            }
+        }
+
+        // ================= CLASS & GROUP ACTIVATION ONBOARDING =================
+        function openActivationModal() {
+            const modal = document.getElementById('activationModal');
+            if (!modal) return;
+            pendingActivationGroup = currentRole.startsWith('Group') ? currentRole : 'Group 1';
+            renderActivationGroupGrid();
+            const classInput = document.getElementById('activationClassInput');
+            if (classInput) classInput.value = currentClass;
+            selectClassChip(currentClass);
+            modal.classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function closeActivationModal() {
+            const modal = document.getElementById('activationModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function selectClassChip(cls) {
+            const classInput = document.getElementById('activationClassInput');
+            if (classInput) classInput.value = cls;
+            document.querySelectorAll('.class-chip').forEach(btn => {
+                if (btn.innerText.trim() === cls) {
+                    btn.className = "class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-sky-600 text-white border-sky-600 shadow-sm";
+                } else {
+                    btn.className = "class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400";
+                }
+            });
+        }
+
+        function selectActivationGroup(grp) {
+            pendingActivationGroup = grp;
+            renderActivationGroupGrid();
+        }
+
+        function renderActivationGroupGrid() {
+            const grid = document.getElementById('activationGroupGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            for (let i = 1; i <= 8; i++) {
+                const gName = `Group ${i}`;
+                const isSelected = (pendingActivationGroup === gName);
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => selectActivationGroup(gName);
+                if (isSelected) {
+                    btn.className = "p-2.5 rounded-2xl bg-sky-600 text-white font-black text-xs shadow-md border-2 border-sky-400 flex flex-col items-center justify-center gap-0.5 transform scale-105 transition";
+                    btn.innerHTML = `<span>第 ${i} 組</span><span class="text-[10px] text-sky-200 font-bold">Group ${i}</span>`;
+                } else {
+                    btn.className = "p-2.5 rounded-2xl bg-slate-50 hover:bg-sky-50 text-slate-800 font-bold text-xs border border-slate-200 transition flex flex-col items-center justify-center gap-0.5";
+                    btn.innerHTML = `<span>第 ${i} 組</span><span class="text-[10px] text-slate-400">Group ${i}</span>`;
+                }
+                grid.appendChild(btn);
+            }
+        }
+
+        function confirmActivationModal() {
+            const classInput = document.getElementById('activationClassInput');
+            const chosenClass = classInput?.value?.trim() || currentClass || 'Class 1A';
+            const chosenGroup = pendingActivationGroup || currentRole || 'Group 1';
+
+            activateStudentWorkspace(chosenClass, chosenGroup);
+            closeActivationModal();
+        }
+
+        function activateStudentWorkspace(chosenClass, chosenGroup) {
+            isWorkspaceActivated = true;
+            try {
+                sessionStorage.setItem('openclass_activated', 'true');
+                sessionStorage.setItem('openclass_activated_class', chosenClass);
+                sessionStorage.setItem('openclass_activated_role', chosenGroup);
+            } catch (e) {}
+
+            currentClass = chosenClass;
+            const topClassInput = document.getElementById('classInput');
+            if (topClassInput) topClassInput.value = chosenClass;
+            const teacherBadge = document.getElementById('teacherClassBadge');
+            if (teacherBadge) teacherBadge.innerText = chosenClass;
+
+            loadFromStorage();
+            switchToStudentRole(chosenGroup);
+            updateWorkspaceActivationUI();
+        }
+
+        function updateWorkspaceActivationUI() {
+            const overlay = document.getElementById('activationLockOverlay');
+            const statusPill = document.getElementById('workspaceStatusPill');
+            const statusText = document.getElementById('workspaceStatusText');
+
+            if (isWorkspaceActivated) {
+                if (overlay) overlay.classList.add('hidden');
+                if (statusPill) {
+                    statusPill.className = "hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-200 border border-emerald-400/30";
+                }
+                if (statusText) statusText.innerText = `${currentClass} • ${currentRole} (已就緒)`;
+            } else {
+                if (currentRole !== 'Teacher' && currentRole !== 'Admin') {
+                    if (overlay) overlay.classList.remove('hidden');
+                } else {
+                    if (overlay) overlay.classList.add('hidden');
+                }
+                if (statusPill) {
+                    statusPill.className = "hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-400/20 text-amber-200 border border-amber-300/30 animate-pulse";
+                }
+                if (statusText) statusText.innerText = "請先確認組別";
             }
         }
 
@@ -3341,6 +3774,18 @@
             if (opt.growthZh) classData[currentRole].growthZh = opt.growthZh;
             if (opt.focusTag) classData[currentRole].focusTag = opt.focusTag;
 
+            // Track stage choices for dynamic learning points
+            const currentStage = classData[currentRole].stage || 1;
+            if (currentStage === 1) {
+                classData[currentRole].stage1Option = opt;
+            } else if (currentStage === 2) {
+                classData[currentRole].stage2Option = opt;
+            } else if (currentStage === 3) {
+                classData[currentRole].stage3Option = opt;
+                if (opt.pointEn) classData[currentRole].personalizedPoint3En = opt.pointEn;
+                if (opt.pointZh) classData[currentRole].personalizedPoint3Zh = opt.pointZh;
+            }
+
             setTimeout(() => {
                 appendAIBubble(opt.feedbackEn, opt.feedbackZh);
                 classData[currentRole].stage = opt.nextStage;
@@ -3440,6 +3885,33 @@
 
             // Advance stage only if answer warrants advancing!
             if (aiResult.advanceStage && aiResult.nextStage) {
+                const prevStage = classData[currentRole].stage || currentStage;
+                if (prevStage === 1) {
+                    classData[currentRole].stage1Option = {
+                        perspective: 'custom',
+                        pointTitleEn: "Volume & Dissolving Speed",
+                        pointTitleZh: "水量與溶解速率",
+                        pointEn: aiResult.feedbackEn || "Larger water volume provides more solvent space, accelerating sugar dissolving.",
+                        pointZh: aiResult.feedbackZh || "水量越多，溶劑空間越大，能加速方糖完全溶解。"
+                    };
+                } else if (prevStage === 2) {
+                    classData[currentRole].stage2Option = {
+                        perspective: 'custom',
+                        pointTitleEn: "Sample Reliability & Class Average",
+                        pointTitleZh: "全班平均值與誤差抵消",
+                        pointEn: "Calculating class average cancels random human discrepancies and enhances scientific validity.",
+                        pointZh: "計算全班平均值能互相抵消個別小組之隨機人為誤差，提升科學推論信度。"
+                    };
+                } else if (prevStage === 3) {
+                    classData[currentRole].stage3Option = {
+                        perspective: 'custom',
+                        pointTitleEn: "Experimental Limitations & Human Variance",
+                        pointTitleZh: "實驗局限與人為變因",
+                        pointEn: aiResult.personalizedPoint3En || "Inconsistent manual stirring cadence and human stopwatch reaction latency introduced measurement variance.",
+                        pointZh: aiResult.personalizedPoint3Zh || "人手攪拌頻率不均與碼錶按停之神經反射延遲為主要客觀局限。"
+                    };
+                }
+
                 classData[currentRole].stage = aiResult.nextStage;
                 
                 if (aiResult.nextStage <= 3 && dialogueStages[aiResult.nextStage]) {
@@ -3464,12 +3936,90 @@
             updateAllUI();
         }
 
+        // ================= PERSONALIZED DYNAMIC SUMMARY SYNTHESIZER =================
+        function generatePersonalizedSummaryPoints(groupKey) {
+            const roleKey = groupKey || currentRole;
+            const group = classData[roleKey] || {};
+            const data = group.data;
+            
+            // --- Point 1: Data Trend & Volume Effect ---
+            let p1Title = "More Water = Faster Dissolving / 水量越多，溶解越快";
+            let p1En = "Larger water volume takes SHORTER time to dissolve sugar.";
+            let p1Zh = "水量越多，方糖完全溶解所需的時間越短（溶解速率越高）。";
+
+            const opt1 = group.stage1Option;
+            if (data && typeof data[50] === 'number' && typeof data[200] === 'number') {
+                const t50 = data[50];
+                const t100 = data[100];
+                const t150 = data[150];
+                const t200 = data[200];
+                const diff = Math.round(t50 - t200);
+
+                if (opt1 && opt1.pointTitleEn) {
+                    p1Title = `${opt1.pointTitleEn} / ${opt1.pointTitleZh}`;
+                } else {
+                    p1Title = "Empirical Data Trend / 本組實測數據趨勢與水量效應";
+                }
+
+                if (diff > 0) {
+                    p1En = `Your group recorded dissolving time dropping from ${t50}s (at 50 cm³) to ${t200}s (at 200 cm³)—a significant reduction of ${diff}s! Larger water volume provides more solvent molecules to dissolve sugar faster.`;
+                    p1Zh = `貴組實測溶解時間由 50 cm³ 的 ${t50} 秒驟降至 200 cm³ 的 ${t200} 秒（縮短了 ${diff} 秒）！證實水量越多，溶劑空間越大，方糖完全溶解所需時間顯著縮短。`;
+                    
+                    if (opt1 && opt1.perspective === 'critical') {
+                        p1En += ` (Critical Insight: Diminishing returns observed—time dropped steeply by ${Math.round(t50 - t100)}s from 50 to 100 cm³, but leveled off between 150 and 200 cm³).`;
+                        p1Zh += `（批判洞察：50至100 cm³降幅達 ${Math.round(t50 - t100)} 秒最為顯著，而150至200 cm³降幅趨於平緩，展現了溶劑稀釋的邊際效應）。`;
+                    }
+                } else {
+                    p1En = `Your group measured dissolving times across 50–200 cm³ (${t50}s, ${t100}s, ${t150}s, ${t200}s). In scientific principle, larger water volume provides more solvent space to speed up dissolving.`;
+                    p1Zh = `貴組測量了 50–200 cm³ 的溶解時間（分別為 ${t50}s、${t100}s、${t150}s、${t200}s）。在科學原理上，水量越多，溶劑分子越多，方糖溶解得越快。`;
+                }
+            } else if (opt1) {
+                if (opt1.pointTitleEn) p1Title = `${opt1.pointTitleEn} / ${opt1.pointTitleZh}`;
+                if (opt1.pointEn) p1En = opt1.pointEn;
+                if (opt1.pointZh) p1Zh = opt1.pointZh;
+            }
+
+            // --- Point 2: Sample Size & Class Average ---
+            let p2Title = "Why Class Average? / 為什麼需要全班平均值？";
+            let p2En = "Calculating average of 8 groups REDUCES random errors & makes data more reliable!";
+            let p2Zh = "取全班8組平均值能減少隨機誤差，使實驗數據更可靠。";
+
+            const opt2 = group.stage2Option;
+            if (opt2) {
+                if (opt2.pointTitleEn) p2Title = `${opt2.pointTitleEn} / ${opt2.pointTitleZh}`;
+                if (opt2.pointEn) p2En = opt2.pointEn;
+                if (opt2.pointZh) p2Zh = opt2.pointZh;
+            }
+
+            // --- Point 3: Experimental Limitations & Error Attribution ---
+            let p3Title = "Human Error Limitation / 實驗人為局限與誤差分析";
+            let p3En = "Inconsistent manual stirring speed & human stopwatch reaction delay cause differences.";
+            let p3Zh = "人手攪拌速度不均勻及計時器反應時間延遲是主要誤差來源。";
+
+            const opt3 = group.stage3Option;
+            if (opt3) {
+                if (opt3.pointTitleEn) p3Title = `${opt3.pointTitleEn} / ${opt3.pointTitleZh}`;
+                if (opt3.pointEn) p3En = opt3.pointEn;
+                if (opt3.pointZh) p3Zh = opt3.pointZh;
+            } else if (group.personalizedPoint3En) {
+                p3En = group.personalizedPoint3En;
+                if (group.personalizedPoint3Zh) p3Zh = group.personalizedPoint3Zh;
+            }
+
+            // Clean any duplicated prefix in p3En / p3Zh to prevent "Human Error Limitation: Human Error Limitation:" bug
+            p3En = p3En.replace(/^(Human Error Limitation:\s*|Limitation •\s*|實驗人為局限：\s*)+/gi, '').trim();
+            p3Zh = p3Zh.replace(/^(Human Error Limitation:\s*|Limitation •\s*|實驗人為局限：\s*)+/gi, '').trim();
+
+            return {
+                point1: { title: p1Title, en: p1En, zh: p1Zh },
+                point2: { title: p2Title, en: p2En, zh: p2Zh },
+                point3: { title: p3Title, en: p3En, zh: p3Zh }
+            };
+        }
+
         // ================= PRECISE REPRODUCTION OF LEARNING SUMMARY CARD =================
         function renderSummaryCard(parentContainer) {
-            const groupInfo = classData[currentRole] || {};
-            
-            const point3En = groupInfo.personalizedPoint3En || "Human Error Limitation: Inconsistent manual stirring speed & human stopwatch reaction delay cause differences.";
-            const point3Zh = groupInfo.personalizedPoint3Zh || "人手攪拌速度不均勻及計時器反應時間延遲是主要誤差來源。";
+            const points = generatePersonalizedSummaryPoints(currentRole);
 
             const card = document.createElement('div');
             card.className = "bg-amber-50/60 border-2 border-amber-300 rounded-3xl p-5 shadow-sm space-y-4 my-2 transition";
@@ -3497,11 +4047,11 @@
                         <span class="font-black text-emerald-700 text-sm">1.</span>
                         <div>
                             <p class="leading-relaxed">
-                                <strong class="text-emerald-800 font-bold">More Water = Faster Dissolving:</strong> 
-                                Larger water volume takes SHORTER time to dissolve sugar.
+                                <strong class="text-emerald-800 font-bold">${points.point1.title}:</strong> 
+                                ${points.point1.en}
                             </p>
                             <p class="text-slate-600 text-[11px] mt-0.5">
-                                水量越多，方糖完全溶解所需的時間越短（溶解速率越高）。
+                                ${points.point1.zh}
                             </p>
                         </div>
                     </div>
@@ -3511,11 +4061,11 @@
                         <span class="font-black text-emerald-700 text-sm">2.</span>
                         <div>
                             <p class="leading-relaxed">
-                                <strong class="text-emerald-800 font-bold">Why Class Average?</strong> 
-                                Calculating average of 8 groups REDUCES random errors & makes data more reliable!
+                                <strong class="text-emerald-800 font-bold">${points.point2.title}:</strong> 
+                                ${points.point2.en}
                             </p>
                             <p class="text-slate-600 text-[11px] mt-0.5">
-                                取全班8組平均值能減少隨機誤差，使實驗數據更可靠。
+                                ${points.point2.zh}
                             </p>
                         </div>
                     </div>
@@ -3525,11 +4075,11 @@
                         <span class="font-black text-emerald-700 text-sm">3.</span>
                         <div>
                             <p class="leading-relaxed">
-                                <strong class="text-emerald-800 font-bold">Human Error Limitation:</strong> 
-                                ${point3En}
+                                <strong class="text-emerald-800 font-bold">${points.point3.title}:</strong> 
+                                ${points.point3.en}
                             </p>
                             <p class="text-slate-600 text-[11px] mt-0.5">
-                                ${point3Zh}
+                                ${points.point3.zh}
                             </p>
                         </div>
                     </div>
@@ -4717,6 +5267,24 @@
         // ================= APP INITIALIZATION =================
         function initApp() {
             if (window.lucide) lucide.createIcons();
+
+            // 1. Check if student has already confirmed their Class & Group in this session
+            try {
+                const storedActivated = sessionStorage.getItem('openclass_activated');
+                const storedClass = sessionStorage.getItem('openclass_activated_class');
+                const storedRole = sessionStorage.getItem('openclass_activated_role');
+                if (storedActivated === 'true' && storedRole) {
+                    isWorkspaceActivated = true;
+                    if (storedClass) currentClass = storedClass;
+                    currentRole = storedRole;
+                    const select = document.getElementById('groupSelect');
+                    if (select) select.value = currentRole;
+                } else {
+                    isWorkspaceActivated = false;
+                }
+            } catch (e) {
+                isWorkspaceActivated = false;
+            }
             
             const classInput = document.getElementById('classInput');
             if (classInput) classInput.value = currentClass;
@@ -4735,6 +5303,16 @@
             renderStudentChatHistory();
             updateAllUI();
             updateDynamicDiscussionPrompts();
+
+            // 2. Update workspace activation UI (lock overlay & top bar status pill)
+            updateWorkspaceActivationUI();
+
+            // 3. If workspace is not activated and currentRole is a student group, automatically pop up the activation modal
+            if (!isWorkspaceActivated && currentRole !== 'Teacher' && currentRole !== 'Admin') {
+                setTimeout(() => {
+                    openActivationModal();
+                }, 300);
+            }
         }
 
         if (document.readyState === 'loading') {

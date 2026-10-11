@@ -181,48 +181,72 @@
                 </div>
             </div>
 
-            <!-- Scaffolded Step-by-Step Task Progress Stepper for S1 -->
+            <!-- Scaffolded Step-by-Step Task Progress Stepper for S1 (7 Steps: a to g) -->
             <div class="lg:col-span-12 bg-white rounded-2xl p-4 shadow-sm border border-slate-200/90 mb-1">
                 <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
                     <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                         <i data-lucide="compass" class="w-4 h-4 text-sky-600"></i>
-                        <span>中一級科學探究任務進度 (S1 Science Task Progression)</span>
+                        <span>中一級科學探究任務進度 (S1 Science Task Progression: 7 Steps)</span>
                     </span>
                     <span id="taskOverallProgressBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
-                        進行中：步驟 1 / 4
+                        In Progress: Step a / g (Enter Dissolving Time)
                     </span>
                 </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                    <!-- Task 1 Item -->
-                    <div id="stepIndicator1" class="p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm">
-                        <div id="stepNumber1" class="w-6 h-6 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0">1</div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 text-xs">
+                    <!-- Step a -->
+                    <div id="stepIndicatorA" onclick="proceedToStep('a')" class="cursor-pointer p-2 rounded-xl border-2 transition flex items-center gap-1.5 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm">
+                        <div id="stepNumberA" class="w-5 h-5 rounded-full bg-sky-500 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">a</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">任務 1：輸入數據</span>
-                            <span id="stepSub1" class="text-[9px] text-sky-700 font-normal">4 個水量秒數</span>
+                            <span class="block text-[11px]">a. Enter Time</span>
+                            <span id="stepSubA" class="text-[9px] text-sky-700 font-normal">Timings (s)</span>
                         </div>
                     </div>
-                    <!-- Task 2 Item -->
-                    <div id="stepIndicator2" class="p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium">
-                        <div id="stepNumber2" class="w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0">2</div>
+                    <!-- Step b -->
+                    <div id="stepIndicatorB" onclick="proceedToStep('b')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberB" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">b</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">任務 2：水精靈探究</span>
-                            <span id="stepSub2" class="text-[9px] text-slate-400 font-normal">🔒 待解鎖</span>
+                            <span class="block text-[11px]">b. Graph & Data</span>
+                            <span id="stepSubB" class="text-[9px] text-slate-400 font-normal">Overview</span>
                         </div>
                     </div>
-                    <!-- Task 3 Item -->
-                    <div id="stepIndicator3" class="p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium">
-                        <div id="stepNumber3" class="w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0">3</div>
+                    <!-- Step c -->
+                    <div id="stepIndicatorC" onclick="proceedToStep('c')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberC" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">c</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">任務 3：思維反思卡</span>
-                            <span id="stepSub3" class="text-[9px] text-slate-400 font-normal">🔒 待解鎖</span>
+                            <span class="block text-[11px]">c. Agent Water</span>
+                            <span id="stepSubC" class="text-[9px] text-slate-400 font-normal">🔒 Locked</span>
                         </div>
                     </div>
-                    <!-- Task 4 Item -->
-                    <div id="stepIndicator4" class="p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium">
-                        <div id="stepNumber4" class="w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0">4</div>
+                    <!-- Step d -->
+                    <div id="stepIndicatorD" onclick="proceedToStep('d')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberD" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">d</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">任務 4：關鍵小結</span>
-                            <span id="stepSub4" class="text-[9px] text-slate-400 font-normal">🔒 待解鎖</span>
+                            <span class="block text-[11px]">d. Key Summary</span>
+                            <span id="stepSubD" class="text-[9px] text-slate-400 font-normal">🔒 Locked</span>
+                        </div>
+                    </div>
+                    <!-- Step e -->
+                    <div id="stepIndicatorE" onclick="proceedToStep('e')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberE" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">e</div>
+                        <div class="leading-tight truncate">
+                            <span class="block text-[11px]">e. Peer Review</span>
+                            <span id="stepSubE" class="text-[9px] text-slate-400 font-normal">🔒 Locked</span>
+                        </div>
+                    </div>
+                    <!-- Step f -->
+                    <div id="stepIndicatorF" onclick="proceedToStep('f')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberF" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">f</div>
+                        <div class="leading-tight truncate">
+                            <span class="block text-[11px]">f. Molecular Sim</span>
+                            <span id="stepSubF" class="text-[9px] text-slate-400 font-normal">🔒 Locked</span>
+                        </div>
+                    </div>
+                    <!-- Step g -->
+                    <div id="stepIndicatorG" onclick="proceedToStep('g')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberG" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">g</div>
+                        <div class="leading-tight truncate">
+                            <span class="block text-[11px]">g. Thinking Routine</span>
+                            <span id="stepSubG" class="text-[9px] text-slate-400 font-normal">🔒 Locked</span>
                         </div>
                     </div>
                 </div>
@@ -231,16 +255,16 @@
             <!-- Left Column: Data Entry & Graph & Table (6 Cols) -->
             <section class="lg:col-span-6 space-y-5">
                 
-                <!-- 1. Enter Dissolving Time (seconds) -->
-                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 transition hover:shadow-md">
+                <!-- Step a: Enter Dissolving Time (seconds) -->
+                <div id="stepSectionA" class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 transition hover:shadow-md">
                     <div class="flex justify-between items-start mb-2">
                         <div>
                             <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
                                 <i data-lucide="timer" class="w-5 h-5 text-teal-600"></i>
-                                <span>1. Enter Dissolving Time / 輸入本組溶解時間 (單位: 秒)</span>
+                                <span>Step a: Enter Dissolving Time (seconds)</span>
                             </h2>
                             <p class="text-[11px] text-slate-500 mt-0.5 ml-7">
-                                請輸入 1 粒方糖在不同水量中完全溶解所需的時間（單位為<strong>秒 / seconds</strong>）。
+                                Please enter the time taken (in <strong>seconds</strong>) for 1 sugar cube to dissolve completely in each water volume.
                             </p>
                         </div>
                         <span class="text-[11px] px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-full flex items-center gap-1 font-semibold flex-shrink-0">
@@ -254,52 +278,48 @@
                             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
                                 <div class="flex justify-between items-center mb-0.5">
                                     <label class="block text-xs font-bold text-slate-700">50 cm³ Water</label>
-                                    <span class="text-[10px] font-bold text-teal-700 bg-teal-50 px-1 py-0.2 rounded border border-teal-200">50 cm³ 水</span>
                                 </div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">溶解時間 Time (秒)</span>
+                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">Dissolving Time (s)</span>
                                 <div class="relative">
-                                    <input type="number" step="0.1" min="0" id="t50" placeholder="例如: 120" 
+                                    <input type="number" step="0.1" min="0" id="t50" placeholder="e.g. 120" 
                                         class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
-                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">秒 (s)</span>
+                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">sec (s)</span>
                                 </div>
                             </div>
                             <!-- 100 cm3 -->
                             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
                                 <div class="flex justify-between items-center mb-0.5">
                                     <label class="block text-xs font-bold text-slate-700">100 cm³ Water</label>
-                                    <span class="text-[10px] font-bold text-teal-700 bg-teal-50 px-1 py-0.2 rounded border border-teal-200">100 cm³ 水</span>
                                 </div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">溶解時間 Time (秒)</span>
+                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">Dissolving Time (s)</span>
                                 <div class="relative">
-                                    <input type="number" step="0.1" min="0" id="t100" placeholder="例如: 80" 
+                                    <input type="number" step="0.1" min="0" id="t100" placeholder="e.g. 80" 
                                         class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
-                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">秒 (s)</span>
+                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">sec (s)</span>
                                 </div>
                             </div>
                             <!-- 150 cm3 -->
                             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
                                 <div class="flex justify-between items-center mb-0.5">
                                     <label class="block text-xs font-bold text-slate-700">150 cm³ Water</label>
-                                    <span class="text-[10px] font-bold text-teal-700 bg-teal-50 px-1 py-0.2 rounded border border-teal-200">150 cm³ 水</span>
                                 </div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">溶解時間 Time (秒)</span>
+                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">Dissolving Time (s)</span>
                                 <div class="relative">
-                                    <input type="number" step="0.1" min="0" id="t150" placeholder="例如: 50" 
+                                    <input type="number" step="0.1" min="0" id="t150" placeholder="e.g. 50" 
                                         class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
-                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">秒 (s)</span>
+                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">sec (s)</span>
                                 </div>
                             </div>
                             <!-- 200 cm3 -->
                             <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
                                 <div class="flex justify-between items-center mb-0.5">
                                     <label class="block text-xs font-bold text-slate-700">200 cm³ Water</label>
-                                    <span class="text-[10px] font-bold text-teal-700 bg-teal-50 px-1 py-0.2 rounded border border-teal-200">200 cm³ 水</span>
                                 </div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">溶解時間 Time (秒)</span>
+                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">Dissolving Time (s)</span>
                                 <div class="relative">
-                                    <input type="number" step="0.1" min="0" id="t200" placeholder="例如: 30" 
+                                    <input type="number" step="0.1" min="0" id="t200" placeholder="e.g. 30" 
                                         class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
-                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">秒 (s)</span>
+                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">sec (s)</span>
                                 </div>
                             </div>
                         </div>
@@ -307,7 +327,7 @@
                         <!-- Submit Button with Real-time Reaction Feedback -->
                         <button type="submit" id="submitDataBtn" class="w-full bg-teal-600 hover:bg-teal-700 active:scale-[0.99] text-white font-bold py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition-all duration-200 flex items-center justify-center gap-2">
                             <i data-lucide="upload-cloud" class="w-4 h-4"></i>
-                            <span id="submitDataBtnText">Submit Timings (s) / 上傳本組溶解時間 (秒)</span>
+                            <span id="submitDataBtnText">Submit Timings (s)</span>
                         </button>
 
                         <!-- Dynamic Feedback Banner Container -->
@@ -315,74 +335,77 @@
                     </form>
                 </div>
 
-                <!-- 2. Class Comparison Graph -->
-                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 transition hover:shadow-md">
-                    <div class="flex justify-between items-start mb-2">
-                        <div>
-                            <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
-                                <i data-lucide="trending-up" class="w-5 h-5 text-sky-600"></i>
-                                <span>2. Class Comparison Graph / 跨組數據分析圖表</span>
+                <!-- Step b: Class Comparison Graph & 8 Groups Data Overview (Single Occurrence) -->
+                <div id="stepSectionB" class="space-y-5">
+                    <!-- Graph -->
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 transition hover:shadow-md">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-sky-600"></i>
+                                    <span>Step b: Class Comparison Graph & 8 Groups Data Overview</span>
+                                </h2>
+                                <p class="text-xs text-slate-500 mt-0.5">Comparing My Group Data with Class Average (8 Groups).</p>
+                            </div>
+                        </div>
+
+                        <!-- Custom Graph Legend / Indicators -->
+                        <div class="flex items-center gap-4 text-xs font-semibold mb-2 pt-1">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3.5 h-3.5 rounded bg-sky-600 inline-block"></span>
+                                <span class="text-slate-700">My Group (本組)</span>
+                            </div>
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-5 h-1 border-t-2 border-dashed border-emerald-500 inline-block"></span>
+                                <span class="text-slate-700">Class Average (8 Groups / 全班平均)</span>
+                            </div>
+                        </div>
+
+                        <div class="relative h-64 w-full pt-1">
+                            <canvas id="studentChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 8 Groups Overview Table -->
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 overflow-hidden">
+                        <div class="flex items-center justify-between mb-2.5">
+                            <h2 class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
+                                <i data-lucide="table" class="w-4 h-4 text-indigo-600"></i>
+                                <span>8 Groups Overview Table / 8組數據總覽</span>
                             </h2>
-                            <p class="text-xs text-slate-500 mt-0.5">Comparing My Group Data with Class Average (8 Groups).</p>
+                            <span id="studentSubmittedCount" class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200">
+                                0/8 Groups Submitted
+                            </span>
                         </div>
-                    </div>
-
-                    <!-- Custom Graph Legend / Indicators -->
-                    <div class="flex items-center gap-4 text-xs font-semibold mb-2 pt-1">
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-3.5 h-3.5 rounded bg-sky-600 inline-block"></span>
-                            <span class="text-slate-700">My Group (本組)</span>
+                        
+                        <div class="overflow-x-auto rounded-xl border border-slate-200">
+                            <table class="w-full text-xs text-center border-collapse">
+                                <thead>
+                                    <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+                                        <th class="py-2 px-2 border-r border-slate-200 bg-slate-200/60 whitespace-nowrap">Volume</th>
+                                        <th id="th-G1" class="py-2 px-2 border-r border-slate-200">G1</th>
+                                        <th id="th-G2" class="py-2 px-2 border-r border-slate-200">G2</th>
+                                        <th id="th-G3" class="py-2 px-2 border-r border-slate-200">G3</th>
+                                        <th id="th-G4" class="py-2 px-2 border-r border-slate-200">G4</th>
+                                        <th id="th-G5" class="py-2 px-2 border-r border-slate-200">G5</th>
+                                        <th id="th-G6" class="py-2 px-2 border-r border-slate-200">G6</th>
+                                        <th id="th-G7" class="py-2 px-2 border-r border-slate-200">G7</th>
+                                        <th id="th-G8" class="py-2 px-2 border-r border-slate-200">G8</th>
+                                        <th class="py-2 px-2 bg-teal-50 text-teal-900 font-extrabold whitespace-nowrap">AVG</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="studentTableBody" class="text-slate-800 divide-y divide-slate-100">
+                                    <!-- Generated rows: 50, 100, 150, 200 cm3 -->
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="flex items-center gap-1.5">
-                            <span class="w-5 h-1 border-t-2 border-dashed border-emerald-500 inline-block"></span>
-                            <span class="text-slate-700">Class Average (8 Groups / 全班平均)</span>
-                        </div>
-                    </div>
-
-                    <div class="relative h-64 w-full pt-1">
-                        <canvas id="studentChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- 3. 8 Groups Overview Table -->
-                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 overflow-hidden">
-                    <div class="flex items-center justify-between mb-2.5">
-                        <h2 class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
-                            <i data-lucide="table" class="w-4 h-4 text-indigo-600"></i>
-                            <span>3. 8 Groups Overview / 8組數據總覽</span>
-                        </h2>
-                        <span id="studentSubmittedCount" class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200">
-                            0/8 Groups Submitted
-                        </span>
-                    </div>
-                    
-                    <div class="overflow-x-auto rounded-xl border border-slate-200">
-                        <table class="w-full text-xs text-center border-collapse">
-                            <thead>
-                                <tr class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
-                                    <th class="py-2 px-2 border-r border-slate-200 bg-slate-200/60 whitespace-nowrap">Volume</th>
-                                    <th id="th-G1" class="py-2 px-2 border-r border-slate-200">G1</th>
-                                    <th id="th-G2" class="py-2 px-2 border-r border-slate-200">G2</th>
-                                    <th id="th-G3" class="py-2 px-2 border-r border-slate-200">G3</th>
-                                    <th id="th-G4" class="py-2 px-2 border-r border-slate-200">G4</th>
-                                    <th id="th-G5" class="py-2 px-2 border-r border-slate-200">G5</th>
-                                    <th id="th-G6" class="py-2 px-2 border-r border-slate-200">G6</th>
-                                    <th id="th-G7" class="py-2 px-2 border-r border-slate-200">G7</th>
-                                    <th id="th-G8" class="py-2 px-2 border-r border-slate-200">G8</th>
-                                    <th class="py-2 px-2 bg-teal-50 text-teal-900 font-extrabold whitespace-nowrap">AVG</th>
-                                </tr>
-                            </thead>
-                            <tbody id="studentTableBody" class="text-slate-800 divide-y divide-slate-100">
-                                <!-- Generated rows: 50, 100, 150, 200 cm3 -->
-                            </tbody>
-                        </table>
                     </div>
                 </div>
 
             </section>
 
-            <!-- Right Column: Agent Water AI Companion (6 Cols) -->
-            <section class="lg:col-span-6 flex flex-col min-h-[720px] h-[830px] lg:h-[850px] md:h-[800px] bg-white rounded-3xl shadow-sm border border-slate-200/90 overflow-hidden">
+            <!-- Right Column: Step c: Agent Water AI Companion (6 Cols) -->
+            <section id="stepSectionC" class="lg:col-span-6 flex flex-col min-h-[720px] h-[830px] lg:h-[850px] md:h-[800px] bg-white rounded-3xl shadow-sm border border-slate-200/90 overflow-hidden">
                 
                 <!-- Agent Header -->
                 <div class="bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 p-4 text-white flex items-center justify-between shadow-sm">
@@ -428,106 +451,435 @@
 
             </section>
 
-            <!-- TASK 3: Harvard Project Zero Thinking Routine Reflection Card (12 Cols) -->
-            <section id="studentReflectionSection" class="lg:col-span-12 bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200/90 transition-all duration-300">
-                
-                <!-- Unlocked View Container -->
-                <div id="reflectionUnlockedContent" class="hidden space-y-5">
-                    <div class="flex items-start justify-between flex-wrap gap-2 pb-3 border-b border-slate-100">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl font-black shadow-inner">
-                                💡
+            <!-- Step d: Key Learning Points Summary (12 Cols) -->
+            <section id="stepSectionD" class="lg:col-span-12 bg-gradient-to-br from-amber-50/80 via-orange-50/30 to-amber-100/50 rounded-3xl p-5 sm:p-6 shadow-sm border-2 border-amber-300 space-y-4 transition-all duration-300">
+                <div class="flex items-center justify-between border-b border-amber-200/80 pb-3 flex-wrap gap-2">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center text-xl font-black shadow-sm">
+                            📝
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-amber-600 text-white tracking-wider">
+                                    Step d • Synthesis
+                                </span>
+                                <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
+                                    Agent Water Summary
+                                </span>
                             </div>
-                            <div>
-                                <div class="flex items-center gap-2">
-                                    <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-amber-500 text-white tracking-wider">
-                                        Task 3 • Thinking Routine
-                                    </span>
-                                    <span class="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
-                                        Harvard Project Zero (哈佛思維常規)
-                                    </span>
+                            <h4 class="font-bold text-base sm:text-lg text-amber-950 font-fun mt-0.5">
+                                Step d: Key Learning Points Summary / 關鍵學習小結
+                            </h4>
+                        </div>
+                    </div>
+                    <span id="stepDStatusBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1">
+                        🔒 Complete Step c dialogue to unlock
+                    </span>
+                </div>
+
+                <div id="stepDLockedBanner" class="p-6 text-center space-y-2 bg-white/70 rounded-2xl border border-dashed border-amber-200">
+                    <p class="text-xs text-amber-800 font-medium">
+                        💧 水精靈正在與你進行科學對話。完成與水精靈的 3 輪對話探究後，這裡將立即為你整理個人專屬的學習重點！
+                    </p>
+                    <p class="text-[11px] text-amber-700/80">
+                        Complete your 3 rounds of dialogue with Agent Water above to synthesize your key learning points.
+                    </p>
+                </div>
+
+                <div id="stepDContentContainer" class="hidden space-y-4">
+                    <p class="text-xs text-amber-900/90 leading-relaxed">
+                        ✨ 恭喜完成與水精靈的探究對話！以下依據你們剛才的探究發現整理出 3 大關鍵學習要點，請抄錄於科學筆記本上：
+                    </p>
+                    <div id="studentSummaryPointsContainer" class="space-y-3.5 text-xs text-slate-800 bg-white p-5 rounded-2xl border border-amber-200 shadow-xs">
+                        <!-- Rendered dynamically by renderSummaryCardContent() -->
+                    </div>
+                    <div class="flex justify-end pt-1">
+                        <button type="button" onclick="proceedToStep('e')" class="px-5 py-2.5 bg-gradient-to-r from-amber-600 to-indigo-600 hover:from-amber-700 hover:to-indigo-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5">
+                            <span>Proceed to Step e: Peer Review (前往跨組互評)</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step e: Cross-Group Peer Review & Spark Tagging (12 Cols) -->
+            <section id="stepSectionE" class="lg:col-span-12 bg-gradient-to-br from-indigo-50/70 via-sky-50/50 to-white rounded-3xl p-5 sm:p-6 shadow-sm border border-indigo-200/90 space-y-4 transition-all duration-300">
+                <div class="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-indigo-100">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-sky-600 text-white flex items-center justify-center text-xl font-black shadow-sm">
+                            👥
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-indigo-600 text-white tracking-wider">
+                                    Step e • Peer Review
+                                </span>
+                                <span class="text-[10px] font-bold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded-full border border-indigo-300">
+                                    Teacher-Assigned Group
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-base sm:text-lg text-slate-800 font-fun mt-0.5">
+                                Step e: Cross-Group Peer Review & Spark Tagging / 跨組對話互評與亮點標記
+                            </h4>
+                        </div>
+                    </div>
+                    <span id="studentPeerTargetBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 border border-indigo-300">
+                        🎯 Assigned Group: Group 2
+                    </span>
+                </div>
+
+                <div id="stepELockedBanner" class="p-6 text-center space-y-2 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
+                    <p class="text-xs text-slate-600 font-medium">
+                        🔒 請先閱讀並完成<strong>【Step d: Key Summary】</strong>，即可解鎖進行跨組對話互評！
+                    </p>
+                    <p class="text-[11px] text-slate-400">
+                        Please review Step d Key Summary first to unlock peer review.
+                    </p>
+                </div>
+
+                <div id="stepEContentContainer" class="hidden space-y-4">
+                    <p class="text-xs text-slate-600">
+                        仔細閱讀老師為你組別指定的對話紀錄與發現，為他們標記思維閃光點，並提出建設性的科學讚賞或好奇追問！
+                    </p>
+
+                    <!-- Target Group's Dialogue / Findings Card -->
+                    <div class="bg-white p-4 rounded-2xl border border-indigo-100 shadow-xs space-y-2">
+                        <div class="flex items-center justify-between text-xs">
+                            <span class="font-bold text-indigo-950 flex items-center gap-1.5">
+                                <i data-lucide="message-square-quote" class="w-4 h-4 text-indigo-600"></i>
+                                <span id="peerTargetGroupName">Group 2</span> Findings & Reasoning / 探究發現與回答：
+                            </span>
+                            <span id="peerTargetStatus" class="text-[10px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full font-medium border border-emerald-200">Submitted</span>
+                        </div>
+                        <p id="peerTargetQuote" class="text-xs text-slate-700 italic bg-slate-50/80 p-3 rounded-xl border border-slate-200/70 leading-relaxed">
+                            "Loading findings..."
+                        </p>
+                    </div>
+
+                    <!-- Spark Tag Selection Buttons -->
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-bold text-slate-700 flex items-center justify-between">
+                            <span>✨ Tag Thinking Sparks / 標記對方對話中的思維亮點 (Click to Select - Multi-select):</span>
+                            <span class="text-[10px] text-indigo-600 font-normal">Select one or more</span>
+                        </label>
+                        <div id="peerSparkChipsContainer" class="flex items-center gap-1.5 flex-wrap">
+                            <!-- Generated buttons -->
+                        </div>
+                    </div>
+
+                    <!-- Peer Review Textarea -->
+                    <div class="space-y-1.5">
+                        <label class="block text-xs font-bold text-slate-700">
+                            💬 Peer Praise & Inquiring Wonder / 給對方的讚賞或好奇追問：
+                        </label>
+                        <textarea id="peerReviewCommentInput" rows="2" class="w-full text-xs p-3 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none leading-relaxed" placeholder="E.g., We appreciate your observation on stirring fatigue. We wonder: if we kept a constant stirring speed, would the trend line be smoother?"></textarea>
+                    </div>
+
+                    <!-- Submit Action -->
+                    <div class="flex items-center justify-between flex-wrap gap-2 pt-1">
+                        <span id="peerReviewSubmitStatus" class="text-xs text-slate-500 font-medium"></span>
+                        <button type="button" onclick="submitPeerReview()" class="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-700 hover:to-sky-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Submit Peer Review (Unlock Step f Simulator)</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step f: Molecular Dissolving Simulator & Science Concepts (12 Cols) -->
+            <section id="stepSectionF" class="lg:col-span-12 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 space-y-5 transition-all duration-300">
+                <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-indigo-500/30">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-600 rounded-2xl flex items-center justify-center text-xl shadow-lg">
+                            🌊
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] bg-sky-500 text-white font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                    Step f • Simulator
+                                </span>
+                                <span class="text-[10px] text-sky-300 font-bold bg-sky-900/60 px-2 py-0.5 rounded-full border border-sky-500/40">
+                                    Molecular Kinetics Model
+                                </span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold font-fun text-white mt-0.5">
+                                Step f: Water Volume & Molecular Dissolving Simulator
+                            </h3>
+                            <p class="text-xs text-slate-300">
+                                Observe why more water dissolves sugar faster at the molecular scale, then answer 2 scaffolding concept questions!
+                            </p>
+                        </div>
+                    </div>
+                    <span id="stepFStatusBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+                        🔒 Complete Step e to unlock
+                    </span>
+                </div>
+
+                <div id="stepFLockedBanner" class="p-6 text-center space-y-2 bg-slate-950/70 rounded-2xl border border-dashed border-indigo-500/30">
+                    <p class="text-xs text-indigo-200 font-medium">
+                        🔒 請先完成<strong>【Step e: 跨組互評】</strong>，即可解鎖微觀分子溶解動力學模擬器！
+                    </p>
+                    <p class="text-[11px] text-slate-400">
+                        Please submit your peer review in Step e to unlock the molecular simulator.
+                    </p>
+                </div>
+
+                <div id="stepFContentContainer" class="hidden space-y-5">
+                    <!-- Controls & Live Telemetry Bar -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                        <div class="md:col-span-6 flex items-center gap-2 flex-wrap">
+                            <span class="text-xs font-bold text-sky-200">💧 Water Volume:</span>
+                            <button type="button" onclick="setSimVolume(50)" id="studentSimVolBtn-50" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">50 cm³</button>
+                            <button type="button" onclick="setSimVolume(100)" id="studentSimVolBtn-100" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">100 cm³</button>
+                            <button type="button" onclick="setSimVolume(150)" id="studentSimVolBtn-150" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">150 cm³</button>
+                            <button type="button" onclick="setSimVolume(200)" id="studentSimVolBtn-200" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500 text-white border border-sky-400 shadow-md">200 cm³</button>
+                        </div>
+                        <div class="md:col-span-6 flex items-center justify-end gap-2 flex-wrap">
+                            <button type="button" onclick="toggleSimPlay()" id="studentSimPlayBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
+                                <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                                <span>Start / Pause</span>
+                            </button>
+                            <button type="button" onclick="resetSim()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-bold text-xs rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+                                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                                <span>Reset Lattice</span>
+                            </button>
+                            <button type="button" onclick="toggleSimSpeed()" id="studentSimSpeedBtn" class="px-3 py-1.5 bg-indigo-900/80 hover:bg-indigo-800 text-indigo-200 font-bold text-xs rounded-xl border border-indigo-700/50 transition">
+                                ⚡ 1x Speed
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Canvas & Telemetry -->
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                        <div class="lg:col-span-8 bg-slate-950/80 rounded-2xl p-2.5 border border-indigo-500/30 relative flex flex-col items-center justify-center min-h-[340px] overflow-hidden">
+                            <canvas id="studentMolecularSimCanvas" width="620" height="340" class="w-full max-w-[620px] h-[320px] rounded-xl bg-slate-950 border border-slate-800 shadow-inner"></canvas>
+                            <div class="absolute top-4 left-4 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700/80 text-[10px] text-slate-300 flex items-center gap-3">
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span> Water Molecules</span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-400 inline-block"></span> Sugar Crystal Lattice</span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> Dissolved Molecules</span>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-4 bg-slate-900/70 rounded-2xl p-4 border border-indigo-500/30 space-y-3 flex flex-col justify-between">
+                            <div class="space-y-2.5">
+                                <span class="text-xs font-bold text-sky-300 uppercase tracking-wider block border-b border-slate-800 pb-1.5">
+                                    📊 LIVE PHYSICS TELEMETRY
+                                </span>
+                                <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-[10px] text-slate-400">Water Collision Rate</p>
+                                        <p id="studentSimMetricRate" class="text-lg font-black text-amber-400 mt-0.5">0 <span class="text-[10px] font-normal text-slate-400">hits/s</span></p>
+                                    </div>
+                                    <span class="text-xl">⚡</span>
                                 </div>
-                                <h3 class="text-base sm:text-lg font-bold text-slate-800 font-fun mt-0.5">
-                                    我的科學探究反思卡：以前我以為…… 現在我明白……
-                                </h3>
-                                <div class="text-xs text-slate-500 font-medium">
-                                    My Science Thinking Routine: I used to think... Now I think...
+                                <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 space-y-1">
+                                    <div class="flex items-center justify-between text-[10px]">
+                                        <span class="text-slate-400">Remaining Sugar Lattice</span>
+                                        <span id="studentSimMetricPercent" class="font-bold text-sky-300">100%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                        <div id="studentSimMetricBar" class="bg-gradient-to-r from-amber-500 to-sky-400 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
+                                    </div>
                                 </div>
-                                <p class="text-[11px] text-slate-400 mt-0.5">
-                                    記錄你從個人實驗、全班數據與水精靈對話中所獲得的思維轉變 / Record conceptual shifts from your trials, class data, and Agent Water
+                                <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
+                                    <div>
+                                        <p class="text-[10px] text-slate-400">Simulated Time Elapsed</p>
+                                        <p id="studentSimMetricTime" class="text-lg font-black text-teal-400 mt-0.5">0.0 <span class="text-[10px] font-normal text-slate-400">s</span></p>
+                                    </div>
+                                    <span class="text-xs text-slate-400" id="studentSimEstTotal">Est. Time: ~30s</span>
+                                </div>
+                            </div>
+                            <div class="bg-sky-950/50 border border-sky-500/30 p-3 rounded-xl text-[11px] space-y-1">
+                                <span class="font-bold text-sky-200 flex items-center gap-1">
+                                    <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-amber-400"></i>
+                                    <span>Key Concept:</span>
+                                </span>
+                                <p class="text-slate-300 leading-relaxed text-[10px]">
+                                    More water = more water molecules bombarding the cube every second, pulling sugar molecules into solution much faster!
                                 </p>
                             </div>
                         </div>
-                        <span id="reflectionStatusBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
-                            待填寫反思 / Pending
-                        </span>
                     </div>
 
-                    <!-- Prompt 1: I used to think... (以前我以為...) -->
-                    <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-200/80 space-y-2.5">
-                        <label class="block text-xs sm:text-sm font-bold text-amber-950 flex items-center justify-between flex-wrap gap-1">
-                            <span>💭 1. 實驗前，我以為…… (1. Before the experiment, I used to think that...)</span>
-                            <span class="text-[10px] font-normal text-amber-700">（點選下方標籤或自由輸入 / Click chips or type freely）</span>
-                        </label>
-                        <!-- Quick Click Chips for S1 Misconceptions -->
-                        <div class="flex items-center gap-1.5 flex-wrap">
-                            <button type="button" onclick="insertReflectionChip('usedToThink', '只有水溫高低才會影響溶解快慢 / Only water temperature affects dissolving rate')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ 只有水溫高低才會影響溶解快慢 / Only water temp affects dissolving
-                            </button>
-                            <button type="button" onclick="insertReflectionChip('usedToThink', '方糖在熱水裡是融化，不是溶解 / Sugar in hot water is melting, not dissolving')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ 方糖在熱水裡是融化不是溶解 / Sugar melts not dissolves
-                            </button>
-                            <button type="button" onclick="insertReflectionChip('usedToThink', '只做 1 組實驗就已經足夠準確 / Doing 1 group test is already accurate enough')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ 只做 1 組實驗就足夠準確 / 1 group is accurate enough
-                            </button>
-                            <button type="button" onclick="insertReflectionChip('usedToThink', '水量越多反而要花更多時間把它填滿 / More water takes longer to fill up, so it dissolves slower')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ 水量越多反而要花更多時間填滿 / More water takes longer
+                    <!-- Microscopic Scaffolding Questions -->
+                    <div id="simScaffoldingContainer" class="bg-slate-950/90 border border-indigo-500/40 rounded-2xl p-4 sm:p-5 space-y-4">
+                        <div class="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-slate-800">
+                            <div class="flex items-center gap-2">
+                                <span class="text-lg">🧠</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-white font-fun">
+                                        Scaffolding Concept Questions: Microscopic Explanation
+                                    </h4>
+                                    <p class="text-[11px] text-slate-400">
+                                        Answer both questions correctly to unlock Step g (Reflection Card)!
+                                    </p>
+                                </div>
+                            </div>
+                            <span id="simScaffoldStatusBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40">
+                                0 / 2 Questions Answered
+                            </span>
+                        </div>
+
+                        <!-- Question 1 -->
+                        <div id="simQuestion1Card" class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800 space-y-2.5">
+                            <p class="text-xs font-bold text-sky-200 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-full bg-sky-500/30 text-sky-300 flex items-center justify-center text-[10px] font-black border border-sky-400/40">Q1</span>
+                                <span>Collision Theory: Why does 200 cm³ of water dissolve the sugar cube faster than 50 cm³?</span>
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <button type="button" onclick="answerSimScaffold(1, 0, false)" class="sim-q1-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
+                                    A) Water molecules in 200 cm³ are much hotter and move faster.
+                                </button>
+                                <button type="button" onclick="answerSimScaffold(1, 1, true)" class="sim-q1-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
+                                    B) With 4× more water volume, more water molecules collide with the sugar cube per second (higher collision frequency).
+                                </button>
+                                <button type="button" onclick="answerSimScaffold(1, 2, false)" class="sim-q1-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
+                                    C) Sugar cubes absorb water and shrink automatically.
+                                </button>
+                            </div>
+                            <div id="simQ1Feedback" class="hidden text-[11px] p-2.5 rounded-lg font-medium"></div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div id="simQuestion2Card" class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800 space-y-2.5">
+                            <p class="text-xs font-bold text-sky-200 flex items-center gap-1.5">
+                                <span class="w-5 h-5 rounded-full bg-sky-500/30 text-sky-300 flex items-center justify-center text-[10px] font-black border border-sky-400/40">Q2</span>
+                                <span>Diffusion Boundary: What happens to dissolved sugar molecules in larger water volume?</span>
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <button type="button" onclick="answerSimScaffold(2, 0, true)" class="sim-q2-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
+                                    A) They diffuse away rapidly into open space, avoiding a "crowded saturation layer" so fresh water molecules can continue colliding.
+                                </button>
+                                <button type="button" onclick="answerSimScaffold(2, 1, false)" class="sim-q2-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
+                                    B) They turn into gas immediately and evaporate into the air.
+                                </button>
+                                <button type="button" onclick="answerSimScaffold(2, 2, false)" class="sim-q2-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
+                                    C) They block all water molecules permanently.
+                                </button>
+                            </div>
+                            <div id="simQ2Feedback" class="hidden text-[11px] p-2.5 rounded-lg font-medium"></div>
+                        </div>
+
+                        <!-- Unlocked Step g Banner -->
+                        <div id="simScaffoldUnlockBanner" class="hidden bg-emerald-950/80 border border-emerald-400/50 p-3.5 rounded-xl text-emerald-200 text-xs flex items-center justify-between flex-wrap gap-2">
+                            <span class="flex items-center gap-2">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+                                <span class="font-bold">🎉 Outstanding! You mastered both microscopic concepts! Step g (Reflection Card) is now unlocked!</span>
+                            </span>
+                            <button type="button" onclick="proceedToStep('g')" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg text-xs shadow transition flex items-center gap-1.5">
+                                <span>Proceed to Step g (Thinking Routine)</span>
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                             </button>
                         </div>
-                        <textarea id="reflectionUsedToThink" rows="2" placeholder="寫下你在實驗前的直覺想法或常見猜想…… / Write down your intuitive thoughts or initial hypotheses before the experiment..."
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step g: Harvard Project Zero Thinking Routine Reflection Card (12 Cols) -->
+            <section id="stepSectionG" class="lg:col-span-12 bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200/90 transition-all duration-300">
+                <div class="flex items-start justify-between flex-wrap gap-2 pb-3 border-b border-slate-100">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl font-black shadow-inner">
+                            💡
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-amber-500 text-white tracking-wider">
+                                    Step g • Thinking Routine
+                                </span>
+                                <span class="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                                    Harvard Project Zero
+                                </span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold text-slate-800 font-fun mt-0.5">
+                                Step g: My Science Thinking Routine: I used to think... Now I think...
+                            </h3>
+                            <p class="text-[11px] text-slate-400 mt-0.5">
+                                Record conceptual shifts from your trials, class data, Agent Water, peer insights, and molecular simulation.
+                            </p>
+                        </div>
+                    </div>
+                    <span id="reflectionStatusBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+                        Pending Submission
+                    </span>
+                </div>
+
+                <div id="stepGLockedBanner" class="p-8 text-center space-y-3 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200 mt-4">
+                    <div class="w-12 h-12 bg-slate-200 text-slate-500 rounded-full flex items-center justify-center text-2xl mx-auto">
+                        🔒
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-700 font-fun">Step g: Reflection Card (Locked)</h4>
+                        <p class="text-xs text-slate-500 mt-1">
+                            Please complete Steps a to f (Data, Graph, Agent Water, Summary, Peer Review, Simulator) to unlock your final reflection!
+                        </p>
+                    </div>
+                </div>
+
+                <div id="stepGContentContainer" class="hidden space-y-5 mt-4">
+                    <!-- Prompt 1: I used to think... -->
+                    <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-200/80 space-y-2.5">
+                        <label class="block text-xs sm:text-sm font-bold text-amber-950 flex items-center justify-between flex-wrap gap-1">
+                            <span>💭 1. Before the experiment, I used to think that...</span>
+                            <span class="text-[10px] font-normal text-amber-700">(Click chips below or type freely)</span>
+                        </label>
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <button type="button" onclick="insertReflectionChip('usedToThink', 'Only water temperature affects dissolving rate')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ Only water temp affects dissolving rate
+                            </button>
+                            <button type="button" onclick="insertReflectionChip('usedToThink', 'Sugar in hot water melts rather than dissolves')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ Sugar in hot water melts rather than dissolves
+                            </button>
+                            <button type="button" onclick="insertReflectionChip('usedToThink', '1 group test is already accurate enough')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ 1 group test is already accurate enough
+                            </button>
+                            <button type="button" onclick="insertReflectionChip('usedToThink', 'More water takes longer to dissolve')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ More water takes longer to dissolve
+                            </button>
+                        </div>
+                        <textarea id="reflectionUsedToThink" rows="2" placeholder="Write down your intuitive thoughts or initial hypotheses before the experiment..."
                             class="w-full p-3 text-xs sm:text-sm text-slate-800 bg-white border border-amber-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400"></textarea>
                     </div>
 
-                    <!-- Prompt 2: Now I think... (現在我明白...) -->
+                    <!-- Prompt 2: Now I think... -->
                     <div class="bg-teal-50/50 p-4 rounded-2xl border border-teal-200/80 space-y-2.5">
                         <label class="block text-xs sm:text-sm font-bold text-teal-950 flex items-center justify-between flex-wrap gap-1">
-                            <span>💡 2. 做完實驗與對話後，現在我明白…… (2. After experiments & dialogue, now I realize that...)</span>
-                            <span class="text-[10px] font-normal text-teal-700">（點選下方標籤或自由輸入 / Click chips or type freely）</span>
+                            <span>💡 2. After experiments, dialogue & simulation, now I realize that...</span>
+                            <span class="text-[10px] font-normal text-teal-700">(Click chips below or type freely)</span>
                         </label>
-                        <!-- Quick Click Chips for S1 Discoveries -->
                         <div class="flex items-center gap-1.5 flex-wrap">
-                            <button type="button" onclick="insertReflectionChip('nowIThink', '水量越多，水分子越多，方糖溶解得越快 / More water provides more water molecules, dissolving sugar faster')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
-                                ➕ 水量越多，水分子越多，方糖溶解越快 / More water = faster dissolving
+                            <button type="button" onclick="insertReflectionChip('nowIThink', 'More water provides more water molecules and collisions, dissolving sugar faster')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ More water = more molecules & collisions = faster dissolving
                             </button>
-                            <button type="button" onclick="insertReflectionChip('nowIThink', '單組實驗難免有隨機誤差，全班 8 組平均才能互相抵消 / Single trials have random human errors; 8-group average cancels them out')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
-                                ➕ 單組難免有隨機誤差，全班平均才能抵消 / Class average cancels random errors
+                            <button type="button" onclick="insertReflectionChip('nowIThink', 'Class average cancels random human errors and increases validity')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ Class average cancels random errors & increases validity
                             </button>
-                            <button type="button" onclick="insertReflectionChip('nowIThink', '戳碎方糖會改變接觸表面積，破壞了公平測試原則 / Crushing sugar changes surface area, violating Fair Test rules')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
-                                ➕ 戳碎方糖改變表面積，破壞公平測試 / Crushing sugar alters Fair Test
+                            <button type="button" onclick="insertReflectionChip('nowIThink', 'Crushing sugar alters surface area, violating Fair Test rules')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ Crushing sugar alters surface area, violating Fair Test rules
                             </button>
-                            <button type="button" onclick="insertReflectionChip('nowIThink', '溶解是水分子包圍並拉開糖粒，融化是受熱變成液體 / Dissolving is molecules pulled apart; melting is heating into liquid')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
-                                ➕ 溶解是水分子拆開晶格，融化是受熱變液體 / Dissolving vs Melting
+                            <button type="button" onclick="insertReflectionChip('nowIThink', 'Dissolving is solute separating into solvent; melting is state change by heat')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ Dissolving is solute separating into solvent vs melting
                             </button>
                         </div>
-                        <textarea id="reflectionNowIThink" rows="2" placeholder="寫下你在分析圖表與和水精靈對話後的真正理解…… / Write down your true understanding after analyzing graphs and chatting with Agent Water..."
+                        <textarea id="reflectionNowIThink" rows="2" placeholder="Write down your true scientific understanding after analyzing graphs, chatting with Agent Water, and exploring the molecular simulator..."
                             class="w-full p-3 text-xs sm:text-sm text-slate-800 bg-white border border-teal-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-400"></textarea>
                     </div>
 
-                    <!-- Prompt 3: I still wonder... (我還想進一步探究...) -->
+                    <!-- Prompt 3: I still wonder... -->
                     <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-200/80 space-y-2">
                         <label class="block text-xs sm:text-sm font-bold text-indigo-950 flex items-center justify-between flex-wrap gap-1">
-                            <span>❓ 3. 我還想進一步探究…… (3. I still wonder... - 選填 / Optional)</span>
-                            <span class="text-[10px] font-normal text-indigo-700">提出下一個好奇問題 / Propose next inquiry question</span>
+                            <span>❓ 3. I still wonder... (Optional: Propose next inquiry question)</span>
+                            <span class="text-[10px] font-normal text-indigo-700">Propose next inquiry question</span>
                         </label>
                         <div class="flex items-center gap-1.5 flex-wrap">
-                            <button type="button" onclick="insertReflectionChip('stillWonder', '如果水量加到 1,000 cm³ 或太平洋，溶解時間會變成 0 秒嗎？ / If water reaches 1,000 cm³, will time drop to 0s?')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ 水量若到 1,000 cm³，時間會變 0 秒嗎？ / Will time drop to 0s?
+                            <button type="button" onclick="insertReflectionChip('stillWonder', 'If water reaches 1,000 cm³, will dissolving time drop to 0s?')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
+                                ➕ If water reaches 1,000 cm³, will time drop to 0s?
                             </button>
-                            <button type="button" onclick="insertReflectionChip('stillWonder', '如果攪拌速度快一倍，溶解時間會剛好減半嗎？ / If we stir twice as fast, will dissolving time halve?')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ 攪拌快一倍，時間會減半嗎？ / Stirring twice as fast?
+                            <button type="button" onclick="insertReflectionChip('stillWonder', 'If we stir twice as fast, will dissolving time halve?')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
+                                ➕ If we stir twice as fast, will dissolving time halve?
                             </button>
                         </div>
-                        <input type="text" id="reflectionStillWonder" placeholder="例如：我想知道如果用粗糖跟細砂糖，溶解時間會有多少差距…… / E.g., I wonder how much time difference coarse vs fine sugar would make..."
+                        <input type="text" id="reflectionStillWonder" placeholder="E.g., I wonder how much difference powdered sugar vs rock sugar would make..."
                             class="w-full p-2.5 text-xs sm:text-sm text-slate-800 bg-white border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400">
                     </div>
 
@@ -535,126 +887,16 @@
                     <div class="flex items-center justify-between gap-3 pt-1 flex-wrap">
                         <p class="text-[11px] text-slate-500 flex items-center gap-1">
                             <i data-lucide="info" class="w-3.5 h-3.5 text-sky-500"></i>
-                            <span>提交後，你的反思將同步至教師大組討論中心！ / Your reflection will sync to the Teacher HOTQ Discussion Center!</span>
+                            <span>Upon submission, your reflection will sync to the Teacher Discussion Center!</span>
                         </p>
                         <button type="button" id="btnSubmitReflection" onclick="submitStudentReflection()"
                             class="bg-gradient-to-r from-teal-500 via-sky-600 to-indigo-600 hover:from-teal-600 hover:to-indigo-700 active:scale-95 text-white font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center gap-2">
                             <i data-lucide="check-circle" class="w-4 h-4"></i>
-                            <span>💾 提交我的科學思維反思，解鎖關鍵小結 (Submit Reflection)</span>
+                            <span>💾 Submit Reflection Card (Complete All Tasks)</span>
                         </button>
                     </div>
 
                     <div id="reflectionFeedbackMsg" class="hidden"></div>
-
-                    <!-- PEER REVIEW SECTION: Cross-Group Dialogue Peer Review & Spark Tagging -->
-                    <div id="studentPeerReviewContainer" class="mt-4 p-4 sm:p-5 bg-gradient-to-br from-indigo-50/70 via-sky-50/50 to-white rounded-2xl border border-indigo-200/80 space-y-3.5 shadow-sm">
-                        <div class="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-indigo-100">
-                            <div class="flex items-center gap-2.5">
-                                <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-sky-600 text-white flex items-center justify-center text-sm font-black shadow-sm">👥</span>
-                                <div>
-                                    <h4 class="text-xs sm:text-sm font-bold text-slate-800 font-fun">
-                                        跨組對話互評與思維亮點標記 (Cross-Group Peer Review & Spark Tagging)
-                                    </h4>
-                                    <p class="text-[11px] text-slate-500">
-                                        仔細閱讀指定小組的探究對話，為他們標記思維閃光點，並提出建設性的科學提問！
-                                    </p>
-                                </div>
-                            </div>
-                            <span id="studentPeerTargetBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 border border-indigo-300">
-                                🎯 本組指定點評：Group 2
-                            </span>
-                        </div>
-
-                        <!-- Target Group's Dialogue / Findings Card -->
-                        <div class="bg-white p-3.5 rounded-xl border border-indigo-100 shadow-xs space-y-2">
-                            <div class="flex items-center justify-between text-[11px]">
-                                <span class="font-bold text-indigo-950 flex items-center gap-1">
-                                    <i data-lucide="message-square-quote" class="w-3.5 h-3.5 text-indigo-600"></i>
-                                    <span id="peerTargetGroupName">Group 2</span> 剛才的探究回答與發現：
-                                </span>
-                                <span id="peerTargetStatus" class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-medium border border-emerald-200">已提交數據與對話</span>
-                            </div>
-                            <p id="peerTargetQuote" class="text-xs text-slate-700 italic bg-slate-50/80 p-2.5 rounded-lg border border-slate-200/70 leading-relaxed">
-                                "載入中……"
-                            </p>
-                        </div>
-
-                        <!-- Spark Tag Selection Buttons -->
-                        <div class="space-y-1.5">
-                            <label class="block text-xs font-bold text-slate-700 flex items-center justify-between">
-                                <span>✨ 標記對方對話中的思維亮點 (Click Sparks to Tag - 可多選)：</span>
-                                <span class="text-[10px] text-indigo-600 font-normal">點擊即可選取或取消</span>
-                            </label>
-                            <div id="peerSparkChipsContainer" class="flex items-center gap-1.5 flex-wrap">
-                                <!-- Generated buttons -->
-                            </div>
-                        </div>
-
-                        <!-- Peer Review Textarea -->
-                        <div class="space-y-1">
-                            <label class="block text-xs font-bold text-slate-700">
-                                💬 我們組想給他們的讚賞或好奇追問 (Peer Praise & Inquiring Wonder)：
-                            </label>
-                            <textarea id="peerReviewCommentInput" rows="2" class="w-full text-xs p-2.5 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none leading-relaxed" placeholder="例如：我們很欣賞你們能敏銳反思到攪拌手累變慢；我們想追問：如果用定速磁力攪拌器，數據會不會更整齊？"></textarea>
-                        </div>
-
-                        <!-- Submit Action -->
-                        <div class="flex items-center justify-between flex-wrap gap-2 pt-1">
-                            <span id="peerReviewSubmitStatus" class="text-[11px] text-slate-500 font-medium"></span>
-                            <button type="button" onclick="submitPeerReview()" class="px-5 py-2 bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-700 hover:to-sky-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5">
-                                <i data-lucide="send" class="w-3.5 h-3.5"></i>
-                                <span>💾 提交同儕點評與亮點標記 (Submit Peer Review)</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Locked View Container -->
-                <div id="reflectionLockedContent" class="p-8 text-center space-y-3 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
-                    <div class="w-12 h-12 bg-slate-200 text-slate-500 rounded-full flex items-center justify-center text-2xl mx-auto">
-                        🔒
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-sm text-slate-700 font-fun">任務 3：我的科學思維反思卡（尚未解鎖） / Task 3: Reflection Card (Locked)</h4>
-                        <p class="text-xs text-slate-500 mt-1">
-                            請先完成<strong>【任務 1：輸入數據】</strong>並與水精靈進行<strong>【任務 2：對話探究】</strong>後，系統將為你解鎖本反思卡！<br>
-                            <span class="text-[11px] text-slate-400">Please complete Task 1 data submission and Task 2 Agent Water inquiry first to unlock!</span>
-                        </p>
-                    </div>
-                </div>
-
-            </section>
-
-            <!-- TASK 4: Key Learning Points Summary Section (12 Cols) -->
-            <section id="studentSummarySection" class="hidden lg:col-span-12 bg-gradient-to-br from-amber-50 via-orange-50/40 to-amber-100/60 rounded-3xl p-6 sm:p-7 shadow-sm border-2 border-amber-300 space-y-4 transition-all duration-300">
-                <div class="flex items-center justify-between border-b border-amber-200/80 pb-3">
-                    <div class="flex items-center gap-2.5">
-                        <span class="text-2xl">📝</span>
-                        <div>
-                            <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-600 text-white tracking-wider">
-                                Task 4 • Synthesis Complete
-                            </span>
-                            <h4 class="font-bold text-base sm:text-lg text-amber-950 font-fun mt-0.5">
-                                任務 4：關鍵學習小結 (Key Learning Points Summary)
-                            </h4>
-                        </div>
-                    </div>
-                    <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
-                        <i data-lucide="check" class="w-3.5 h-3.5"></i> 已解鎖完成 / Unlocked
-                    </span>
-                </div>
-                <p class="text-xs text-amber-900/80">
-                    ✨ 太棒了！你已順利完成本堂探究課所有任務。請將以下重點抄錄於課堂工作紙上：<br>
-                    <span class="text-[11px] text-amber-800/70">Fantastic! You completed all tasks. Please jot down these key learning points on your worksheet:</span>
-                </p>
-                <div id="studentSummaryPointsContainer" class="space-y-3.5 text-xs text-slate-800 bg-white/80 p-5 rounded-2xl border border-amber-200">
-                    <!-- Rendered dynamically by renderSummaryCardContent() -->
-                </div>
-                <div class="bg-white/90 border border-amber-200 rounded-full py-2.5 px-4 text-center shadow-sm">
-                    <p class="text-xs sm:text-sm font-bold text-amber-900 italic">
-                        🌟 恭喜完成！水精靈非常讚賞你認真探究與深刻反思的科學精神！<br>
-                        <span class="text-[11px] font-normal text-amber-800/80">Congratulations! Agent Water commends your rigorous inquiry and reflection!</span>
-                    </p>
                 </div>
             </section>
 
@@ -1128,14 +1370,14 @@
                                     S1 Science Microscopic Simulation
                                 </span>
                                 <span class="text-[10px] text-sky-300 font-bold bg-sky-900/60 px-2 py-0.5 rounded-full border border-sky-500/40">
-                                    微觀分子動力學模擬
+                                    Molecular Kinetics Model
                                 </span>
                             </div>
                             <h3 class="text-base sm:text-lg font-bold font-fun text-white mt-0.5">
-                                水量與微觀分子溶解動力學模擬器 (Molecular Dissolving Simulator)
+                                Water Volume & Molecular Dissolving Kinetics Simulator
                             </h3>
                             <p class="text-xs text-slate-300">
-                                視覺化呈現：為何「更多水量」會令方糖溶解得更快？（水分子碰撞頻率與擴散空間微觀機制）
+                                Visualizing: Why does more water volume make a sugar cube dissolve faster? (Collision Theory & Diffusion Barrier)
                             </p>
                         </div>
                     </div>
@@ -1143,7 +1385,7 @@
                     <div class="flex items-center gap-2 flex-wrap">
                         <button type="button" onclick="toggleSimulatorFullscreen()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 border border-indigo-400/40">
                             <i data-lucide="maximize" class="w-4 h-4"></i>
-                            <span id="simFullscreenBtnText">🖥️ 大螢幕全屏教學投影 (Fullscreen)</span>
+                            <span id="simFullscreenBtnText">🖥️ Fullscreen Presentation</span>
                         </button>
                     </div>
                 </div>
@@ -1152,7 +1394,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
                     <!-- Preset Volume Buttons (6 Cols) -->
                     <div class="md:col-span-6 flex items-center gap-2 flex-wrap">
-                        <span class="text-xs font-bold text-sky-200">💧 水量設定 (Water Volume)：</span>
+                        <span class="text-xs font-bold text-sky-200">💧 Water Volume:</span>
                         <button type="button" onclick="setSimVolume(50)" id="simVolBtn-50" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">50 cm³</button>
                         <button type="button" onclick="setSimVolume(100)" id="simVolBtn-100" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">100 cm³</button>
                         <button type="button" onclick="setSimVolume(150)" id="simVolBtn-150" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">150 cm³</button>
@@ -1163,14 +1405,14 @@
                     <div class="md:col-span-6 flex items-center justify-end gap-2 flex-wrap">
                         <button type="button" onclick="toggleSimPlay()" id="simPlayBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
                             <i data-lucide="play" class="w-3.5 h-3.5" id="simPlayIcon"></i>
-                            <span id="simPlayText">開始模擬 (Start)</span>
+                            <span id="simPlayText">Start Simulation</span>
                         </button>
                         <button type="button" onclick="resetSim()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-bold text-xs rounded-xl border border-slate-700 transition flex items-center gap-1.5">
                             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                            <span>重設晶格 (Reset)</span>
+                            <span>Reset Lattice</span>
                         </button>
                         <button type="button" onclick="toggleSimSpeed()" id="simSpeedBtn" class="px-3 py-1.5 bg-indigo-900/80 hover:bg-indigo-800 text-indigo-200 font-bold text-xs rounded-xl border border-indigo-700/50 transition">
-                            ⚡ 1x 速度
+                            ⚡ 1x Speed
                         </button>
                     </div>
                 </div>
@@ -1183,9 +1425,9 @@
                         
                         <!-- Floating Overlay Legend -->
                         <div class="absolute top-4 left-4 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700/80 text-[10px] text-slate-300 flex items-center gap-3">
-                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span> 水分子 (布朗運動)</span>
-                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-400 inline-block"></span> 方糖晶體微觀晶格</span>
-                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> 已溶解水合分子</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span> Water Molecules (Brownian Motion)</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-400 inline-block"></span> Sugar Crystal Lattice</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> Hydrated Dissolved Molecules</span>
                         </div>
                     </div>
 
@@ -1193,14 +1435,14 @@
                     <div class="lg:col-span-4 bg-slate-900/70 rounded-2xl p-4 border border-indigo-500/30 space-y-3 flex flex-col justify-between">
                         <div class="space-y-2.5">
                             <span class="text-xs font-bold text-sky-300 uppercase tracking-wider block border-b border-slate-800 pb-1.5">
-                                📊 實時物理遙測 (Live Physics Telemetry)
+                                📊 LIVE PHYSICS TELEMETRY
                             </span>
 
                             <!-- Metric 1: Collision Frequency -->
                             <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
                                 <div>
-                                    <p class="text-[10px] text-slate-400">水分子碰撞頻率 (Collision Rate)</p>
-                                    <p id="simMetricRate" class="text-lg font-black text-amber-400 mt-0.5">0 <span class="text-[10px] font-normal text-slate-400">次/秒 (hits/s)</span></p>
+                                    <p class="text-[10px] text-slate-400">Water Collision Rate</p>
+                                    <p id="simMetricRate" class="text-lg font-black text-amber-400 mt-0.5">0 <span class="text-[10px] font-normal text-slate-400">hits/s</span></p>
                                 </div>
                                 <span class="text-xl">⚡</span>
                             </div>
@@ -1208,7 +1450,7 @@
                             <!-- Metric 2: Remaining Lattice -->
                             <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 space-y-1">
                                 <div class="flex items-center justify-between text-[10px]">
-                                    <span class="text-slate-400">剩餘方糖晶格 (Sugar Lattice)</span>
+                                    <span class="text-slate-400">Remaining Sugar Lattice</span>
                                     <span id="simMetricPercent" class="font-bold text-sky-300">100%</span>
                                 </div>
                                 <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
@@ -1219,10 +1461,10 @@
                             <!-- Metric 3: Simulated Time Elapsed -->
                             <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
                                 <div>
-                                    <p class="text-[10px] text-slate-400">模擬溶解耗時 (Simulated Time)</p>
+                                    <p class="text-[10px] text-slate-400">Simulated Time Elapsed</p>
                                     <p id="simMetricTime" class="text-lg font-black text-teal-400 mt-0.5">0.0 <span class="text-[10px] font-normal text-slate-400">s</span></p>
                                 </div>
-                                <span class="text-xs text-slate-400" id="simEstTotal">預計耗時: ~30s</span>
+                                <span class="text-xs text-slate-400" id="simEstTotal">Est. Time: ~30s</span>
                             </div>
                         </div>
 
@@ -1230,11 +1472,11 @@
                         <div class="bg-sky-950/50 border border-sky-500/30 p-3 rounded-xl text-[11px] space-y-1.5">
                             <span class="font-bold text-sky-200 flex items-center gap-1">
                                 <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-amber-400"></i>
-                                <span>課堂關鍵物理原理解釋：</span>
+                                <span>Key Microscopic Principles:</span>
                             </span>
                             <p class="text-slate-300 leading-relaxed text-[10px]">
-                                1. <strong class="text-white">碰撞頻率暴增</strong>：水量由 50 增至 200 cm³，自由水分子數量增加 4 倍，每秒撞擊並拆解晶格次數顯著倍增！<br>
-                                2. <strong class="text-white">開闊擴散空間</strong>：水多時脫離的糖分子迅速擴散，不易在方糖表面形成「飽和擁擠層」，新鮮水分子能持續高效率進攻！
+                                1. <strong class="text-white">Collision Rate Surge</strong>: Increasing water from 50 to 200 cm³ quadruples free water molecules, significantly multiplying impacts per second breaking the crystal lattice!<br>
+                                2. <strong class="text-white">Open Diffusion Space</strong>: In larger volume, separated sugar molecules diffuse away rapidly, avoiding a local "crowded saturation layer", allowing fresh water molecules continuous access!
                             </p>
                         </div>
                     </div>
@@ -4505,7 +4747,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
             if ([t50, t100, t150, t200].some(isNaN)) {
                 if (!isSilent) {
-                    showSubmitFeedback('warning', '⚠️ 請完整填寫 4 個水量的溶解時間（單位為秒 / seconds）！');
+                    showSubmitFeedback('warning', '⚠️ Please enter all 4 dissolving times (unit: seconds)!');
                     highlightDataFormInputs();
                 }
                 return;
@@ -4513,7 +4755,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
             // RESTRICTION: Data must be >= 0 seconds
             if (t50 < 0 || t100 < 0 || t150 < 0 || t200 < 0) {
-                showSubmitFeedback('error', '⚠️ 溶解時間數據必須為 0 秒或以上！請勿輸入負數。Time must be >= 0 seconds!');
+                showSubmitFeedback('error', '⚠️ Dissolving time must be 0 or greater! Time must be >= 0 seconds.');
                 return;
             }
 
@@ -4552,7 +4794,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 submitBtn.classList.add('bg-emerald-600', 'hover:bg-emerald-700', 'ring-4', 'ring-emerald-200');
                 submitBtn.innerHTML = `
                     <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-200 animate-bounce"></i>
-                    <span>✓ 數據已成功上傳！(Data Submitted!)</span>
+                    <span>✓ Data Submitted Successfully!</span>
                 `;
                 if (window.lucide) lucide.createIcons();
 
@@ -4561,13 +4803,13 @@ ${JSON.stringify(summaryData, null, 2)}
                     submitBtn.classList.add('bg-teal-600', 'hover:bg-teal-700');
                     submitBtn.innerHTML = `
                         <i data-lucide="upload-cloud" class="w-4 h-4"></i>
-                        <span>Submit Timings (s) / 上傳本組溶解時間 (秒)</span>
+                        <span>Submit Timings (s)</span>
                     `;
                     if (window.lucide) lucide.createIcons();
                 }, 3000);
             }
 
-            showSubmitFeedback('success', `✓ ${currentRole} 溶解時間數據上傳成功！折線圖已繪製。`);
+            showSubmitFeedback('success', `✓ ${currentRole} timings submitted successfully! Line graph updated.`);
 
             broadcastSync();
             updateAllUI();
@@ -4755,18 +4997,18 @@ ${JSON.stringify(summaryData, null, 2)}
                             </div>
                         </div>
 
-                        <!-- CTA to Task 3 -->
-                        <button type="button" onclick="proceedToReflectionStep()" class="w-full py-2.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600 hover:from-emerald-700 hover:to-sky-700 active:scale-[0.99] text-white font-bold rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
-                            <span>📝 前往填寫【任務 3：思維反思卡】(Proceed to Task 3)</span>
+                        <!-- CTA to Step d -->
+                        <button type="button" onclick="proceedToStep('d')" class="w-full py-2.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600 hover:from-emerald-700 hover:to-sky-700 active:scale-[0.99] text-white font-bold rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
+                            <span>📝 前往【Step d：關鍵學習小結】(Proceed to Step d)</span>
                             <i data-lucide="arrow-down" class="w-4 h-4"></i>
                         </button>
                     </div>
                 `;
                 const input = document.getElementById('userInput');
-                const sendBtn = document.getElementById('sendBtn');
+                const sendBtn = document.getElementById('chatSendBtn');
                 if (input) {
                     input.disabled = true;
-                    input.placeholder = "✅ 本組對話探究已圓滿完成！請在下方填寫反思卡 (Dialogue completed! Proceed to Task 3 below)";
+                    input.placeholder = "✅ 本組對話探究已圓滿完成！請在下方查閱關鍵學習小結 (Dialogue completed! Proceed to Step d below)";
                 }
                 if (sendBtn) sendBtn.disabled = true;
                 if (window.lucide) lucide.createIcons();
@@ -4815,11 +5057,96 @@ ${JSON.stringify(summaryData, null, 2)}
         }
 
         // ================= TASK GATING & PROGRESSION STATE MACHINE =================
+        // ================= 7-STEP PROGRESSION STATE MACHINE (a to g) =================
+        let simScaffoldState = { q1: false, q2: false };
+
+        function proceedToStep(stepLetter) {
+            const map = {
+                'a': 'stepSectionA',
+                'b': 'stepSectionB',
+                'c': 'stepSectionC',
+                'd': 'stepSectionD',
+                'e': 'stepSectionE',
+                'f': 'stepSectionF',
+                'g': 'stepSectionG'
+            };
+            const targetId = map[stepLetter.toLowerCase()];
+            if (!targetId) return;
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                targetEl.classList.add('ring-4', 'ring-sky-400');
+                setTimeout(() => {
+                    targetEl.classList.remove('ring-4', 'ring-sky-400');
+                }, 1500);
+            }
+        }
+
+        function answerSimScaffold(qNum, optIdx, isCorrect) {
+            const feedbackEl = document.getElementById(`simQ${qNum}Feedback`);
+            const cardEl = document.getElementById(`simQuestion${qNum}Card`);
+            
+            // Highlight buttons
+            const btnList = cardEl ? cardEl.querySelectorAll(`.sim-q${qNum}-opt`) : [];
+            btnList.forEach((btn, idx) => {
+                if (idx === optIdx) {
+                    if (isCorrect) {
+                        btn.className = `sim-q${qNum}-opt text-left p-2.5 rounded-lg border-2 border-emerald-400 bg-emerald-950/80 text-emerald-200 text-[11px] font-bold transition`;
+                    } else {
+                        btn.className = `sim-q${qNum}-opt text-left p-2.5 rounded-lg border-2 border-rose-400 bg-rose-950/80 text-rose-200 text-[11px] font-medium transition`;
+                    }
+                } else {
+                    btn.className = `sim-q${qNum}-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950/50 text-[11px] text-slate-400 transition opacity-60`;
+                }
+            });
+
+            if (feedbackEl) {
+                feedbackEl.classList.remove('hidden');
+                if (isCorrect) {
+                    simScaffoldState[`q${qNum}`] = true;
+                    feedbackEl.className = "text-[11px] p-2.5 rounded-lg font-medium bg-emerald-900/60 border border-emerald-400/50 text-emerald-200 animate-fade-in";
+                    if (qNum === 1) {
+                        feedbackEl.innerHTML = `✓ <strong>Collision Theory:</strong> Correct! 4× more water provides 4× more water molecules, increasing the collision rate per second to dismantle the crystal lattice!`;
+                    } else {
+                        feedbackEl.innerHTML = `✓ <strong>Diffusion Boundary:</strong> Correct! Greater water volume gives dissolved molecules ample space to diffuse away, preventing a local saturation barrier!`;
+                    }
+                } else {
+                    simScaffoldState[`q${qNum}`] = false;
+                    feedbackEl.className = "text-[11px] p-2.5 rounded-lg font-medium bg-rose-900/60 border border-rose-400/50 text-rose-200 animate-fade-in";
+                    feedbackEl.innerHTML = `⚠️ Not quite. Notice how water molecules constantly collide with sugar molecules, and how open space helps dissolved molecules diffuse away. Try again!`;
+                }
+            }
+
+            // Update status badge
+            const badge = document.getElementById('simScaffoldStatusBadge');
+            const correctCount = (simScaffoldState.q1 ? 1 : 0) + (simScaffoldState.q2 ? 1 : 0);
+            if (badge) {
+                badge.innerText = `${correctCount} / 2 Questions Answered`;
+                if (correctCount === 2) {
+                    badge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-400/20 text-emerald-300 border border-emerald-400/50";
+                }
+            }
+
+            // If both correct, reveal unlock banner and update task gating
+            const unlockBanner = document.getElementById('simScaffoldUnlockBanner');
+            if (correctCount === 2) {
+                if (unlockBanner) unlockBanner.classList.remove('hidden');
+                if (classData[currentRole]) {
+                    classData[currentRole].simConceptsCompleted = true;
+                }
+                updateTaskGatingUI();
+            }
+        }
+
         function updateTaskGatingUI() {
             const groupData = classData[currentRole]?.data;
             const hasData = !!(groupData && !isNaN(groupData[50]) && !isNaN(groupData[100]) && !isNaN(groupData[150]) && !isNaN(groupData[200]));
+            const stage = classData[currentRole]?.stage || 0;
             const userChatLogs = (classData[currentRole]?.chatLogs || []).filter(m => m.sender === 'user');
-            const hasChat = hasData && ((classData[currentRole]?.stage >= 2) || (userChatLogs.length >= 1));
+            const hasDialogueCompleted = (stage >= 4) || (stage >= 3 && userChatLogs.length >= 3);
+            const pr = classData[currentRole]?.peerReview;
+            const hasPeerReview = !!(pr && (pr.submitted || (pr.sparkTags && pr.sparkTags.length > 0) || (pr.comment && pr.comment.length > 0)));
+            const hasSimConcepts = !!(classData[currentRole]?.simConceptsCompleted || (simScaffoldState.q1 && simScaffoldState.q2));
             const reflection = classData[currentRole]?.reflection;
             const hasReflection = !!(reflection && (reflection.nowIThink || '').trim().length >= 2);
 
@@ -4828,177 +5155,158 @@ ${JSON.stringify(summaryData, null, 2)}
             if (progressBadge) {
                 if (hasReflection) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
-                    progressBadge.innerText = "🎉 探究任務全部完成 (4/4)";
-                } else if (hasChat) {
+                    progressBadge.innerText = "🎉 All 7 Tasks Completed! (7/7)";
+                } else if (hasSimConcepts) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
-                    progressBadge.innerText = "進行中：任務 3 / 4 (思維反思)";
+                    progressBadge.innerText = "In Progress: Step g / 7 (Thinking Routine)";
+                } else if (hasPeerReview) {
+                    progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300";
+                    progressBadge.innerText = "In Progress: Step f / 7 (Molecular Sim)";
+                } else if (hasDialogueCompleted) {
+                    progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-300";
+                    progressBadge.innerText = "In Progress: Step e / 7 (Peer Review)";
                 } else if (hasData) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300";
-                    progressBadge.innerText = "進行中：任務 2 / 4 (水精靈探究)";
+                    progressBadge.innerText = "In Progress: Step c / 7 (Agent Water)";
                 } else {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
-                    progressBadge.innerText = "進行中：任務 1 / 4 (輸入實驗數據)";
+                    progressBadge.innerText = "In Progress: Step a / 7 (Enter Dissolving Time)";
                 }
             }
 
-            // 2. Stepper Indicators
-            const s1 = document.getElementById('stepIndicator1');
-            const s1Num = document.getElementById('stepNumber1');
-            const s1Sub = document.getElementById('stepSub1');
-            if (s1 && s1Num && s1Sub) {
-                if (hasData) {
-                    s1.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-sm";
-                    s1Num.className = "w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
-                    s1Num.innerHTML = "✓";
-                    s1Sub.innerText = "✅ 數據已上傳";
-                    s1Sub.className = "text-[9px] text-emerald-700 font-bold";
+            // Helper to style indicator items
+            const setIndicator = (stepId, numId, subId, isDone, isActive, doneText, activeText, lockedText) => {
+                const el = document.getElementById(stepId);
+                const numEl = document.getElementById(numId);
+                const subEl = document.getElementById(subId);
+                if (!el || !numEl || !subEl) return;
+                const letter = numId.replace('stepNumber', '').toLowerCase();
+
+                if (isDone) {
+                    el.className = "cursor-pointer p-2 rounded-xl border-2 transition flex items-center gap-1.5 bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-sm";
+                    numEl.className = "w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0";
+                    numEl.innerHTML = "✓";
+                    subEl.innerText = doneText;
+                    subEl.className = "text-[9px] text-emerald-700 font-bold";
+                } else if (isActive) {
+                    el.className = "cursor-pointer p-2 rounded-xl border-2 transition flex items-center gap-1.5 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm";
+                    numEl.className = "w-5 h-5 rounded-full bg-sky-500 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0";
+                    numEl.innerText = letter;
+                    subEl.innerText = activeText;
+                    subEl.className = "text-[9px] text-sky-700 font-normal";
                 } else {
-                    s1.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm";
-                    s1Num.className = "w-6 h-6 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
-                    s1Num.innerText = "1";
-                    s1Sub.innerText = "請輸入 4 個水量秒數";
-                    s1Sub.className = "text-[9px] text-sky-700 font-normal";
+                    el.className = "cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium";
+                    numEl.className = "w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0";
+                    numEl.innerText = letter;
+                    subEl.innerText = lockedText;
+                    subEl.className = "text-[9px] text-slate-400 font-normal";
                 }
-            }
+            };
 
-            const s2 = document.getElementById('stepIndicator2');
-            const s2Num = document.getElementById('stepNumber2');
-            const s2Sub = document.getElementById('stepSub2');
-            if (s2 && s2Num && s2Sub) {
-                if (hasReflection || classData[currentRole]?.stage >= 3) {
-                    s2.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-sm";
-                    s2Num.className = "w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
-                    s2Num.innerHTML = "✓";
-                    s2Sub.innerText = "✅ 對話探究完成";
-                    s2Sub.className = "text-[9px] text-emerald-700 font-bold";
-                } else if (hasData) {
-                    s2.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm";
-                    s2Num.className = "w-6 h-6 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
-                    s2Num.innerText = "2";
-                    s2Sub.innerText = "進行中 (水精靈探究)";
-                    s2Sub.className = "text-[9px] text-sky-700 font-normal";
-                } else {
-                    s2.className = "p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium";
-                    s2Num.className = "w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
-                    s2Num.innerText = "2";
-                    s2Sub.innerText = "🔒 待解鎖";
-                    s2Sub.className = "text-[9px] text-slate-400 font-normal";
-                }
-            }
+            // a. Enter Time
+            setIndicator('stepIndicatorA', 'stepNumberA', 'stepSubA', hasData, !hasData, "✅ Done", "Enter (s)", "Enter (s)");
+            // b. Graph & Data
+            setIndicator('stepIndicatorB', 'stepNumberB', 'stepSubB', hasData, true, "✅ Active", "Overview", "Overview");
+            // c. Agent Water
+            setIndicator('stepIndicatorC', 'stepNumberC', 'stepSubC', hasDialogueCompleted, hasData, "✅ Dialogue Done", "In Progress", "🔒 Locked");
+            // d. Key Summary
+            setIndicator('stepIndicatorD', 'stepNumberD', 'stepSubD', (hasPeerReview || hasSimConcepts || hasReflection), hasDialogueCompleted, "✅ Synthesized", "View Points", "🔒 Locked");
+            // e. Peer Review
+            setIndicator('stepIndicatorE', 'stepNumberE', 'stepSubE', hasPeerReview, hasDialogueCompleted, "✅ Reviewed", "In Progress", "🔒 Locked");
+            // f. Molecular Sim
+            setIndicator('stepIndicatorF', 'stepNumberF', 'stepSubF', hasSimConcepts, hasPeerReview, "✅ Mastered", "In Progress", "🔒 Locked");
+            // g. Thinking Routine
+            setIndicator('stepIndicatorG', 'stepNumberG', 'stepSubG', hasReflection, hasSimConcepts, "✅ Submitted", "In Progress", "🔒 Locked");
 
-            const s3 = document.getElementById('stepIndicator3');
-            const s3Num = document.getElementById('stepNumber3');
-            const s3Sub = document.getElementById('stepSub3');
-            if (s3 && s3Num && s3Sub) {
-                if (hasReflection) {
-                    s3.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-sm";
-                    s3Num.className = "w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
-                    s3Num.innerHTML = "✓";
-                    s3Sub.innerText = "✅ 反思卡已提交";
-                    s3Sub.className = "text-[9px] text-emerald-700 font-bold";
-                } else if (hasChat || (hasData && classData[currentRole]?.stage >= 2)) {
-                    s3.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-amber-50 border-amber-400 text-amber-950 font-bold shadow-sm";
-                    s3Num.className = "w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
-                    s3Num.innerText = "3";
-                    s3Sub.innerText = "進行中 (請寫下反思)";
-                    s3Sub.className = "text-[9px] text-amber-700 font-normal";
-                } else {
-                    s3.className = "p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium";
-                    s3Num.className = "w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
-                    s3Num.innerText = "3";
-                    s3Sub.innerText = "🔒 待解鎖";
-                    s3Sub.className = "text-[9px] text-slate-400 font-normal";
-                }
-            }
-
-            const s4 = document.getElementById('stepIndicator4');
-            const s4Num = document.getElementById('stepNumber4');
-            const s4Sub = document.getElementById('stepSub4');
-            if (s4 && s4Num && s4Sub) {
-                if (hasReflection) {
-                    s4.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-sm";
-                    s4Num.className = "w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
-                    s4Num.innerHTML = "✓";
-                    s4Sub.innerText = "✅ 小結已生成";
-                    s4Sub.className = "text-[9px] text-emerald-700 font-bold";
-                } else {
-                    s4.className = "p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium";
-                    s4Num.className = "w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
-                    s4Num.innerText = "4";
-                    s4Sub.innerText = "🔒 待解鎖";
-                    s4Sub.className = "text-[9px] text-slate-400 font-normal";
-                }
-            }
-
-            // 3. Task 2 (Chat Input & Send Button) Gating
+            // Step c (Chat Input & Send Button) Gating
             const chatInput = document.getElementById('userInput');
             const chatSendBtn = document.getElementById('chatSendBtn');
             if (chatInput && chatSendBtn) {
                 if (!hasData) {
                     chatInput.disabled = true;
-                    chatInput.placeholder = "🔒 步驟 2 鎖定中：請先在左側輸入並上傳 4 個水量溶解時間...";
+                    chatInput.placeholder = "🔒 Step c locked: Please enter & submit 4 timings in Step a first...";
                     chatSendBtn.disabled = true;
                     chatSendBtn.classList.add('opacity-40', 'cursor-not-allowed');
-                } else {
+                } else if (!hasDialogueCompleted) {
                     chatInput.disabled = false;
-                    chatInput.placeholder = "用你自己的文字回答水精靈，或提出好奇……";
+                    chatInput.placeholder = "Type your scientific thought, or select options above...";
                     chatSendBtn.disabled = false;
                     chatSendBtn.classList.remove('opacity-40', 'cursor-not-allowed');
                 }
             }
 
-            // 4. Task 3 (Reflection Card) Gating
-            const refUnlocked = document.getElementById('reflectionUnlockedContent');
-            const refLocked = document.getElementById('reflectionLockedContent');
-            const isReflectionUnlocked = hasChat || (hasData && (classData[currentRole]?.stage >= 2 || userChatLogs.length >= 1));
+            // Step d Gating
+            const stepDContent = document.getElementById('stepDContentContainer');
+            const stepDLocked = document.getElementById('stepDLockedBanner');
+            const stepDBadge = document.getElementById('stepDStatusBadge');
+            if (stepDContent && stepDLocked) {
+                if (hasDialogueCompleted) {
+                    stepDContent.classList.remove('hidden');
+                    stepDLocked.classList.add('hidden');
+                    if (stepDBadge) {
+                        stepDBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1";
+                        stepDBadge.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i> Unlocked`;
+                    }
+                    renderSummaryCardContent();
+                } else {
+                    stepDContent.classList.add('hidden');
+                    stepDLocked.classList.remove('hidden');
+                }
+            }
 
-            if (refUnlocked && refLocked) {
-                if (isReflectionUnlocked) {
-                    refUnlocked.classList.remove('hidden');
-                    refLocked.classList.add('hidden');
+            // Step e Gating
+            const stepEContent = document.getElementById('stepEContentContainer');
+            const stepELocked = document.getElementById('stepELockedBanner');
+            if (stepEContent && stepELocked) {
+                if (hasDialogueCompleted) {
+                    stepEContent.classList.remove('hidden');
+                    stepELocked.classList.add('hidden');
                     renderStudentPeerReviewUI();
-                    
-                    if (reflection && (reflection.nowIThink || reflection.usedToThink || reflection.stillWonder)) {
-                        const uInput = document.getElementById('reflectionUsedToThink');
-                        const nInput = document.getElementById('reflectionNowIThink');
-                        const wInput = document.getElementById('reflectionStillWonder');
-                        if (uInput && document.activeElement !== uInput) uInput.value = reflection.usedToThink || '';
-                        if (nInput && document.activeElement !== nInput) nInput.value = reflection.nowIThink || '';
-                        if (wInput && document.activeElement !== wInput) wInput.value = reflection.stillWonder || '';
-                        const badge = document.getElementById('reflectionStatusBadge');
-                        if (badge) {
-                            badge.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
-                            badge.innerText = "✓ 反思已提交";
-                        }
-                    } else {
-                        const uInput = document.getElementById('reflectionUsedToThink');
-                        const nInput = document.getElementById('reflectionNowIThink');
-                        const wInput = document.getElementById('reflectionStillWonder');
-                        if (uInput && document.activeElement !== uInput) uInput.value = '';
-                        if (nInput && document.activeElement !== nInput) nInput.value = '';
-                        if (wInput && document.activeElement !== wInput) wInput.value = '';
-                        const badge = document.getElementById('reflectionStatusBadge');
-                        if (badge) {
-                            badge.className = "text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300";
-                            badge.innerText = "待填寫反思 / Pending";
+                } else {
+                    stepEContent.classList.add('hidden');
+                    stepELocked.classList.remove('hidden');
+                }
+            }
+
+            // Step f Gating
+            const stepFContent = document.getElementById('stepFContentContainer');
+            const stepFLocked = document.getElementById('stepFLockedBanner');
+            const stepFBadge = document.getElementById('stepFStatusBadge');
+            if (stepFContent && stepFLocked) {
+                if (hasPeerReview) {
+                    stepFContent.classList.remove('hidden');
+                    stepFLocked.classList.add('hidden');
+                    if (stepFBadge) {
+                        stepFBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/50 flex items-center gap-1";
+                        stepFBadge.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i> Unlocked`;
+                    }
+                } else {
+                    stepFContent.classList.add('hidden');
+                    stepFLocked.classList.remove('hidden');
+                }
+            }
+
+            // Step g Gating
+            const stepGContent = document.getElementById('stepGContentContainer');
+            const stepGLocked = document.getElementById('stepGLockedBanner');
+            const refBadge = document.getElementById('reflectionStatusBadge');
+            if (stepGContent && stepGLocked) {
+                if (hasSimConcepts) {
+                    stepGContent.classList.remove('hidden');
+                    stepGLocked.classList.add('hidden');
+                    if (hasReflection) {
+                        if (refBadge) {
+                            refBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
+                            refBadge.innerText = "✓ Reflection Submitted";
                         }
                     }
                 } else {
-                    refUnlocked.classList.add('hidden');
-                    refLocked.classList.remove('hidden');
+                    stepGContent.classList.add('hidden');
+                    stepGLocked.classList.remove('hidden');
                 }
             }
 
-            // 5. Task 4 (Key Learning Summary) Gating
-            const summarySec = document.getElementById('studentSummarySection');
-            if (summarySec) {
-                if (hasReflection) {
-                    summarySec.classList.remove('hidden');
-                    renderSummaryCardContent();
-                } else {
-                    summarySec.classList.add('hidden');
-                }
-            }
+            if (window.lucide) lucide.createIcons();
         }
 
         // ================= PROJECT ZERO THINKING ROUTINE HELPERS =================
@@ -5040,7 +5348,7 @@ ${JSON.stringify(summaryData, null, 2)}
             if (nowIThink.length < 2) {
                 if (msgEl) {
                     msgEl.className = "p-3 bg-amber-50 border border-amber-300 text-amber-900 rounded-xl text-xs flex items-center gap-2";
-                    msgEl.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i><span>請在第 2 題「現在我明白……」寫下你的探究心得或點選輔助標籤！</span>`;
+                    msgEl.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i><span>Please write your insights in Question 2 "Now I realize that..." or click a helper chip!</span>`;
                     msgEl.classList.remove('hidden');
                     if (window.lucide) lucide.createIcons();
                 }
@@ -5062,7 +5370,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 msgEl.innerHTML = `
                     <div class="flex items-center gap-2">
                         <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
-                        <span class="font-bold">🎉 反思卡提交成功！已為你解鎖【任務 4：關鍵學習小結】！</span>
+                        <span class="font-bold">🎉 Reflection submitted successfully! All science inquiry tasks complete!</span>
                     </div>
                 `;
                 msgEl.classList.remove('hidden');
@@ -7722,18 +8030,27 @@ ${JSON.stringify(summaryData, null, 2)}
         };
 
         function initMolecularSimulator() {
-            const canvas = document.getElementById('molecularSimCanvas');
-            if (!canvas) return;
-            molecularSim.canvas = canvas;
-            molecularSim.ctx = canvas.getContext('2d');
+            const canvasIds = ['molecularSimCanvas', 'studentMolecularSimCanvas'];
+            canvasIds.forEach(id => {
+                const c = document.getElementById(id);
+                if (!c) return;
+                const dpr = window.devicePixelRatio || 1;
+                const rect = c.getBoundingClientRect();
+                const w = (rect && rect.width > 100) ? rect.width : 620;
+                const h = (rect && rect.height > 100) ? rect.height : 340;
+                c.width = w * dpr;
+                c.height = h * dpr;
+                const ctx = c.getContext('2d');
+                if (ctx) ctx.scale(dpr, dpr);
+            });
 
-            const dpr = window.devicePixelRatio || 1;
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = (rect.width || 620) * dpr;
-            canvas.height = (rect.height || 340) * dpr;
-            molecularSim.ctx.scale(dpr, dpr);
-            molecularSim.logicalWidth = rect.width || 620;
-            molecularSim.logicalHeight = rect.height || 340;
+            const primaryCanvas = document.getElementById('molecularSimCanvas') || document.getElementById('studentMolecularSimCanvas');
+            if (primaryCanvas) {
+                molecularSim.canvas = primaryCanvas;
+                molecularSim.ctx = primaryCanvas.getContext('2d');
+            }
+            molecularSim.logicalWidth = 620;
+            molecularSim.logicalHeight = 340;
 
             resetSim();
 
@@ -7802,59 +8119,71 @@ ${JSON.stringify(summaryData, null, 2)}
         function setSimVolume(vol) {
             molecularSim.volume = vol;
             [50, 100, 150, 200].forEach(v => {
-                const btn = document.getElementById(`simVolBtn-${v}`);
-                if (btn) {
-                    if (v === vol) {
-                        btn.className = "px-3 py-1.5 rounded-xl font-black text-xs transition border flex items-center gap-1.5 bg-sky-500 text-white border-sky-400 shadow-md";
-                    } else {
-                        btn.className = "px-3 py-1.5 rounded-xl font-bold text-xs transition border flex items-center gap-1.5 bg-slate-900 text-slate-300 border-slate-700 hover:border-sky-400";
+                ['simVolBtn-', 'studentSimVolBtn-'].forEach(prefix => {
+                    const btn = document.getElementById(`${prefix}${v}`);
+                    if (btn) {
+                        if (v === vol) {
+                            btn.className = "sim-vol-btn px-3 py-1.5 rounded-xl font-black text-xs transition border flex items-center gap-1.5 bg-sky-500 text-white border-sky-400 shadow-md";
+                        } else {
+                            btn.className = "sim-vol-btn px-3 py-1.5 rounded-xl font-bold text-xs transition border flex items-center gap-1.5 bg-slate-900 text-slate-300 border-slate-700 hover:border-sky-400";
+                        }
                     }
-                }
+                });
             });
 
-            const estEl = document.getElementById('simEstTotal');
-            if (estEl) {
-                const estMap = { 50: '~120s', 100: '~78s', 150: '~48s', 200: '~30s' };
-                estEl.innerText = `預計耗時: ${estMap[vol] || '~60s'}`;
-            }
+            const estMap = { 50: '~120s', 100: '~78s', 150: '~48s', 200: '~30s' };
+            ['simEstTotal', 'studentSimEstTotal'].forEach(id => {
+                const estEl = document.getElementById(id);
+                if (estEl) estEl.innerText = `Est. Time: ${estMap[vol] || '~60s'}`;
+            });
 
             resetSim();
         }
 
         function toggleSimPlay() {
             molecularSim.isPlaying = !molecularSim.isPlaying;
-            const btn = document.getElementById('simPlayBtn');
-            if (btn) {
-                if (molecularSim.isPlaying) {
-                    btn.innerHTML = `<i data-lucide="pause" class="w-3.5 h-3.5"></i> <span>暫停 (Pause)</span>`;
-                } else {
-                    btn.innerHTML = `<i data-lucide="play" class="w-3.5 h-3.5"></i> <span>播放 (Play)</span>`;
+            const playText = molecularSim.isPlaying ? 'Pause' : 'Start';
+            const iconName = molecularSim.isPlaying ? 'pause' : 'play';
+            ['simPlayBtn', 'studentSimPlayBtn'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) {
+                    btn.innerHTML = `<i data-lucide="${iconName}" class="w-3.5 h-3.5"></i> <span>${playText}</span>`;
                 }
-                if (window.lucide) lucide.createIcons();
-            }
+            });
+            if (window.lucide) lucide.createIcons();
         }
 
         function toggleSimSpeed() {
             const speeds = [1, 2, 4];
             const currIdx = speeds.indexOf(molecularSim.speedMultiplier);
             molecularSim.speedMultiplier = speeds[(currIdx + 1) % speeds.length];
-            const btn = document.getElementById('simSpeedBtn');
-            if (btn) btn.innerText = `⚡ ${molecularSim.speedMultiplier}x 速度`;
+            ['simSpeedBtn', 'studentSimSpeedBtn'].forEach(id => {
+                const btn = document.getElementById(id);
+                if (btn) btn.innerText = `⚡ ${molecularSim.speedMultiplier}x Speed`;
+            });
         }
 
         function updateSimTelemetryUI() {
-            const rateEl = document.getElementById('simMetricRate');
-            if (rateEl) rateEl.innerHTML = `${molecularSim.hitRate} <span class="text-[10px] font-normal text-slate-400">次/秒 (hits/s)</span>`;
+            ['simMetricRate', 'studentSimMetricRate'].forEach(id => {
+                const rateEl = document.getElementById(id);
+                if (rateEl) rateEl.innerHTML = `${molecularSim.hitRate} <span class="text-[10px] font-normal text-slate-400">hits/s</span>`;
+            });
 
             const pct = Math.round((molecularSim.remainingCells / molecularSim.totalCells) * 100);
-            const pctEl = document.getElementById('simMetricPercent');
-            if (pctEl) pctEl.innerText = `${pct}%`;
+            ['simMetricPercent', 'studentSimMetricPercent'].forEach(id => {
+                const pctEl = document.getElementById(id);
+                if (pctEl) pctEl.innerText = `${pct}%`;
+            });
 
-            const barEl = document.getElementById('simMetricBar');
-            if (barEl) barEl.style.width = `${pct}%`;
+            ['simMetricBar', 'studentSimMetricBar'].forEach(id => {
+                const barEl = document.getElementById(id);
+                if (barEl) barEl.style.width = `${pct}%`;
+            });
 
-            const timeEl = document.getElementById('simMetricTime');
-            if (timeEl) timeEl.innerHTML = `${molecularSim.elapsedTime.toFixed(1)} <span class="text-[10px] font-normal text-slate-400">s</span>`;
+            ['simMetricTime', 'studentSimMetricTime'].forEach(id => {
+                const timeEl = document.getElementById(id);
+                if (timeEl) timeEl.innerHTML = `${molecularSim.elapsedTime.toFixed(1)} <span class="text-[10px] font-normal text-slate-400">s</span>`;
+            });
         }
 
         function molecularSimLoop(now) {
@@ -7942,8 +8271,7 @@ ${JSON.stringify(summaryData, null, 2)}
         }
 
         function renderMolecularCanvas() {
-            const ctx = molecularSim.ctx;
-            if (!ctx) return;
+            const canvasIds = ['molecularSimCanvas', 'studentMolecularSimCanvas'];
             const W = molecularSim.logicalWidth || 620;
             const H = molecularSim.logicalHeight || 340;
             const waterTopY = molecularSim.waterTopY || 155;
@@ -7951,97 +8279,113 @@ ${JSON.stringify(summaryData, null, 2)}
             const beakerRight = W - 45;
             const beakerBottom = H - 30;
 
-            ctx.clearRect(0, 0, W, H);
+            canvasIds.forEach(id => {
+                const c = document.getElementById(id);
+                if (!c) return;
+                const ctx = c.getContext('2d');
+                if (!ctx) return;
 
-            ctx.strokeStyle = "rgba(148, 163, 184, 0.4)";
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(beakerLeft, 25);
-            ctx.lineTo(beakerLeft, beakerBottom);
-            ctx.arcTo(beakerLeft, beakerBottom + 10, beakerLeft + 10, beakerBottom + 10, 8);
-            ctx.lineTo(beakerRight - 10, beakerBottom + 10);
-            ctx.arcTo(beakerRight, beakerBottom + 10, beakerRight, beakerBottom, 8);
-            ctx.lineTo(beakerRight, 25);
-            ctx.stroke();
+                ctx.clearRect(0, 0, W, H);
 
-            ctx.fillStyle = "rgba(148, 163, 184, 0.5)";
-            ctx.font = "9px monospace";
-            [
-                { vol: 200, y: 45 },
-                { vol: 150, y: 100 },
-                { vol: 100, y: 155 },
-                { vol: 50, y: 210 }
-            ].forEach(t => {
-                ctx.fillRect(beakerLeft, t.y, 10, 1.5);
-                ctx.fillText(`${t.vol} cm³`, beakerLeft + 13, t.y + 3);
-            });
-
-            const grad = ctx.createLinearGradient(0, waterTopY, 0, beakerBottom);
-            grad.addColorStop(0, "rgba(56, 189, 248, 0.22)");
-            grad.addColorStop(1, "rgba(14, 165, 233, 0.45)");
-            ctx.fillStyle = grad;
-            ctx.fillRect(beakerLeft + 2, waterTopY, (beakerRight - beakerLeft) - 4, beakerBottom - waterTopY);
-
-            ctx.strokeStyle = "rgba(56, 189, 248, 0.8)";
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(beakerLeft + 2, waterTopY);
-            ctx.lineTo(beakerRight - 2, waterTopY);
-            ctx.stroke();
-
-            molecularSim.lattice.forEach(cell => {
-                if (!cell.alive) return;
-                const damageRatio = cell.hits / cell.maxHits;
-                ctx.fillStyle = damageRatio > 0 ? "rgba(245, 158, 11, 0.85)" : "#f59e0b";
-                ctx.strokeStyle = "#fbbf24";
-                ctx.lineWidth = 1;
-                ctx.fillRect(cell.x, cell.y, cell.w, cell.h);
-                ctx.strokeRect(cell.x, cell.y, cell.w, cell.h);
-            });
-
-            ctx.fillStyle = "#38bdf8";
-            molecularSim.particles.forEach(p => {
+                // Beaker Outline
+                ctx.strokeStyle = "rgba(148, 163, 184, 0.4)";
+                ctx.lineWidth = 3;
                 ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.fillStyle = "rgba(186, 230, 253, 0.8)";
-                ctx.beginPath();
-                ctx.arc(p.x - 2.5, p.y - 2.5, 1.5, 0, Math.PI * 2);
-                ctx.arc(p.x + 2.5, p.y - 2.5, 1.5, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.fillStyle = "#38bdf8";
-            });
-
-            molecularSim.dissolvedMolecules.forEach(m => {
-                ctx.fillStyle = "rgba(52, 211, 153, 0.85)";
-                ctx.beginPath();
-                ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
-                ctx.fill();
-
-                ctx.strokeStyle = "rgba(56, 189, 248, 0.6)";
-                ctx.lineWidth = 1.5;
-                ctx.beginPath();
-                ctx.arc(m.x, m.y, m.radius + 3, 0, Math.PI * 2);
+                ctx.moveTo(beakerLeft, 25);
+                ctx.lineTo(beakerLeft, beakerBottom);
+                ctx.arcTo(beakerLeft, beakerBottom + 10, beakerLeft + 10, beakerBottom + 10, 8);
+                ctx.lineTo(beakerRight - 10, beakerBottom + 10);
+                ctx.arcTo(beakerRight, beakerBottom + 10, beakerRight, beakerBottom, 8);
+                ctx.lineTo(beakerRight, 25);
                 ctx.stroke();
-            });
 
-            if (molecularSim.isComplete) {
-                ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
-                ctx.fillRect(W / 2 - 140, H / 2 - 35, 280, 70);
-                ctx.strokeStyle = "#38bdf8";
+                // Volume graduation tick labels
+                ctx.fillStyle = "rgba(148, 163, 184, 0.5)";
+                ctx.font = "9px monospace";
+                [
+                    { vol: 200, y: 45 },
+                    { vol: 150, y: 100 },
+                    { vol: 100, y: 155 },
+                    { vol: 50, y: 210 }
+                ].forEach(t => {
+                    ctx.fillRect(beakerLeft, t.y, 10, 1.5);
+                    ctx.fillText(`${t.vol} cm³`, beakerLeft + 13, t.y + 3);
+                });
+
+                // Water fluid gradient
+                const grad = ctx.createLinearGradient(0, waterTopY, 0, beakerBottom);
+                grad.addColorStop(0, "rgba(56, 189, 248, 0.22)");
+                grad.addColorStop(1, "rgba(14, 165, 233, 0.45)");
+                ctx.fillStyle = grad;
+                ctx.fillRect(beakerLeft + 2, waterTopY, (beakerRight - beakerLeft) - 4, beakerBottom - waterTopY);
+
+                // Water surface boundary
+                ctx.strokeStyle = "rgba(56, 189, 248, 0.8)";
                 ctx.lineWidth = 2;
-                ctx.strokeRect(W / 2 - 140, H / 2 - 35, 280, 70);
+                ctx.beginPath();
+                ctx.moveTo(beakerLeft + 2, waterTopY);
+                ctx.lineTo(beakerRight - 2, waterTopY);
+                ctx.stroke();
 
+                // Solid sugar lattice
+                molecularSim.lattice.forEach(cell => {
+                    if (!cell.alive) return;
+                    const damageRatio = cell.hits / cell.maxHits;
+                    ctx.fillStyle = damageRatio > 0 ? "rgba(245, 158, 11, 0.85)" : "#f59e0b";
+                    ctx.strokeStyle = "#fbbf24";
+                    ctx.lineWidth = 1;
+                    ctx.fillRect(cell.x, cell.y, cell.w, cell.h);
+                    ctx.strokeRect(cell.x, cell.y, cell.w, cell.h);
+                });
+
+                // Fast colliding water molecules
                 ctx.fillStyle = "#38bdf8";
-                ctx.font = "bold 15px system-ui";
-                ctx.textAlign = "center";
-                ctx.fillText("🎉 100% Fully Dissolved!", W / 2, H / 2 - 6);
-                ctx.fillStyle = "#f8fafc";
-                ctx.font = "12px system-ui";
-                ctx.fillText(`耗時: ${molecularSim.elapsedTime.toFixed(1)} 秒 (Water: ${molecularSim.volume} cm³)`, W / 2, H / 2 + 16);
-                ctx.textAlign = "start";
-            }
+                molecularSim.particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // Polar hydrogen atoms
+                    ctx.fillStyle = "rgba(186, 230, 253, 0.8)";
+                    ctx.beginPath();
+                    ctx.arc(p.x - 2.5, p.y - 2.5, 1.5, 0, Math.PI * 2);
+                    ctx.arc(p.x + 2.5, p.y - 2.5, 1.5, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = "#38bdf8";
+                });
+
+                // Diffusing dissolved sugar molecules with hydration shells
+                molecularSim.dissolvedMolecules.forEach(m => {
+                    ctx.fillStyle = "rgba(52, 211, 153, 0.85)";
+                    ctx.beginPath();
+                    ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    ctx.strokeStyle = "rgba(56, 189, 248, 0.6)";
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.arc(m.x, m.y, m.radius + 3, 0, Math.PI * 2);
+                    ctx.stroke();
+                });
+
+                // Completed dissolving banner overlay
+                if (molecularSim.isComplete) {
+                    ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
+                    ctx.fillRect(W / 2 - 140, H / 2 - 35, 280, 70);
+                    ctx.strokeStyle = "#38bdf8";
+                    ctx.lineWidth = 2;
+                    ctx.strokeRect(W / 2 - 140, H / 2 - 35, 280, 70);
+
+                    ctx.fillStyle = "#38bdf8";
+                    ctx.font = "bold 15px system-ui";
+                    ctx.textAlign = "center";
+                    ctx.fillText("🎉 100% Fully Dissolved!", W / 2, H / 2 - 6);
+                    ctx.fillStyle = "#f8fafc";
+                    ctx.font = "12px system-ui";
+                    ctx.fillText(`Time: ${molecularSim.elapsedTime.toFixed(1)} s (Water: ${molecularSim.volume} cm³)`, W / 2, H / 2 + 16);
+                    ctx.textAlign = "start";
+                }
+            });
         }
 
         // ================= COLLAPSIBLE SCAFFOLDING ACCORDION =================

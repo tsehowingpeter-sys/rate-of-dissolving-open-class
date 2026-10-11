@@ -382,7 +382,7 @@
             </section>
 
             <!-- Right Column: Agent Water AI Companion (6 Cols) -->
-            <section class="lg:col-span-6 flex flex-col h-[750px] bg-white rounded-2xl shadow-sm border border-slate-200/90 overflow-hidden">
+            <section class="lg:col-span-6 flex flex-col min-h-[720px] h-[830px] lg:h-[850px] md:h-[800px] bg-white rounded-3xl shadow-sm border border-slate-200/90 overflow-hidden">
                 
                 <!-- Agent Header -->
                 <div class="bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 p-4 text-white flex items-center justify-between shadow-sm">
@@ -403,15 +403,15 @@
                 </div>
 
                 <!-- Chat Scrollable Window -->
-                <div id="chatContainer" class="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50/50 scroll-smooth">
+                <div id="chatContainer" class="flex-1 min-h-[380px] p-4 sm:p-5 overflow-y-auto space-y-4 bg-slate-50/50 scroll-smooth touch-pan-y" style="-webkit-overflow-scrolling: touch;">
                     <!-- Dialogue dynamically rendered here -->
                 </div>
 
                 <!-- Response Options & Free-Text Input Area -->
                 <div class="p-3.5 bg-white border-t border-slate-100 space-y-2.5 shadow-lg">
                     
-                    <!-- 4 Perspective Options Container -->
-                    <div id="optionsContainer" class="space-y-1.5 max-h-52 overflow-y-auto pr-1">
+                    <!-- 4 Perspective Options Container (Expanded to eliminate squishing Stage 4 summary) -->
+                    <div id="optionsContainer" class="space-y-2 max-h-[340px] md:max-h-[360px] lg:max-h-[380px] overflow-y-auto pr-1 touch-pan-y" style="-webkit-overflow-scrolling: touch;">
                         <!-- 4 choices generated per round -->
                     </div>
 
@@ -545,6 +545,68 @@
                     </div>
 
                     <div id="reflectionFeedbackMsg" class="hidden"></div>
+
+                    <!-- PEER REVIEW SECTION: Cross-Group Dialogue Peer Review & Spark Tagging -->
+                    <div id="studentPeerReviewContainer" class="mt-4 p-4 sm:p-5 bg-gradient-to-br from-indigo-50/70 via-sky-50/50 to-white rounded-2xl border border-indigo-200/80 space-y-3.5 shadow-sm">
+                        <div class="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-indigo-100">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-sky-600 text-white flex items-center justify-center text-sm font-black shadow-sm">👥</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-slate-800 font-fun">
+                                        跨組對話互評與思維亮點標記 (Cross-Group Peer Review & Spark Tagging)
+                                    </h4>
+                                    <p class="text-[11px] text-slate-500">
+                                        仔細閱讀指定小組的探究對話，為他們標記思維閃光點，並提出建設性的科學提問！
+                                    </p>
+                                </div>
+                            </div>
+                            <span id="studentPeerTargetBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 border border-indigo-300">
+                                🎯 本組指定點評：Group 2
+                            </span>
+                        </div>
+
+                        <!-- Target Group's Dialogue / Findings Card -->
+                        <div class="bg-white p-3.5 rounded-xl border border-indigo-100 shadow-xs space-y-2">
+                            <div class="flex items-center justify-between text-[11px]">
+                                <span class="font-bold text-indigo-950 flex items-center gap-1">
+                                    <i data-lucide="message-square-quote" class="w-3.5 h-3.5 text-indigo-600"></i>
+                                    <span id="peerTargetGroupName">Group 2</span> 剛才的探究回答與發現：
+                                </span>
+                                <span id="peerTargetStatus" class="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-medium border border-emerald-200">已提交數據與對話</span>
+                            </div>
+                            <p id="peerTargetQuote" class="text-xs text-slate-700 italic bg-slate-50/80 p-2.5 rounded-lg border border-slate-200/70 leading-relaxed">
+                                "載入中……"
+                            </p>
+                        </div>
+
+                        <!-- Spark Tag Selection Buttons -->
+                        <div class="space-y-1.5">
+                            <label class="block text-xs font-bold text-slate-700 flex items-center justify-between">
+                                <span>✨ 標記對方對話中的思維亮點 (Click Sparks to Tag - 可多選)：</span>
+                                <span class="text-[10px] text-indigo-600 font-normal">點擊即可選取或取消</span>
+                            </label>
+                            <div id="peerSparkChipsContainer" class="flex items-center gap-1.5 flex-wrap">
+                                <!-- Generated buttons -->
+                            </div>
+                        </div>
+
+                        <!-- Peer Review Textarea -->
+                        <div class="space-y-1">
+                            <label class="block text-xs font-bold text-slate-700">
+                                💬 我們組想給他們的讚賞或好奇追問 (Peer Praise & Inquiring Wonder)：
+                            </label>
+                            <textarea id="peerReviewCommentInput" rows="2" class="w-full text-xs p-2.5 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none leading-relaxed" placeholder="例如：我們很欣賞你們能敏銳反思到攪拌手累變慢；我們想追問：如果用定速磁力攪拌器，數據會不會更整齊？"></textarea>
+                        </div>
+
+                        <!-- Submit Action -->
+                        <div class="flex items-center justify-between flex-wrap gap-2 pt-1">
+                            <span id="peerReviewSubmitStatus" class="text-[11px] text-slate-500 font-medium"></span>
+                            <button type="button" onclick="submitPeerReview()" class="px-5 py-2 bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-700 hover:to-sky-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5">
+                                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                                <span>💾 提交同儕點評與亮點標記 (Submit Peer Review)</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Locked View Container -->
@@ -1053,6 +1115,132 @@
 
             </div>
 
+            <!-- SECTION: Interactive Molecular Dissolving Simulator (Teacher Classroom Engine) -->
+            <div id="teacherSimulatorSection" class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 space-y-4">
+                <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-indigo-500/30">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-gradient-to-br from-sky-400 to-blue-600 rounded-2xl flex items-center justify-center text-2xl shadow-lg">
+                            🌊
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] bg-sky-500 text-white font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                    S1 Science Microscopic Simulation
+                                </span>
+                                <span class="text-[10px] text-sky-300 font-bold bg-sky-900/60 px-2 py-0.5 rounded-full border border-sky-500/40">
+                                    微觀分子動力學模擬
+                                </span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold font-fun text-white mt-0.5">
+                                水量與微觀分子溶解動力學模擬器 (Molecular Dissolving Simulator)
+                            </h3>
+                            <p class="text-xs text-slate-300">
+                                視覺化呈現：為何「更多水量」會令方糖溶解得更快？（水分子碰撞頻率與擴散空間微觀機制）
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" onclick="toggleSimulatorFullscreen()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 border border-indigo-400/40">
+                            <i data-lucide="maximize" class="w-4 h-4"></i>
+                            <span id="simFullscreenBtnText">🖥️ 大螢幕全屏教學投影 (Fullscreen)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Controls & Live Telemetry Bar -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                    <!-- Preset Volume Buttons (6 Cols) -->
+                    <div class="md:col-span-6 flex items-center gap-2 flex-wrap">
+                        <span class="text-xs font-bold text-sky-200">💧 水量設定 (Water Volume)：</span>
+                        <button type="button" onclick="setSimVolume(50)" id="simVolBtn-50" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">50 cm³</button>
+                        <button type="button" onclick="setSimVolume(100)" id="simVolBtn-100" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">100 cm³</button>
+                        <button type="button" onclick="setSimVolume(150)" id="simVolBtn-150" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">150 cm³</button>
+                        <button type="button" onclick="setSimVolume(200)" id="simVolBtn-200" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500 text-white border border-sky-400 shadow-md">200 cm³</button>
+                    </div>
+
+                    <!-- Playback Actions (6 Cols) -->
+                    <div class="md:col-span-6 flex items-center justify-end gap-2 flex-wrap">
+                        <button type="button" onclick="toggleSimPlay()" id="simPlayBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
+                            <i data-lucide="play" class="w-3.5 h-3.5" id="simPlayIcon"></i>
+                            <span id="simPlayText">開始模擬 (Start)</span>
+                        </button>
+                        <button type="button" onclick="resetSim()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-bold text-xs rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                            <span>重設晶格 (Reset)</span>
+                        </button>
+                        <button type="button" onclick="toggleSimSpeed()" id="simSpeedBtn" class="px-3 py-1.5 bg-indigo-900/80 hover:bg-indigo-800 text-indigo-200 font-bold text-xs rounded-xl border border-indigo-700/50 transition">
+                            ⚡ 1x 速度
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Simulation Canvas & Telemetry -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                    <!-- Canvas Container (8 Cols) -->
+                    <div class="lg:col-span-8 bg-slate-950/80 rounded-2xl p-2.5 border border-indigo-500/30 relative flex flex-col items-center justify-center min-h-[350px] overflow-hidden">
+                        <canvas id="molecularSimCanvas" width="620" height="340" class="w-full max-w-[620px] h-[320px] rounded-xl bg-slate-950 border border-slate-800 shadow-inner"></canvas>
+                        
+                        <!-- Floating Overlay Legend -->
+                        <div class="absolute top-4 left-4 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700/80 text-[10px] text-slate-300 flex items-center gap-3">
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span> 水分子 (布朗運動)</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-400 inline-block"></span> 方糖晶體微觀晶格</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> 已溶解水合分子</span>
+                        </div>
+                    </div>
+
+                    <!-- Telemetry & Pedagogical Explanation Panel (4 Cols) -->
+                    <div class="lg:col-span-4 bg-slate-900/70 rounded-2xl p-4 border border-indigo-500/30 space-y-3 flex flex-col justify-between">
+                        <div class="space-y-2.5">
+                            <span class="text-xs font-bold text-sky-300 uppercase tracking-wider block border-b border-slate-800 pb-1.5">
+                                📊 實時物理遙測 (Live Physics Telemetry)
+                            </span>
+
+                            <!-- Metric 1: Collision Frequency -->
+                            <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
+                                <div>
+                                    <p class="text-[10px] text-slate-400">水分子碰撞頻率 (Collision Rate)</p>
+                                    <p id="simMetricRate" class="text-lg font-black text-amber-400 mt-0.5">0 <span class="text-[10px] font-normal text-slate-400">次/秒 (hits/s)</span></p>
+                                </div>
+                                <span class="text-xl">⚡</span>
+                            </div>
+
+                            <!-- Metric 2: Remaining Lattice -->
+                            <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 space-y-1">
+                                <div class="flex items-center justify-between text-[10px]">
+                                    <span class="text-slate-400">剩餘方糖晶格 (Sugar Lattice)</span>
+                                    <span id="simMetricPercent" class="font-bold text-sky-300">100%</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
+                                    <div id="simMetricBar" class="bg-gradient-to-r from-amber-500 to-sky-400 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
+                                </div>
+                            </div>
+
+                            <!-- Metric 3: Simulated Time Elapsed -->
+                            <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
+                                <div>
+                                    <p class="text-[10px] text-slate-400">模擬溶解耗時 (Simulated Time)</p>
+                                    <p id="simMetricTime" class="text-lg font-black text-teal-400 mt-0.5">0.0 <span class="text-[10px] font-normal text-slate-400">s</span></p>
+                                </div>
+                                <span class="text-xs text-slate-400" id="simEstTotal">預計耗時: ~30s</span>
+                            </div>
+                        </div>
+
+                        <!-- Pedagogical Takeaway Box -->
+                        <div class="bg-sky-950/50 border border-sky-500/30 p-3 rounded-xl text-[11px] space-y-1.5">
+                            <span class="font-bold text-sky-200 flex items-center gap-1">
+                                <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-amber-400"></i>
+                                <span>課堂關鍵物理原理解釋：</span>
+                            </span>
+                            <p class="text-slate-300 leading-relaxed text-[10px]">
+                                1. <strong class="text-white">碰撞頻率暴增</strong>：水量由 50 增至 200 cm³，自由水分子數量增加 4 倍，每秒撞擊並拆解晶格次數顯著倍增！<br>
+                                2. <strong class="text-white">開闊擴散空間</strong>：水多時脫離的糖分子迅速擴散，不易在方糖表面形成「飽和擁擠層」，新鮮水分子能持續高效率進攻！
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- SECTION: 8 Groups Real-time AI Dialogue & Diagnostics Grid (Expanded space for Strengths & Growth) -->
             <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/90">
                 <div class="flex items-center justify-between mb-4">
@@ -1066,6 +1254,37 @@
                     <span class="text-xs px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center gap-1">
                         <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse-dot"></span> Live Updating
                     </span>
+                </div>
+
+                <!-- Peer Review Configuration Bar -->
+                <div class="mb-4 p-3.5 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between flex-wrap gap-2 text-xs">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="users-round" class="w-4 h-4 text-sky-600"></i>
+                        <span class="font-bold text-slate-800">小組互評配對設定 (Peer Review Pairing)：</span>
+                        <span class="text-slate-500 text-[11px]">設定指定小組對另一小組進行實時亮點標記與互評點撥</span>
+                    </div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" onclick="applyPeerReviewPreset('circular')" class="px-2.5 py-1 bg-white hover:bg-sky-50 text-sky-800 border border-sky-300 rounded-lg text-[11px] font-medium transition shadow-xs">
+                            🔄 順序循環 (1→2, 2→3... 8→1)
+                        </button>
+                        <button type="button" onclick="applyPeerReviewPreset('reciprocal')" class="px-2.5 py-1 bg-white hover:bg-sky-50 text-sky-800 border border-sky-300 rounded-lg text-[11px] font-medium transition shadow-xs">
+                            ⚡ 對等互評 (1↔2, 3↔4...)
+                        </button>
+                        <button type="button" onclick="togglePeerReviewCustomMatrix()" class="px-2.5 py-1 bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-[11px] font-bold shadow-xs transition">
+                            ⚙️ 自訂個別指定
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Custom Pairing Matrix Drawer (Hidden by default) -->
+                <div id="peerReviewMatrixDrawer" class="hidden mb-4 p-4 bg-sky-50/60 border border-sky-200 rounded-2xl space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-800">🎯 自訂 8 組指定互評對象矩陣：</span>
+                        <span class="text-[10px] text-slate-500">選擇每組負責點評的目標組別</span>
+                    </div>
+                    <div id="peerReviewMatrixGrid" class="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+                        <!-- Select dropdowns for 8 groups injected here -->
+                    </div>
                 </div>
 
                 <!-- 8 Cards Grid (4x2 on large screens) -->
@@ -1562,6 +1781,49 @@
 
                     <div id="modalChatList" class="p-3 bg-slate-50 rounded-xl border border-slate-200 max-h-72 overflow-y-auto space-y-3">
                         <!-- Dialogue bubbles rendered here -->
+                    </div>
+                </div>
+
+                <!-- 4. Cross-Group Peer Review & Spark Tagging Insights -->
+                <div class="bg-white p-4 rounded-2xl border border-indigo-200/80 shadow-sm space-y-3">
+                    <h4 class="text-xs font-bold text-slate-700 flex items-center justify-between">
+                        <span class="flex items-center gap-1.5">
+                            <i data-lucide="users" class="w-4 h-4 text-indigo-600"></i>
+                            <span>跨組同儕點評與思維亮點標記 / Cross-Group Peer Review & Sparks</span>
+                        </span>
+                        <span id="modalPeerPairingBadge" class="text-[10px] bg-indigo-100 text-indigo-900 font-bold px-2 py-0.5 rounded-full">--</span>
+                    </h4>
+                    
+                    <div id="modalPeerReviewContent" class="space-y-2 text-xs">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- 5. Teacher Deep Debrief & Pedagogical Scaffolding -->
+                <div class="bg-gradient-to-br from-purple-50 via-indigo-50/50 to-white p-4 rounded-2xl border border-purple-200 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between flex-wrap gap-2">
+                        <h4 class="text-xs font-bold text-purple-950 flex items-center gap-1.5">
+                            <i data-lucide="graduation-cap" class="w-4 h-4 text-purple-700"></i>
+                            <span>教師深度點撥回饋 (Teacher Deep Pedagogical Debrief)</span>
+                        </h4>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="generateAiTeacherDebrief(modalActiveGroupKey)" class="px-2.5 py-1 bg-white hover:bg-purple-100 text-purple-800 border border-purple-300 rounded-lg text-[10px] font-bold shadow-xs transition flex items-center gap-1">
+                                <i data-lucide="sparkles" class="w-3 h-3 text-purple-600"></i>
+                                <span>AI 推薦點撥思路</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-1.5">
+                        <textarea id="modalTeacherDebriefInput" rows="3" class="w-full text-xs p-3 rounded-xl border border-purple-200 bg-white focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none leading-relaxed text-slate-800" placeholder="針對該組的實驗數據反常點、操作局限（如攪拌轉速/碼錶延遲）或思維盲點，寫下教師深度點撥評語……"></textarea>
+                        
+                        <div class="flex items-center justify-between pt-1">
+                            <span id="modalTeacherDebriefSaveStatus" class="text-[11px] text-slate-500 font-medium"></span>
+                            <button type="button" onclick="saveTeacherDebriefFromModal(modalActiveGroupKey)" class="px-4 py-1.5 bg-purple-700 hover:bg-purple-800 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
+                                <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                                <span>儲存點撥回饋 (Save Debrief)</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -2758,7 +3020,16 @@ ${JSON.stringify(summaryData, null, 2)}
                     strengthZh: "準備開始探究，已準備好各水量數據測量",
                     growthEn: "Pending evaluation",
                     growthZh: "待評估，建議引導觀察水量與溶解秒數之變化",
-                    focusTag: "Stirring Speed"
+                    focusTag: "Stirring Speed",
+                    reflection: null,      // Empty reflection by default, never pre-fill
+                    peerReview: {
+                        targetGroup: `Group ${i === 8 ? 1 : i + 1}`,
+                        assignedReviewer: `Group ${i === 1 ? 8 : i - 1}`,
+                        sparkTags: [],
+                        comment: "",
+                        teacherDebrief: "",
+                        submitted: false
+                    }
                 };
             }
             return data;
@@ -2776,6 +3047,9 @@ ${JSON.stringify(summaryData, null, 2)}
                     if (typeof data[key].stage !== 'number') data[key].stage = (data[key].data ? 1 : 0);
                     if (!data[key].summaryEn) data[key].summaryEn = fresh[key].summaryEn;
                     if (!data[key].summaryZh) data[key].summaryZh = fresh[key].summaryZh;
+                    if (!data[key].peerReview || typeof data[key].peerReview !== 'object') {
+                        data[key].peerReview = fresh[key].peerReview;
+                    }
                 }
             }
             return data;
@@ -4682,18 +4956,31 @@ ${JSON.stringify(summaryData, null, 2)}
                 if (isReflectionUnlocked) {
                     refUnlocked.classList.remove('hidden');
                     refLocked.classList.add('hidden');
+                    renderStudentPeerReviewUI();
                     
-                    if (reflection) {
+                    if (reflection && (reflection.nowIThink || reflection.usedToThink || reflection.stillWonder)) {
                         const uInput = document.getElementById('reflectionUsedToThink');
                         const nInput = document.getElementById('reflectionNowIThink');
                         const wInput = document.getElementById('reflectionStillWonder');
-                        if (uInput && document.activeElement !== uInput && reflection.usedToThink) uInput.value = reflection.usedToThink;
-                        if (nInput && document.activeElement !== nInput && reflection.nowIThink) nInput.value = reflection.nowIThink;
-                        if (wInput && document.activeElement !== wInput && reflection.stillWonder) wInput.value = reflection.stillWonder;
+                        if (uInput && document.activeElement !== uInput) uInput.value = reflection.usedToThink || '';
+                        if (nInput && document.activeElement !== nInput) nInput.value = reflection.nowIThink || '';
+                        if (wInput && document.activeElement !== wInput) wInput.value = reflection.stillWonder || '';
                         const badge = document.getElementById('reflectionStatusBadge');
                         if (badge) {
                             badge.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
                             badge.innerText = "✓ 反思已提交";
+                        }
+                    } else {
+                        const uInput = document.getElementById('reflectionUsedToThink');
+                        const nInput = document.getElementById('reflectionNowIThink');
+                        const wInput = document.getElementById('reflectionStillWonder');
+                        if (uInput && document.activeElement !== uInput) uInput.value = '';
+                        if (nInput && document.activeElement !== nInput) nInput.value = '';
+                        if (wInput && document.activeElement !== wInput) wInput.value = '';
+                        const badge = document.getElementById('reflectionStatusBadge');
+                        if (badge) {
+                            badge.className = "text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300";
+                            badge.innerText = "待填寫反思 / Pending";
                         }
                     }
                 } else {
@@ -4763,7 +5050,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
             if (!classData[currentRole]) classData = ensureClassDataStructure(classData);
             classData[currentRole].reflection = {
-                usedToThink: usedToThink || "實驗前我以為只有水溫才會影響溶解速率",
+                usedToThink: usedToThink || "",
                 nowIThink: nowIThink,
                 stillWonder: stillWonder,
                 timestamp: Date.now()
@@ -5284,23 +5571,6 @@ ${JSON.stringify(summaryData, null, 2)}
                         classData[gKey].chatLogs.push({ sender: 'user', en: userQuote, zh: userQuote });
                         classData[gKey].chatLogs.push({ sender: 'ai', en: "Outstanding scientific thinking!", zh: "非常出色的科學探究思維！" });
                     }
-
-                    // Seed reflections
-                    if (!classData[gKey].reflection) {
-                        if (i === 1) {
-                            classData[gKey].reflection = {
-                                usedToThink: "只有水溫高低才會影響溶解快慢",
-                                nowIThink: "水量越多，水分子越多，方糖溶解得越快",
-                                stillWonder: "水量若到 1,000 cm³，時間會變 0 秒嗎？"
-                            };
-                        } else if (i === 8) {
-                            classData[gKey].reflection = {
-                                usedToThink: "方糖在熱水裡是融化不是溶解",
-                                nowIThink: "溶解是水分子拆開晶格，融化是受熱變液體",
-                                stillWonder: "攪拌快一倍，時間會減半嗎？"
-                            };
-                        }
-                    }
                 }
             }
 
@@ -5391,6 +5661,9 @@ ${JSON.stringify(summaryData, null, 2)}
             updateAiConfigFormUI();
             updateTokenMonitorUI();
             updateAiStatusUI();
+            if (typeof initMolecularSimulator === 'function') {
+                initMolecularSimulator();
+            }
         }
 
         // ================= DYNAMIC ADAPTIVE WHOLE-CLASS DISCUSSION PROMPTS =================
@@ -5562,8 +5835,34 @@ ${JSON.stringify(summaryData, null, 2)}
             const reflections = context.studentReflections || [];
             const avgData = context.classAverage || calculateClassAverage();
 
-            // --- Card 1: Priority 1 (Discrepancies & Fair Test) ---
-            let c1 = {
+            // 1. Collect all real student utterances across the whole class
+            const allStudentTexts = [];
+            quotes.forEach(q => {
+                if (q.quote) allStudentTexts.push({ groupNum: q.groupNum, text: q.quote, source: 'chat' });
+            });
+            reflections.forEach(r => {
+                if (r.reflection?.usedToThink) allStudentTexts.push({ groupNum: r.groupNum, text: r.reflection.usedToThink, source: 'usedToThink' });
+                if (r.reflection?.nowIThink) allStudentTexts.push({ groupNum: r.groupNum, text: r.reflection.nowIThink, source: 'nowIThink' });
+                if (r.reflection?.stillWonder) allStudentTexts.push({ groupNum: r.groupNum, text: r.reflection.stillWonder, source: 'stillWonder' });
+            });
+            for (let i = 1; i <= 8; i++) {
+                const g = classData[`Group ${i}`];
+                if (g && g.latestAnswer && !/No responses yet/i.test(g.latestAnswer)) {
+                    allStudentTexts.push({ groupNum: i, text: g.latestAnswer, source: 'latestAnswer' });
+                }
+            }
+
+            // 2. Precise thematic detection
+            const meltingMentions = allStudentTexts.filter(item => /融化|溶化|melt|melting|化咗|化左/i.test(item.text));
+            const stirringMentions = allStudentTexts.filter(item => /stir|speed|攪拌|手速|轉速|快慢|手累|手酸|均勻/i.test(item.text));
+            const timerMentions = allStudentTexts.filter(item => /timer|stopwatch|reaction|delay|碼錶|計時|反應|延遲|按慢|按快/i.test(item.text));
+            const crushedMentions = allStudentTexts.filter(item => /smash|crush|戳碎|碎|表面積|碎咗/i.test(item.text));
+            const randomErrorMentions = allStudentTexts.filter(item => /8組|平均|抵消|減少誤差|更準確|信度|average|reliable|cancel|random error|偏差|離群|唔夠準|不準/i.test(item.text));
+
+            const candidateCards = [];
+
+            // --- Candidate 1: Anomaly / Discrepancy (Priority 1 if anomalies detected or large gap) ---
+            let cAnomaly = {
                 priority: 1,
                 priorityLabel: "🔥 第 1 優先研討 (Priority 1)",
                 badgeClass: "bg-rose-100 text-rose-700 border border-rose-200",
@@ -5571,90 +5870,141 @@ ${JSON.stringify(summaryData, null, 2)}
                 score: 100,
                 scoreIcon: "⚠️",
                 category: "discrepancies",
-                rationale: "⚠️ 系統偵測到 3 組極端或反常數據 (Group 2, Group 3, Group 8)，急需在大組討論中引導排查未控制變因！",
-                titleEn: "Group 6 (18s) vs Group 8 (53s): What hidden variables caused this 35s gap?",
-                titleZh: "【實測對比】Group 6 (18秒) vs Group 8 (53秒)：相差 35 秒！有哪些未控制的隱藏變因？",
-                descEn: "Both groups tested 80°C hot water with identical 100 mL volume and 5.0 g salt. Why did dissolving time differ by 35 seconds? Could stirring frequency vary, or did water cool down on the bench? How should scientists critically analyze discrepancies?",
-                descZh: "兩組明明都是 80°C 熱水、100 mL 水與 5.0 g 食鹽，為什麼秒數相差了 35 秒？是攪拌頻率快慢不一，還是水放久變涼？面對反常數據，科學家應如何批判排查而非盲信或隨意刪除？",
+                rationale: "⚠️ 系統分析全班數據走勢，急需在大組討論中引導排查未控制變因！",
+                titleEn: "Comparing Group Anomalies: What hidden variables caused this gap?",
+                titleZh: "【實測對比】不同組別數據出現顯著落差：有哪些未控制的隱藏變因？",
+                descEn: "Both groups tested identical water volumes and sugar. Why did dissolving time differ? Could stirring frequency vary, or did water cool down on the bench? How should scientists critically analyze discrepancies?",
+                descZh: "各組測試相同水量與方糖，為什麼秒數會出現落差？是攪拌頻率快慢不一，還是操作失誤？面對反常數據，科學家應如何批判排查而非盲信或隨意刪除？",
                 objective: "培養不盲從數據、能從實驗細微處排查未受控「隱藏變因」的批判思維。"
             };
 
             if (anomalies.length > 0) {
                 const anom = anomalies[0];
-                c1.rationale = `⚠️ 系統偵測到第 ${anom.groupNum} 組出現反常走勢（${anom.detail}），急需在大組討論中引導排查未控制變因！`;
-                c1.titleEn = `Group ${anom.groupNum} Inversion (${anom.detail}): What hidden variables caused this anomaly?`;
-                c1.titleZh = `🔍 【實時反常焦點】第 ${anom.groupNum} 組實測反常：${anom.detail}折線出現反彈！理論上水量多溶得快，你會如何排查？`;
-                c1.descEn = `In Group ${anom.groupNum}'s test, dissolving time unexpectedly bounced back (${anom.detail}). Did stirring speed slow down due to fatigue, did water cool down, or was the sugar cube crushed? How should scientists critically analyze discrepancies rather than ignoring them?`;
-                c1.descZh = `實時檢測到全班第 ${anom.groupNum} 組出現了逆勢反彈走勢（${anom.detail}）。在真實科研中，面對與理論相反的異常點，我們應該直接刪除數據，還是深入排查操作細節（如攪拌速度或水溫）？`;
+                cAnomaly.rationale = `⚠️ 系統偵測到第 ${anom.groupNum} 組出現反常走勢（${anom.detail}），急需在大組討論中引導排查未控制變因！`;
+                cAnomaly.titleEn = `Group ${anom.groupNum} Inversion (${anom.detail}): What hidden variables caused this anomaly?`;
+                cAnomaly.titleZh = `🔍 【實時反常焦點】第 ${anom.groupNum} 組實測反常：${anom.detail}折線出現反彈！理論上水量多溶得快，你會如何排查？`;
+                cAnomaly.descEn = `In Group ${anom.groupNum}'s test, dissolving time unexpectedly bounced back (${anom.detail}). Did stirring speed slow down due to fatigue, did water cool down, or was the sugar cube crushed? How should scientists critically analyze discrepancies rather than ignoring them?`;
+                cAnomaly.descZh = `實時檢測到全班第 ${anom.groupNum} 組出現了逆勢反彈走勢（${anom.detail}）。在真實科研中，面對與理論相反的異常點，我們應該直接刪除數據，還是深入排查操作細節（如攪拌速度或水溫）？`;
+                candidateCards.push(cAnomaly);
             } else if (submitted.length >= 2) {
                 submitted.sort((a, b) => (b.data[150] || 0) - (a.data[150] || 0));
                 const maxG = submitted[0];
                 const minG = submitted[submitted.length - 1];
                 const diff = Math.round(((maxG.data[150] || 0) - (minG.data[150] || 0)) * 10) / 10;
-                c1.rationale = `⚠️ 系統偵測到第 ${minG.groupNum} 組與第 ${maxG.groupNum} 組在 150 cm³ 相差高達 ${diff} 秒，急需在大組討論中引導排查未控制變因！`;
-                c1.titleEn = `Group ${minG.groupNum} (${minG.data[150]}s) vs Group ${maxG.groupNum} (${maxG.data[150]}s): What hidden variables caused this ${diff}s gap?`;
-                c1.titleZh = `【實測對比】Group ${minG.groupNum} (${minG.data[150]}秒) vs Group ${maxG.groupNum} (${maxG.data[150]}秒)：相差 ${diff} 秒！有哪些未控制的隱藏變因？`;
-                c1.descEn = `Both groups tested identical water volume and sugar cube. Why did dissolving time differ by ${diff} seconds? Could stirring frequency vary, or did water cool down on the bench? How should scientists critically analyze discrepancies?`;
-                c1.descZh = `實時檢測到全班第 ${maxG.groupNum} 組與第 ${minG.groupNum} 組在 150 cm³ 出現顯著落差（相差 ${diff} 秒）。如果出現兩組數據走勢矛盾或數值差距顯著，我們應該直接刪除異常組別，還是重新檢查操作細節？`;
+                cAnomaly.rationale = `⚠️ 系統偵測到第 ${minG.groupNum} 組與第 ${maxG.groupNum} 組在 150 cm³ 相差高達 ${diff} 秒，急需在大組討論中引導排查未控制變因！`;
+                cAnomaly.titleEn = `Group ${minG.groupNum} (${minG.data[150]}s) vs Group ${maxG.groupNum} (${maxG.data[150]}s): What hidden variables caused this ${diff}s gap?`;
+                cAnomaly.titleZh = `【實測對比】Group ${minG.groupNum} (${minG.data[150]}秒) vs Group ${maxG.groupNum} (${maxG.data[150]}秒)：相差 ${diff} 秒！有哪些未控制的隱藏變因？`;
+                cAnomaly.descEn = `Both groups tested identical water volume and sugar cube. Why did dissolving time differ by ${diff} seconds? Could stirring frequency vary, or did water cool down on the bench? How should scientists critically analyze discrepancies?`;
+                cAnomaly.descZh = `實時檢測到全班第 ${maxG.groupNum} 組與第 ${minG.groupNum} 組在 150 cm³ 出現顯著落差（相差 ${diff} 秒）。如果出現兩組數據走勢矛盾或數值差距顯著，我們應該直接刪除異常組別，還是重新檢查操作細節？`;
+                candidateCards.push(cAnomaly);
             }
 
-            // --- Card 2: Priority 2 (Conceptual Shift: Dissolve vs Melt) ---
-            let c2 = {
-                priority: 2,
-                priorityLabel: "⭐ 第 2 優先研討 (Priority 2)",
-                badgeClass: "bg-amber-100 text-amber-800 border border-amber-300",
-                subDomain: "HOTS • Conceptual Shift / 概念轉變：溶解 vs 融化",
-                score: 85,
-                scoreIcon: "🧭",
-                category: "concepts",
-                rationale: "🗣️ 學生在探究對話或反思中提到了「融化/melt」(Group 1, Group 8)，此為初中科學最經典迷思概念，優先度極高！",
-                titleEn: "Do salt crystals \"melt\" in hot water, or \"dissolve\"? How do particle models distinguish them?",
-                titleZh: "食鹽在熱水中是「融化」還是「溶解」？微觀粒子模型如何區分兩者？",
-                descEn: "Group 1 shared in reflection: \"實驗前，我以為只有溫度才會影響溶解速度\". Everyday speech often says salt \"melts\" in hot soup. If water completely evaporates, does salt reappear? What is the fundamental particle difference between melting and dissolving?",
-                descZh: "Group 1 在反思卡中寫道：「實驗前，我以為只有溫度才會影響溶解速度」。日常口語常說鹽在熱湯中「融化了」。若把水完全蒸乾，食鹽還會在嗎？冰塊融化與食鹽溶解在微觀粒子上有何根本區別？",
-                objective: "運用微觀粒子理論徹底剖析「溶解」與「融化」的本質差異，實現科學概念轉變。"
-            };
-
-            const meltReflect = reflections.find(r => /融化|melt/i.test(r.reflection?.usedToThink || '') || /融化|melt/i.test(r.reflection?.nowIThink || ''));
-            const anyReflect = reflections.find(r => (r.reflection?.usedToThink || '').length > 3);
-            if (meltReflect) {
-                const quoteText = meltReflect.reflection.usedToThink || meltReflect.reflection.nowIThink;
-                c2.rationale = `🗣️ 學生在反思卡中提到了「融化/melt」(Group ${meltReflect.groupNum})，此為初中科學最經典迷思概念，優先度極高！`;
-                c2.descZh = `Group ${meltReflect.groupNum} 在反思卡中寫道：「${quoteText}」。日常口語常說鹽在熱湯中「融化了」。若把水完全蒸乾，食鹽還會在嗎？冰塊融化與食鹽溶解在微觀粒子上有何根本區別？`;
-                c2.descEn = `Group ${meltReflect.groupNum} shared in reflection: "${quoteText}". Everyday speech often says salt "melts" in hot soup. If water completely evaporates, does salt reappear? What is the fundamental particle difference between melting and dissolving?`;
-            } else if (anyReflect) {
-                const quoteText = anyReflect.reflection.usedToThink;
-                c2.descZh = `Group ${anyReflect.groupNum} 在反思卡中寫道：「${quoteText}」。日常口語常說鹽在熱湯中「融化了」。若把水完全蒸乾，食鹽還會在嗎？冰塊融化與食鹽溶解在微觀粒子上有何根本區別？`;
-                c2.descEn = `Group ${anyReflect.groupNum} shared in reflection: "${quoteText}". Everyday speech often says salt "melts" in hot soup. If water completely evaporates, does salt reappear? What is the fundamental particle difference between melting and dissolving?`;
+            // --- Candidate 2: Melting vs Dissolving (ONLY INCLUDED IF AT LEAST ONE STUDENT MENTIONED MELTING) ---
+            if (meltingMentions.length > 0) {
+                const meltItem = meltingMentions[0];
+                const cleanQuote = meltItem.text.length > 40 ? meltItem.text.substring(0, 38) + '...' : meltItem.text;
+                candidateCards.push({
+                    priority: 2,
+                    priorityLabel: "⭐ 迷思概念研討 (Concept Shift)",
+                    badgeClass: "bg-amber-100 text-amber-800 border border-amber-300",
+                    subDomain: "HOTS • Conceptual Shift / 概念轉變：溶解 vs 融化",
+                    score: 95,
+                    scoreIcon: "🧭",
+                    category: "concepts",
+                    rationale: `🗣️ 學生在探究中明確提到「${cleanQuote}」(Group ${meltItem.groupNum})，涉及「融化/melt」迷思，即時引導概念轉變！`,
+                    titleEn: `Group ${meltItem.groupNum} mentioned "${cleanQuote}": Do sugar crystals "melt" or "dissolve"?`,
+                    titleZh: `第 ${meltItem.groupNum} 組同學提到「${cleanQuote}」：方糖在水中是「融化」還是「溶解」？`,
+                    descEn: `In actual dialogue, Group ${meltItem.groupNum} mentioned "${cleanQuote}". Everyday language often confuses melting with dissolving. If all water evaporates, will sugar reappear? What is the fundamental particle difference?`,
+                    descZh: `第 ${meltItem.groupNum} 組在探究中提出「${cleanQuote}」。日常生活中常有人說糖在熱水中「融化了」。如果把水全部蒸乾，方糖分子還會在嗎？冰塊融化與方糖溶解在微觀粒子上有何本質區別？`,
+                    objective: "運用微觀粒子模型剖析「溶解」與「融化」的本質差異，實現科學概念轉變。"
+                });
             }
 
-            // --- Card 3: Priority 3 (Error & Reliability) ---
-            let c3 = {
+            // --- Candidate 3: Stirring Speed & Human Inconsistency ---
+            if (stirringMentions.length > 0) {
+                const stirItem = stirringMentions[0];
+                const cleanQuote = stirItem.text.length > 40 ? stirItem.text.substring(0, 38) + '...' : stirItem.text;
+                candidateCards.push({
+                    priority: 2,
+                    priorityLabel: "🥣 操作局限研討 (Stirring Focus)",
+                    badgeClass: "bg-amber-100 text-amber-800 border border-amber-300",
+                    subDomain: "HOTS • Fair Test & Stirring / 攪拌速率與控制變因",
+                    score: 88,
+                    scoreIcon: "🥣",
+                    category: "discrepancies",
+                    rationale: `🥣 第 ${stirItem.groupNum} 組敏銳提出「${cleanQuote}」，抓住了人手攪拌無法維持恆定轉速的關鍵局限！`,
+                    titleEn: `Group ${stirItem.groupNum} reflected on stirring: "${cleanQuote}"! How does human fatigue affect experimental validity?`,
+                    titleZh: `🥣 【課堂思維火花】第 ${stirItem.groupNum} 組反思「${cleanQuote}」！人手攪拌快慢不一如何影響實驗公平？`,
+                    descEn: `Group ${stirItem.groupNum} insightfully pointed out "${cleanQuote}". Stirring faster increases collisions between water molecules and sugar. How can we ensure constant stirring speed across all trials?`,
+                    descZh: `第 ${stirItem.groupNum} 組同學非常敏銳地提出「${cleanQuote}」。攪拌越快，水分子撞擊方糖頻率越高。但人手操作容易疲勞導致後段變慢，這對公平測試有何影響？如何解決？`,
+                    objective: "引導反思人為操作局限性，理解攪拌速率作為控制變因對實驗信度的影響。"
+                });
+            }
+
+            // --- Candidate 4: Stopwatch Delay & Reaction Time ---
+            if (timerMentions.length > 0) {
+                const timerItem = timerMentions[0];
+                const cleanQuote = timerItem.text.length > 40 ? timerItem.text.substring(0, 38) + '...' : timerItem.text;
+                candidateCards.push({
+                    priority: 3,
+                    priorityLabel: "⏱️ 計時誤差研討 (Stopwatch Focus)",
+                    badgeClass: "bg-sky-100 text-sky-800 border border-sky-300",
+                    subDomain: "HOTS • Random Error / 碼錶神經反應延遲與觀察主觀性",
+                    score: 82,
+                    scoreIcon: "⏱️",
+                    category: "reliability",
+                    rationale: `⏱️ 第 ${timerItem.groupNum} 組指出「${cleanQuote}」，鎖定碼錶反應延遲與肉眼主觀性！`,
+                    titleEn: `Group ${timerItem.groupNum} noted stopwatch delay: "${cleanQuote}"! How do reaction times cause random variations?`,
+                    titleZh: `⏱️ 【計時誤差反思】第 ${timerItem.groupNum} 組指出「${cleanQuote}」！肉眼主觀判斷如何引入隨機誤差？`,
+                    descEn: `Group ${timerItem.groupNum} identified timer delay ("${cleanQuote}"). Human nerve reaction time takes ~0.2-0.3s, and seeing the last crystal dissolve is subjective. How does this explain differences across groups?`,
+                    descZh: `第 ${timerItem.groupNum} 組指出「${cleanQuote}」。人體神經反應約需 0.2 至 0.3 秒，加上肉眼判斷方糖完全消失具主觀性。這種隨機誤差如何影響單次實驗的準確度？`,
+                    objective: "認識人體神經生理反應時間與視覺觀察主觀性對實驗數據的隨機干擾。"
+                });
+            }
+
+            // --- Candidate 5: Crushed Sugar Surface Area ---
+            if (crushedMentions.length > 0) {
+                const crushItem = crushedMentions[0];
+                const cleanQuote = crushItem.text.length > 40 ? crushItem.text.substring(0, 38) + '...' : crushItem.text;
+                candidateCards.push({
+                    priority: 2,
+                    priorityLabel: "💎 表面積變因研討 (Surface Area)",
+                    badgeClass: "bg-purple-100 text-purple-800 border border-purple-300",
+                    subDomain: "HOTS • Surface Area / 方糖碎裂與接觸面積",
+                    score: 90,
+                    scoreIcon: "💎",
+                    category: "discrepancies",
+                    rationale: `💎 第 ${crushItem.groupNum} 組誠實反思「${cleanQuote}」，指出方糖碎裂破壞了接觸面積這個控制變因！`,
+                    titleEn: `Group ${crushItem.groupNum} noted crushed sugar: "${cleanQuote}"! How does surface area affect collision rates?`,
+                    titleZh: `💎 【表面積與變因】第 ${crushItem.groupNum} 組反思「${cleanQuote}」！方糖被戳碎對溶解速率有何巨大影響？`,
+                    descEn: `Group ${crushItem.groupNum} honestly shared that sugar was crushed ("${cleanQuote}"). Crushing sugar dramatically increases surface area exposed to water molecules. Why is keeping crystal intact essential for a fair test?`,
+                    descZh: `第 ${crushItem.groupNum} 組同學誠實指出「${cleanQuote}」。方糖碎裂會使暴露給水分子的表面積成倍劇增。若一組方糖碎了而另一組完好，這還是一場公平測試嗎？`,
+                    objective: "建立微觀碰撞面積理論，並深刻體會維持控制變因對科學實驗的根本重要性。"
+                });
+            }
+
+            // --- Candidate 6: Class Average & Random Error Canceling (Always relevant for 8-group open class) ---
+            const quoteRandomError = randomErrorMentions.length > 0 ? randomErrorMentions[0] : null;
+            const errorQuoteStr = quoteRandomError ? `「${quoteRandomError.text.length > 35 ? quoteRandomError.text.substring(0, 33) + '...' : quoteRandomError.text}」` : "「8組平均值能抵消隨機誤差」";
+            const errorGroupNum = quoteRandomError ? quoteRandomError.groupNum : 1;
+
+            candidateCards.push({
                 priority: 3,
-                priorityLabel: "★ 第 3 優先研討 (Priority 3)",
+                priorityLabel: "★ 實驗信度研討 (Reliability Focus)",
                 badgeClass: "bg-blue-100 text-blue-800 border border-blue-200",
                 subDomain: "HOTS • Error & Reliability / 誤差抵消與實驗信度",
-                score: 72,
+                score: 75,
                 scoreIcon: "⚖️",
                 category: "reliability",
-                rationale: `📊 第 1 組敏銳指出「🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！」，全班已有 ${Math.max(1, submitted.length)} 組提交數據，具備充足大樣本探討「平均值如何像天平一樣抵消隨機誤差」！`,
-                titleEn: "Classroom Thought Spark: Group 1 noted \"🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！\"! Why does calculating the class average eliminate individual random errors?",
-                titleZh: "🛠️ 【課堂思維火花】第 1 組同學提出「🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！」！全班討論：只做 1 組實驗到底存在什麼隨機誤差？8組平均如何抵消？",
-                descEn: "Group 1 insightfully remarked: \"🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！\". If one team stopped the timer 2s late, and another stirred slightly faster, single-group data varies. How does the 8-group average balance out random positive and negative errors like a scale?",
-                descZh: "第 1 組同學非常敏銳地提出「🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！」。人手操作時碼錶反應、攪拌速度都有不可避免的正負誤差。全班 8 組平均值是如何像天平一樣抵消這些誤差的？",
+                rationale: `📊 第 ${errorGroupNum} 組指出 ${errorQuoteStr}，全班已有 ${Math.max(1, submitted.length)} 組提交數據，具備充足大樣本探討「平均值如何像天平一樣抵消隨機誤差」！`,
+                titleEn: `Classroom Thought Spark: Group ${errorGroupNum} noted ${errorQuoteStr}! Why does calculating class average eliminate random errors?`,
+                titleZh: `🛠️ 【課堂思維火花】第 ${errorGroupNum} 組提出 ${errorQuoteStr}！全班討論：只做 1 組實驗存在什麼風險？8組平均如何抵消？`,
+                descEn: `If one team stopped the timer 2s late, and another stirred slightly faster, single-group data varies. How does the 8-group average balance out random positive and negative errors like a scale?`,
+                descZh: `第 ${errorGroupNum} 組同學非常敏銳地提出 ${errorQuoteStr}。人手操作時碼錶反應、攪拌速度都有不可避免的正負誤差。全班 8 組平均值是如何像天平一樣抵消這些誤差的？`,
                 objective: "深刻理解大樣本平均值消除隨機誤差的本質與科學信度 Reliability。"
-            };
+            });
 
-            const quoteRandomError = quotes.find(q => /唔夠準|不夠準|唔準|不準|誤差|偏差|random error/i.test(q.quote));
-            if (quoteRandomError) {
-                c3.rationale = `📊 第 ${quoteRandomError.groupNum} 組敏銳指出「${quoteRandomError.quote}」，全班已有 ${Math.max(1, submitted.length)} 組提交數據，具備充足大樣本探討「平均值如何像天平一樣抵消隨機誤差」！`;
-                c3.titleEn = `Classroom Thought Spark: Group ${quoteRandomError.groupNum} noted "${quoteRandomError.quote}"! Why does calculating the class average eliminate individual random errors?`;
-                c3.titleZh = `🛠️ 【課堂思維火花】第 ${quoteRandomError.groupNum} 組同學提出「${quoteRandomError.quote}」！全班討論：只做 1 組實驗到底存在什麼隨機誤差？8組平均如何抵消？`;
-                c3.descEn = `Group ${quoteRandomError.groupNum} insightfully remarked: "${quoteRandomError.quote}". If one team stopped the timer 2s late, and another stirred slightly faster, single-group data varies. How does the 8-group average balance out random positive and negative errors like a scale?`;
-                c3.descZh = `第 ${quoteRandomError.groupNum} 組同學非常敏銳地提出「${quoteRandomError.quote}」。人手操作時碼錶反應、攪拌速度都有不可避免的正負誤差。全班 8 組平均值是如何像天平一樣抵消這些誤差的？`;
-            }
-
-            // --- Card 4: Kinetics (Microscopic Kinetics & Limit Thinking) ---
+            // --- Candidate 7: Kinetics & Limit Thinking (50->100 drop vs 150->200 plateau) ---
             const avg200 = avgData ? avgData[200] : 30;
             const avg50 = avgData ? avgData[50] : 120;
             const avg100 = avgData ? avgData[100] : 70;
@@ -5662,12 +6012,12 @@ ${JSON.stringify(summaryData, null, 2)}
             const dropEarly = Math.round((avg50 - avg100) * 10) / 10;
             const dropLate = Math.round((avg150 - avg200) * 10) / 10;
 
-            let c4 = {
+            candidateCards.push({
                 priority: 4,
                 priorityLabel: "🔬 微觀動力研討 (Kinetics Focus)",
                 badgeClass: "bg-teal-100 text-teal-800 border border-teal-200",
                 subDomain: "HOTS • Molecular Kinetics & Limit Thinking / 微觀動力與極限思維",
-                score: 68,
+                score: 70,
                 scoreIcon: "⚡",
                 category: "kinetics",
                 rationale: "🧪 全班實測 50→100 cm³ 大幅縮短秒數，但 150→200 cm³ 趨於平緩，引導從微觀水分子碰撞模型與極限思維切入！",
@@ -5676,10 +6026,10 @@ ${JSON.stringify(summaryData, null, 2)}
                 descEn: `When volume doubles from 50 to 100 cm³, collision frequency between free water molecules and sugar crystal surfaces skyrockets. However, when water is already abundant, sugar surface area becomes the rate-limiting factor. Can adding 10,000 cm³ water reduce dissolving time to 0 seconds?`,
                 descZh: `全班實測曲線清楚顯示「前段劇降、後段趨緩」的邊際效應特徵。即便把方糖投入整座水塘或太平洋中，水分子破壞晶格依然需要時間，這揭示了科學規律在極端條件下的什麼物理極限？`,
                 objective: "建立微觀水分子碰撞模型，並培養極限思維 (Limit Thinking) 與外推批判能力。"
-            };
+            });
 
-            // --- Card 5: STEM Engineering ---
-            let c5 = {
+            // --- Candidate 8: STEM Engineering & Automation ---
+            candidateCards.push({
                 priority: 5,
                 priorityLabel: "🛠️ STEM 工程研討 (Engineering Focus)",
                 badgeClass: "bg-purple-100 text-purple-800 border border-purple-200",
@@ -5693,9 +6043,43 @@ ${JSON.stringify(summaryData, null, 2)}
                 descEn: "Manual stirring cannot maintain constant RPM, and watching for the last sugar speck is subjective. If you could integrate Arduino or micro:bit with a magnetic stirrer and a light transmission sensor, how would the machine define 100% dissolution automatically?",
                 descZh: "人手攪拌無法維持恆定轉速，肉眼觀察最後一粒晶體消失也具有強烈主觀性。若能結合微型控制器、磁力攪拌器與透光濁度傳感器，如何讓機器全自動判定「方糖 100% 溶解」並自動計時？",
                 objective: "引導 STEM 工程思維與自動化檢測概念，提高實驗精度與客觀性。"
-            };
+            });
 
-            return [c1, c2, c3, c4, c5];
+            // If category 'concepts' is selected and student did NOT mention melting, add a grounded conceptual card about particle spacing
+            if (meltingMentions.length === 0) {
+                candidateCards.push({
+                    priority: 5,
+                    priorityLabel: "💡 微觀模型辨析 (Particle Space)",
+                    badgeClass: "bg-amber-100 text-amber-800 border border-amber-300",
+                    subDomain: "HOTS • Particle Model / 微觀粒子運動與擴散空間",
+                    score: 66,
+                    scoreIcon: "💡",
+                    category: "concepts",
+                    rationale: "💡 運用微觀粒子模型解釋為什麼更多水量能加速溶解擴散過程。",
+                    titleEn: "Microscopic Particle Perspective: Why does larger water volume give dissolved particles faster diffusion space?",
+                    titleZh: "【微觀粒子視角】為什麼水量越多，已溶解的糖分子能更快擴散，從而不阻擋新鮮水分子？",
+                    descEn: "In small volumes of water, sugar molecules cluster near the crystal surface. In larger volumes, they diffuse rapidly away. How does particle spacing explain dissolving rates?",
+                    descZh: "水量較少時，已脫離晶格的糖分子容易在方糖表面附近形成高濃度聚集；水量較多時，擴散空間開闊，新鮮水分子能持續高效率進攻方糖表面。",
+                    objective: "深化微觀粒子擴散與碰撞空間概念，避免單純死記硬背實驗結論。"
+                });
+            }
+
+            // Re-index priorities 1..N
+            candidateCards.forEach((card, idx) => {
+                card.priority = idx + 1;
+                if (idx === 0) {
+                    card.priorityLabel = "🔥 第 1 優先研討 (Priority 1)";
+                    card.badgeClass = "bg-rose-100 text-rose-700 border border-rose-200";
+                } else if (idx === 1) {
+                    card.priorityLabel = "⭐ 第 2 優先研討 (Priority 2)";
+                    card.badgeClass = "bg-amber-100 text-amber-800 border border-amber-300";
+                } else if (idx === 2) {
+                    card.priorityLabel = "★ 第 3 優先研討 (Priority 3)";
+                    card.badgeClass = "bg-blue-100 text-blue-800 border border-blue-200";
+                }
+            });
+
+            return candidateCards;
         }
 
         function updateDynamicDiscussionPromptsHeuristic(contextData) {
@@ -6653,7 +7037,7 @@ ${JSON.stringify(summaryData, null, 2)}
             }
         });
 
-        // Render 8 Groups Matrix with ample space for Strengths & Growth + Clickable detail modal
+        // Render 8 Groups Matrix with ample space for Strengths & Growth + Peer Review & Teacher Debrief
         function renderTeacherGroupGrid() {
             const grid = document.getElementById('teacherGroupGrid');
             if (!grid) return;
@@ -6663,6 +7047,23 @@ ${JSON.stringify(summaryData, null, 2)}
                 const gKey = `Group ${i}`;
                 const gInfo = classData[gKey];
                 const hasData = gInfo.data !== null;
+
+                // Peer Review Target and Reviewer Info
+                const pr = gInfo.peerReview || {};
+                const targetGroup = pr.targetGroup || `Group ${(i % 8) + 1}`;
+                
+                // Find reviewer who is assigned to review this group
+                let reviewerGroup = `Group ${i === 1 ? 8 : i - 1}`;
+                for (let k = 1; k <= 8; k++) {
+                    if (classData[`Group ${k}`]?.peerReview?.targetGroup === gKey) {
+                        reviewerGroup = `Group ${k}`;
+                        break;
+                    }
+                }
+                const reviewerPr = classData[reviewerGroup]?.peerReview;
+                const hasReceivedReview = reviewerPr && reviewerPr.submitted;
+                const receivedSparks = hasReceivedReview ? (reviewerPr.sparkTags || []) : [];
+                const receivedComment = hasReceivedReview ? (reviewerPr.comment || "") : "";
 
                 const card = document.createElement('div');
                 card.className = "bg-slate-50/90 hover:bg-white rounded-2xl p-4 border border-slate-200 hover:border-sky-400 transition-all duration-200 shadow-sm hover:shadow-md space-y-3 cursor-pointer flex flex-col justify-between";
@@ -6707,11 +7108,44 @@ ${JSON.stringify(summaryData, null, 2)}
                                 <p class="text-slate-700 text-[11px] leading-relaxed break-words">${gInfo.growthZh}</p>
                             </div>
                         </div>
+
+                        <!-- Peer Review Pairing & Received Sparks -->
+                        <div class="bg-indigo-50/70 border border-indigo-200/80 p-2.5 rounded-xl space-y-1.5 text-[11px]">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-indigo-950 flex items-center gap-1">
+                                    <span>👥 互評配對：</span>
+                                    <span class="text-indigo-700 font-extrabold">點評 ${targetGroup}</span>
+                                </span>
+                                <span class="text-[9px] px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold">
+                                    由 ${reviewerGroup} 審評
+                                </span>
+                            </div>
+                            ${hasReceivedReview ? `
+                                <div class="space-y-1 pt-1 border-t border-indigo-100">
+                                    <div class="flex items-center gap-1 flex-wrap">
+                                        ${receivedSparks.map(s => `<span class="bg-indigo-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-md shadow-2xs">${s}</span>`).join('')}
+                                    </div>
+                                    ${receivedComment ? `<p class="text-slate-700 italic text-[10px] break-words">"${receivedComment}"</p>` : ''}
+                                </div>
+                            ` : `
+                                <p class="text-slate-500 italic text-[10px] pt-0.5">等待 ${reviewerGroup} 提交互評亮點...</p>
+                            `}
+                        </div>
+
+                        <!-- Teacher Deep Debrief Banner -->
+                        <div class="bg-purple-50/70 border border-purple-200/80 p-2.5 rounded-xl space-y-1 text-[11px]">
+                            <span class="font-bold text-purple-900 block flex items-center gap-1">
+                                <span>🎓 教師深度點撥：</span>
+                            </span>
+                            <p class="text-slate-700 text-[10px] leading-relaxed break-words ${pr.teacherDebrief ? 'font-medium' : 'text-slate-400 italic'}">
+                                ${pr.teacherDebrief || "尚未記錄點撥回饋（點擊卡片展開編輯）"}
+                            </p>
+                        </div>
                     </div>
 
                     <!-- Click to open detail prompt -->
                     <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-sky-600 hover:text-sky-700 text-xs font-bold">
-                        <span>點擊展開詳細對話與學情分析</span>
+                        <span>點擊展開詳細對話、互評與深度點撥</span>
                         <i data-lucide="chevron-right" class="w-4 h-4"></i>
                     </div>
                 `;
@@ -6891,6 +7325,83 @@ ${JSON.stringify(summaryData, null, 2)}
                 });
             }
 
+            // 4. Populate Peer Review and Teacher Debrief sections
+            modalActiveGroupKey = gKey;
+            
+            const pr = gInfo.peerReview || {};
+            const targetGroup = pr.targetGroup || `Group ${(parseInt(gKey.replace('Group ', '')) % 8) + 1}`;
+            
+            let reviewerGroup = `Group ${parseInt(gKey.replace('Group ', '')) === 1 ? 8 : parseInt(gKey.replace('Group ', '')) - 1}`;
+            for (let k = 1; k <= 8; k++) {
+                if (classData[`Group ${k}`]?.peerReview?.targetGroup === gKey) {
+                    reviewerGroup = `Group ${k}`;
+                    break;
+                }
+            }
+
+            const reviewerPr = classData[reviewerGroup]?.peerReview;
+            const peerBadge = document.getElementById('modalPeerPairingBadge');
+            if (peerBadge) {
+                peerBadge.innerText = `互評配對：${gKey} ➔ ${targetGroup} | 審評者：${reviewerGroup}`;
+            }
+
+            const peerContent = document.getElementById('modalPeerReviewContent');
+            if (peerContent) {
+                let sparksHtml = '';
+                if (reviewerPr && reviewerPr.submitted && reviewerPr.sparkTags && reviewerPr.sparkTags.length > 0) {
+                    sparksHtml = reviewerPr.sparkTags.map(s => `<span class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">${s}</span>`).join(' ');
+                } else {
+                    sparksHtml = `<span class="text-slate-400 italic">尚無標記亮點</span>`;
+                }
+
+                peerContent.innerHTML = `
+                    <div class="p-3 bg-indigo-50/70 rounded-xl border border-indigo-200/80 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-indigo-950">來自 ${reviewerGroup} 的同儕亮點標記：</span>
+                            <span class="text-[10px] font-bold ${reviewerPr && reviewerPr.submitted ? 'text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full' : 'text-slate-500'}">
+                                ${reviewerPr && reviewerPr.submitted ? '✓ 已提交' : '待提交'}
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            ${sparksHtml}
+                        </div>
+                        ${reviewerPr && reviewerPr.comment ? `
+                            <div class="pt-1.5 border-t border-indigo-100">
+                                <span class="text-[10px] text-indigo-900 font-bold block">💬 同儕評語與好奇：</span>
+                                <p class="text-slate-800 italic mt-0.5">"${reviewerPr.comment}"</p>
+                            </div>
+                        ` : ''}
+                    </div>
+
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-slate-800">${gKey} 對 ${targetGroup} 的點評狀態：</span>
+                            <span class="text-[10px] font-bold ${pr.submitted ? 'text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full' : 'text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full'}">
+                                ${pr.submitted ? '✓ 已提交點評' : '尚未提交'}
+                            </span>
+                        </div>
+                        ${pr.submitted && pr.sparkTags && pr.sparkTags.length > 0 ? `
+                            <div class="flex items-center gap-1 flex-wrap">
+                                ${pr.sparkTags.map(s => `<span class="bg-slate-700 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">${s}</span>`).join(' ')}
+                            </div>
+                        ` : ''}
+                        ${pr.submitted && pr.comment ? `
+                            <p class="text-slate-700 italic text-xs mt-1">"${pr.comment}"</p>
+                        ` : ''}
+                    </div>
+                `;
+            }
+
+            // Teacher Debrief Textarea
+            const debriefInput = document.getElementById('modalTeacherDebriefInput');
+            if (debriefInput) {
+                debriefInput.value = pr.teacherDebrief || '';
+            }
+            const debriefStatus = document.getElementById('modalTeacherDebriefSaveStatus');
+            if (debriefStatus) {
+                debriefStatus.innerText = '';
+            }
+
             modal.classList.remove('hidden');
             if (window.lucide) lucide.createIcons();
         }
@@ -6898,6 +7409,639 @@ ${JSON.stringify(summaryData, null, 2)}
         function closeGroupDetailModal() {
             const modal = document.getElementById('groupDetailModal');
             modal.classList.add('hidden');
+        }
+
+        // ================= CROSS-GROUP PEER REVIEW & SPARK TAGGING LOGIC =================
+        const PEER_SPARK_TAGS = [
+            { id: 'fair_test', icon: '✨', labelZh: '變因控制嚴謹', labelEn: 'Fair Test Control' },
+            { id: 'random_error', icon: '💡', labelZh: '深刻反思隨機誤差', labelEn: 'Reflective Error Awareness' },
+            { id: 'stirring_speed', icon: '🥣', labelZh: '發現手動攪拌不均', labelEn: 'Stirring Speed Variation' },
+            { id: 'timer_delay', icon: '⏱️', labelZh: '敏銳指出碼錶延遲', labelEn: 'Stopwatch Delay' },
+            { id: 'class_avg', icon: '🌊', labelZh: '理解大樣本平均優勢', labelEn: 'Class Average Cancels Error' },
+            { id: 'stem_improvement', icon: '🔬', labelZh: '提出工程改進方案', labelEn: 'STEM Improvement' },
+            { id: 'data_accuracy', icon: '📊', labelZh: '數據解讀精準', labelEn: 'Accurate Data Analysis' }
+        ];
+
+        let modalActiveGroupKey = 'Group 1';
+
+        function getGroupHighlightQuote(gKey) {
+            const g = classData[gKey];
+            if (!g) return "尚未有發言記錄";
+            if (g.chatLogs && g.chatLogs.length > 0) {
+                for (let i = g.chatLogs.length - 1; i >= 0; i--) {
+                    if (g.chatLogs[i].sender === 'user') {
+                        const text = (g.chatLogs[i].zh || g.chatLogs[i].en || '').trim();
+                        if (text.length >= 2 && !/^(好的|ok|yes|明白|知道了|你好|hi)$/i.test(text)) {
+                            return text;
+                        }
+                    }
+                }
+            }
+            if (g.latestAnswer && !/No responses yet/i.test(g.latestAnswer)) {
+                return g.latestAnswer;
+            }
+            if (g.summaryZh && !/尚未/i.test(g.summaryZh)) {
+                return g.summaryZh;
+            }
+            return "已進入探究，尚未有深層發言記錄。";
+        }
+
+        function renderStudentPeerReviewUI() {
+            const container = document.getElementById('studentPeerReviewContainer');
+            if (!container) return;
+            if (!classData[currentRole]) return;
+
+            if (!classData[currentRole].peerReview) {
+                const curIdx = parseInt(currentRole.replace('Group ', '')) || 1;
+                classData[currentRole].peerReview = {
+                    targetGroup: `Group ${curIdx === 8 ? 1 : curIdx + 1}`,
+                    assignedReviewer: `Group ${curIdx === 1 ? 8 : curIdx - 1}`,
+                    sparkTags: [],
+                    comment: "",
+                    teacherDebrief: "",
+                    submitted: false
+                };
+            }
+
+            const pr = classData[currentRole].peerReview;
+            const targetGroup = pr.targetGroup || `Group ${(parseInt(currentRole.replace('Group ', '')) % 8) + 1}`;
+            const targetData = classData[targetGroup];
+
+            const badge = document.getElementById('studentPeerTargetBadge');
+            if (badge) badge.innerText = `🎯 本組指定點評：${targetGroup}`;
+
+            const targetNameEl = document.getElementById('peerTargetGroupName');
+            if (targetNameEl) targetNameEl.innerText = targetGroup;
+
+            const targetStatusEl = document.getElementById('peerTargetStatus');
+            if (targetStatusEl) {
+                if (targetData && targetData.data) {
+                    targetStatusEl.innerText = "已提交數據與對話";
+                    targetStatusEl.className = "text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-medium border border-emerald-200";
+                } else {
+                    targetStatusEl.innerText = "實驗進行中";
+                    targetStatusEl.className = "text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-medium border border-amber-200";
+                }
+            }
+
+            const quoteEl = document.getElementById('peerTargetQuote');
+            if (quoteEl) {
+                quoteEl.innerText = `"${getGroupHighlightQuote(targetGroup)}"`;
+            }
+
+            // Render Spark Chips
+            const chipsContainer = document.getElementById('peerSparkChipsContainer');
+            if (chipsContainer) {
+                chipsContainer.innerHTML = '';
+                PEER_SPARK_TAGS.forEach(tag => {
+                    const isSelected = (pr.sparkTags || []).includes(tag.labelZh);
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.onclick = () => togglePeerSparkTag(tag.labelZh);
+                    if (isSelected) {
+                        btn.className = "px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1 bg-indigo-600 text-white shadow-sm border border-indigo-600 transform scale-105";
+                    } else {
+                        btn.className = "px-3 py-1.5 rounded-full text-xs font-medium transition flex items-center gap-1 bg-white text-slate-700 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50";
+                    }
+                    btn.innerHTML = `<span>${tag.icon}</span> <span>${tag.labelZh}</span>`;
+                    chipsContainer.appendChild(btn);
+                });
+            }
+
+            // Comment Textarea
+            const commentEl = document.getElementById('peerReviewCommentInput');
+            if (commentEl && document.activeElement !== commentEl) {
+                commentEl.value = pr.comment || '';
+            }
+
+            const statusEl = document.getElementById('peerReviewSubmitStatus');
+            if (statusEl) {
+                if (pr.submitted) {
+                    statusEl.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ 已成功提交同儕點評！可在教師後台查閱</span></span>`;
+                } else {
+                    statusEl.innerHTML = `<span class="text-slate-400 text-[11px]">未提交點評 / Pending submission</span>`;
+                }
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        function togglePeerSparkTag(tagLabel) {
+            if (!classData[currentRole]) return;
+            if (!classData[currentRole].peerReview) {
+                renderStudentPeerReviewUI();
+            }
+            const pr = classData[currentRole].peerReview;
+            if (!Array.isArray(pr.sparkTags)) pr.sparkTags = [];
+
+            const idx = pr.sparkTags.indexOf(tagLabel);
+            if (idx > -1) {
+                pr.sparkTags.splice(idx, 1);
+            } else {
+                pr.sparkTags.push(tagLabel);
+            }
+
+            renderStudentPeerReviewUI();
+        }
+
+        function submitPeerReview() {
+            if (!classData[currentRole]) return;
+            const comment = (document.getElementById('peerReviewCommentInput')?.value || '').trim();
+            const pr = classData[currentRole].peerReview;
+            
+            if ((!pr.sparkTags || pr.sparkTags.length === 0) && comment.length === 0) {
+                alert("💡 請先點選至少 1 個思維亮點標記，或填寫讚賞/追問評語後再提交！");
+                return;
+            }
+
+            pr.comment = comment;
+            pr.submitted = true;
+            pr.submittedAt = Date.now();
+
+            broadcastSync();
+            updateAllUI();
+            renderStudentPeerReviewUI();
+
+            const statusEl = document.getElementById('peerReviewSubmitStatus');
+            if (statusEl) {
+                statusEl.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1 animate-fade-in"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ 成功提交點評！老師在後台即時可見</span></span>`;
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        // Teacher Pairing Presets & Matrix
+        function applyPeerReviewPreset(type) {
+            for (let i = 1; i <= 8; i++) {
+                const src = `Group ${i}`;
+                if (!classData[src].peerReview) {
+                    classData[src].peerReview = { sparkTags: [], comment: "", teacherDebrief: "", submitted: false };
+                }
+                let tgtNum = 1;
+                let revNum = 1;
+                if (type === 'circular') {
+                    tgtNum = (i === 8) ? 1 : (i + 1);
+                    revNum = (i === 1) ? 8 : (i - 1);
+                } else if (type === 'reciprocal') {
+                    tgtNum = (i % 2 === 1) ? (i + 1) : (i - 1);
+                    revNum = tgtNum;
+                }
+                classData[src].peerReview.targetGroup = `Group ${tgtNum}`;
+                classData[src].peerReview.assignedReviewer = `Group ${revNum}`;
+            }
+
+            broadcastSync();
+            updateAllUI();
+            renderStudentPeerReviewUI();
+            renderPeerReviewMatrixGrid();
+            alert(`✅ 已成功套用「${type === 'circular' ? '順序循環配對 (1→2, 2→3... 8→1)' : '對等雙向互評 (1↔2, 3↔4...)'}」！`);
+        }
+
+        function togglePeerReviewCustomMatrix() {
+            const drawer = document.getElementById('peerReviewMatrixDrawer');
+            if (!drawer) return;
+            if (drawer.classList.contains('hidden')) {
+                drawer.classList.remove('hidden');
+                renderPeerReviewMatrixGrid();
+            } else {
+                drawer.classList.add('hidden');
+            }
+        }
+
+        function renderPeerReviewMatrixGrid() {
+            const grid = document.getElementById('peerReviewMatrixGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= 8; i++) {
+                const src = `Group ${i}`;
+                const pr = classData[src]?.peerReview || {};
+                const currentTgt = pr.targetGroup || `Group ${(i % 8) + 1}`;
+
+                const item = document.createElement('div');
+                item.className = "p-2.5 bg-white border border-slate-200 rounded-xl space-y-1 shadow-xs";
+
+                let optionsHtml = '';
+                for (let j = 1; j <= 8; j++) {
+                    if (i === j) continue;
+                    const optVal = `Group ${j}`;
+                    optionsHtml += `<option value="${optVal}" ${optVal === currentTgt ? 'selected' : ''}>${optVal}</option>`;
+                }
+
+                item.innerHTML = `
+                    <div class="flex items-center justify-between text-[11px] font-bold text-slate-700">
+                        <span>${src}</span>
+                        <span class="text-[10px] text-sky-600 font-normal">指定點評 ➔</span>
+                    </div>
+                    <select onchange="setGroupPeerTarget('${src}', this.value)" class="w-full text-xs p-1.5 rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-sky-500 font-bold text-slate-800">
+                        ${optionsHtml}
+                    </select>
+                `;
+                grid.appendChild(item);
+            }
+        }
+
+        function setGroupPeerTarget(sourceGroup, targetGroup) {
+            if (!classData[sourceGroup]) return;
+            if (!classData[sourceGroup].peerReview) {
+                classData[sourceGroup].peerReview = { sparkTags: [], comment: "", teacherDebrief: "", submitted: false };
+            }
+            classData[sourceGroup].peerReview.targetGroup = targetGroup;
+
+            if (classData[targetGroup]) {
+                if (!classData[targetGroup].peerReview) {
+                    classData[targetGroup].peerReview = { sparkTags: [], comment: "", teacherDebrief: "", submitted: false };
+                }
+                classData[targetGroup].peerReview.assignedReviewer = sourceGroup;
+            }
+
+            broadcastSync();
+            updateAllUI();
+            renderStudentPeerReviewUI();
+        }
+
+        function saveTeacherDebriefFromModal(gKey) {
+            if (!classData[gKey]) return;
+            const input = document.getElementById('modalTeacherDebriefInput');
+            const status = document.getElementById('modalTeacherDebriefSaveStatus');
+            const val = (input ? input.value : '').trim();
+
+            if (!classData[gKey].peerReview) {
+                classData[gKey].peerReview = { sparkTags: [], comment: "", teacherDebrief: "", submitted: false };
+            }
+            classData[gKey].peerReview.teacherDebrief = val;
+            classData[gKey].peerReview.debriefUpdatedAt = Date.now();
+
+            broadcastSync();
+            updateAllUI();
+
+            if (status) {
+                status.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ 已成功儲存點撥回饋！</span></span>`;
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        function generateAiTeacherDebrief(gKey) {
+            const gInfo = classData[gKey];
+            if (!gInfo) return;
+            const input = document.getElementById('modalTeacherDebriefInput');
+            if (!input) return;
+
+            let debriefSuggestion = "";
+            if (gInfo.data && gInfo.data[200] > gInfo.data[150]) {
+                debriefSuggestion = `【點撥提示】該組在 200 cm³ 反而比 150 cm³ 慢了 ${Math.round(gInfo.data[200] - gInfo.data[150])} 秒。建議點撥引導：「請比對你們兩次實驗的攪拌手感，後段是否有手痠放慢？科學家如何面對反常數據進行變因復盤？」`;
+            } else if (gInfo.focusTag === "Stirring Speed" || /攪拌/i.test(gInfo.summaryZh)) {
+                debriefSuggestion = `【點撥提示】該組敏銳鎖定攪拌轉速局限。建議肯定其科研直覺，並追問：「如果讓你們設計一個定速磁力攪拌器，會如何校準每分鐘轉速（RPM）以達到完全零人為誤差？」`;
+            } else if (/碼錶|延遲|按慢/i.test(gInfo.latestAnswer)) {
+                debriefSuggestion = `【點撥提示】該組反思到神經反應時間。建議肯定其誠實思維，並引導探討：「除了碼錶，日常生活中有哪些自動傳感器（例如透光濁度計）可以用客觀數據判定終點？」`;
+            } else {
+                debriefSuggestion = `【點撥提示】該組數據呈現標準反比規律。建議引導深化微觀碰撞理論：「水量增加讓溶解時間顯著縮短，那麼在微觀粒子層面，水分子究竟是如何加速拆解方糖晶格的？」`;
+            }
+
+            input.value = debriefSuggestion;
+            input.focus();
+        }
+
+        // ================= MOLECULAR DISSOLVING SIMULATOR CANVAS ENGINE =================
+        let molecularSim = {
+            canvas: null,
+            ctx: null,
+            animationId: null,
+            isPlaying: true,
+            speedMultiplier: 1,
+            volume: 100,
+            particles: [],
+            dissolvedMolecules: [],
+            lattice: [],
+            totalCells: 48,
+            remainingCells: 48,
+            totalHitsThisSec: 0,
+            hitRate: 0,
+            lastSecTime: 0,
+            elapsedTime: 0,
+            lastFrameTime: 0,
+            isComplete: false
+        };
+
+        function initMolecularSimulator() {
+            const canvas = document.getElementById('molecularSimCanvas');
+            if (!canvas) return;
+            molecularSim.canvas = canvas;
+            molecularSim.ctx = canvas.getContext('2d');
+
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = (rect.width || 620) * dpr;
+            canvas.height = (rect.height || 340) * dpr;
+            molecularSim.ctx.scale(dpr, dpr);
+            molecularSim.logicalWidth = rect.width || 620;
+            molecularSim.logicalHeight = rect.height || 340;
+
+            resetSim();
+
+            if (!molecularSim.animationId) {
+                molecularSim.lastFrameTime = performance.now();
+                molecularSim.lastSecTime = performance.now();
+                requestAnimationFrame(molecularSimLoop);
+            }
+        }
+
+        function resetSim() {
+            const W = molecularSim.logicalWidth || 620;
+            const H = molecularSim.logicalHeight || 340;
+            const vol = molecularSim.volume || 100;
+
+            molecularSim.elapsedTime = 0;
+            molecularSim.isComplete = false;
+            molecularSim.totalHitsThisSec = 0;
+            molecularSim.hitRate = 0;
+            molecularSim.lastSecTime = performance.now();
+            molecularSim.dissolvedMolecules = [];
+
+            const waterTopY = { 50: 210, 100: 155, 150: 100, 200: 45 }[vol] || 155;
+            molecularSim.waterTopY = waterTopY;
+
+            const count = { 50: 45, 100: 90, 150: 140, 200: 200 }[vol] || 90;
+            molecularSim.particles = [];
+            for (let i = 0; i < count; i++) {
+                molecularSim.particles.push({
+                    x: 50 + Math.random() * (W - 100),
+                    y: waterTopY + 10 + Math.random() * (H - 50 - waterTopY),
+                    vx: (Math.random() - 0.5) * 2.8,
+                    vy: (Math.random() - 0.5) * 2.8,
+                    radius: 3.5
+                });
+            }
+
+            const cols = 8;
+            const rows = 6;
+            const cellSize = 11;
+            const startX = (W / 2) - (cols * cellSize / 2);
+            const startY = H - 35 - (rows * cellSize);
+
+            molecularSim.lattice = [];
+            molecularSim.totalCells = cols * rows;
+            molecularSim.remainingCells = molecularSim.totalCells;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    molecularSim.lattice.push({
+                        r, c,
+                        x: startX + c * cellSize,
+                        y: startY + r * cellSize,
+                        w: cellSize - 1,
+                        h: cellSize - 1,
+                        alive: true,
+                        hits: 0,
+                        maxHits: 4
+                    });
+                }
+            }
+
+            updateSimTelemetryUI();
+        }
+
+        function setSimVolume(vol) {
+            molecularSim.volume = vol;
+            [50, 100, 150, 200].forEach(v => {
+                const btn = document.getElementById(`simVolBtn-${v}`);
+                if (btn) {
+                    if (v === vol) {
+                        btn.className = "px-3 py-1.5 rounded-xl font-black text-xs transition border flex items-center gap-1.5 bg-sky-500 text-white border-sky-400 shadow-md";
+                    } else {
+                        btn.className = "px-3 py-1.5 rounded-xl font-bold text-xs transition border flex items-center gap-1.5 bg-slate-900 text-slate-300 border-slate-700 hover:border-sky-400";
+                    }
+                }
+            });
+
+            const estEl = document.getElementById('simEstTotal');
+            if (estEl) {
+                const estMap = { 50: '~120s', 100: '~78s', 150: '~48s', 200: '~30s' };
+                estEl.innerText = `預計耗時: ${estMap[vol] || '~60s'}`;
+            }
+
+            resetSim();
+        }
+
+        function toggleSimPlay() {
+            molecularSim.isPlaying = !molecularSim.isPlaying;
+            const btn = document.getElementById('simPlayBtn');
+            if (btn) {
+                if (molecularSim.isPlaying) {
+                    btn.innerHTML = `<i data-lucide="pause" class="w-3.5 h-3.5"></i> <span>暫停 (Pause)</span>`;
+                } else {
+                    btn.innerHTML = `<i data-lucide="play" class="w-3.5 h-3.5"></i> <span>播放 (Play)</span>`;
+                }
+                if (window.lucide) lucide.createIcons();
+            }
+        }
+
+        function toggleSimSpeed() {
+            const speeds = [1, 2, 4];
+            const currIdx = speeds.indexOf(molecularSim.speedMultiplier);
+            molecularSim.speedMultiplier = speeds[(currIdx + 1) % speeds.length];
+            const btn = document.getElementById('simSpeedBtn');
+            if (btn) btn.innerText = `⚡ ${molecularSim.speedMultiplier}x 速度`;
+        }
+
+        function updateSimTelemetryUI() {
+            const rateEl = document.getElementById('simMetricRate');
+            if (rateEl) rateEl.innerHTML = `${molecularSim.hitRate} <span class="text-[10px] font-normal text-slate-400">次/秒 (hits/s)</span>`;
+
+            const pct = Math.round((molecularSim.remainingCells / molecularSim.totalCells) * 100);
+            const pctEl = document.getElementById('simMetricPercent');
+            if (pctEl) pctEl.innerText = `${pct}%`;
+
+            const barEl = document.getElementById('simMetricBar');
+            if (barEl) barEl.style.width = `${pct}%`;
+
+            const timeEl = document.getElementById('simMetricTime');
+            if (timeEl) timeEl.innerHTML = `${molecularSim.elapsedTime.toFixed(1)} <span class="text-[10px] font-normal text-slate-400">s</span>`;
+        }
+
+        function molecularSimLoop(now) {
+            const dt = Math.min(0.1, (now - molecularSim.lastFrameTime) / 1000) * molecularSim.speedMultiplier;
+            molecularSim.lastFrameTime = now;
+
+            if (molecularSim.isPlaying && !molecularSim.isComplete) {
+                molecularSim.elapsedTime += dt;
+
+                if (now - molecularSim.lastSecTime >= 1000) {
+                    molecularSim.hitRate = Math.round(molecularSim.totalHitsThisSec * (1000 / (now - molecularSim.lastSecTime)));
+                    molecularSim.totalHitsThisSec = 0;
+                    molecularSim.lastSecTime = now;
+                    updateSimTelemetryUI();
+                }
+
+                updateMolecularPhysics(dt);
+            }
+
+            renderMolecularCanvas();
+            molecularSim.animationId = requestAnimationFrame(molecularSimLoop);
+        }
+
+        function updateMolecularPhysics(dt) {
+            const W = molecularSim.logicalWidth || 620;
+            const H = molecularSim.logicalHeight || 340;
+            const waterTopY = molecularSim.waterTopY || 155;
+            const beakerLeft = 45;
+            const beakerRight = W - 45;
+            const beakerBottom = H - 30;
+
+            molecularSim.particles.forEach(p => {
+                p.x += p.vx * molecularSim.speedMultiplier;
+                p.y += p.vy * molecularSim.speedMultiplier;
+
+                if (p.x - p.radius < beakerLeft) { p.x = beakerLeft + p.radius; p.vx *= -1; }
+                if (p.x + p.radius > beakerRight) { p.x = beakerRight - p.radius; p.vx *= -1; }
+                if (p.y - p.radius < waterTopY) { p.y = waterTopY + p.radius; p.vy *= -1; }
+                if (p.y + p.radius > beakerBottom) { p.y = beakerBottom - p.radius; p.vy *= -1; }
+
+                molecularSim.lattice.forEach(cell => {
+                    if (!cell.alive) return;
+                    if (p.x + p.radius > cell.x && p.x - p.radius < cell.x + cell.w &&
+                        p.y + p.radius > cell.y && p.y - p.radius < cell.y + cell.h) {
+                        
+                        p.vx *= -1;
+                        p.vy *= -1;
+                        cell.hits++;
+                        molecularSim.totalHitsThisSec++;
+
+                        if (cell.hits >= cell.maxHits) {
+                            cell.alive = false;
+                            molecularSim.remainingCells--;
+                            molecularSim.dissolvedMolecules.push({
+                                x: cell.x + cell.w / 2,
+                                y: cell.y + cell.h / 2,
+                                vx: (Math.random() - 0.5) * 1.5,
+                                vy: -0.8 - Math.random() * 1.2,
+                                radius: 4.5
+                            });
+
+                            if (molecularSim.remainingCells <= 0) {
+                                molecularSim.remainingCells = 0;
+                                molecularSim.isComplete = true;
+                                updateSimTelemetryUI();
+                            }
+                        }
+                    }
+                });
+            });
+
+            molecularSim.dissolvedMolecules.forEach(m => {
+                m.x += m.vx * molecularSim.speedMultiplier;
+                m.y += m.vy * molecularSim.speedMultiplier;
+                m.vx += (Math.random() - 0.5) * 0.2;
+                m.vy += (Math.random() - 0.5) * 0.2;
+
+                if (m.x < beakerLeft + 5) { m.x = beakerLeft + 5; m.vx *= -0.8; }
+                if (m.x > beakerRight - 5) { m.x = beakerRight - 5; m.vx *= -0.8; }
+                if (m.y < waterTopY + 5) { m.y = waterTopY + 5; m.vy *= -0.8; }
+                if (m.y > beakerBottom - 5) { m.y = beakerBottom - 5; m.vy *= -0.8; }
+            });
+
+            updateSimTelemetryUI();
+        }
+
+        function renderMolecularCanvas() {
+            const ctx = molecularSim.ctx;
+            if (!ctx) return;
+            const W = molecularSim.logicalWidth || 620;
+            const H = molecularSim.logicalHeight || 340;
+            const waterTopY = molecularSim.waterTopY || 155;
+            const beakerLeft = 45;
+            const beakerRight = W - 45;
+            const beakerBottom = H - 30;
+
+            ctx.clearRect(0, 0, W, H);
+
+            ctx.strokeStyle = "rgba(148, 163, 184, 0.4)";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(beakerLeft, 25);
+            ctx.lineTo(beakerLeft, beakerBottom);
+            ctx.arcTo(beakerLeft, beakerBottom + 10, beakerLeft + 10, beakerBottom + 10, 8);
+            ctx.lineTo(beakerRight - 10, beakerBottom + 10);
+            ctx.arcTo(beakerRight, beakerBottom + 10, beakerRight, beakerBottom, 8);
+            ctx.lineTo(beakerRight, 25);
+            ctx.stroke();
+
+            ctx.fillStyle = "rgba(148, 163, 184, 0.5)";
+            ctx.font = "9px monospace";
+            [
+                { vol: 200, y: 45 },
+                { vol: 150, y: 100 },
+                { vol: 100, y: 155 },
+                { vol: 50, y: 210 }
+            ].forEach(t => {
+                ctx.fillRect(beakerLeft, t.y, 10, 1.5);
+                ctx.fillText(`${t.vol} cm³`, beakerLeft + 13, t.y + 3);
+            });
+
+            const grad = ctx.createLinearGradient(0, waterTopY, 0, beakerBottom);
+            grad.addColorStop(0, "rgba(56, 189, 248, 0.22)");
+            grad.addColorStop(1, "rgba(14, 165, 233, 0.45)");
+            ctx.fillStyle = grad;
+            ctx.fillRect(beakerLeft + 2, waterTopY, (beakerRight - beakerLeft) - 4, beakerBottom - waterTopY);
+
+            ctx.strokeStyle = "rgba(56, 189, 248, 0.8)";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(beakerLeft + 2, waterTopY);
+            ctx.lineTo(beakerRight - 2, waterTopY);
+            ctx.stroke();
+
+            molecularSim.lattice.forEach(cell => {
+                if (!cell.alive) return;
+                const damageRatio = cell.hits / cell.maxHits;
+                ctx.fillStyle = damageRatio > 0 ? "rgba(245, 158, 11, 0.85)" : "#f59e0b";
+                ctx.strokeStyle = "#fbbf24";
+                ctx.lineWidth = 1;
+                ctx.fillRect(cell.x, cell.y, cell.w, cell.h);
+                ctx.strokeRect(cell.x, cell.y, cell.w, cell.h);
+            });
+
+            ctx.fillStyle = "#38bdf8";
+            molecularSim.particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = "rgba(186, 230, 253, 0.8)";
+                ctx.beginPath();
+                ctx.arc(p.x - 2.5, p.y - 2.5, 1.5, 0, Math.PI * 2);
+                ctx.arc(p.x + 2.5, p.y - 2.5, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = "#38bdf8";
+            });
+
+            molecularSim.dissolvedMolecules.forEach(m => {
+                ctx.fillStyle = "rgba(52, 211, 153, 0.85)";
+                ctx.beginPath();
+                ctx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.strokeStyle = "rgba(56, 189, 248, 0.6)";
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.arc(m.x, m.y, m.radius + 3, 0, Math.PI * 2);
+                ctx.stroke();
+            });
+
+            if (molecularSim.isComplete) {
+                ctx.fillStyle = "rgba(15, 23, 42, 0.85)";
+                ctx.fillRect(W / 2 - 140, H / 2 - 35, 280, 70);
+                ctx.strokeStyle = "#38bdf8";
+                ctx.lineWidth = 2;
+                ctx.strokeRect(W / 2 - 140, H / 2 - 35, 280, 70);
+
+                ctx.fillStyle = "#38bdf8";
+                ctx.font = "bold 15px system-ui";
+                ctx.textAlign = "center";
+                ctx.fillText("🎉 100% Fully Dissolved!", W / 2, H / 2 - 6);
+                ctx.fillStyle = "#f8fafc";
+                ctx.font = "12px system-ui";
+                ctx.fillText(`耗時: ${molecularSim.elapsedTime.toFixed(1)} 秒 (Water: ${molecularSim.volume} cm³)`, W / 2, H / 2 + 16);
+                ctx.textAlign = "start";
+            }
         }
 
         // ================= COLLAPSIBLE SCAFFOLDING ACCORDION =================
@@ -6954,6 +8098,9 @@ ${JSON.stringify(summaryData, null, 2)}
             renderStudentChatHistory();
             updateAllUI();
             updateDynamicDiscussionPrompts();
+            if (typeof initMolecularSimulator === 'function') {
+                initMolecularSimulator();
+            }
 
             // 2. Update workspace activation UI (lock overlay & top bar status pill)
             updateWorkspaceActivationUI();

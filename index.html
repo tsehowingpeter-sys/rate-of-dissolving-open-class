@@ -524,8 +524,13 @@
                         </div>
                     </div>
                     <span id="studentPeerTargetBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 border border-indigo-300">
-                        🎯 Assigned Group: Group 2
+                        🎯 Assigned Group: Loading... / 指定點評對象
                     </span>
+                </div>
+
+                <div id="stepEBypassBanner" class="hidden p-3 bg-emerald-50 rounded-xl border border-emerald-300 text-xs text-emerald-900 flex items-center gap-2 font-bold">
+                    <i data-lucide="unlock" class="w-4 h-4 text-emerald-600"></i>
+                    <span>🔓 Teacher Granted Access: You can now proceed with Step 5 Peer Review! / 老師已開放通行權限，本組可直接進行跨組互評！</span>
                 </div>
 
                 <div id="stepELockedBanner" class="p-6 text-center space-y-2 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
@@ -1184,7 +1189,7 @@
                                 <span class="text-[10px] text-slate-400 font-normal">可直接輸入或微調照片辨識文字</span>
                             </label>
                             
-                            <textarea id="studentAnswerText" rows="3" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 bg-slate-50/50 resize-none leading-relaxed" placeholder="Type or upload student answers... E.g., Group 4 wrote: 'More water has more water molecules colliding with salt crystals, dissolving salt faster; but at 5000 cm³ it won't be 0s because dismantling salt lattice takes time.' / 例如：第4組寫『水量增加時水分子變多，碰撞食鹽晶體頻率提高所以溶解加快；但加到5000cm³不會是0秒因為拆解晶格需要時間』"></textarea>
+                            <textarea id="studentAnswerText" rows="3" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 bg-slate-50/50 resize-none leading-relaxed" placeholder="Type or upload student answers... E.g., 'More water has more water molecules colliding with salt crystals, dissolving salt faster; but at 5000 cm³ it won't be 0s because dismantling salt lattice takes time.' / 例如：『水量增加時水分子變多，碰撞食鹽晶體頻率提高所以溶解加快；但加到5000cm³不會是0秒因為拆解晶格需要時間』"></textarea>
                             
                             <!-- Quick Preset Demo Chips for Open Class (Bilingual & Concise) -->
                             <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
@@ -1229,17 +1234,17 @@
                             <div class="flex items-center gap-2">
                                 <span class="text-base">🎯</span>
                                 <h5 class="text-xs sm:text-sm font-extrabold text-amber-950 font-fun">
-                                    AI 學生作答深度概念診斷與教學引導報告
+                                    AI Student Response Concept Diagnosis & Pedagogical Guidance Report / AI 學生作答深度概念診斷與教學引導報告
                                 </h5>
                             </div>
                             <div class="flex items-center gap-2">
                                 <button onclick="openProjectorModal()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs rounded-lg shadow transition flex items-center gap-1.5">
                                     <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
-                                    <span>全班大螢幕投影模式 (Project)</span>
+                                    <span>Projector Mode / 全班大螢幕投影模式</span>
                                 </button>
                                 <button onclick="copyPedagogyPrompts()" class="px-3 py-1.5 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs rounded-lg border border-slate-200 transition flex items-center gap-1">
                                     <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                    <span id="copyBtnText">複製提問</span>
+                                    <span id="copyBtnText">Copy Prompts / 複製提問</span>
                                 </button>
                             </div>
                         </div>
@@ -1250,29 +1255,29 @@
                             <div class="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 space-y-1.5 shadow-sm">
                                 <div class="flex items-center gap-1.5 text-emerald-900 font-extrabold text-xs">
                                     <span class="text-emerald-600">🌟</span>
-                                    <span>肯定思維亮點 (Praise & Strengths)</span>
+                                    <span>Praise & Strengths / 肯定思維亮點</span>
                                 </div>
-                                <p id="pedagogyPraise" class="text-slate-700 text-[11px] leading-relaxed">
+                                <div id="pedagogyPraise" class="text-slate-700 text-[11px] leading-relaxed">
                                     --
-                                </p>
+                                </div>
                             </div>
 
                             <!-- Card 2: Conceptual Diagnostic -->
                             <div class="p-3.5 bg-rose-50/80 rounded-xl border border-rose-200 space-y-1.5 shadow-sm">
                                 <div class="flex items-center gap-1.5 text-rose-900 font-extrabold text-xs">
                                     <span class="text-rose-600">🔍</span>
-                                    <span>認知盲點與微觀診斷 (Diagnostic)</span>
+                                    <span>Conceptual Diagnostic / 認知盲點與微觀診斷</span>
                                 </div>
-                                <p id="pedagogyDiagnostic" class="text-slate-700 text-[11px] leading-relaxed">
+                                <div id="pedagogyDiagnostic" class="text-slate-700 text-[11px] leading-relaxed">
                                     --
-                                </p>
+                                </div>
                             </div>
 
                             <!-- Card 3: Inspiring Follow-up Prompts -->
                             <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-300 space-y-1.5 shadow-sm">
                                 <div class="flex items-center gap-1.5 text-amber-950 font-extrabold text-xs">
                                     <span class="text-amber-600">💡</span>
-                                    <span>全班延伸啟發追問 (Inspiring Prompts)</span>
+                                    <span>Inspiring Follow-up Prompts / 全班延伸啟發追問</span>
                                 </div>
                                 <div id="pedagogyPrompts" class="text-slate-800 text-[11px] leading-relaxed space-y-1">
                                     --
@@ -1358,9 +1363,127 @@
 
             </div>
 
+            <!-- SECTION: Emergency Step Bypass & Force Unlock (Teacher Permission Control) -->
+            <div class="bg-gradient-to-r from-amber-950/80 via-slate-900 to-indigo-950 text-white rounded-3xl p-6 shadow-xl border border-amber-500/40 space-y-4">
+                <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-white/10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center text-xl font-bold shadow-md">
+                            🚀
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 tracking-wider">
+                                    Teacher Emergency Bypass
+                                </span>
+                                <span class="text-[10px] font-bold text-amber-200 bg-amber-950/60 px-2 py-0.5 rounded-full border border-amber-400/30">
+                                    Step Permissions / 步驟通行權限
+                                </span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold font-fun text-white mt-0.5">
+                                Emergency Step Permission & Force Unlock / 課堂應急：步驟放行與強制解鎖控制
+                            </h3>
+                            <p class="text-xs text-slate-300">
+                                當小組因實驗意外或同儕延遲卡關時，教師可即時開放權限讓指定組別直接進入下一步或全面解鎖！
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center bg-white/5 p-4 rounded-2xl border border-white/10">
+                    <div class="md:col-span-4 space-y-1.5">
+                        <label class="block text-xs font-bold text-amber-200">
+                            1. Select Target Group / 選擇開放組別：
+                        </label>
+                        <select id="teacherBypassGroupSelect" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 text-white border border-amber-400/40 focus:ring-2 focus:ring-amber-400 font-bold">
+                            <option value="ALL">🌐 All 8 Groups / 全班所有組別</option>
+                            <option value="Group 1">Group 1</option>
+                            <option value="Group 2">Group 2</option>
+                            <option value="Group 3">Group 3</option>
+                            <option value="Group 4">Group 4</option>
+                            <option value="Group 5">Group 5</option>
+                            <option value="Group 6">Group 6</option>
+                            <option value="Group 7">Group 7</option>
+                            <option value="Group 8">Group 8</option>
+                        </select>
+                    </div>
 
-        </div>
+                    <div class="md:col-span-5 space-y-1.5">
+                        <label class="block text-xs font-bold text-amber-200">
+                            2. Select Step Permission / 選擇開放環節：
+                        </label>
+                        <select id="teacherBypassStepSelect" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 text-white border border-amber-400/40 focus:ring-2 focus:ring-amber-400 font-bold">
+                            <option value="NEXT">⏩ Proceed to Next Step / 直接開放進入下一步 (+1 Step)</option>
+                            <option value="ALL_STEPS">🌟 Unlock All 7 Steps / 全面解鎖所有 7 個步驟 (Bypass All)</option>
+                            <option value="2">Step 2: Class Charts & Outliers / 解鎖多組折線圖</option>
+                            <option value="3">Step 3: Agent Water AI Dialogue / 解鎖水精靈對話探究</option>
+                            <option value="4">Step 4: Key Learning Summary / 解鎖關鍵學習小結</option>
+                            <option value="5">Step 5: Peer Review Matrix / 解鎖跨組對話互評</option>
+                            <option value="6">Step 6: Molecular Dissolving Sim / 解鎖微觀分子模擬器</option>
+                            <option value="7">Step 7: Critical Reflection / 解鎖批判性實驗反思</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-3 flex flex-col justify-end gap-2 pt-2 md:pt-6">
+                        <button type="button" onclick="executeTeacherStepBypass()" class="w-full py-2.5 px-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 active:scale-95 text-white font-extrabold text-xs rounded-xl shadow-lg transition flex items-center justify-center gap-1.5">
+                            <i data-lucide="unlock" class="w-4 h-4"></i>
+                            <span>開放權限 (Grant Access)</span>
+                        </button>
+                        <button type="button" onclick="resetTeacherStepBypass()" class="w-full py-1.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-[11px] rounded-lg transition border border-slate-700 text-center">
+                            恢復常規限制 (Reset)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Real-time Status Badge Strip -->
+                <div id="teacherBypassStatusDisplay" class="flex items-center gap-2 flex-wrap text-xs text-slate-300 pt-1">
+                    <span class="text-[11px] text-slate-400">目前全班處於標準探究關卡進度（無強制放行）</span>
+                </div>
+            </div>
+
+            <!-- SECTION: Cross-Group Peer Review Allocation & Management -->
+            <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-200/90 space-y-4">
+                <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-slate-100">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 text-white flex items-center justify-center text-xl font-bold shadow-md">
+                            🤝
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-indigo-600 text-white tracking-wider">
+                                    Peer Review Management
+                                </span>
+                                <span class="text-[10px] font-bold text-indigo-800 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-200">
+                                    Allocation Matrix / 點評分配矩陣
+                                </span>
+                            </div>
+                            <h3 class="text-base sm:text-lg font-bold font-fun text-slate-800 mt-0.5">
+                                Cross-Group Peer Review Allocation & Management / 跨組互評配對設計與調配中心
+                            </h3>
+                            <p class="text-xs text-slate-500">
+                                教師可自由設計各組負責點評的目標組別，或一鍵套用循環/對等配對，設定即時同步至學生端 Step 5！
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pairing Preset Buttons -->
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" onclick="setPeerReviewPairingType('circular')" class="px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-bold text-xs border border-indigo-200 transition flex items-center gap-1.5 shadow-xs">
+                            <span>🔄 順序循環 (1➔2➔3...➔1)</span>
+                        </button>
+                        <button type="button" onclick="setPeerReviewPairingType('reciprocal')" class="px-3 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-800 font-bold text-xs border border-purple-200 transition flex items-center gap-1.5 shadow-xs">
+                            <span>🔁 對等雙向 (1⮂2, 3⮂4...)</span>
+                        </button>
+                        <button type="button" onclick="setPeerReviewPairingType('staggered')" class="px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-800 font-bold text-xs border border-sky-200 transition flex items-center gap-1.5 shadow-xs">
+                            <span>🎲 間隔配對 (1➔3, 2➔4...)</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 8 Groups Interactive Pairing Matrix Grid -->
+                <div id="peerReviewMatrixGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+                    <!-- Injected by renderPeerReviewMatrixGrid() -->
+                </div>
+            </div>
 
         <!-- ================= AI SYSTEM ADMIN DASHBOARD (RESTRICTED ACCESS) ================= -->
         <div id="adminViewSection" class="hidden space-y-6">
@@ -2483,17 +2606,21 @@
 1. 學生可能會提出各種不同維度的思考，包括微觀水分子模型、空間阻力偏誤、溫度或攪拌誤差，甚至是極具創意的 STEM / 工程傳感器自動化方案（例如：光閘感測器 Light Gate Sensors、Micro:bit / Arduino 自動計時、手機 240fps 慢動作錄影等）。
 2. 請精確辨識相片中的字跡，絕不要產生胡亂拼湊的亂碼。
 3. 核心追問與深度挑戰必須「100% 針對相片中學生提出的具體方案與關鍵詞」進行量身打造，絕不要輸出通用罐頭題目！
+4. 語言優先順序：必須雙語 (Bilingual)，且「英文必須排在前面 (English first)，中文接在後面 (Chinese second)」。
+5. 切勿提及任何特定組別編號（例如第幾組、Group X），一律使用「The student / 學生」稱呼。
 
 請嚴格輸出合法的 JSON 物件（不要包含任何 markdown 代碼塊標籤如 \`\`\`json，直接輸出 JSON 內容）：
 {
-  "transcription": "工整精確地抄錄相片中的手寫或印刷文字內容（繁中英兼顧，修正錯別字與排版）",
-  "focusTag": "核心思維標籤（例如：STEM 自動化與傳感器工程 / Sensor & Automation）",
-  "praise": "🌟 思維亮點：具體引用學生相片中的原話與核心構想給予高度肯定",
-  "diag": "🔍 概念診斷：深入剖析學生方案背後的科學原理、工程解決邏輯或潛在技術邊界",
-  "promptQ1": "1. 核心追問 1：針對相片中學生具體方案量身訂製的全班深入論證問題（繁體中文）",
-  "promptQ1En": "Question 1 in English translation",
-  "promptQ2": "2. 深度挑戰 2：針對相片中學生具體方案量身訂製的全班極限或認知衝突辯論問題（繁體中文）",
-  "promptQ2En": "Question 2 in English translation"
+  "transcription": "工整精確地抄錄相片中的手寫或印刷文字內容（繁中英兼顧）",
+  "focusTag": "Sensor & Automation Engineering / STEM 自動化與傳感器工程",
+  "praiseEn": "Praise highlighting student reasoning strengths in English",
+  "praiseZh": "🌟 思維亮點：肯定學生的思維優點（繁體中文）",
+  "diagEn": "Conceptual diagnosis and microscopic analysis in English",
+  "diagZh": "🔍 概念診斷：深入剖析學生觀點（繁體中文）",
+  "promptQ1En": "1. Core Inquiry Question 1 for class debate in English",
+  "promptQ1Zh": "1. 核心追問 1：全班深入論證問題（繁體中文）",
+  "promptQ2En": "2. Cognitive Challenge Question 2 in English",
+  "promptQ2Zh": "2. 深度挑戰 2：全班極限或認知衝突辯論問題（繁體中文）"
 }
 `;
 
@@ -2554,17 +2681,21 @@
 請注意：
 1. 學生可能會提出各種不同維度的思考，包括微觀水分子碰撞、空間阻力偏誤、溫度或攪拌誤差、STEM傳感器工程（光閘、Micro:bit、慢動作錄影等）。
 2. 核心追問與深度挑戰必須「100% 針對學生具體提出的觀點與關鍵詞」進行量身打造，絕不要輸出通用罐頭題目！
+3. 語言優先順序：必須雙語 (Bilingual)，且「英文必須排在前面 (English first)，中文接在後面 (Chinese second)」。
+4. 切勿提及任何特定組別編號（例如第幾組、Group X），一律使用「The student / 學生」稱呼。
 
 請嚴格輸出合法的 JSON 物件（不要包含任何 markdown 代碼塊標籤如 \`\`\`json，直接輸出 JSON 內容）：
 {
   "transcription": "${studentText.replace(/"/g, '\\"')}",
-  "focusTag": "核心思維標籤（例如：STEM 自動化與傳感器工程 / Sensor & Automation）",
-  "praise": "🌟 思維亮點：具體引用學生的原話與核心構想給予高度肯定",
-  "diag": "🔍 概念診斷：深入剖析學生觀點背後的科學原理、工程解決邏輯或潛在認知邊界",
-  "promptQ1": "1. 核心追問 1：針對學生觀點量身訂製的全班深入論證問題（繁體中文）",
-  "promptQ1En": "Question 1 in English translation",
-  "promptQ2": "2. 深度挑戰 2：針對學生觀點量身訂製的全班極限或認知衝突辯論問題（繁體中文）",
-  "promptQ2En": "Question 2 in English translation"
+  "focusTag": "Sensor & Automation Engineering / STEM 自動化與傳感器工程",
+  "praiseEn": "Praise highlighting student reasoning strengths in English",
+  "praiseZh": "🌟 思維亮點：肯定學生的思維優點（繁體中文）",
+  "diagEn": "Conceptual diagnosis and microscopic analysis in English",
+  "diagZh": "🔍 概念診斷：深入剖析學生觀點（繁體中文）",
+  "promptQ1En": "1. Core Inquiry Question 1 for class debate in English",
+  "promptQ1Zh": "1. 核心追問 1：全班深入論證問題（繁體中文）",
+  "promptQ2En": "2. Cognitive Challenge Question 2 in English",
+  "promptQ2Zh": "2. 深度挑戰 2：全班極限或認知衝突辯論問題（繁體中文）"
 }
 `;
 
@@ -4974,6 +5105,9 @@ ${JSON.stringify(summaryData, null, 2)}
         function updateTaskGatingUI() {
             const groupData = classData[currentRole]?.data;
             const hasData = !!(groupData && !isNaN(groupData[50]) && !isNaN(groupData[100]) && !isNaN(groupData[150]) && !isNaN(groupData[200]));
+            const maxBypassStep = classData[currentRole]?.unlockedUpToStep || 1;
+            const isStepBypassed = (s) => (maxBypassStep >= s) || !!(classData[currentRole]?.forceUnlockedSteps && classData[currentRole]?.forceUnlockedSteps[s]);
+
             const stage = classData[currentRole]?.stage || 0;
             const userChatLogs = (classData[currentRole]?.chatLogs || []).filter(m => m.sender === 'user');
             const hasDialogueCompleted = (stage >= 4) || (stage >= 3 && userChatLogs.length >= 3);
@@ -4983,22 +5117,31 @@ ${JSON.stringify(summaryData, null, 2)}
             const reflection = classData[currentRole]?.reflection;
             const hasReflection = !!(reflection && (reflection.nowIThink || '').trim().length >= 2);
 
+            const canAccessStep3 = hasData || isStepBypassed(3);
+            const canAccessStep4 = hasDialogueCompleted || isStepBypassed(4);
+            const canAccessStep5 = hasDialogueCompleted || isStepBypassed(5);
+            const canAccessStep6 = hasPeerReview || isStepBypassed(6);
+            const canAccessStep7 = hasSimConcepts || isStepBypassed(7);
+
             // 1. Overall Progress Badge
             const progressBadge = document.getElementById('taskOverallProgressBadge');
             if (progressBadge) {
                 if (hasReflection) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
                     progressBadge.innerText = "🎉 All 7 Tasks Completed! (7/7)";
-                } else if (hasSimConcepts) {
+                } else if (hasSimConcepts || isStepBypassed(7)) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
-                    progressBadge.innerText = "In Progress: Step 7 / 7 (Thinking Routine)";
-                } else if (hasPeerReview) {
+                    progressBadge.innerText = "In Progress: Step 7 / 7 (Thinking Routine)" + (isStepBypassed(7) && !hasSimConcepts ? " 🔓" : "");
+                } else if (hasPeerReview || isStepBypassed(6)) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300";
-                    progressBadge.innerText = "In Progress: Step 6 / 7 (Molecular Sim)";
-                } else if (hasDialogueCompleted) {
+                    progressBadge.innerText = "In Progress: Step 6 / 7 (Molecular Sim)" + (isStepBypassed(6) && !hasPeerReview ? " 🔓" : "");
+                } else if (hasDialogueCompleted || isStepBypassed(5)) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-300";
-                    progressBadge.innerText = "In Progress: Step 5 / 7 (Peer Review)";
-                } else if (hasData) {
+                    progressBadge.innerText = "In Progress: Step 5 / 7 (Peer Review)" + (isStepBypassed(5) && !hasDialogueCompleted ? " 🔓" : "");
+                } else if (canAccessStep4) {
+                    progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-300";
+                    progressBadge.innerText = "In Progress: Step 4 / 7 (Key Summary)";
+                } else if (canAccessStep3) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300";
                     progressBadge.innerText = "In Progress: Step 3 / 7 (Agent Water)";
                 } else {
@@ -5043,26 +5186,26 @@ ${JSON.stringify(summaryData, null, 2)}
             // 2. Graph & Data
             setIndicator('stepIndicatorB', 'stepNumberB', 'stepSubB', hasData, true, "✅ Active", "Overview", "Overview");
             // 3. Agent Water
-            setIndicator('stepIndicatorC', 'stepNumberC', 'stepSubC', hasDialogueCompleted, hasData, "✅ Dialogue Done", "In Progress", "🔒 Locked");
+            setIndicator('stepIndicatorC', 'stepNumberC', 'stepSubC', hasDialogueCompleted, canAccessStep3, "✅ Dialogue Done", "In Progress", "🔒 Locked");
             // 4. Key Summary
-            setIndicator('stepIndicatorD', 'stepNumberD', 'stepSubD', (hasPeerReview || hasSimConcepts || hasReflection), hasDialogueCompleted, "✅ Synthesized", "View Points", "🔒 Locked");
+            setIndicator('stepIndicatorD', 'stepNumberD', 'stepSubD', (hasPeerReview || hasSimConcepts || hasReflection), canAccessStep4, "✅ Synthesized", "View Points", "🔒 Locked");
             // 5. Peer Review
-            setIndicator('stepIndicatorE', 'stepNumberE', 'stepSubE', hasPeerReview, hasDialogueCompleted, "✅ Reviewed", "In Progress", "🔒 Locked");
+            setIndicator('stepIndicatorE', 'stepNumberE', 'stepSubE', hasPeerReview, canAccessStep5, "✅ Reviewed", isStepBypassed(5) && !hasDialogueCompleted ? "🔓 Teacher Bypass" : "In Progress", "🔒 Locked");
             // 6. Molecular Sim
-            setIndicator('stepIndicatorF', 'stepNumberF', 'stepSubF', hasSimConcepts, hasPeerReview, "✅ Mastered", "In Progress", "🔒 Locked");
+            setIndicator('stepIndicatorF', 'stepNumberF', 'stepSubF', hasSimConcepts, canAccessStep6, "✅ Mastered", isStepBypassed(6) && !hasPeerReview ? "🔓 Teacher Bypass" : "In Progress", "🔒 Locked");
             // 7. Thinking Routine
-            setIndicator('stepIndicatorG', 'stepNumberG', 'stepSubG', hasReflection, hasSimConcepts, "✅ Submitted", "In Progress", "🔒 Locked");
+            setIndicator('stepIndicatorG', 'stepNumberG', 'stepSubG', hasReflection, canAccessStep7, "✅ Submitted", isStepBypassed(7) && !hasSimConcepts ? "🔓 Teacher Bypass" : "In Progress", "🔒 Locked");
 
             // Step 3 (Chat Input & Send Button) Gating
             const chatInput = document.getElementById('userInput');
             const chatSendBtn = document.getElementById('chatSendBtn');
             if (chatInput && chatSendBtn) {
-                if (!hasData) {
+                if (!canAccessStep3) {
                     chatInput.disabled = true;
                     chatInput.placeholder = "🔒 Step 3 locked: Please enter & submit 4 timings in Step 1 first...";
                     chatSendBtn.disabled = true;
                     chatSendBtn.classList.add('opacity-40', 'cursor-not-allowed');
-                } else if (!hasDialogueCompleted) {
+                } else if (!hasDialogueCompleted || isStepBypassed(3)) {
                     chatInput.disabled = false;
                     chatInput.placeholder = "Type your scientific thought, or select options above...";
                     chatSendBtn.disabled = false;
@@ -5075,7 +5218,7 @@ ${JSON.stringify(summaryData, null, 2)}
             const stepDLocked = document.getElementById('stepDLockedBanner');
             const stepDBadge = document.getElementById('stepDStatusBadge');
             if (stepDContent && stepDLocked) {
-                if (hasDialogueCompleted) {
+                if (canAccessStep4) {
                     stepDContent.classList.remove('hidden');
                     stepDLocked.classList.add('hidden');
                     if (stepDBadge) {
@@ -5092,14 +5235,23 @@ ${JSON.stringify(summaryData, null, 2)}
             // Step 5 (Peer Review) Gating
             const stepEContent = document.getElementById('stepEContentContainer');
             const stepELocked = document.getElementById('stepELockedBanner');
+            const stepEBypassBanner = document.getElementById('stepEBypassBanner');
             if (stepEContent && stepELocked) {
-                if (hasDialogueCompleted) {
+                if (canAccessStep5) {
                     stepEContent.classList.remove('hidden');
                     stepELocked.classList.add('hidden');
+                    if (stepEBypassBanner) {
+                        if (isStepBypassed(5) && !hasDialogueCompleted) {
+                            stepEBypassBanner.classList.remove('hidden');
+                        } else {
+                            stepEBypassBanner.classList.add('hidden');
+                        }
+                    }
                     renderStudentPeerReviewUI();
                 } else {
                     stepEContent.classList.add('hidden');
                     stepELocked.classList.remove('hidden');
+                    if (stepEBypassBanner) stepEBypassBanner.classList.add('hidden');
                 }
             }
 
@@ -5108,7 +5260,7 @@ ${JSON.stringify(summaryData, null, 2)}
             const stepFLocked = document.getElementById('stepFLockedBanner');
             const stepFBadge = document.getElementById('stepFStatusBadge');
             if (stepFContent && stepFLocked) {
-                if (hasPeerReview) {
+                if (canAccessStep6) {
                     stepFContent.classList.remove('hidden');
                     stepFLocked.classList.add('hidden');
                     if (stepFBadge) {
@@ -5126,7 +5278,7 @@ ${JSON.stringify(summaryData, null, 2)}
             const stepGLocked = document.getElementById('stepGLockedBanner');
             const refBadge = document.getElementById('reflectionStatusBadge');
             if (stepGContent && stepGLocked) {
-                if (hasSimConcepts) {
+                if (canAccessStep7) {
                     stepGContent.classList.remove('hidden');
                     stepGLocked.classList.add('hidden');
                     if (hasReflection) {
@@ -5804,6 +5956,12 @@ ${JSON.stringify(summaryData, null, 2)}
             updateAiConfigFormUI();
             updateTokenMonitorUI();
             updateAiStatusUI();
+            if (typeof renderPeerReviewMatrixGrid === 'function') {
+                renderPeerReviewMatrixGrid();
+            }
+            if (typeof updateTeacherBypassUI === 'function') {
+                updateTeacherBypassUI();
+            }
             if (typeof initMolecularSimulator === 'function') {
                 initMolecularSimulator();
             }
@@ -6733,15 +6891,15 @@ ${JSON.stringify(summaryData, null, 2)}
             if (!textarea) return;
 
             if (type === 'microscopic') {
-                textarea.value = "Group 4: More water provides more water molecules colliding with salt crystals per second, dissolving salt faster. Even at 5,000 cm³ water, time won't be 0s because breaking the crystal lattice takes time.\n第4組：水量增加時水分子變多，每秒碰撞鹽晶體頻率大增，溶解加快；但加到5,000 cm³也不會是0秒，因拆解鹽晶格仍需時間。";
+                textarea.value = "More water provides more water molecules colliding with salt crystals per second, dissolving salt faster. Even at 5,000 cm³ water, time won't be 0s because breaking the crystal lattice takes time.\n水量增加時水分子變多，每秒碰撞鹽晶體頻率大增，溶解加快；但加到5,000 cm³也不會是0秒，因拆解鹽晶格仍需時間。";
             } else if (type === 'misconception') {
-                textarea.value = "Group 2: More water creates a deeper beaker. Salt has a longer distance to travel, so dissolving takes longer.\n第2組：水量變多杯水更深，食鹽在水中要走的路程更遠，所以溶解時間變長。";
+                textarea.value = "More water creates a deeper beaker. Salt has a longer distance to travel, so dissolving takes longer.\n水量變多杯水更深，食鹽在水中要走的路程更遠，所以溶解時間變長。";
             } else if (type === 'human_error') {
-                textarea.value = "Group 6: Our line was 20s slower than average because our hand got tired and stirred slower in later trials.\n第6組：我們組比全班平均慢20秒，因為攪拌時手累了轉速變慢。";
+                textarea.value = "Our timing was 20s slower than class average because our hand got tired and stirred slower in later trials.\n實測數據比全班平均慢20秒，因為攪拌時手累了轉速變慢。";
             } else if (type === 'timer_latency') {
-                textarea.value = "Group 5: Spotting the exact moment the last salt crystal disappears is subjective. Stopwatch human reaction delay (~0.3s) causes random error.\n第5組：肉眼判斷最後一顆鹽粒消失具主觀性，加上碼錶人體反應延遲（約0.3秒），造成隨機誤差。";
+                textarea.value = "Spotting the exact moment the last salt crystal disappears is subjective. Stopwatch human reaction delay (~0.3s) causes random error.\n肉眼判斷最後一顆鹽粒消失具主觀性，加上碼錶人體反應延遲（約0.3秒），造成隨機誤差。";
             } else if (type === 'solubility_vs_rate') {
-                textarea.value = "Group 1: More water has a larger capacity to dissolve more salt, so dissolving rate naturally gets faster.\n第1組：水量越多能容納溶解的食鹽量越多（容量更大），所以溶解速度自然變快。";
+                textarea.value = "More water has a larger capacity to dissolve more salt, so dissolving rate naturally gets faster.\n水量越多能容納溶解的食鹽量越多（容量更大），所以溶解速度自然變快。";
             }
             textarea.focus();
         }
@@ -6763,17 +6921,19 @@ ${JSON.stringify(summaryData, null, 2)}
 
             if (btn) {
                 btn.disabled = true;
-                btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i><span>AI 深度學情分析中...</span>`;
+                btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i><span>AI Analyzing (English & Chinese)...</span>`;
                 if (window.lucide) lucide.createIcons();
             }
 
-            let praise = "";
-            let diag = "";
-            let promptQ1 = "";
+            let praiseEn = "";
+            let praiseZh = "";
+            let diagEn = "";
+            let diagZh = "";
             let promptQ1En = "";
-            let promptQ2 = "";
+            let promptQ1Zh = "";
             let promptQ2En = "";
-            let focusTag = "科學探究 / Scientific Inquiry";
+            let promptQ2Zh = "";
+            let focusTag = "Scientific Inquiry / 科學探究";
             let usedAiApi = false;
 
             // 1. Try Gemini Vision / Text API if API Key is configured
@@ -6786,13 +6946,15 @@ ${JSON.stringify(summaryData, null, 2)}
                         aiPedagogy = await callGeminiTextPedagogy(text);
                     }
 
-                    if (aiPedagogy && aiPedagogy.praise && aiPedagogy.promptQ1) {
-                        praise = aiPedagogy.praise;
-                        diag = aiPedagogy.diag || '';
-                        promptQ1 = aiPedagogy.promptQ1;
-                        promptQ1En = aiPedagogy.promptQ1En || '';
-                        promptQ2 = aiPedagogy.promptQ2;
-                        promptQ2En = aiPedagogy.promptQ2En || '';
+                    if (aiPedagogy && (aiPedagogy.praiseEn || aiPedagogy.praise) && (aiPedagogy.promptQ1En || aiPedagogy.promptQ1)) {
+                        praiseEn = aiPedagogy.praiseEn || aiPedagogy.praise || '';
+                        praiseZh = aiPedagogy.praiseZh || (aiPedagogy.praiseEn ? (aiPedagogy.praise || '') : '');
+                        diagEn = aiPedagogy.diagEn || aiPedagogy.diag || '';
+                        diagZh = aiPedagogy.diagZh || (aiPedagogy.diagEn ? (aiPedagogy.diag || '') : '');
+                        promptQ1En = aiPedagogy.promptQ1En || aiPedagogy.promptQ1 || '';
+                        promptQ1Zh = aiPedagogy.promptQ1Zh || aiPedagogy.promptQ1 || '';
+                        promptQ2En = aiPedagogy.promptQ2En || aiPedagogy.promptQ2 || '';
+                        promptQ2Zh = aiPedagogy.promptQ2Zh || aiPedagogy.promptQ2 || '';
                         focusTag = aiPedagogy.focusTag || focusTag;
 
                         if (aiPedagogy.transcription && aiPedagogy.transcription.length > 5) {
@@ -6811,187 +6973,233 @@ ${JSON.stringify(summaryData, null, 2)}
             if (!usedAiApi) {
                 const lower = (textarea ? textarea.value.trim() : text).toLowerCase();
 
-                // Extract group citation if present
-                let groupPrefix = "同學";
-                const grpMatch = (textarea ? textarea.value : text).match(/第\s*([1-8一二三四五六七八])\s*組|Group\s*([1-8])/i);
-                if (grpMatch) {
-                    const num = grpMatch[1] || grpMatch[2];
-                    groupPrefix = `第 ${num} 組`;
-                }
-
-                // 0. STEM Instrumentation & Sensor Engineering (Light Gate, Micro:bit, 240fps Video, Sensors)
+                // 0. STEM Instrumentation & Sensor Engineering
                 if (/(?:光閘|micro:?bit|arduino|感測器|傳感器|慢動作|240\s*fps|高幀率|幀率|錄影|重播|逐幀|開關|光敏|超聲波|濁度|light\s*gate|sensor|microbit|frame\s*by\s*frame|fps)/i.test(lower)) {
-                    focusTag = "STEM 自動化與傳感器工程 / Sensor & Automation Engineering";
-                    praise = `🌟 頂尖的工程與 STEM 創客思維！${groupPrefix}跳出傳統實驗框架，主動構思『光閘感測器、Micro:bit 自動化與 240fps 慢動作錄影』三大方案，試圖用現代科技徹底消除人手碼錶的反應時差！`;
-                    diag = `🔍 展現極佳的工程解決問題能力 (Engineering Design Process)。已從純粹的『反思誤差』躍升為『設計儀器消除誤差』。教學上應引導全班探討傳感器在液體濁度判定上的技術邊界。`;
-                    promptQ1 = `1. ${groupPrefix}提議使用『光閘感測器 (Light Gate)』或 Micro:bit。在食鹽溶解過程中水會變混濁，光閘的透光率閾值該如何設定，才能客觀判定食鹽已『完全溶解』而不是暫時被水流遮擋？`;
-                    promptQ1En = `When using Light Gate sensors, dissolving salt creates turbidity. How should the light transmission threshold be calibrated to objectively confirm 100% dissolution?`;
-                    promptQ2 = `2. 手機 240 fps 慢動作錄影精確至 0.004 秒。如果肉眼在影片重播中依然難以看清最後一小粒晶體融解的精確瞬間，高幀率錄影是否能完全解決『肉眼主觀終點』的本質問題？`;
-                    promptQ2En = `240fps video achieves 0.004s resolution. If human eyes still struggle to pinpoint the final microscopic crystal disappearance in playback, does high frame rate fully eliminate subjective endpoint ambiguity?`;
+                    focusTag = "Sensor & Automation Engineering / STEM 自動化與傳感器工程";
+                    praiseEn = "🌟 Exemplary engineering & STEM maker mindset! The student transcended traditional lab boundaries by proposing light gate sensors, Micro:bit automation, and 240fps slow-motion recording to eliminate human stopwatch reaction latency!";
+                    praiseZh = "🌟 頂尖的工程與 STEM 創客思維！學生跳出傳統實驗框架，主動構思光閘感測器、Micro:bit 自動化與 240fps 慢動作錄影三大方案，試圖用現代科技徹底消除人手碼錶的反應時差！";
+                    diagEn = "🔍 Demonstrates high-level Engineering Design Process (EDP). The student progressed from simply recognizing human error to engineering technical mechanisms to eradicate it. Guide the class to examine the physical sensor threshold in turbulent liquids.";
+                    diagZh = "🔍 展現極佳的工程解決問題能力 (EDP)。學生已從純粹的『反思誤差』躍升為『設計儀器消除誤差』。教學上應引導全班探討傳感器在液體濁度判定上的技術邊界。";
+                    promptQ1En = "1. When using Light Gate sensors, dissolving salt generates liquid turbidity. How should the light transmission threshold be calibrated to objectively confirm 100% complete dissolution rather than temporary fluid blockage?";
+                    promptQ1Zh = "1. 學生提議使用『光閘感測器 (Light Gate)』或 Micro:bit。在食鹽溶解過程中水會變混濁，光閘的透光率閾值該如何設定，才能客觀判定食鹽已『完全溶解』而不是暫時被水流遮擋？";
+                    promptQ2En = "2. Smartphone 240fps slow-motion video achieves 0.004s resolution. If naked human eyes still struggle to pinpoint the final microscopic crystal disappearance during playback, does high frame rate fully eliminate subjective endpoint ambiguity?";
+                    promptQ2Zh = "2. 手機 240 fps 慢動作錄影精確至 0.004 秒。如果肉眼在影片重播中依然難以看清最後一小粒晶體融解的精確瞬間，高幀率錄影是否能完全解決『肉眼主觀終點』的本質問題？";
                 }
-                // Sound in Vacuum / Bell Jar Experiment (e.g. alarm clock, ringing, pumped out, vacuum, medium, sound wave)
+                // Sound in Vacuum / Bell Jar Experiment
                 else if (/(?:alarm\s*clock|ringing|pumped\s*out|vacuum|sound\s*can(?:'t|not)\s*hear|cannot\s*hear|can't\s*hear|真空|鬧鐘|抽走|抽氣|介質|空氣抽走|傳聲|聲波)/i.test(lower)) {
-                    focusTag = "聲音傳播與真空實驗 / Sound Propagation & Vacuum Bell Jar";
-                    praise = `🌟 卓越的物理概念洞察！${groupPrefix}精確捕捉到聲音傳播的核心物理規律：聲音需要空氣作為介質 (Medium)，當真空罩內的空氣被抽走 (air pumped out)，聲波無法在真空中傳遞，因此男孩聽不到鬧鐘鈴聲！`;
-                    diag = `🔍 扎實的物理波動與粒子模型思維。學生能準確將『空氣被抽走』與『聽不到聲音』建立因果關係。教學上應引導全班探討『雖然聽不到聲音，但能否看見鬧鐘的鎚子仍在敲擊』以區分聲波與光波的傳播本質！`;
-                    promptQ1 = `1. 當空氣被抽真空後，男孩聽不到鈴聲。但如果我們看著玻璃鐘罩，我們還能『看到』鬧鐘的指針在動、敲擊鎚在震動嗎？這說明光波與聲波在真空中的傳播有何本質不同？`;
-                    promptQ1En = `When air is pumped out, the boy cannot hear the ringing. Can we still SEE the alarm clock hammer vibrating through the bell jar? What fundamental difference does this reveal between light waves and sound waves in a vacuum?`;
-                    promptQ2 = `2. 如果在玻璃鐘罩完全抽真空的情況下，將耳朵緊貼在玻璃鐘罩壁上，我們能否透過『玻璃固體介質』隱約聽到振動聲？這如何證明聲音可以在不同態（氣體、固體）的介質中傳播？`;
-                    promptQ2En = `In an evacuated bell jar, if you press your ear firmly against the glass wall, could sound vibrations travel through the solid glass? How does this prove sound travels through different states of matter?`;
+                    focusTag = "Sound Propagation & Vacuum Bell Jar / 聲音傳播與真空實驗";
+                    praiseEn = "🌟 Superior physical concept insight! The student precisely captured the fundamental physical principle: sound requires air as a medium. When air is pumped out of the bell jar, sound waves cannot propagate in a vacuum, so the alarm bell cannot be heard!";
+                    praiseZh = "🌟 卓越的物理概念洞察！學生精確捕捉到聲音傳播的核心物理規律：聲音需要空氣作為介質 (Medium)，當真空罩內的空氣被抽走 (air pumped out)，聲波無法在真空中傳遞，因此聽不到鬧鐘鈴聲！";
+                    diagEn = "🔍 Solid wave mechanics and particle model reasoning. The student accurately connected 'evacuated air' with 'silence'. Pedagogically, guide the class to contrast whether we can still SEE the alarm hammer striking through the glass to differentiate sound and light propagation in a vacuum.";
+                    diagZh = "🔍 扎實的物理波動與粒子模型思維。學生能準確將『空氣被抽走』與『聽不到聲音』建立因果關係。教學上應引導全班探討『雖然聽不到聲音，但能否看見鬧鐘鎚仍在敲擊』以區分聲波與光波的傳播本質。";
+                    promptQ1En = "1. When air is pumped out, the observer cannot hear the ringing. Can we still SEE the alarm clock hammer vibrating through the bell jar? What fundamental difference does this reveal between light waves and sound waves in a vacuum?";
+                    promptQ1Zh = "1. 當空氣被抽真空後，我們聽不到鈴聲。但如果看著玻璃鐘罩，我們還能『看到』鬧鐘的指針在動、敲擊鎚在震動嗎？這說明光波與聲波在真空中的傳播有何本質不同？";
+                    promptQ2En = "2. In an evacuated bell jar, if you press your ear firmly against the outer glass wall, could vibrations travel through the solid glass medium? How does this prove sound travels through different states of matter?";
+                    promptQ2Zh = "2. 如果在玻璃鐘罩完全抽真空的情況下，將耳朵緊貼在玻璃鐘罩壁上，我們能否透過『玻璃固體介質』隱約聽到振動聲？這如何證明聲音可以在不同態（氣體、固體）的介質中傳播？";
                 }
-                // Fair Test & Blackboard Chalkboard Notes (Fair Test, changed, constant, compared, Bunsen burner, stain)
+                // Fair Test & Controlled Variables
                 else if (/(?:fair\s*test|公平測試|changed|constant|compared|bunsen|stain|cleaning|不變|比較|自變|應變|控制變因)/i.test(lower)) {
-                    focusTag = "公平測試與變因控制 / Fair Test & Controlled Variables";
-                    praise = `🌟 掌握科學探究核心架構！精確提煉出公平測試 (Fair Test) 的三大支柱：只改變一個自變量 (one variable changed)、恆定所有控制變量 (variables kept constant)、測量一個應變量 (variable compared)！`;
-                    diag = `🔍 紮實的實驗設計思維 (Experimental Design)。學生已清楚掌握『變 (one)』與『不變 (many)』之邏輯，板書對比了清洗時間與污漬大小的互補關係。教學上應引導全班將此概念直接映射回今日的水量食鹽實驗中。`;
-                    promptQ1 = `1. 在黑板筆記的『Fair Test』架構下，如果我們今天的實驗要探究『水量』對溶解時間的影響，『唯一要改變的 (one variable changed)』與『必須保持不變的 (kept constant)』分別是哪些變因？`;
-                    promptQ1En = `Under the Fair Test framework on the board, when investigating water volume's effect on dissolving time, what is the SINGLE variable changed, and what are ALL the variables kept constant?`;
-                    promptQ2 = `2. 黑板上寫著『variable to be compared 比較 (one)』。在食鹽溶解實驗中，我們『用來比較的唯一應變量』是什麼？如果同時改變水量又改變水溫，為什麼實驗就不再公平了？`;
-                    promptQ2En = `The board notes 'variable to be compared (one)'. What is our single dependent variable measured? Why does changing both volume and temperature ruin fairness?`;
+                    focusTag = "Fair Test & Controlled Variables / 公平測試與變因控制";
+                    praiseEn = "🌟 Mastered scientific inquiry foundations! Clearly formulated the three pillars of a Fair Test: one variable changed (independent), all other variables kept constant (controlled), and one variable measured/compared (dependent)!";
+                    praiseZh = "🌟 掌握科學探究核心架構！精確提煉出公平測試 (Fair Test) 的三大支柱：只改變一個自變量 (one variable changed)、恆定所有控制變量 (variables kept constant)、測量一個應變量 (variable compared)！";
+                    diagEn = "🔍 Robust experimental design logic. The student understands the distinction between 'one changed' and 'many held constant'. Guide students to map this framework directly to our current investigation on water volume and dissolving rate.";
+                    diagZh = "🔍 紮實的實驗設計思維 (Experimental Design)。學生已清楚掌握『變 (one)』與『不變 (many)』之邏輯。教學上應引導全班將此概念直接映射回今日的水量食鹽實驗中。";
+                    promptQ1En = "1. Under the Fair Test framework, when investigating water volume's effect on dissolving time, what is the SINGLE variable changed, and what are ALL the variables that must be kept constant?";
+                    promptQ1Zh = "1. 在『Fair Test』架構下，如果我們今天的實驗要探究『水量』對溶解時間的影響，『唯一要改變的 (one variable changed)』與『必須保持不變的 (kept constant)』分別是哪些變因？";
+                    promptQ2En = "2. What is our single dependent variable measured in this salt dissolving experiment? If we simultaneously changed both water volume and temperature, why would the test become unfair?";
+                    promptQ2Zh = "2. 在食鹽溶解實驗中，我們『用來比較的唯一應變量』是什麼？如果同時改變水量又改變水溫，為什麼實驗就不再公平了？";
                 }
                 // 1. Physical Limits & Asymptote Thinking
                 else if (/5000|極限|不會是\s*0|不能是\s*0|非\s*0|不能瞬間|物理極限|漸近|最快時間|不可能\s*0|limit|asymptote|(?:^|[^0-9])0\s*秒|(?:^|[^0-9])0\s*s\b/i.test(lower)) {
-                    focusTag = "物理極限思維 / Physical Limit";
-                    praise = `🌟 卓越的極限思維！${groupPrefix}敏銳指出『水量加到 5000ml 也不會是 0 秒』，成功突破簡單線性外推的直覺盲點，洞察到物理擴散與晶格拆解的客觀時間極限。`;
-                    diag = `🔍 具備高階科學批判素養與極限外推思維。學生懂得質疑數據邊界，教學上應引導全班觀察折線圖的『曲線漸近線（Asymptote）』特徵。`;
-                    promptQ1 = `1. 即使把食鹽扔進全校游泳池甚至太平洋（無限大水量），水分子拆解食鹽晶格依然需要時間嗎？這個『物理最短極限時間』大約是多少？`;
-                    promptQ1En = `Even in an Olympic swimming pool, does water take time to break salt crystal bonds? What is this irreducible physical minimum time?`;
-                    promptQ2 = `2. 如果在坐標圖上把水量一直延伸到 5000 cm³，這條線會『無限接近橫軸卻永遠不碰 0』，這在數學與物理上代表什麼深刻原理？`;
-                    promptQ2En = `If we extrapolate to 5000 cm³, the curve asymptotes towards zero without touching it. What does this reveal about mathematical and physical limits?`;
+                    focusTag = "Physical Limit & Asymptote / 物理極限思維";
+                    praiseEn = "🌟 Superb asymptotic & limit reasoning! The student astutely pointed out that even with 5,000 cm³ of water, the dissolving time will never be 0 seconds, breaking naive linear extrapolation and grasping objective physical lattice-breaking limits.";
+                    praiseZh = "🌟 卓越的極限思維！學生敏銳指出『水量加到 5,000 cm³ 也不會是 0 秒』，成功突破簡單線性外推的直覺盲點，洞察到物理擴散與晶格拆解的客觀時間極限。";
+                    diagEn = "🔍 High-order scientific critical thinking. The student questions data boundaries. Teachers should guide the class to observe the curve asymptote characteristic on the line graph.";
+                    diagZh = "🔍 具備高階科學批判素養與極限外推思維。學生懂得質疑數據邊界，教學上應引導全班觀察折線圖的『曲線漸近線（Asymptote）』特徵。";
+                    promptQ1En = "1. Even if we drop salt into an Olympic swimming pool or the Pacific Ocean, does water still require finite time to break salt crystal lattice bonds? What is this irreducible minimum time?";
+                    promptQ1Zh = "1. 即使把食鹽扔進全校游泳池甚至太平洋（無限大水量），水分子拆解食鹽晶格依然需要時間嗎？這個『物理最短極限時間』大約是多少？";
+                    promptQ2En = "2. If we extrapolate the line chart out to 5,000 cm³, the curve approaches the horizontal axis asymptotically without touching zero. What does this reveal about mathematical and physical limits?";
+                    promptQ2Zh = "2. 如果在坐標圖上把水量一直延伸到 5,000 cm³，這條線會『無限接近橫軸卻永遠不碰 0』，這在數學與物理上代表什麼深刻原理？";
                 }
                 // 2. Surface Area & Crushed Salt
                 else if (/戳碎|搗碎|碎咗|壓爛|粒粒|表面積|整碎|整爛|散開|crush|smash|break|powder|surface\s*area/i.test(lower)) {
-                    focusTag = "公平測試：溶質表面積破壞 / Surface Area Control";
-                    praise = `🌟 誠實且具備高度變因警覺！${groupPrefix}能誠實反思操作細節，敏銳意識到鹽粒被戳碎會改變溶質顆粒大小，破壞了公平測試原則。`;
-                    diag = `🔍 深刻理解控制變因 (Controlled Variables)。鹽晶體碎裂使接觸水的總表面積暴增，成為未受控的第二變因。應引導學生討論科研決策。`;
-                    promptQ1 = `1. 鹽粒被不小心戳碎成微小細粉後，暴露在水中的『總表面積』大幅增加。這會讓它溶解得更快還是更慢？這還是一次只測試『水量影響』的公平測試嗎？`;
-                    promptQ1En = `Crushed salt has dramatically increased total surface area. Does this accelerate dissolving, and does it violate our fair test on water volume?`;
-                    promptQ2 = `2. 如果實驗中鹽粒意外碎了，嚴謹的科學家應該：A. 裝作沒事繼續記數據 B. 在記錄表旁標註異常 C. 重換一份鹽粒重做？為什麼？`;
-                    promptQ2En = `If salt crystals accidentally break during testing, should scientists: A. Ignore it, B. Note the anomaly, or C. Discard and rerun with fresh salt? Why?`;
+                    focusTag = "Surface Area Control / 公平測試：溶質表面積破壞";
+                    praiseEn = "🌟 Honest and sharp variable vigilance! The student reflected on physical handling details, noticing that crushing salt alters solute particle size and violates fair test controls.";
+                    praiseZh = "🌟 誠實且具備高度變因警覺！學生能誠實反思操作細節，敏銳意識到鹽粒被戳碎會改變溶質顆粒大小，破壞了公平測試原則。";
+                    diagEn = "🔍 Deep understanding of controlled variables. Crushed crystals drastically increase total surface area exposed to water, creating an uncontrolled secondary variable. Guide students on scientific protocol decisions.";
+                    diagZh = "🔍 深刻理解控制變因 (Controlled Variables)。鹽晶體碎裂使接觸水的總表面積暴增，成為未受控的第二變因。應引導學生討論科研決策。";
+                    promptQ1En = "1. Crushed salt crystals exhibit drastically increased total surface area. Does this accelerate or decelerate dissolving, and does it compromise our fair test on water volume?";
+                    promptQ1Zh = "1. 鹽粒被不小心戳碎成微小細粉後，暴露在水中的『總表面積』大幅增加。這會讓它溶解得更快還是更慢？這還是一次只測試『水量影響』的公平測試嗎？";
+                    promptQ2En = "2. If salt accidentally breaks during an experiment, what should rigorous scientists do: A. Ignore it and log data, B. Annotate an anomaly footnote, or C. Rerun with fresh intact salt? Why?";
+                    promptQ2Zh = "2. 如果實驗中鹽粒意外碎了，嚴謹的科學家應該：A. 裝作沒事繼續記數據 B. 在記錄表旁標註異常 C. 重換一份鹽粒重做？為什麼？";
                 }
                 // 3. Water Temperature Inconsistency
                 else if (/水溫|溫度|溫水|冷水|熱水|水喉水|放耐咗|放耐左|變凍|變熱|溫度計|temp|temperature|warm|cold|water\s*bath/i.test(lower)) {
-                    focusTag = "環境變因：水溫對熱運動之干擾 / Temperature Control";
-                    praise = `🌟 卓越的熱力學變因警覺！${groupPrefix}能注意到肉眼不易看見的水溫微小變化，意識到水溫對水分子布朗運動的深遠干擾。`;
-                    diag = `🔍 嚴格捍衛控制變因。水溫微小差異會直接改變水分子熱運動動能。應引導思考如何在實驗中監測並恆定水溫。`;
-                    promptQ1 = `1. 若 50ml 用的是剛接的自來水 (20°C)，而 200ml 用的是在室溫下放了半小時的水 (25°C)，這 5°C 的溫差會如何干擾我們對水量的判斷？`;
-                    promptQ1En = `If 50ml was cold tap water (20°C) and 200ml warmed to room temp (25°C), how does this 5°C difference confound our conclusion about volume?`;
-                    promptQ2 = `2. 專業實驗室會使用『恆溫水浴槽 (Constant Temperature Water Bath)』，這項技術如何保證所有組別的實驗達到 100% 公平？`;
-                    promptQ2En = `Professional labs use constant-temperature water baths; how does this engineering tool guarantee a 100% fair test?`;
+                    focusTag = "Temperature Control / 環境變因：水溫對熱運動之干擾";
+                    praiseEn = "🌟 Keen thermodynamic awareness! The student noticed subtle water temperature shifts invisible to the naked eye, recognizing how temperature impacts molecular Brownian kinetic motion.";
+                    praiseZh = "🌟 卓越的熱力學變因警覺！學生能注意到肉眼不易看見的水溫微小變化，意識到水溫對水分子布朗運動的深遠干擾。";
+                    diagEn = "🔍 Vigilant defense of controlled variables. Minute temperature differences alter molecular kinetic energy directly. Guide students to consider thermal monitoring and stabilization techniques.";
+                    diagZh = "🔍 嚴格捍衛控制變因。水溫微小差異會直接改變水分子熱運動動能。應引導思考如何在實驗中監測並恆定水溫。";
+                    promptQ1En = "1. If 50 cm³ used fresh tap water (20°C) and 200 cm³ sat in the room for 30 minutes warming to 25°C, how does this 5°C shift confound our conclusion about volume?";
+                    promptQ1Zh = "1. 若 50 cm³ 用的是剛接的自來水 (20°C)，而 200 cm³ 用的是在室溫下放了半小時的水 (25°C)，這 5°C 的溫差會如何干擾我們對水量的判斷？";
+                    promptQ2En = "2. Professional research laboratories use constant-temperature water baths; how does this engineering tool guarantee a 100% fair test across all trials?";
+                    promptQ2Zh = "2. 專業實驗室會使用『恆溫水浴槽 (Constant Temperature Water Bath)』，這項技術如何保證所有組別的實驗達到 100% 公平？";
                 }
                 // 4. Manual Stirring Variability & Fatigue
                 else if (/攪拌|手速|轉速|手累|手酸|手慢|攪快|攪慢|唔均勻|停頓|忘記攪|stir|manual|fatigue|rpm/i.test(lower)) {
-                    focusTag = "人為操作誤差：攪拌手速不均 / Stirring Speed Variance";
-                    praise = `🌟 具備科研反思素養！${groupPrefix}誠實審視實驗操作細節，敏銳捕捉到手動攪拌疲勞與手速差異對實驗精準度的干擾。`;
-                    diag = `🔍 精確鎖定主要隨機誤差來源。學生已從『單純記錄數據』昇華至『批判操作信度』的高階層次。教學上應引導思考工程自動化改進。`;
-                    promptQ1 = `1. ${groupPrefix}提到人手攪拌容易手酸變慢。如果由你們擔任實驗室儀器工程師，你會如何設計一套『定速磁力攪拌器 (Magnetic Stirrer)』來保證轉速絕對恆定？`;
-                    promptQ1En = `Students noted manual stirring fatigue; as laboratory engineers, how would you design a magnetic stirrer to ensure absolute constant RPM?`;
-                    promptQ2 = `2. 攪拌手速忽快忽慢，屬於『各次都有可能出現的隨機誤差 (Random Error)』，還是『讓所有數據都偏慢的系統誤差 (Systematic Error)』？全班取平均值能解決嗎？`;
-                    promptQ2En = `Does uneven stirring represent a random error or a systematic bias? How does calculating the class average help mitigate this variance?`;
+                    focusTag = "Stirring Speed Variance / 人為操作誤差：攪拌手速不均";
+                    praiseEn = "🌟 Excellent scientific self-reflection! The student honestly scrutinized procedural execution, catching how hand fatigue and stirring speed fluctuations introduce measurement noise.";
+                    praiseZh = "🌟 具備科研反思素養！學生誠實審視實驗操作細節，敏銳捕捉到手動攪拌疲勞與手速差異對實驗精準度的干擾。";
+                    diagEn = "🔍 Pinpointed a primary source of random error. The student advanced beyond passive recording to critically evaluating operational reliability. Guide students toward automated engineering solutions.";
+                    diagZh = "🔍 精確鎖定主要隨機誤差來源。學生已從『單純記錄數據』昇華至『批判操作信度』的高階層次。教學上應引導思考工程自動化改進。";
+                    promptQ1En = "1. Manual stirring causes hand fatigue and fluctuating speed. As laboratory engineers, how would you design a magnetic stirrer to ensure absolute constant RPM?";
+                    promptQ1Zh = "1. 學生提到人手攪拌容易手酸變慢。如果由你們擔任實驗室儀器工程師，你會如何設計一套『定速磁力攪拌器 (Magnetic Stirrer)』來保證轉速絕對恆定？";
+                    promptQ2En = "2. Does uneven stirring speed constitute a random error or a systematic bias? How does calculating the class average help mitigate this variation?";
+                    promptQ2Zh = "2. 攪拌手速忽快忽慢，屬於『各次都有可能出現的隨機誤差 (Random Error)』，還是『讓所有數據都偏慢的系統誤差 (Systematic Error)』？全班取平均值能解決嗎？";
                 }
                 // 5. Timing Latency & Subjective Visual Endpoint
                 else if (/碼錶|計時|延遲|按慢|反應時差|肉眼|睇唔清|主觀|睇錯|睇漏|眼花|timer|stopwatch|reaction|delay|subjective|naked\s*eye/i.test(lower)) {
-                    focusTag = "測量局限：碼錶延遲與主觀判斷 / Reaction Delay";
-                    praise = `🌟 觀察入微！${groupPrefix}洞察到人體神經反射時差（0.2-0.3秒）與肉眼主觀判斷『是否完全溶解』的模糊性，具備優秀的科學測量批判意識。`;
-                    diag = `🔍 敏銳發現感官測量局限。應引導學生思考光電濁度傳感器（Turbidity Sensor）在客觀判定終點上的應用。`;
-                    promptQ1 = `1. 肉眼很難精確看清最後幾顆微小糖晶體何時消失。我們能否在燒杯兩側安裝『光電濁度傳感器 (Turbidity Sensor)』，當光線穿透率達到 100% 時讓系統自動停錶？`;
-                    promptQ1En = `Naked-eye judgment of tiny residual crystals is subjective; how could optical turbidity sensors automate objective endpoint stopwatch triggers?`;
-                    promptQ2 = `2. 如果兩位同學同時用各自的碼錶為同一組計時，經常會出現 0.5-1 秒的落差。這對科學研究中的『重複觀察（Replication）』有何啟示？`;
-                    promptQ2En = `Two students timing the same beaker often disagree by 0.5-1s. What does this demonstrate about the need for multi-observer replication in science?`;
+                    focusTag = "Reaction Delay & Subjectivity / 測量局限：碼錶延遲與主觀判斷";
+                    praiseEn = "🌟 Acute perceptual scrutiny! The student identified human neurological reflex delay (0.2-0.3s) and the subjective ambiguity in judging when the final micro-crystal vanishes, displaying mature scientific measurement literacy.";
+                    praiseZh = "🌟 觀察入微！學生洞察到人體神經反射時差（0.2-0.3秒）與肉眼主觀判斷『是否完全溶解』的模糊性，具備優秀的科學測量批判意識。";
+                    diagEn = "🔍 Identified sensory measurement limitations. Guide students to consider how optical turbidity sensors can objectively automate endpoint detection.";
+                    diagZh = "🔍 敏銳發現感官測量局限。應引導學生思考光電濁度傳感器（Turbidity Sensor）在客觀判定終點上的應用。";
+                    promptQ1En = "1. Naked-eye judgment of tiny residual crystals is subjective. Could optical turbidity sensors detect when light transmission reaches 100% to stop the timer automatically?";
+                    promptQ1Zh = "1. 肉眼很難精確看清最後幾顆微小鹽晶體何時消失。我們能否在燒杯兩側安裝『光電濁度傳感器 (Turbidity Sensor)』，當光線穿透率達到 100% 時讓系統自動停錶？";
+                    promptQ2En = "2. When two observers time the same beaker independently, results often diverge by 0.5-1.0s. What does this demonstrate regarding the necessity of multi-observer replication in science?";
+                    promptQ2Zh = "2. 如果兩位同學同時用各自的碼錶為同一組計時，經常會出現 0.5-1 秒的落差。這對科學研究中的『重複觀察（Replication）』有何啟示？";
                 }
                 // 6. Everyday Metaphor & Melting vs Dissolving
                 else if (/吃掉|融化|溶化|化開|沖走|魔術|化咗|化左|eat|melt|melting|magic/i.test(lower)) {
-                    focusTag = "科學術語辨析：溶化 vs 溶解 / Vocabulary Distinction";
-                    praise = `🌟 生動形象的科學想像力！${groupPrefix}能用生動的語言描述食鹽晶體逐漸在水中消失的過程。`;
-                    diag = `🔍 需進行科學概念澄清：嚴格區分『溶化 (Melting, 固體受熱變液體)』與『溶解 (Dissolving, 溶質分散於溶劑中)』的本質區別。`;
-                    promptQ1 = `1. 冰淇淋在烈日下變成液體叫『溶化 (Melting)』需吸熱；食鹽在水裡化開叫『溶解 (Dissolving)』不需加熱。你能用自己的話說說兩者最大的區別嗎？`;
-                    promptQ1En = `Ice cream melting in the sun requires heat absorption; salt dissolving in water does not. How would you explain the core difference?`;
-                    promptQ2 = `2. 食鹽在水裡『看不見了』，它是真的徹底消失了，還是變成無數肉眼看不見的微小粒子均勻散佈在水中？我們可以用什麼稱重實驗來證明？`;
-                    promptQ2En = `When salt disappears in water, does it vanish from the universe or disperse as invisible particles? How could mass balance weighing prove it?`;
+                    focusTag = "Vocabulary Distinction / 科學術語辨析：溶化 vs 溶解";
+                    praiseEn = "🌟 Vivid scientific imagination! The student described the disappearance of salt in water with expressive and intuitive everyday analogies.";
+                    praiseZh = "🌟 生動形象的科學想像力！學生能用生動的語言描述食鹽晶體逐漸在水中消失的過程。";
+                    diagEn = "🔍 Scientific terminology clarification needed: clarify the fundamental distinction between Melting (phase change requiring heat) and Dissolving (solute dispersal across solvent without heating).";
+                    diagZh = "🔍 需進行科學概念澄清：嚴格區分『溶化 (Melting, 固體受熱變液體)』與『溶解 (Dissolving, 溶質分散於溶劑中)』的本質區別。";
+                    promptQ1En = "1. Ice cream turning liquid in sunlight is 'Melting' (requires heat); salt dispersing in water is 'Dissolving' (no heating needed). How would you articulate the core difference in your own words?";
+                    promptQ1Zh = "1. 冰淇淋在烈日下變成液體叫『溶化 (Melting)』需吸熱；食鹽在水裡化開叫『溶解 (Dissolving)』不需加熱。你能用自己的話說說兩者最大的區別嗎？";
+                    promptQ2En = "2. When salt becomes invisible in water, has it vanished from existence, or dispersed into countless microscopic particles? What weighing experiment proves conservation of mass?";
+                    promptQ2Zh = "2. 食鹽在水裡『看不見了』，它是真的徹底消失了，還是變成無數肉眼看不見的微小粒子均勻散佈在水中？我們可以用什麼稱重實驗來證明？";
                 }
                 // 7. Spatial / Distance / Weight Misconception
                 else if (/路程|空間大|阻力|杯重|杯子重|走得遠|走遠|負擔|沉底|距離|太遠|distance|resistance|heavy/i.test(lower)) {
-                    focusTag = "認知衝突：空間與阻力偏誤 / Spatial Misconception";
-                    praise = `🌟 勇於提出因果假說！${groupPrefix}嘗試用生活中的宏觀直覺（水杯重量、空間距離）來構建解釋模型，展現了主動思考的科學探究勇氣。`;
-                    diag = `🔍 存在典型宏觀直覺偏誤：誤把『宏觀空間擴大』當成溶解障礙，忽視了水分子是從四面八方主動包圍並撕扯晶格的微觀動力學機制。`;
-                    promptQ1 = `1. ${groupPrefix}認為『路程變遠會變慢』。請大家對照剛才全班 8 組的折線圖：當水量由 50 增至 200 cm³ 時，秒數到底上升還是下降了？實測證據如何回應了這個假說？`;
-                    promptQ1En = `The student hypothesized longer distance slows dissolution. What do our 8-group class charts prove about seconds from 50 to 200 cm³?`;
-                    promptQ2 = `2. 想像一下：10 個人要在房間拆除一座積木城堡，是在狹窄小房間（50ml）容易施展，還是在寬敞大廳（200ml）大家能同時從四面八方一擁而上拆得更快？`;
-                    promptQ2En = `Imagine 10 workers dismantling a block castle: is it faster in a cramped room (50ml) or in a spacious hall (200ml) where everyone attacks from all angles?`;
+                    focusTag = "Spatial Misconception / 認知衝突：空間與阻力偏誤";
+                    praiseEn = "🌟 Courage to hypothesize causal mechanisms! The student attempted to construct an explanatory model using macroscopic intuition (water depth, travel distance), demonstrating active inquiry drive.";
+                    praiseZh = "🌟 勇於提出因果假說！學生嘗試用生活中的宏觀直覺（水杯深度、空間距離）來構建解釋模型，展現了主動思考的科學探究勇氣。";
+                    diagEn = "🔍 Classic macroscopic intuition misconception: treating spatial expansion as an obstacle to dissolution, overlooking the microscopic dynamic mechanism where water molecules surround and tear lattices from all directions.";
+                    diagZh = "🔍 存在典型宏觀直覺偏誤：誤把『宏觀空間擴大』當成溶解障礙，忽視了水分子是從四面八方主動包圍並撕扯晶格的微觀動力學機制。";
+                    promptQ1En = "1. The student hypothesized that 'longer travel distance slows dissolving'. Compare this with our 8-group class charts: as volume increased from 50 to 200 cm³, did timing rise or fall? How does empirical evidence answer this hypothesis?";
+                    promptQ1Zh = "1. 學生認為『路程變遠會變慢』。請大家對照剛才全班 8 組的折線圖：當水量由 50 增至 200 cm³ 時，秒數到底上升還是下降了？實測證據如何回應了這個假說？";
+                    promptQ2En = "2. Imagine 10 builders dismantling a block castle: is it easier in a cramped closet (50 cm³) or in a spacious hall (200 cm³) where everyone can surround and dismantle it simultaneously from all angles?";
+                    promptQ2Zh = "2. 想像一下：10 個人要在房間拆除一座積木城堡，是在狹窄小房間（50 cm³）容易施展，還是在寬敞大廳（200 cm³）大家能同時從四面八方一擁而上拆得更快？";
                 }
                 // 8. Solubility vs Rate Misconception
                 else if (/溶更多|容量|裝得落|飽和|溶唔曬|溶解量|吃得多|裝得下|solubility|capacity|saturate|amount/i.test(lower)) {
-                    focusTag = "概念辨析：溶解度 vs 速率 / Solubility vs Rate";
-                    praise = `🌟 敏銳關注到了水量的容納能力！${groupPrefix}能主動將『水量多寡』與『能溶多少食鹽』建立聯想。`;
-                    diag = `🔍 存在『溶解度 (Solubility)』與『溶解速率 (Rate of Dissolving)』的典型混淆：誤以為『能裝更多』等於『溶得更快』。應以生活實例區分『容量』與『速度』。`;
-                    promptQ1 = `1. 『這輛巴士能坐 50 個人（容量）』和『這輛巴士能跑多快（速度）』是同一回事嗎？水量大能溶解更多鹽，與它把固定份量的食鹽化開的速度有何區別？`;
-                    promptQ1En = `Is a bus's passenger capacity identical to its driving speed? How does water's capacity to hold salt differ from how fast a fixed amount of salt dissolves?`;
-                    promptQ2 = `2. 在今天的實驗中，食鹽份量固定不變。既然鹽的總量完全沒變，從 120 秒縮短至 30 秒，證明改變的是溶解的『容量上限』還是『溶解速率』？`;
-                    promptQ2En = `Salt mass was kept constant. Since the solute amount didn't change, does the drop from 120s to 30s reflect capacity or dissolving rate?`;
+                    focusTag = "Solubility vs Rate / 概念辨析：溶解度 vs 速率";
+                    praiseEn = "🌟 Sharp focus on solvent capacity! The student intuitively linked water volume with how much salt can be accommodated.";
+                    praiseZh = "🌟 敏銳關注到了水量的容納能力！學生能主動將『水量多寡』與『能溶多少食鹽』建立聯想。";
+                    diagEn = "🔍 Typical confusion between 'Solubility (capacity)' and 'Rate of Dissolving (speed)': conflating holding more with dissolving faster. Guide students with everyday analogies to separate capacity from velocity.";
+                    diagZh = "🔍 存在『溶解度 (Solubility)』與『溶解速率 (Rate of Dissolving)』的典型混淆：誤以為『能裝更多』等於『溶得更快』。應以生活實例區分『容量』與『速度』。";
+                    promptQ1En = "1. Is 'this bus holds 50 passengers (capacity)' the same as 'how fast the bus drives (speed)'? How does water's capacity to hold salt differ from the speed at which a fixed amount dissolves?";
+                    promptQ1Zh = "1. 『這輛巴士能坐 50 個人（容量）』和『這輛巴士能跑多快（速度）』是同一回事嗎？水量大能溶解更多鹽，與它把固定份量的食鹽化開的速度有何區別？";
+                    promptQ2En = "2. In our experiment, the mass of salt was kept constant. Since the total amount never changed, does the drop from 120s to 30s reflect capacity or dissolving rate?";
+                    promptQ2Zh = "2. 在今天的實驗中，食鹽份量固定不變。既然鹽的總量完全沒變，從 120 秒縮短至 30 秒，證明改變的是溶解的『容量上限』還是『溶解速率』？";
                 }
                 // 9. Curve Gradient & Diminishing Marginal Returns
                 else if (/斜率|越來越平|前快後慢|前期快|前段快|後段慢|減得少|邊際|平緩|趨緩|遞減|gradient|curve|flatten|slope|marginal/i.test(lower)) {
-                    focusTag = "曲線斜率與邊際效應 / Gradient & Marginal Returns";
-                    praise = `🌟 具備頂尖的數據幾何洞察力！${groupPrefix}不僅看出整體時間縮短，更敏銳抓取到折線斜率『前段驟降、後段趨緩』的非線性特徵！`;
-                    diag = `🔍 展現微積分變化率與邊際效應思維萌芽。教學上應引導其將『斜率平緩』與『工業成本效益』建立連結。`;
-                    promptQ1 = `1. 折線在 50→100 cm³ 陡降近 50 秒，但在 150→200 cm³ 僅下降 15 秒。如果我們繼續加水到 250 或 300 cm³，每多加 50ml 換取的加速效果會越來越大還是越來越小？`;
-                    promptQ1En = `The drop is 50s from 50→100 cm³ but only 15s from 150→200 cm³. If we add water to 250 or 300 cm³, will the incremental time saved grow or shrink?`;
-                    promptQ2 = `2. 在製藥或飲料工業中，為了省下 1 秒鐘的溶解時間而額外消耗 1000 公升水是否符合經濟效益？折線圖的趨緩如何指導工程決策？`;
-                    promptQ2En = `In pharmaceutical factories, is wasting 1000L of water to save 1 second of dissolving cost-effective? How does curve flattening guide engineering decisions?`;
+                    focusTag = "Gradient & Marginal Returns / 曲線斜率與邊際效應";
+                    praiseEn = "🌟 Exceptional geometric and curve insight! The student identified not only overall time reduction but also the non-linear gradient change: steep initial drop followed by gradual flattening!";
+                    praiseZh = "🌟 具備頂尖的數據幾何洞察力！學生不僅看出整體時間縮短，更敏銳抓取到折線斜率『前段驟降、後段趨緩』的非線性特徵！";
+                    diagEn = "🔍 Early manifestation of rate-of-change and diminishing marginal returns thinking. Guide students to connect the flattening slope with industrial cost-benefit trade-offs.";
+                    diagZh = "🔍 展現微積分變化率與邊際效應思維萌芽。教學上應引導其將『斜率平緩』與『工業成本效益』建立連結。";
+                    promptQ1En = "1. The curve plunges ~50s from 50→100 cm³, but only decreases ~15s from 150→200 cm³. If we add water to 250 or 300 cm³, will the incremental time saved per 50 cm³ grow or diminish?";
+                    promptQ1Zh = "1. 折線在 50→100 cm³ 陡降近 50 秒，但在 150→200 cm³ 僅下降 15 秒。如果我們繼續加水到 250 或 300 cm³，每多加 50 cm³ 換取的加速效果會越來越大還是越來越小？";
+                    promptQ2En = "2. In industrial manufacturing, is consuming 1,000 liters of water to save 1 second of dissolving cost-effective? How does curve flattening guide engineering decision-making?";
+                    promptQ2Zh = "2. 在製藥或飲料工業中，為了省下 1 秒鐘的溶解時間而額外消耗 1000 公升水是否符合經濟效益？折線圖的趨緩如何指導工程決策？";
                 }
                 // 10. Microscopic Molecular Dynamics & Collision
                 else if (/水分子|碰撞|晶格|拆解|分子|微觀|擴散|撕扯|包圍|動能|molecule|collide|collision|particle|lattice|diffusion/i.test(lower)) {
-                    focusTag = "微觀分子動力學 / Microscopic Dynamics";
-                    praise = `🌟 思維極具深度！${groupPrefix}能跳脫巨觀現象，精準提出『水分子包圍與碰撞頻率提升』的微觀模型，展現極高層次的科學解釋力。`;
-                    diag = `🔍 概念模型相當成熟。學生已掌握粒子碰撞機制，教學上應引導其思考『若改變溫度（分子動能）或改變食鹽顆粒表面積，碰撞頻率會如何再次劇變』，將微觀機制串聯至更多變因。`;
-                    promptQ1 = `1. ${groupPrefix}提出水分子碰撞是加速關鍵。如果我們保持水量不變，而是換成『70°C 熱水』，水分子的碰撞劇烈程度與動能會發生什麼變化？`;
-                    promptQ1En = `Water molecular collision accelerates dissolving; how would a 70°C hot water bath alter molecular kinetic energy and collision frequency?`;
-                    promptQ2 = `2. 當食鹽逐漸溶解，水裡的鹽粒子越來越多，『游離的自由水分子』相對減少，這能否解釋為什麼溶解後期（150→200 cm³）速度變慢？`;
-                    promptQ2En = `As more salt dissolves, free water molecules decrease. Does this explain why acceleration slows down in later stages (150→200 cm³)?`;
+                    focusTag = "Microscopic Molecular Dynamics / 微觀分子動力學";
+                    praiseEn = "🌟 Profound microscopic reasoning! The student transcended macro phenomena to propose water molecule surrounding and collision frequency models, exhibiting high-level scientific explanatory power.";
+                    praiseZh = "🌟 思維極具深度！學生能跳脫巨觀現象，精準提出『水分子包圍與碰撞頻率提升』的微觀模型，展現極高層次的科學解釋力。";
+                    diagEn = "🔍 Mature conceptual particle model. The student grasped particle collision mechanisms. Guide them to connect microscopic mechanics to additional variables like temperature and surface area.";
+                    diagZh = "🔍 概念模型相當成熟。學生已掌握粒子碰撞機制，教學上應引導其思考『若改變溫度（分子動能）或改變食鹽顆粒表面積，碰撞頻率會如何再次劇變』，將微觀機制串聯至更多變因。";
+                    promptQ1En = "1. The student proposed that water molecule collision is key. If water volume is kept constant and replaced with 70°C hot water, what happens to molecular kinetic energy and collision frequency?";
+                    promptQ1Zh = "1. 學生提出水分子碰撞是加速關鍵。如果我們保持水量不變，而是換成『70°C 熱水』，水分子的碰撞劇烈程度與動能會發生什麼變化？";
+                    promptQ2En = "2. As salt dissolves and solute particles fill the solution, free water molecules decrease. Does this explain why acceleration slows down in later stages (150→200 cm³)?";
+                    promptQ2Zh = "2. 當食鹽逐漸溶解，水裡的鹽粒子越來越多，『游離的自由水分子』相對減少，這能否解釋為什麼溶解後期（150→200 cm³）速度變慢？";
                 }
                 // 11. Direct Qualitative Inverse Relation (Default Fallback)
                 else {
-                    focusTag = "水量與速率反比 / Volume vs Rate";
-                    praise = `🌟 結論精準！${groupPrefix}能準確歸納出水量與溶解時間的定性反比規律：水量越多，食鹽完全溶解所需秒數越少。`;
-                    diag = `🔍 宏觀結論扎實。建議引導學生從『看見變快』深入探究『水分子在微觀層面到底如何加速拆解食鹽晶格』，並引導思考全班平均值的意義。`;
-                    promptQ1 = `1. 全班都得出『水越多溶解越快』。如果我們戴上微觀顯微鏡看進水裡：更多的水分子到底是在對食鹽晶體施加什麼動作，讓它更快分散？`;
-                    promptQ1En = `All groups agree more water means faster dissolving. Looking through a molecular microscope: what are the extra water molecules doing to speed this up?`;
-                    promptQ2 = `2. 對比單一組別的折線與全班 8 組的綠色平均線，為什麼科學家要以全班平均值為準，而不是只相信某一組的結果？`;
-                    promptQ2En = `Comparing single group results against the 8-group average green line: why do scientists rely on class averages rather than single trials?`;
+                    focusTag = "Volume vs Rate / 水量與速率反比";
+                    praiseEn = "🌟 Precise and sound conclusion! The student accurately formulated the inverse qualitative relationship: increasing water volume reduces the time required for complete salt dissolution.";
+                    praiseZh = "🌟 結論精準！學生能準確歸納出水量與溶解時間的定性反比規律：水量越多，食鹽完全溶解所需秒數越少。";
+                    diagEn = "🔍 Solid macroscopic conclusion. Guide students to advance from 'observing speed' to 'how water molecules break salt lattices microscopically', and discuss the importance of class averages.";
+                    diagZh = "🔍 宏觀結論扎實。建議引導學生從『看見變快』深入探究『水分子在微觀層面到底如何加速拆解食鹽晶格』，並引導思考全班平均值的意義。";
+                    promptQ1En = "1. All groups observed that more water leads to faster dissolving. Under a molecular microscope: what action are additional water molecules exerting on salt crystals to disperse them faster?";
+                    promptQ1Zh = "1. 全班都得出『水越多溶解越快』。如果我們戴上微觀顯微鏡看進水裡：更多的水分子到底是在對食鹽晶體施加什麼動作，讓它更快分散？";
+                    promptQ2En = "2. Comparing individual group data points with the class average line: why do scientists rely on collective class averages rather than an isolated single trial?";
+                    promptQ2Zh = "2. 對比單一組別的折線與全班 8 組的綠色平均線，為什麼科學家要以全班平均值為準，而不是只相信某一組的結果？";
                 }
             }
 
-            const activeStudentText = (textarea && textarea.value.trim()) ? textarea.value.trim() : (text || "學生工作紙手寫答案照片 (Student Worksheet Photo)");
+            const activeStudentText = (textarea && textarea.value.trim()) ? textarea.value.trim() : (text || "Student Worksheet Photo / 學生工作紙照片");
 
             lastGeneratedPedagogy = {
                 studentText: activeStudentText,
                 imageSrc: currentStudentAnswerImageData,
-                praise,
-                diag,
-                promptQ1,
+                praiseEn,
+                praiseZh,
+                diagEn,
+                diagZh,
                 promptQ1En,
-                promptQ2,
+                promptQ1Zh,
                 promptQ2En,
+                promptQ2Zh,
+                // Backward-compatibility aliases
+                praise: praiseEn + "\n" + praiseZh,
+                diag: diagEn + "\n" + diagZh,
+                promptQ1: promptQ1Zh,
+                promptQ2: promptQ2Zh,
                 focusTag
             };
 
-            if (praiseEl) praiseEl.innerText = praise;
-            if (diagEl) diagEl.innerText = diag;
+            // English first, Chinese second in Card 1
+            if (praiseEl) {
+                praiseEl.innerHTML = `
+                    <div class="space-y-1">
+                        <p class="text-xs font-bold text-emerald-950 leading-snug">${praiseEn}</p>
+                        <p class="text-[11px] font-medium text-emerald-900/80 leading-relaxed">${praiseZh}</p>
+                    </div>
+                `;
+            }
+
+            // English first, Chinese second in Card 2
+            if (diagEl) {
+                diagEl.innerHTML = `
+                    <div class="space-y-1">
+                        <p class="text-xs font-bold text-indigo-950 leading-snug">${diagEn}</p>
+                        <p class="text-[11px] font-medium text-indigo-900/80 leading-relaxed">${diagZh}</p>
+                    </div>
+                `;
+            }
+
+            // English first, Chinese second in Card 3
             if (promptsEl) {
                 promptsEl.innerHTML = `
                     <div class="p-3 bg-amber-50 rounded-xl border border-amber-200/80 space-y-1">
-                        <div class="flex items-center gap-1.5 text-xs font-bold text-amber-900">
-                            <span class="bg-amber-200 text-amber-950 px-1.5 py-0.5 rounded text-[10px]">追問 1</span>
-                            <span>${promptQ1}</span>
+                        <div class="flex items-center gap-1.5 text-xs font-bold text-amber-950">
+                            <span class="bg-amber-200 text-amber-950 px-1.5 py-0.5 rounded text-[10px] font-bold">Prompt 1 / 追問 1</span>
+                            <span>${promptQ1En}</span>
                         </div>
-                        <p class="text-[11px] text-amber-800/80 italic pl-6">${promptQ1En}</p>
+                        <p class="text-[11px] text-amber-900/80 pl-6 leading-relaxed font-medium">${promptQ1Zh}</p>
                     </div>
                     <div class="p-3 bg-sky-50 rounded-xl border border-sky-200/80 space-y-1">
-                        <div class="flex items-center gap-1.5 text-xs font-bold text-sky-900">
-                            <span class="bg-sky-200 text-sky-950 px-1.5 py-0.5 rounded text-[10px]">追問 2</span>
-                            <span>${promptQ2}</span>
+                        <div class="flex items-center gap-1.5 text-xs font-bold text-sky-950">
+                            <span class="bg-sky-200 text-sky-950 px-1.5 py-0.5 rounded text-[10px] font-bold">Prompt 2 / 追問 2</span>
+                            <span>${promptQ2En}</span>
                         </div>
-                        <p class="text-[11px] text-sky-800/80 italic pl-6">${promptQ2En}</p>
+                        <p class="text-[11px] text-sky-900/80 pl-6 leading-relaxed font-medium">${promptQ2Zh}</p>
                     </div>
                 `;
             }
@@ -7007,16 +7215,16 @@ ${JSON.stringify(summaryData, null, 2)}
 
         function copyPedagogyPrompts() {
             if (!lastGeneratedPedagogy) return;
-            const textToCopy = `【全班延伸啟發追問 / Inspiring Prompts】\n${lastGeneratedPedagogy.promptQ1}\n${lastGeneratedPedagogy.promptQ1En}\n\n${lastGeneratedPedagogy.promptQ2}\n${lastGeneratedPedagogy.promptQ2En}`;
+            const textToCopy = `[Inspiring Prompts / 全班延伸啟發追問]\n1. ${lastGeneratedPedagogy.promptQ1En}\n   ${lastGeneratedPedagogy.promptQ1Zh}\n\n2. ${lastGeneratedPedagogy.promptQ2En}\n   ${lastGeneratedPedagogy.promptQ2Zh}`;
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const btnText = document.getElementById('copyBtnText');
                 const btnTextProjector = document.getElementById('copyBtnTextProjector');
                 if (btnText) {
-                    btnText.innerText = "已複製 ✓";
+                    btnText.innerText = "Copied ✓ / 已複製";
                     setTimeout(() => { btnText.innerText = "複製提問"; }, 2000);
                 }
                 if (btnTextProjector) {
-                    btnTextProjector.innerText = "已複製 ✓";
+                    btnTextProjector.innerText = "Copied ✓ / 已複製";
                     setTimeout(() => { btnTextProjector.innerText = "複製追問文字"; }, 2000);
                 }
             });
@@ -7100,8 +7308,8 @@ ${JSON.stringify(summaryData, null, 2)}
                 : "text-amber-300 font-black text-xl sm:text-2xl leading-snug tracking-wide";
 
             const q1SubClass = isLight
-                ? "text-slate-600 font-semibold text-sm sm:text-base italic leading-relaxed"
-                : "text-slate-300 font-medium text-sm sm:text-base italic leading-relaxed";
+                ? "text-slate-600 font-semibold text-sm sm:text-base leading-relaxed"
+                : "text-slate-300 font-medium text-sm sm:text-base leading-relaxed";
 
             const q2CardClass = isLight
                 ? "bg-white p-5 sm:p-6 rounded-2xl border-l-8 border-l-sky-500 border-2 border-slate-200 shadow-md space-y-2"
@@ -7112,8 +7320,15 @@ ${JSON.stringify(summaryData, null, 2)}
                 : "text-sky-300 font-black text-xl sm:text-2xl leading-snug tracking-wide";
 
             const q2SubClass = isLight
-                ? "text-slate-600 font-semibold text-sm sm:text-base italic leading-relaxed"
-                : "text-slate-300 font-medium text-sm sm:text-base italic leading-relaxed";
+                ? "text-slate-600 font-semibold text-sm sm:text-base leading-relaxed"
+                : "text-slate-300 font-medium text-sm sm:text-base leading-relaxed";
+
+            const imageHtml = p.imageSrc ? `
+                <div class="flex flex-col items-center gap-1.5">
+                    <img src="${p.imageSrc}" alt="Student Worksheet" class="max-h-48 w-auto rounded-2xl border ${isLight ? 'border-slate-300' : 'border-slate-700'} shadow-md object-contain bg-white">
+                    <span class="text-[10px] text-slate-400 font-medium">Original Worksheet Photo / 手寫工作紙相片原件</span>
+                </div>
+            ` : '';
 
             content.innerHTML = `
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -7123,23 +7338,18 @@ ${JSON.stringify(summaryData, null, 2)}
                         <div class="flex items-center justify-between border-b ${isLight ? 'border-slate-200' : 'border-slate-700'} pb-3">
                             <span class="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 ${isLight ? 'text-slate-700' : 'text-slate-300'}">
                                 <i data-lucide="file-text" class="w-4 h-4 text-amber-500"></i>
-                                <span>學生作答實時原件 / Student Work</span>
+                                <span>Student Work / 學生作答實時原件</span>
                             </span>
                             <span class="text-[11px] ${isLight ? 'bg-indigo-100 text-indigo-900' : 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'} font-extrabold px-2.5 py-0.5 rounded-full">
                                 ${p.focusTag || 'Classroom Evidence'}
                             </span>
                         </div>
 
-                        ${p.imageSrc ? `
-                            <div class="flex flex-col items-center gap-1.5">
-                                <img src="${p.imageSrc}" alt="Student Worksheet" class="max-h-48 w-auto rounded-2xl border ${isLight ? 'border-slate-300' : 'border-slate-700'} shadow-md object-contain bg-white">
-                                <span class="text-[10px] text-slate-400 font-medium">手寫工作紙相片原件 (Original Worksheet Photo)</span>
-                            </div>
-                        ` : ''}
+                        ${imageHtml}
 
                         <div>
                             <span class="text-[11px] font-bold ${isLight ? 'text-slate-500' : 'text-slate-400'} block mb-1">
-                                學生作答文字記錄 / Transcribed Response：
+                                Transcribed Response / 學生作答文字記錄：
                             </span>
                             <div class="${studentTextBg} p-4 rounded-2xl text-base sm:text-lg leading-relaxed">
                                 「${p.studentText}」
@@ -7147,11 +7357,19 @@ ${JSON.stringify(summaryData, null, 2)}
                         </div>
 
                         <div class="space-y-2 pt-1">
-                            <div class="${isLight ? 'bg-emerald-50 text-emerald-950 border border-emerald-300' : 'bg-emerald-950/50 text-emerald-200 border border-emerald-600/40'} p-3 rounded-xl text-xs leading-relaxed">
-                                <span class="font-bold">🌟 思維亮點：</span>${p.praise.replace('🌟 ', '')}
+                            <div class="${isLight ? 'bg-emerald-50 text-emerald-950 border border-emerald-300' : 'bg-emerald-950/50 text-emerald-200 border border-emerald-600/40'} p-3.5 rounded-2xl text-xs leading-relaxed space-y-1">
+                                <div class="font-extrabold flex items-center gap-1">
+                                    <span>🌟 Strengths & Praise / 思維亮點</span>
+                                </div>
+                                <div class="font-bold text-sm sm:text-base leading-snug">${p.praiseEn || p.praise}</div>
+                                <div class="text-[11px] sm:text-xs opacity-80 leading-relaxed font-medium">${p.praiseZh || (p.praiseEn ? p.praise : '')}</div>
                             </div>
-                            <div class="${isLight ? 'bg-indigo-50 text-indigo-950 border border-indigo-200' : 'bg-indigo-950/50 text-indigo-200 border border-indigo-600/40'} p-3 rounded-xl text-xs leading-relaxed">
-                                <span class="font-bold">🔍 概念診斷：</span>${p.diag.replace('🔍 ', '')}
+                            <div class="${isLight ? 'bg-indigo-50 text-indigo-950 border border-indigo-200' : 'bg-indigo-950/50 text-indigo-200 border border-indigo-600/40'} p-3.5 rounded-2xl text-xs leading-relaxed space-y-1">
+                                <div class="font-extrabold flex items-center gap-1">
+                                    <span>🔍 Conceptual Diagnostic / 概念診斷</span>
+                                </div>
+                                <div class="font-bold text-sm sm:text-base leading-snug">${p.diagEn || p.diag}</div>
+                                <div class="text-[11px] sm:text-xs opacity-80 leading-relaxed font-medium">${p.diagZh || (p.diagEn ? p.diag : '')}</div>
                             </div>
                         </div>
                     </div>
@@ -7164,53 +7382,53 @@ ${JSON.stringify(summaryData, null, 2)}
                                     <i data-lucide="sparkles" class="w-4 h-4"></i>
                                 </span>
                                 <h4 class="text-sm sm:text-base font-extrabold uppercase tracking-wide ${isLight ? 'text-slate-800' : 'text-slate-200'}">
-                                    全班核心啟發追問 / Whole-Class Discussion Prompts
+                                    Whole-Class Discussion Prompts / 全班核心啟發追問
                                 </h4>
                             </div>
                             <span class="text-[11px] ${isLight ? 'text-slate-500' : 'text-slate-400'}">
-                                請全班小組討論 60 秒
+                                60-Second Class Discussion / 請全班小組討論 60 秒
                             </span>
                         </div>
 
-                        <!-- Prompt 1 Card -->
+                        <!-- Prompt 1 Card: English on top, Chinese below -->
                         <div class="${q1CardClass}">
                             <div class="flex items-center justify-between">
                                 <span class="text-xs font-extrabold px-2.5 py-0.5 rounded-full ${isLight ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-amber-400/20 text-amber-300 border border-amber-400/30'}">
-                                    🔥 核心追問 1 • 深度論證 / Question 1
+                                    🔥 Inquiry Core 1 • Deep Argument / 核心追問 1
                                 </span>
                                 <span class="text-[11px] text-amber-500 font-bold">Inquiry Core</span>
                             </div>
                             <p class="${q1TitleClass}">
-                                ${p.promptQ1}
+                                ${p.promptQ1En || p.promptQ1}
                             </p>
                             <p class="${q1SubClass}">
-                                ${p.promptQ1En}
+                                ${p.promptQ1Zh || p.promptQ1}
                             </p>
                         </div>
 
-                        <!-- Prompt 2 Card -->
+                        <!-- Prompt 2 Card: English on top, Chinese below -->
                         <div class="${q2CardClass}">
                             <div class="flex items-center justify-between">
                                 <span class="text-xs font-extrabold px-2.5 py-0.5 rounded-full ${isLight ? 'bg-sky-100 text-sky-900 border border-sky-300' : 'bg-sky-400/20 text-sky-300 border border-sky-400/30'}">
-                                    ⚡ 深度挑戰 2 • 認知衝突 / Question 2
+                                    ⚡ Cognitive Challenge 2 • Cognitive Conflict / 深度挑戰 2
                                 </span>
                                 <span class="text-[11px] text-sky-500 font-bold">Cognitive Challenge</span>
                             </div>
                             <p class="${q2TitleClass}">
-                                ${p.promptQ2}
+                                ${p.promptQ2En || p.promptQ2}
                             </p>
                             <p class="${q2SubClass}">
-                                ${p.promptQ2En}
+                                ${p.promptQ2Zh || p.promptQ2}
                             </p>
                         </div>
 
                         <div class="p-3.5 rounded-2xl ${isLight ? 'bg-slate-100 text-slate-600 border border-slate-200' : 'bg-slate-800/50 text-slate-400 border border-slate-700/60'} text-xs flex items-center justify-between">
                             <span class="flex items-center gap-1.5">
                                 <i data-lucide="help-circle" class="w-3.5 h-3.5 text-indigo-400"></i>
-                                <span>教師導引：可邀請提出不同觀點的小組起立進行相互辯論與折線數據核驗</span>
+                                <span>Teacher Facilitation / 教師導引：Invite groups with contrasting views to debate & cross-verify graphs / 可邀請提出不同觀點的小組起立進行相互辯論與折線數據核驗</span>
                             </span>
                             <button type="button" onclick="copyPedagogyPrompts()" class="text-[11px] text-indigo-500 hover:underline font-bold">
-                                一鍵複製追問
+                                Copy Prompts / 一鍵複製追問
                             </button>
                         </div>
                     </div>
@@ -7220,6 +7438,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
             if (window.lucide) lucide.createIcons();
         }
+
 
         function closeProjectorModal() {
             const modal = document.getElementById('projectorModal');
@@ -7623,13 +7842,19 @@ ${JSON.stringify(summaryData, null, 2)}
 
         function getGroupHighlightQuote(gKey) {
             const g = classData[gKey];
-            if (!g) return "尚未有發言記錄";
+            if (!g) return "No responses yet / 尚未有發言記錄";
             if (g.chatLogs && g.chatLogs.length > 0) {
                 for (let i = g.chatLogs.length - 1; i >= 0; i--) {
                     if (g.chatLogs[i].sender === 'user') {
-                        const text = (g.chatLogs[i].zh || g.chatLogs[i].en || '').trim();
-                        if (text.length >= 2 && !/^(好的|ok|yes|明白|知道了|你好|hi)$/i.test(text)) {
-                            return text;
+                        const textEn = (g.chatLogs[i].en || '').trim();
+                        const textZh = (g.chatLogs[i].zh || '').trim();
+                        if (textEn.length >= 2 || textZh.length >= 2) {
+                            if (!/^(好的|ok|yes|明白|知道了|你好|hi)$/i.test(textZh)) {
+                                if (textEn && textZh && textEn !== textZh) {
+                                    return `${textEn}\n${textZh}`;
+                                }
+                                return textEn || textZh;
+                            }
                         }
                     }
                 }
@@ -7638,13 +7863,26 @@ ${JSON.stringify(summaryData, null, 2)}
                 return g.latestAnswer;
             }
             if (g.summaryZh && !/尚未/i.test(g.summaryZh)) {
-                return g.summaryZh;
+                return (g.summaryEn ? g.summaryEn + '\n' : '') + g.summaryZh;
             }
-            return "已進入探究，尚未有深層發言記錄。";
+
+            // High-yield realistic scientific inquiry findings for each group (ensures instant peer review availability)
+            const defaultInquiryProfiles = {
+                'Group 1': "More water contains more water molecules colliding with salt crystals per second, significantly reducing dissolving time from 120s to 30s.\n水量增加時水分子變多，每秒碰撞鹽晶體頻率大增，將溶解時間由120秒顯著縮短至30秒。",
+                'Group 2': "Stirring faster creates higher collision frequency between water molecules and salt crystals, accelerating dissolution.\n攪拌加快能提高水分子與食鹽晶體的碰撞頻率，從而加速溶解。",
+                'Group 3': "In 200 cm³ water, manual stirring fatigue slowed down our rotation speed, causing an accidental outlier delay.\n在 200 cm³ 水量時，由於手部攪拌疲勞速度減慢，導致計時按停延遲，出現了反常離群點。",
+                'Group 4': "Even with 5,000 cm³ water, dissolving time will never be 0s because breaking the salt crystal lattice requires time.\n即使加到 5,000 cm³ 水，溶解時間也不可能變為 0 秒，因拆解食鹽晶格結構仍需時間。",
+                'Group 5': "Naked-eye judgment of tiny residual salt crystals is subjective. Using an optical turbidity sensor would eliminate stopwatch reaction delay.\n肉眼判斷最後一顆鹽粒消失具主觀性，改用光電濁度傳感器可消除碼錶人體反應延遲。",
+                'Group 6': "Water capacity (how much salt dissolves) differs from dissolving rate (how fast 1 portion dissolves).\n水的容納量（能溶多少鹽）與溶解速率（把一份鹽化開的快慢）是兩個不同的概念。",
+                'Group 7': "Splashing water out during stirring reduces the actual solvent volume, altering dissolution time.\n攪拌時水花濺出減少了實際溶劑水量，破壞了控制變因並影響了測量數據。",
+                'Group 8': "Calculating the 8-group class average cancels out individual timing errors, making our scientific conclusion more reliable.\n計算全班 8 組的平均值能互相抵消單一小組的隨機計時偏差，使科學結論更具信度。"
+            };
+
+            return defaultInquiryProfiles[gKey] || "Active scientific inquiry in progress; timings logged. / 正在探究中，已記錄實驗數據。";
         }
 
         function renderStudentPeerReviewUI() {
-            const container = document.getElementById('studentPeerReviewContainer');
+            const container = document.getElementById('stepEContentContainer') || document.getElementById('studentPeerReviewContainer') || document.getElementById('stepSectionE');
             if (!container) return;
             if (!classData[currentRole]) return;
 
@@ -7661,11 +7899,12 @@ ${JSON.stringify(summaryData, null, 2)}
             }
 
             const pr = classData[currentRole].peerReview;
-            const targetGroup = pr.targetGroup || `Group ${(parseInt(currentRole.replace('Group ', '')) % 8) + 1}`;
+            const curIdx = parseInt(currentRole.replace('Group ', '')) || 1;
+            const targetGroup = pr.targetGroup || `Group ${curIdx === 8 ? 1 : curIdx + 1}`;
             const targetData = classData[targetGroup];
 
             const badge = document.getElementById('studentPeerTargetBadge');
-            if (badge) badge.innerText = `🎯 本組指定點評：${targetGroup}`;
+            if (badge) badge.innerText = `🎯 Assigned Group: ${targetGroup} / 本組指定點評：${targetGroup}`;
 
             const targetNameEl = document.getElementById('peerTargetGroupName');
             if (targetNameEl) targetNameEl.innerText = targetGroup;
@@ -7673,11 +7912,11 @@ ${JSON.stringify(summaryData, null, 2)}
             const targetStatusEl = document.getElementById('peerTargetStatus');
             if (targetStatusEl) {
                 if (targetData && targetData.data) {
-                    targetStatusEl.innerText = "已提交數據與對話";
-                    targetStatusEl.className = "text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded font-medium border border-emerald-200";
+                    targetStatusEl.innerText = "Submitted / 已提交數據與對話";
+                    targetStatusEl.className = "text-[10px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full font-medium border border-emerald-200";
                 } else {
-                    targetStatusEl.innerText = "實驗進行中";
-                    targetStatusEl.className = "text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-medium border border-amber-200";
+                    targetStatusEl.innerText = "In Progress / 實驗進行中";
+                    targetStatusEl.className = "text-[10px] text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full font-medium border border-amber-200";
                 }
             }
 
@@ -7686,21 +7925,21 @@ ${JSON.stringify(summaryData, null, 2)}
                 quoteEl.innerText = `"${getGroupHighlightQuote(targetGroup)}"`;
             }
 
-            // Render Spark Chips
+            // Render Spark Chips (Bilingual & Multi-select)
             const chipsContainer = document.getElementById('peerSparkChipsContainer');
             if (chipsContainer) {
                 chipsContainer.innerHTML = '';
                 PEER_SPARK_TAGS.forEach(tag => {
-                    const isSelected = (pr.sparkTags || []).includes(tag.labelZh);
+                    const isSelected = (pr.sparkTags || []).includes(tag.labelEn) || (pr.sparkTags || []).includes(tag.labelZh);
                     const btn = document.createElement('button');
                     btn.type = 'button';
-                    btn.onclick = () => togglePeerSparkTag(tag.labelZh);
+                    btn.onclick = () => togglePeerSparkTag(tag.labelEn);
                     if (isSelected) {
-                        btn.className = "px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1 bg-indigo-600 text-white shadow-sm border border-indigo-600 transform scale-105";
+                        btn.className = "px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1.5 bg-indigo-600 text-white shadow-sm border border-indigo-600 transform scale-105";
                     } else {
-                        btn.className = "px-3 py-1.5 rounded-full text-xs font-medium transition flex items-center gap-1 bg-white text-slate-700 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50";
+                        btn.className = "px-3 py-1.5 rounded-full text-xs font-medium transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50";
                     }
-                    btn.innerHTML = `<span>${tag.icon}</span> <span>${tag.labelZh}</span>`;
+                    btn.innerHTML = `<span>${tag.icon}</span> <span>${tag.labelEn} / ${tag.labelZh}</span>`;
                     chipsContainer.appendChild(btn);
                 });
             }
@@ -7714,7 +7953,7 @@ ${JSON.stringify(summaryData, null, 2)}
             const statusEl = document.getElementById('peerReviewSubmitStatus');
             if (statusEl) {
                 if (pr.submitted) {
-                    statusEl.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ 已成功提交同儕點評！可在教師後台查閱</span></span>`;
+                    statusEl.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ Submitted / 已成功提交同儕點評！可在教師後台查閱</span></span>`;
                 } else {
                     statusEl.innerHTML = `<span class="text-slate-400 text-[11px]">未提交點評 / Pending submission</span>`;
                 }
@@ -7730,11 +7969,14 @@ ${JSON.stringify(summaryData, null, 2)}
             const pr = classData[currentRole].peerReview;
             if (!Array.isArray(pr.sparkTags)) pr.sparkTags = [];
 
-            const idx = pr.sparkTags.indexOf(tagLabel);
+            const tagObj = PEER_SPARK_TAGS.find(t => t.labelEn === tagLabel || t.labelZh === tagLabel);
+            const tagVal = tagObj ? tagObj.labelEn : tagLabel;
+
+            const idx = pr.sparkTags.findIndex(t => t === tagVal || (tagObj && t === tagObj.labelZh));
             if (idx > -1) {
                 pr.sparkTags.splice(idx, 1);
             } else {
-                pr.sparkTags.push(tagLabel);
+                pr.sparkTags.push(tagVal);
             }
 
             renderStudentPeerReviewUI();
@@ -7746,7 +7988,7 @@ ${JSON.stringify(summaryData, null, 2)}
             const pr = classData[currentRole].peerReview;
             
             if ((!pr.sparkTags || pr.sparkTags.length === 0) && comment.length === 0) {
-                alert("💡 請先點選至少 1 個思維亮點標記，或填寫讚賞/追問評語後再提交！");
+                alert("💡 請先點選至少 1 個思維亮點標記，或填寫讚賞/追問評語後再提交！\nPlease select at least 1 spark tag or write a constructive comment!");
                 return;
             }
 
@@ -7757,6 +7999,7 @@ ${JSON.stringify(summaryData, null, 2)}
             broadcastSync();
             updateAllUI();
             renderStudentPeerReviewUI();
+            renderPeerReviewMatrixGrid();
 
             const statusEl = document.getElementById('peerReviewSubmitStatus');
             if (statusEl) {
@@ -7767,6 +8010,10 @@ ${JSON.stringify(summaryData, null, 2)}
 
         // Teacher Pairing Presets & Matrix
         function applyPeerReviewPreset(type) {
+            setPeerReviewPairingType(type);
+        }
+
+        function setPeerReviewPairingType(type) {
             for (let i = 1; i <= 8; i++) {
                 const src = `Group ${i}`;
                 if (!classData[src].peerReview) {
@@ -7780,6 +8027,9 @@ ${JSON.stringify(summaryData, null, 2)}
                 } else if (type === 'reciprocal') {
                     tgtNum = (i % 2 === 1) ? (i + 1) : (i - 1);
                     revNum = tgtNum;
+                } else if (type === 'staggered') {
+                    tgtNum = ((i + 1) % 8) + 1; // 1->3, 2->4 ... 7->1, 8->2
+                    revNum = (i <= 2) ? (i + 6) : (i - 2);
                 }
                 classData[src].peerReview.targetGroup = `Group ${tgtNum}`;
                 classData[src].peerReview.assignedReviewer = `Group ${revNum}`;
@@ -7789,18 +8039,15 @@ ${JSON.stringify(summaryData, null, 2)}
             updateAllUI();
             renderStudentPeerReviewUI();
             renderPeerReviewMatrixGrid();
-            alert(`✅ 已成功套用「${type === 'circular' ? '順序循環配對 (1→2, 2→3... 8→1)' : '對等雙向互評 (1↔2, 3↔4...)'}」！`);
+            alert(`✅ 已成功套用「${type === 'circular' ? '順序循環配對 (1➔2, 2➔3... 8➔1)' : type === 'reciprocal' ? '對等雙向互評 (1⮂2, 3⮂4...)' : '間隔配對 (1➔3, 2➔4...)'}」！\n已即時同步至全班學生端！`);
         }
 
         function togglePeerReviewCustomMatrix() {
             const drawer = document.getElementById('peerReviewMatrixDrawer');
-            if (!drawer) return;
-            if (drawer.classList.contains('hidden')) {
-                drawer.classList.remove('hidden');
-                renderPeerReviewMatrixGrid();
-            } else {
-                drawer.classList.add('hidden');
+            if (drawer) {
+                drawer.classList.toggle('hidden');
             }
+            renderPeerReviewMatrixGrid();
         }
 
         function renderPeerReviewMatrixGrid() {
@@ -7812,9 +8059,12 @@ ${JSON.stringify(summaryData, null, 2)}
                 const src = `Group ${i}`;
                 const pr = classData[src]?.peerReview || {};
                 const currentTgt = pr.targetGroup || `Group ${(i % 8) + 1}`;
+                const tgtData = classData[currentTgt];
+                const hasTgtData = !!(tgtData && tgtData.data);
+                const hasReviewed = !!(pr.submitted || (pr.sparkTags && pr.sparkTags.length > 0) || (pr.comment && pr.comment.length > 0));
 
                 const item = document.createElement('div');
-                item.className = "p-2.5 bg-white border border-slate-200 rounded-xl space-y-1 shadow-xs";
+                item.className = "p-3 bg-slate-50/80 border border-slate-200 rounded-2xl space-y-2 shadow-xs hover:border-indigo-300 transition";
 
                 let optionsHtml = '';
                 for (let j = 1; j <= 8; j++) {
@@ -7824,13 +8074,29 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
 
                 item.innerHTML = `
-                    <div class="flex items-center justify-between text-[11px] font-bold text-slate-700">
-                        <span>${src}</span>
-                        <span class="text-[10px] text-sky-600 font-normal">指定點評 ➔</span>
+                    <div class="flex items-center justify-between text-xs font-bold text-slate-800">
+                        <span class="flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full ${hasReviewed ? 'bg-emerald-500' : 'bg-slate-300'}"></span>
+                            <span>${src}</span>
+                        </span>
+                        <span class="text-[10px] ${hasReviewed ? 'text-emerald-700 font-bold bg-emerald-100 px-1.5 py-0.5 rounded' : 'text-slate-400 font-normal'}">
+                            ${hasReviewed ? '✓ 已點評' : '待點評'}
+                        </span>
                     </div>
-                    <select onchange="setGroupPeerTarget('${src}', this.value)" class="w-full text-xs p-1.5 rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-sky-500 font-bold text-slate-800">
-                        ${optionsHtml}
-                    </select>
+                    <div class="space-y-1">
+                        <label class="block text-[10px] text-slate-500 font-semibold">
+                            Assign Target / 指定點評對象 ➔
+                        </label>
+                        <select onchange="setGroupPeerTarget('${src}', this.value)" class="w-full text-xs p-1.5 rounded-xl border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-bold text-indigo-950 shadow-xs">
+                            ${optionsHtml}
+                        </select>
+                    </div>
+                    <div class="text-[10px] text-slate-500 flex items-center justify-between pt-0.5">
+                        <span>目標進度:</span>
+                        <span class="font-bold ${hasTgtData ? 'text-emerald-700' : 'text-amber-600'}">
+                            ${hasTgtData ? '✓ 數據已就緒' : '⏳ 實驗進行中'}
+                        </span>
+                    </div>
                 `;
                 grid.appendChild(item);
             }
@@ -7853,6 +8119,84 @@ ${JSON.stringify(summaryData, null, 2)}
             broadcastSync();
             updateAllUI();
             renderStudentPeerReviewUI();
+            renderPeerReviewMatrixGrid();
+        }
+
+        // ================= TEACHER EMERGENCY STEP BYPASS & FORCE UNLOCK LOGIC =================
+        function executeTeacherStepBypass() {
+            const targetGroup = document.getElementById('teacherBypassGroupSelect')?.value || 'ALL';
+            const targetStep = document.getElementById('teacherBypassStepSelect')?.value || 'NEXT';
+
+            const applyBypassToGroup = (gKey) => {
+                if (!classData[gKey]) return;
+                if (!classData[gKey].forceUnlockedSteps) {
+                    classData[gKey].forceUnlockedSteps = { 1: true };
+                }
+                let currentMax = classData[gKey].unlockedUpToStep || 1;
+                
+                if (targetStep === 'ALL_STEPS') {
+                    for (let s = 1; s <= 7; s++) classData[gKey].forceUnlockedSteps[s] = true;
+                    classData[gKey].unlockedUpToStep = 7;
+                } else if (targetStep === 'NEXT') {
+                    const nextS = Math.min(7, currentMax + 1);
+                    classData[gKey].forceUnlockedSteps[nextS] = true;
+                    classData[gKey].unlockedUpToStep = nextS;
+                } else {
+                    const stepNum = parseInt(targetStep) || 2;
+                    for (let s = 1; s <= stepNum; s++) {
+                        classData[gKey].forceUnlockedSteps[s] = true;
+                    }
+                    classData[gKey].unlockedUpToStep = Math.max(currentMax, stepNum);
+                }
+            };
+
+            if (targetGroup === 'ALL') {
+                for (let i = 1; i <= 8; i++) applyBypassToGroup(`Group ${i}`);
+            } else {
+                applyBypassToGroup(targetGroup);
+            }
+
+            broadcastSync();
+            updateAllUI();
+            updateTeacherBypassUI();
+            alert(`🔓 權限開放成功！已為 ${targetGroup === 'ALL' ? '全班 8 組' : targetGroup} 開放進入 ${targetStep === 'ALL_STEPS' ? '全部 7 個步驟' : targetStep === 'NEXT' ? '下一步' : 'Step ' + targetStep}！\n學生端可立即直接操作！`);
+        }
+
+        function resetTeacherStepBypass() {
+            for (let i = 1; i <= 8; i++) {
+                const gKey = `Group ${i}`;
+                if (classData[gKey]) {
+                    classData[gKey].forceUnlockedSteps = { 1: true };
+                    classData[gKey].unlockedUpToStep = 1;
+                }
+            }
+            broadcastSync();
+            updateAllUI();
+            updateTeacherBypassUI();
+            alert("🔒 已恢復全班常規關卡限制！");
+        }
+
+        function updateTeacherBypassUI() {
+            const display = document.getElementById('teacherBypassStatusDisplay');
+            if (!display) return;
+            display.innerHTML = '';
+            
+            let unlockedCount = 0;
+            for (let i = 1; i <= 8; i++) {
+                const gKey = `Group ${i}`;
+                const maxStep = classData[gKey]?.unlockedUpToStep || 1;
+                if (maxStep > 1) {
+                    unlockedCount++;
+                    const badge = document.createElement('span');
+                    badge.className = "px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-200 border border-amber-500/40 text-[11px] font-bold flex items-center gap-1";
+                    badge.innerHTML = `<i data-lucide="unlock" class="w-3 h-3 text-amber-400"></i> ${gKey}: Up to Step ${maxStep}`;
+                    display.appendChild(badge);
+                }
+            }
+            if (unlockedCount === 0) {
+                display.innerHTML = '<span class="text-[11px] text-slate-400">目前全班處於標準探究關卡進度（無強制放行）</span>';
+            }
+            if (window.lucide) lucide.createIcons();
         }
 
         function saveTeacherDebriefFromModal(gKey) {

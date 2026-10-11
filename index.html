@@ -181,71 +181,71 @@
                 </div>
             </div>
 
-            <!-- Scaffolded Step-by-Step Task Progress Stepper for S1 (7 Steps: a to g) -->
+            <!-- Scaffolded Step-by-Step Task Progress Stepper for S1 (7 Steps: 1 to 7) -->
             <div class="lg:col-span-12 bg-white rounded-2xl p-4 shadow-sm border border-slate-200/90 mb-1">
                 <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
                     <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                         <i data-lucide="compass" class="w-4 h-4 text-sky-600"></i>
-                        <span>中一級科學探究任務進度 (S1 Science Task Progression: 7 Steps)</span>
+                        <span>中一級科學探究任務進度 (S1 Science Task Progression: Steps 1 - 7)</span>
                     </span>
                     <span id="taskOverallProgressBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
-                        In Progress: Step a / g (Enter Dissolving Time)
+                        In Progress: Step 1 / 7 (Enter Dissolving Time)
                     </span>
                 </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 text-xs">
-                    <!-- Step a -->
-                    <div id="stepIndicatorA" onclick="proceedToStep('a')" class="cursor-pointer p-2 rounded-xl border-2 transition flex items-center gap-1.5 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm">
-                        <div id="stepNumberA" class="w-5 h-5 rounded-full bg-sky-500 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">a</div>
+                    <!-- Step 1 -->
+                    <div id="stepIndicatorA" onclick="proceedToStep(1)" class="cursor-pointer p-2 rounded-xl border-2 transition flex items-center gap-1.5 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm">
+                        <div id="stepNumberA" class="w-5 h-5 rounded-full bg-sky-500 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">1</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">a. Enter Time</span>
+                            <span class="block text-[11px]">1. Enter Time</span>
                             <span id="stepSubA" class="text-[9px] text-sky-700 font-normal">Timings (s)</span>
                         </div>
                     </div>
-                    <!-- Step b -->
-                    <div id="stepIndicatorB" onclick="proceedToStep('b')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
-                        <div id="stepNumberB" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">b</div>
+                    <!-- Step 2 -->
+                    <div id="stepIndicatorB" onclick="proceedToStep(2)" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberB" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">2</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">b. Graph & Data</span>
+                            <span class="block text-[11px]">2. Graph & Data</span>
                             <span id="stepSubB" class="text-[9px] text-slate-400 font-normal">Overview</span>
                         </div>
                     </div>
-                    <!-- Step c -->
-                    <div id="stepIndicatorC" onclick="proceedToStep('c')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
-                        <div id="stepNumberC" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">c</div>
+                    <!-- Step 3 -->
+                    <div id="stepIndicatorC" onclick="proceedToStep(3)" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberC" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">3</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">c. Agent Water</span>
+                            <span class="block text-[11px]">3. Agent Water</span>
                             <span id="stepSubC" class="text-[9px] text-slate-400 font-normal">🔒 Locked</span>
                         </div>
                     </div>
-                    <!-- Step d -->
-                    <div id="stepIndicatorD" onclick="proceedToStep('d')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
-                        <div id="stepNumberD" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">d</div>
+                    <!-- Step 4 -->
+                    <div id="stepIndicatorD" onclick="proceedToStep(4)" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberD" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">4</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">d. Key Summary</span>
+                            <span class="block text-[11px]">4. Key Summary</span>
                             <span id="stepSubD" class="text-[9px] text-slate-400 font-normal">🔒 Locked</span>
                         </div>
                     </div>
-                    <!-- Step e -->
-                    <div id="stepIndicatorE" onclick="proceedToStep('e')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
-                        <div id="stepNumberE" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">e</div>
+                    <!-- Step 5 -->
+                    <div id="stepIndicatorE" onclick="proceedToStep(5)" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberE" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">5</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">e. Peer Review</span>
+                            <span class="block text-[11px]">5. Peer Review</span>
                             <span id="stepSubE" class="text-[9px] text-slate-400 font-normal">🔒 Locked</span>
                         </div>
                     </div>
-                    <!-- Step f -->
-                    <div id="stepIndicatorF" onclick="proceedToStep('f')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
-                        <div id="stepNumberF" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">f</div>
+                    <!-- Step 6 -->
+                    <div id="stepIndicatorF" onclick="proceedToStep(6)" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberF" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">6</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">f. Molecular Sim</span>
+                            <span class="block text-[11px]">6. Simulator</span>
                             <span id="stepSubF" class="text-[9px] text-slate-400 font-normal">🔒 Locked</span>
                         </div>
                     </div>
-                    <!-- Step g -->
-                    <div id="stepIndicatorG" onclick="proceedToStep('g')" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
-                        <div id="stepNumberG" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">g</div>
+                    <!-- Step 7 -->
+                    <div id="stepIndicatorG" onclick="proceedToStep(7)" class="cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumberG" class="w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0">7</div>
                         <div class="leading-tight truncate">
-                            <span class="block text-[11px]">g. Thinking Routine</span>
+                            <span class="block text-[11px]">7. Reflection</span>
                             <span id="stepSubG" class="text-[9px] text-slate-400 font-normal">🔒 Locked</span>
                         </div>
                     </div>
@@ -255,16 +255,16 @@
             <!-- Left Column: Data Entry & Graph & Table (6 Cols) -->
             <section class="lg:col-span-6 space-y-5">
                 
-                <!-- Step a: Enter Dissolving Time (seconds) -->
+                <!-- Step 1: Enter Dissolving Time (seconds) -->
                 <div id="stepSectionA" class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 transition hover:shadow-md">
                     <div class="flex justify-between items-start mb-2">
                         <div>
                             <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
                                 <i data-lucide="timer" class="w-5 h-5 text-teal-600"></i>
-                                <span>Step a: Enter Dissolving Time (seconds)</span>
+                                <span>Step 1: Enter Dissolving Time (seconds)</span>
                             </h2>
                             <p class="text-[11px] text-slate-500 mt-0.5 ml-7">
-                                Please enter the time taken (in <strong>seconds</strong>) for 1 sugar cube to dissolve completely in each water volume.
+                                Please enter the time taken (in <strong>seconds</strong>) for 1 portion of salt (食鹽) to dissolve completely in each water volume.
                             </p>
                         </div>
                         <span class="text-[11px] px-2.5 py-0.5 bg-emerald-100 text-emerald-800 rounded-full flex items-center gap-1 font-semibold flex-shrink-0">
@@ -335,7 +335,7 @@
                     </form>
                 </div>
 
-                <!-- Step b: Class Comparison Graph & 8 Groups Data Overview (Single Occurrence) -->
+                <!-- Step 2: Class Comparison Graph & 8 Groups Overview (Single Occurrence) -->
                 <div id="stepSectionB" class="space-y-5">
                     <!-- Graph -->
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 transition hover:shadow-md">
@@ -343,7 +343,7 @@
                             <div>
                                 <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
                                     <i data-lucide="trending-up" class="w-5 h-5 text-sky-600"></i>
-                                    <span>Step b: Class Comparison Graph & 8 Groups Data Overview</span>
+                                    <span>Step 2: Class Comparison Graph & 8 Groups Overview</span>
                                 </h2>
                                 <p class="text-xs text-slate-500 mt-0.5">Comparing My Group Data with Class Average (8 Groups).</p>
                             </div>
@@ -404,7 +404,7 @@
 
             </section>
 
-            <!-- Right Column: Step c: Agent Water AI Companion (6 Cols) -->
+            <!-- Right Column: Step 3: Agent Water AI Companion (6 Cols) -->
             <section id="stepSectionC" class="lg:col-span-6 flex flex-col min-h-[720px] h-[830px] lg:h-[850px] md:h-[800px] bg-white rounded-3xl shadow-sm border border-slate-200/90 overflow-hidden">
                 
                 <!-- Agent Header -->
@@ -415,7 +415,7 @@
                         </div>
                         <div>
                             <h3 class="font-bold text-sm sm:text-base font-fun flex items-center gap-1.5">
-                                Agent Water (水精靈)
+                                <span class="text-xs bg-white/20 px-2 py-0.5 rounded-full font-bold mr-1">Step 3</span> Agent Water (水精靈)
                             </h3>
                             <p class="text-[11px] text-sky-100">Your Science Thinking Buddy • 你的科學思考好夥伴</p>
                         </div>
@@ -451,7 +451,7 @@
 
             </section>
 
-            <!-- Step d: Key Learning Points Summary (12 Cols) -->
+            <!-- Step 4: Key Learning Points Summary (12 Cols) -->
             <section id="stepSectionD" class="lg:col-span-12 bg-gradient-to-br from-amber-50/80 via-orange-50/30 to-amber-100/50 rounded-3xl p-5 sm:p-6 shadow-sm border-2 border-amber-300 space-y-4 transition-all duration-300">
                 <div class="flex items-center justify-between border-b border-amber-200/80 pb-3 flex-wrap gap-2">
                     <div class="flex items-center gap-3">
@@ -461,48 +461,48 @@
                         <div>
                             <div class="flex items-center gap-2">
                                 <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-amber-600 text-white tracking-wider">
-                                    Step d • Synthesis
+                                    Step 4 • Synthesis
                                 </span>
                                 <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
                                     Agent Water Summary
                                 </span>
                             </div>
                             <h4 class="font-bold text-base sm:text-lg text-amber-950 font-fun mt-0.5">
-                                Step d: Key Learning Points Summary / 關鍵學習小結
+                                Step 4: Key Learning Points Summary / 關鍵學習小結
                             </h4>
                         </div>
                     </div>
                     <span id="stepDStatusBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1">
-                        🔒 Complete Step c dialogue to unlock
+                        🔒 Complete Step 3 dialogue to unlock
                     </span>
                 </div>
 
                 <div id="stepDLockedBanner" class="p-6 text-center space-y-2 bg-white/70 rounded-2xl border border-dashed border-amber-200">
                     <p class="text-xs text-amber-800 font-medium">
-                        💧 水精靈正在與你進行科學對話。完成與水精靈的 3 輪對話探究後，這裡將立即為你整理個人專屬的學習重點！
+                        💧 水精靈正在與你進行科學對話。完成與水精靈的對話探究後，這裡將立即為你整理個人專屬的學習重點！
                     </p>
                     <p class="text-[11px] text-amber-700/80">
-                        Complete your 3 rounds of dialogue with Agent Water above to synthesize your key learning points.
+                        Complete your dialogue with Agent Water above to synthesize your key learning points.
                     </p>
                 </div>
 
                 <div id="stepDContentContainer" class="hidden space-y-4">
                     <p class="text-xs text-amber-900/90 leading-relaxed">
-                        ✨ 恭喜完成與水精靈的探究對話！以下依據你們剛才的探究發現整理出 3 大關鍵學習要點，請抄錄於科學筆記本上：
+                        ✨ 恭喜完成與水精靈的探究對話！以下依據你們剛才的探究發現整理出關鍵學習要點，請抄錄於科學筆記本上：
                     </p>
                     <div id="studentSummaryPointsContainer" class="space-y-3.5 text-xs text-slate-800 bg-white p-5 rounded-2xl border border-amber-200 shadow-xs">
                         <!-- Rendered dynamically by renderSummaryCardContent() -->
                     </div>
                     <div class="flex justify-end pt-1">
-                        <button type="button" onclick="proceedToStep('e')" class="px-5 py-2.5 bg-gradient-to-r from-amber-600 to-indigo-600 hover:from-amber-700 hover:to-indigo-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5">
-                            <span>Proceed to Step e: Peer Review (前往跨組互評)</span>
+                        <button type="button" onclick="proceedToStep(5)" class="px-5 py-2.5 bg-gradient-to-r from-amber-600 to-indigo-600 hover:from-amber-700 hover:to-indigo-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5">
+                            <span>Proceed to Step 5: Peer Review (前往跨組互評)</span>
                             <i data-lucide="arrow-right" class="w-4 h-4"></i>
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- Step e: Cross-Group Peer Review & Spark Tagging (12 Cols) -->
+            <!-- Step 5: Cross-Group Peer Review & Spark Tagging (12 Cols) -->
             <section id="stepSectionE" class="lg:col-span-12 bg-gradient-to-br from-indigo-50/70 via-sky-50/50 to-white rounded-3xl p-5 sm:p-6 shadow-sm border border-indigo-200/90 space-y-4 transition-all duration-300">
                 <div class="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-indigo-100">
                     <div class="flex items-center gap-3">
@@ -512,14 +512,14 @@
                         <div>
                             <div class="flex items-center gap-2">
                                 <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-indigo-600 text-white tracking-wider">
-                                    Step e • Peer Review
+                                    Step 5 • Peer Review
                                 </span>
                                 <span class="text-[10px] font-bold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded-full border border-indigo-300">
                                     Teacher-Assigned Group
                                 </span>
                             </div>
                             <h4 class="font-bold text-base sm:text-lg text-slate-800 font-fun mt-0.5">
-                                Step e: Cross-Group Peer Review & Spark Tagging / 跨組對話互評與亮點標記
+                                Step 5: Cross-Group Peer Review & Spark Tagging / 跨組對話互評與亮點標記
                             </h4>
                         </div>
                     </div>
@@ -530,10 +530,10 @@
 
                 <div id="stepELockedBanner" class="p-6 text-center space-y-2 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
                     <p class="text-xs text-slate-600 font-medium">
-                        🔒 請先閱讀並完成<strong>【Step d: Key Summary】</strong>，即可解鎖進行跨組對話互評！
+                        🔒 請先閱讀並完成<strong>【Step 4: Key Summary】</strong>，即可解鎖進行跨組對話互評！
                     </p>
                     <p class="text-[11px] text-slate-400">
-                        Please review Step d Key Summary first to unlock peer review.
+                        Please review Step 4 Key Summary first to unlock peer review.
                     </p>
                 </div>
 
@@ -580,13 +580,13 @@
                         <span id="peerReviewSubmitStatus" class="text-xs text-slate-500 font-medium"></span>
                         <button type="button" onclick="submitPeerReview()" class="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-700 hover:to-sky-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5">
                             <i data-lucide="send" class="w-4 h-4"></i>
-                            <span>Submit Peer Review (Unlock Step f Simulator)</span>
+                            <span>Submit Peer Review (Unlock Step 6 Simulator)</span>
                         </button>
                     </div>
                 </div>
             </section>
 
-            <!-- Step f: Molecular Dissolving Simulator & Science Concepts (12 Cols) -->
+            <!-- Step 6: Water Volume & Salt Dissolving Simulator (12 Cols) -->
             <section id="stepSectionF" class="lg:col-span-12 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 space-y-5 transition-all duration-300">
                 <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-indigo-500/30">
                     <div class="flex items-center gap-3">
@@ -596,31 +596,31 @@
                         <div>
                             <div class="flex items-center gap-2">
                                 <span class="text-[10px] bg-sky-500 text-white font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                                    Step f • Simulator
+                                    Step 6 • Simulator
                                 </span>
                                 <span class="text-[10px] text-sky-300 font-bold bg-sky-900/60 px-2 py-0.5 rounded-full border border-sky-500/40">
-                                    Molecular Kinetics Model
+                                    Dissolving Model
                                 </span>
                             </div>
                             <h3 class="text-base sm:text-lg font-bold font-fun text-white mt-0.5">
-                                Step f: Water Volume & Molecular Dissolving Simulator
+                                Step 6: Water Volume & Salt Dissolving Simulator
                             </h3>
                             <p class="text-xs text-slate-300">
-                                Observe why more water dissolves sugar faster at the molecular scale, then answer 2 scaffolding concept questions!
+                                Why does more water make salt dissolve faster? / 為什麼水越多，食鹽溶解得越快？
                             </p>
                         </div>
                     </div>
                     <span id="stepFStatusBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
-                        🔒 Complete Step e to unlock
+                        🔒 Complete Step 5 to unlock
                     </span>
                 </div>
 
                 <div id="stepFLockedBanner" class="p-6 text-center space-y-2 bg-slate-950/70 rounded-2xl border border-dashed border-indigo-500/30">
                     <p class="text-xs text-indigo-200 font-medium">
-                        🔒 請先完成<strong>【Step e: 跨組互評】</strong>，即可解鎖微觀分子溶解動力學模擬器！
+                        🔒 請先完成<strong>【Step 5: 跨組互評】</strong>，即可解鎖微觀食鹽溶解模擬器！
                     </p>
                     <p class="text-[11px] text-slate-400">
-                        Please submit your peer review in Step e to unlock the molecular simulator.
+                        Please submit your peer review in Step 5 to unlock the salt dissolving simulator.
                     </p>
                 </div>
 
@@ -641,7 +641,7 @@
                             </button>
                             <button type="button" onclick="resetSim()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-bold text-xs rounded-xl border border-slate-700 transition flex items-center gap-1.5">
                                 <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                                <span>Reset Lattice</span>
+                                <span>Reset Salt</span>
                             </button>
                             <button type="button" onclick="toggleSimSpeed()" id="studentSimSpeedBtn" class="px-3 py-1.5 bg-indigo-900/80 hover:bg-indigo-800 text-indigo-200 font-bold text-xs rounded-xl border border-indigo-700/50 transition">
                                 ⚡ 1x Speed
@@ -655,26 +655,26 @@
                             <canvas id="studentMolecularSimCanvas" width="620" height="340" class="w-full max-w-[620px] h-[320px] rounded-xl bg-slate-950 border border-slate-800 shadow-inner"></canvas>
                             <div class="absolute top-4 left-4 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700/80 text-[10px] text-slate-300 flex items-center gap-3">
                                 <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span> Water Molecules</span>
-                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-400 inline-block"></span> Sugar Crystal Lattice</span>
-                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> Dissolved Molecules</span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-400 inline-block"></span> Salt Crystal (食鹽晶體)</span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> Dissolved Salt Particles</span>
                             </div>
                         </div>
 
                         <div class="lg:col-span-4 bg-slate-900/70 rounded-2xl p-4 border border-indigo-500/30 space-y-3 flex flex-col justify-between">
                             <div class="space-y-2.5">
                                 <span class="text-xs font-bold text-sky-300 uppercase tracking-wider block border-b border-slate-800 pb-1.5">
-                                    📊 LIVE PHYSICS TELEMETRY
+                                    📊 LIVE TELEMETRY / 即時數據
                                 </span>
                                 <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
                                     <div>
-                                        <p class="text-[10px] text-slate-400">Water Collision Rate</p>
+                                        <p class="text-[10px] text-slate-400">Water Molecule Hits</p>
                                         <p id="studentSimMetricRate" class="text-lg font-black text-amber-400 mt-0.5">0 <span class="text-[10px] font-normal text-slate-400">hits/s</span></p>
                                     </div>
                                     <span class="text-xl">⚡</span>
                                 </div>
                                 <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 space-y-1">
                                     <div class="flex items-center justify-between text-[10px]">
-                                        <span class="text-slate-400">Remaining Sugar Lattice</span>
+                                        <span class="text-slate-400">Remaining Salt</span>
                                         <span id="studentSimMetricPercent" class="font-bold text-sky-300">100%</span>
                                     </div>
                                     <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
@@ -683,7 +683,7 @@
                                 </div>
                                 <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
                                     <div>
-                                        <p class="text-[10px] text-slate-400">Simulated Time Elapsed</p>
+                                        <p class="text-[10px] text-slate-400">Dissolving Time</p>
                                         <p id="studentSimMetricTime" class="text-lg font-black text-teal-400 mt-0.5">0.0 <span class="text-[10px] font-normal text-slate-400">s</span></p>
                                     </div>
                                     <span class="text-xs text-slate-400" id="studentSimEstTotal">Est. Time: ~30s</span>
@@ -692,10 +692,11 @@
                             <div class="bg-sky-950/50 border border-sky-500/30 p-3 rounded-xl text-[11px] space-y-1">
                                 <span class="font-bold text-sky-200 flex items-center gap-1">
                                     <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-amber-400"></i>
-                                    <span>Key Concept:</span>
+                                    <span>Key Concept / 核心概念：</span>
                                 </span>
                                 <p class="text-slate-300 leading-relaxed text-[10px]">
-                                    More water = more water molecules bombarding the cube every second, pulling sugar molecules into solution much faster!
+                                    More water = more water molecules hitting the salt each second, pulling it apart faster!
+                                    <br><span class="text-slate-400">水量更多 = 每秒有更多水分子撞擊食鹽，因此溶解得更快！</span>
                                 </p>
                             </div>
                         </div>
@@ -708,10 +709,10 @@
                                 <span class="text-lg">🧠</span>
                                 <div>
                                     <h4 class="text-xs sm:text-sm font-bold text-white font-fun">
-                                        Scaffolding Concept Questions: Microscopic Explanation
+                                        Concept Check: Particle Model / 微觀概念小測驗
                                     </h4>
                                     <p class="text-[11px] text-slate-400">
-                                        Answer both questions correctly to unlock Step g (Reflection Card)!
+                                        Answer both questions correctly to unlock Step 7 (Reflection Card)! / 答對以下兩題即可解鎖 Step 7 反思卡！
                                     </p>
                                 </div>
                             </div>
@@ -724,17 +725,20 @@
                         <div id="simQuestion1Card" class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800 space-y-2.5">
                             <p class="text-xs font-bold text-sky-200 flex items-center gap-1.5">
                                 <span class="w-5 h-5 rounded-full bg-sky-500/30 text-sky-300 flex items-center justify-center text-[10px] font-black border border-sky-400/40">Q1</span>
-                                <span>Collision Theory: Why does 200 cm³ of water dissolve the sugar cube faster than 50 cm³?</span>
+                                <span>Why does salt dissolve faster in 200 cm³ than in 50 cm³ of water? / 為什麼食鹽在 200 cm³ 水中溶解得更快？</span>
                             </p>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                                 <button type="button" onclick="answerSimScaffold(1, 0, false)" class="sim-q1-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
-                                    A) Water molecules in 200 cm³ are much hotter and move faster.
+                                    A) Water in 200 cm³ is much hotter and boils.
+                                    <br><span class="text-[10px] text-slate-500">200 cm³ 的水溫度較高且沸騰。</span>
                                 </button>
                                 <button type="button" onclick="answerSimScaffold(1, 1, true)" class="sim-q1-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
-                                    B) With 4× more water volume, more water molecules collide with the sugar cube per second (higher collision frequency).
+                                    B) More water has more water molecules. They hit the salt more times every second.
+                                    <br><span class="text-[10px] text-sky-400">水量更多，水分子更多，每秒撞擊食鹽次數大增。</span>
                                 </button>
                                 <button type="button" onclick="answerSimScaffold(1, 2, false)" class="sim-q1-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
-                                    C) Sugar cubes absorb water and shrink automatically.
+                                    C) The salt shrinks by itself in more water.
+                                    <br><span class="text-[10px] text-slate-500">食鹽在較多水中會自己縮小。</span>
                                 </button>
                             </div>
                             <div id="simQ1Feedback" class="hidden text-[11px] p-2.5 rounded-lg font-medium"></div>
@@ -744,30 +748,33 @@
                         <div id="simQuestion2Card" class="bg-slate-900/90 p-3.5 rounded-xl border border-slate-800 space-y-2.5">
                             <p class="text-xs font-bold text-sky-200 flex items-center gap-1.5">
                                 <span class="w-5 h-5 rounded-full bg-sky-500/30 text-sky-300 flex items-center justify-center text-[10px] font-black border border-sky-400/40">Q2</span>
-                                <span>Diffusion Boundary: What happens to dissolved sugar molecules in larger water volume?</span>
+                                <span>In 200 cm³ of water, what happens after salt particles dissolve? / 在 200 cm³ 水中，鹽粒子溶出後會怎樣？</span>
                             </p>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                                 <button type="button" onclick="answerSimScaffold(2, 0, true)" class="sim-q2-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
-                                    A) They diffuse away rapidly into open space, avoiding a "crowded saturation layer" so fresh water molecules can continue colliding.
+                                    A) They quickly spread out into extra open space, so fresh water molecules can keep hitting the salt.
+                                    <br><span class="text-[10px] text-sky-400">快速擴散到開闊水域，讓新鮮水分子持續撞擊食鹽。</span>
                                 </button>
                                 <button type="button" onclick="answerSimScaffold(2, 1, false)" class="sim-q2-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
-                                    B) They turn into gas immediately and evaporate into the air.
+                                    B) They turn into gas and fly into the air immediately.
+                                    <br><span class="text-[10px] text-slate-500">立即變成氣體飛到空氣中。</span>
                                 </button>
                                 <button type="button" onclick="answerSimScaffold(2, 2, false)" class="sim-q2-opt text-left p-2.5 rounded-lg border border-slate-700 bg-slate-950 hover:bg-slate-800 text-[11px] text-slate-300 transition">
                                     C) They block all water molecules permanently.
+                                    <br><span class="text-[10px] text-slate-500">永久阻擋所有水分子前進。</span>
                                 </button>
                             </div>
                             <div id="simQ2Feedback" class="hidden text-[11px] p-2.5 rounded-lg font-medium"></div>
                         </div>
 
-                        <!-- Unlocked Step g Banner -->
+                        <!-- Unlocked Step 7 Banner -->
                         <div id="simScaffoldUnlockBanner" class="hidden bg-emerald-950/80 border border-emerald-400/50 p-3.5 rounded-xl text-emerald-200 text-xs flex items-center justify-between flex-wrap gap-2">
                             <span class="flex items-center gap-2">
                                 <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
-                                <span class="font-bold">🎉 Outstanding! You mastered both microscopic concepts! Step g (Reflection Card) is now unlocked!</span>
+                                <span class="font-bold">🎉 Outstanding! You understand how salt dissolves at the particle level! Step 7 (Thinking Routine) is now unlocked!</span>
                             </span>
-                            <button type="button" onclick="proceedToStep('g')" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg text-xs shadow transition flex items-center gap-1.5">
-                                <span>Proceed to Step g (Thinking Routine)</span>
+                            <button type="button" onclick="proceedToStep(7)" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-lg text-xs shadow transition flex items-center gap-1.5">
+                                <span>Proceed to Step 7 (Thinking Routine)</span>
                                 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                             </button>
                         </div>
@@ -775,7 +782,7 @@
                 </div>
             </section>
 
-            <!-- Step g: Harvard Project Zero Thinking Routine Reflection Card (12 Cols) -->
+            <!-- Step 7: Harvard Project Zero Thinking Routine Reflection Card (12 Cols) -->
             <section id="stepSectionG" class="lg:col-span-12 bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200/90 transition-all duration-300">
                 <div class="flex items-start justify-between flex-wrap gap-2 pb-3 border-b border-slate-100">
                     <div class="flex items-center gap-3">
@@ -784,18 +791,18 @@
                         </div>
                         <div>
                             <div class="flex items-center gap-2">
-                                <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-amber-500 text-white tracking-wider">
-                                    Step g • Thinking Routine
+                                <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-amber-500 text-white tracking-wider">
+                                    Step 7 • Thinking Routine
                                 </span>
                                 <span class="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
                                     Harvard Project Zero
                                 </span>
                             </div>
                             <h3 class="text-base sm:text-lg font-bold text-slate-800 font-fun mt-0.5">
-                                Step g: My Science Thinking Routine: I used to think... Now I think...
+                                Step 7: My Science Thinking Routine: I used to think... Now I think...
                             </h3>
                             <p class="text-[11px] text-slate-400 mt-0.5">
-                                Record conceptual shifts from your trials, class data, Agent Water, peer insights, and molecular simulation.
+                                Record conceptual shifts from your trials, class data, Agent Water, peer insights, and particle simulation.
                             </p>
                         </div>
                     </div>
@@ -809,9 +816,9 @@
                         🔒
                     </div>
                     <div>
-                        <h4 class="font-bold text-sm text-slate-700 font-fun">Step g: Reflection Card (Locked)</h4>
+                        <h4 class="font-bold text-sm text-slate-700 font-fun">Step 7: Reflection Card (Locked)</h4>
                         <p class="text-xs text-slate-500 mt-1">
-                            Please complete Steps a to f (Data, Graph, Agent Water, Summary, Peer Review, Simulator) to unlock your final reflection!
+                            Please complete Steps 1 to 6 (Data, Graph, Agent Water, Summary, Peer Review, Simulator) to unlock your final reflection!
                         </p>
                     </div>
                 </div>
@@ -827,8 +834,8 @@
                             <button type="button" onclick="insertReflectionChip('usedToThink', 'Only water temperature affects dissolving rate')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
                                 ➕ Only water temp affects dissolving rate
                             </button>
-                            <button type="button" onclick="insertReflectionChip('usedToThink', 'Sugar in hot water melts rather than dissolves')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ Sugar in hot water melts rather than dissolves
+                            <button type="button" onclick="insertReflectionChip('usedToThink', 'Salt in hot water melts rather than dissolves')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ Salt in hot water melts rather than dissolves
                             </button>
                             <button type="button" onclick="insertReflectionChip('usedToThink', '1 group test is already accurate enough')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
                                 ➕ 1 group test is already accurate enough
@@ -848,14 +855,14 @@
                             <span class="text-[10px] font-normal text-teal-700">(Click chips below or type freely)</span>
                         </label>
                         <div class="flex items-center gap-1.5 flex-wrap">
-                            <button type="button" onclick="insertReflectionChip('nowIThink', 'More water provides more water molecules and collisions, dissolving sugar faster')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                            <button type="button" onclick="insertReflectionChip('nowIThink', 'More water provides more water molecules and collisions, dissolving salt faster')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
                                 ➕ More water = more molecules & collisions = faster dissolving
                             </button>
                             <button type="button" onclick="insertReflectionChip('nowIThink', 'Class average cancels random human errors and increases validity')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
                                 ➕ Class average cancels random errors & increases validity
                             </button>
-                            <button type="button" onclick="insertReflectionChip('nowIThink', 'Crushing sugar alters surface area, violating Fair Test rules')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
-                                ➕ Crushing sugar alters surface area, violating Fair Test rules
+                            <button type="button" onclick="insertReflectionChip('nowIThink', 'Crushing salt crystals alters surface area, violating Fair Test rules')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ Crushing salt alters surface area, violating Fair Test rules
                             </button>
                             <button type="button" onclick="insertReflectionChip('nowIThink', 'Dissolving is solute separating into solvent; melting is state change by heat')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
                                 ➕ Dissolving is solute separating into solvent vs melting
@@ -879,7 +886,7 @@
                                 ➕ If we stir twice as fast, will dissolving time halve?
                             </button>
                         </div>
-                        <input type="text" id="reflectionStillWonder" placeholder="E.g., I wonder how much difference powdered sugar vs rock sugar would make..."
+                        <input type="text" id="reflectionStillWonder" placeholder="E.g., I wonder how much difference fine table salt vs coarse sea salt crystals would make..."
                             class="w-full p-2.5 text-xs sm:text-sm text-slate-800 bg-white border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400">
                     </div>
 
@@ -1177,31 +1184,25 @@
                                 <span class="text-[10px] text-slate-400 font-normal">可直接輸入或微調照片辨識文字</span>
                             </label>
                             
-                            <textarea id="studentAnswerText" rows="3" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 bg-slate-50/50 resize-none leading-relaxed" placeholder="拍攝後可在此補充或直接輸入學生答案... 例如：第3組寫『水量增加時水分子變多，碰撞方糖頻率提高所以溶解加快；但加到5000ml不會是0秒因為水分子拆解晶格需要時間』"></textarea>
+                            <textarea id="studentAnswerText" rows="3" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 bg-slate-50/50 resize-none leading-relaxed" placeholder="Type or upload student answers... E.g., Group 4 wrote: 'More water has more water molecules colliding with salt crystals, dissolving salt faster; but at 5000 cm³ it won't be 0s because dismantling salt lattice takes time.' / 例如：第4組寫『水量增加時水分子變多，碰撞食鹽晶體頻率提高所以溶解加快；但加到5000cm³不會是0秒因為拆解晶格需要時間』"></textarea>
                             
-                            <!-- Quick Preset Demo Chips for Open Class -->
+                            <!-- Quick Preset Demo Chips for Open Class (Bilingual & Concise) -->
                             <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
-                                <span class="text-[10px] font-bold text-slate-500">公開課快速範例：</span>
+                                <span class="text-[10px] font-bold text-slate-500">公開課快速範例 (Presets):</span>
                                 <button type="button" onclick="fillSampleStudentAnswer('microscopic')" class="text-[10px] bg-sky-50 hover:bg-sky-100 text-sky-800 font-medium px-2 py-0.5 rounded-lg border border-sky-200 transition">
-                                    🌟 範例A: 分子碰撞與極限
+                                    🌟 A: Collisions & Limits / 分子碰撞與極限
                                 </button>
                                 <button type="button" onclick="fillSampleStudentAnswer('misconception')" class="text-[10px] bg-rose-50 hover:bg-rose-100 text-rose-800 font-medium px-2 py-0.5 rounded-lg border border-rose-200 transition">
-                                    ⚠️ 範例B: 誤解變多時間變長
+                                    ⚠️ B: Distance Error / 誤解路程變長
                                 </button>
                                 <button type="button" onclick="fillSampleStudentAnswer('human_error')" class="text-[10px] bg-amber-50 hover:bg-amber-100 text-amber-800 font-medium px-2 py-0.5 rounded-lg border border-amber-200 transition">
-                                    🔍 範例C: 攪拌手速不均反思
+                                    🥣 C: Stirring Fatigue / 攪拌手速不均
                                 </button>
                                 <button type="button" onclick="fillSampleStudentAnswer('timer_latency')" class="text-[10px] bg-purple-50 hover:bg-purple-100 text-purple-800 font-medium px-2 py-0.5 rounded-lg border border-purple-200 transition">
-                                    ⏱️ 範例D: 碼錶反應延遲
+                                    ⏱️ D: Stopwatch Delay / 碼錶反應延遲
                                 </button>
                                 <button type="button" onclick="fillSampleStudentAnswer('solubility_vs_rate')" class="text-[10px] bg-teal-50 hover:bg-teal-100 text-teal-800 font-medium px-2 py-0.5 rounded-lg border border-teal-200 transition">
-                                    🧊 範例E: 溶解度與速率混淆
-                                </button>
-                                <button type="button" onclick="fillSampleStudentAnswer('fairtest')" class="text-[10px] bg-rose-50 hover:bg-rose-100 text-rose-800 font-medium px-2 py-0.5 rounded-lg border border-rose-200 transition">
-                                    🎯 範例F: 公平測試黑板手寫筆記 (Fair Test Chalkboard)
-                                </button>
-                                <button type="button" onclick="fillSampleStudentAnswer('sound_vacuum')" class="text-[10px] bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-medium px-2 py-0.5 rounded-lg border border-indigo-200 transition">
-                                    🔔 範例G: 聲音與真空黑板手寫筆記 (Sound & Vacuum Bell Jar)
+                                    🧂 E: Solubility vs Rate / 溶解度與速率混淆
                                 </button>
                             </div>
                         </div>
@@ -1357,183 +1358,7 @@
 
             </div>
 
-            <!-- SECTION: Interactive Molecular Dissolving Simulator (Teacher Classroom Engine) -->
-            <div id="teacherSimulatorSection" class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 space-y-4">
-                <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-indigo-500/30">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gradient-to-br from-sky-400 to-blue-600 rounded-2xl flex items-center justify-center text-2xl shadow-lg">
-                            🌊
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-[10px] bg-sky-500 text-white font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                                    S1 Science Microscopic Simulation
-                                </span>
-                                <span class="text-[10px] text-sky-300 font-bold bg-sky-900/60 px-2 py-0.5 rounded-full border border-sky-500/40">
-                                    Molecular Kinetics Model
-                                </span>
-                            </div>
-                            <h3 class="text-base sm:text-lg font-bold font-fun text-white mt-0.5">
-                                Water Volume & Molecular Dissolving Kinetics Simulator
-                            </h3>
-                            <p class="text-xs text-slate-300">
-                                Visualizing: Why does more water volume make a sugar cube dissolve faster? (Collision Theory & Diffusion Barrier)
-                            </p>
-                        </div>
-                    </div>
 
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <button type="button" onclick="toggleSimulatorFullscreen()" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5 border border-indigo-400/40">
-                            <i data-lucide="maximize" class="w-4 h-4"></i>
-                            <span id="simFullscreenBtnText">🖥️ Fullscreen Presentation</span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Controls & Live Telemetry Bar -->
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                    <!-- Preset Volume Buttons (6 Cols) -->
-                    <div class="md:col-span-6 flex items-center gap-2 flex-wrap">
-                        <span class="text-xs font-bold text-sky-200">💧 Water Volume:</span>
-                        <button type="button" onclick="setSimVolume(50)" id="simVolBtn-50" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">50 cm³</button>
-                        <button type="button" onclick="setSimVolume(100)" id="simVolBtn-100" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">100 cm³</button>
-                        <button type="button" onclick="setSimVolume(150)" id="simVolBtn-150" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">150 cm³</button>
-                        <button type="button" onclick="setSimVolume(200)" id="simVolBtn-200" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500 text-white border border-sky-400 shadow-md">200 cm³</button>
-                    </div>
-
-                    <!-- Playback Actions (6 Cols) -->
-                    <div class="md:col-span-6 flex items-center justify-end gap-2 flex-wrap">
-                        <button type="button" onclick="toggleSimPlay()" id="simPlayBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
-                            <i data-lucide="play" class="w-3.5 h-3.5" id="simPlayIcon"></i>
-                            <span id="simPlayText">Start Simulation</span>
-                        </button>
-                        <button type="button" onclick="resetSim()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 font-bold text-xs rounded-xl border border-slate-700 transition flex items-center gap-1.5">
-                            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                            <span>Reset Lattice</span>
-                        </button>
-                        <button type="button" onclick="toggleSimSpeed()" id="simSpeedBtn" class="px-3 py-1.5 bg-indigo-900/80 hover:bg-indigo-800 text-indigo-200 font-bold text-xs rounded-xl border border-indigo-700/50 transition">
-                            ⚡ 1x Speed
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Live Simulation Canvas & Telemetry -->
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                    <!-- Canvas Container (8 Cols) -->
-                    <div class="lg:col-span-8 bg-slate-950/80 rounded-2xl p-2.5 border border-indigo-500/30 relative flex flex-col items-center justify-center min-h-[350px] overflow-hidden">
-                        <canvas id="molecularSimCanvas" width="620" height="340" class="w-full max-w-[620px] h-[320px] rounded-xl bg-slate-950 border border-slate-800 shadow-inner"></canvas>
-                        
-                        <!-- Floating Overlay Legend -->
-                        <div class="absolute top-4 left-4 bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700/80 text-[10px] text-slate-300 flex items-center gap-3">
-                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-sky-400 inline-block"></span> Water Molecules (Brownian Motion)</span>
-                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded bg-amber-400 inline-block"></span> Sugar Crystal Lattice</span>
-                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span> Hydrated Dissolved Molecules</span>
-                        </div>
-                    </div>
-
-                    <!-- Telemetry & Pedagogical Explanation Panel (4 Cols) -->
-                    <div class="lg:col-span-4 bg-slate-900/70 rounded-2xl p-4 border border-indigo-500/30 space-y-3 flex flex-col justify-between">
-                        <div class="space-y-2.5">
-                            <span class="text-xs font-bold text-sky-300 uppercase tracking-wider block border-b border-slate-800 pb-1.5">
-                                📊 LIVE PHYSICS TELEMETRY
-                            </span>
-
-                            <!-- Metric 1: Collision Frequency -->
-                            <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
-                                <div>
-                                    <p class="text-[10px] text-slate-400">Water Collision Rate</p>
-                                    <p id="simMetricRate" class="text-lg font-black text-amber-400 mt-0.5">0 <span class="text-[10px] font-normal text-slate-400">hits/s</span></p>
-                                </div>
-                                <span class="text-xl">⚡</span>
-                            </div>
-
-                            <!-- Metric 2: Remaining Lattice -->
-                            <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 space-y-1">
-                                <div class="flex items-center justify-between text-[10px]">
-                                    <span class="text-slate-400">Remaining Sugar Lattice</span>
-                                    <span id="simMetricPercent" class="font-bold text-sky-300">100%</span>
-                                </div>
-                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden">
-                                    <div id="simMetricBar" class="bg-gradient-to-r from-amber-500 to-sky-400 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
-                                </div>
-                            </div>
-
-                            <!-- Metric 3: Simulated Time Elapsed -->
-                            <div class="bg-slate-950/90 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between">
-                                <div>
-                                    <p class="text-[10px] text-slate-400">Simulated Time Elapsed</p>
-                                    <p id="simMetricTime" class="text-lg font-black text-teal-400 mt-0.5">0.0 <span class="text-[10px] font-normal text-slate-400">s</span></p>
-                                </div>
-                                <span class="text-xs text-slate-400" id="simEstTotal">Est. Time: ~30s</span>
-                            </div>
-                        </div>
-
-                        <!-- Pedagogical Takeaway Box -->
-                        <div class="bg-sky-950/50 border border-sky-500/30 p-3 rounded-xl text-[11px] space-y-1.5">
-                            <span class="font-bold text-sky-200 flex items-center gap-1">
-                                <i data-lucide="lightbulb" class="w-3.5 h-3.5 text-amber-400"></i>
-                                <span>Key Microscopic Principles:</span>
-                            </span>
-                            <p class="text-slate-300 leading-relaxed text-[10px]">
-                                1. <strong class="text-white">Collision Rate Surge</strong>: Increasing water from 50 to 200 cm³ quadruples free water molecules, significantly multiplying impacts per second breaking the crystal lattice!<br>
-                                2. <strong class="text-white">Open Diffusion Space</strong>: In larger volume, separated sugar molecules diffuse away rapidly, avoiding a local "crowded saturation layer", allowing fresh water molecules continuous access!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SECTION: 8 Groups Real-time AI Dialogue & Diagnostics Grid (Expanded space for Strengths & Growth) -->
-            <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/90">
-                <div class="flex items-center justify-between mb-4">
-                    <div>
-                        <h3 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
-                            <i data-lucide="messages-square" class="w-5 h-5 text-sky-600"></i>
-                            <span>8 Groups Real-time AI Dialogue & Diagnostics / 8組實時對話與點評</span>
-                        </h3>
-                        <p class="text-xs text-slate-500 mt-0.5">點擊任何小組卡片，即可展開該組完整對話紀錄與 AI 即時深度學情診斷</p>
-                    </div>
-                    <span class="text-xs px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-700 font-bold flex items-center gap-1">
-                        <span class="w-2 h-2 rounded-full bg-sky-500 animate-pulse-dot"></span> Live Updating
-                    </span>
-                </div>
-
-                <!-- Peer Review Configuration Bar -->
-                <div class="mb-4 p-3.5 bg-slate-50 border border-slate-200 rounded-2xl flex items-center justify-between flex-wrap gap-2 text-xs">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="users-round" class="w-4 h-4 text-sky-600"></i>
-                        <span class="font-bold text-slate-800">小組互評配對設定 (Peer Review Pairing)：</span>
-                        <span class="text-slate-500 text-[11px]">設定指定小組對另一小組進行實時亮點標記與互評點撥</span>
-                    </div>
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <button type="button" onclick="applyPeerReviewPreset('circular')" class="px-2.5 py-1 bg-white hover:bg-sky-50 text-sky-800 border border-sky-300 rounded-lg text-[11px] font-medium transition shadow-xs">
-                            🔄 順序循環 (1→2, 2→3... 8→1)
-                        </button>
-                        <button type="button" onclick="applyPeerReviewPreset('reciprocal')" class="px-2.5 py-1 bg-white hover:bg-sky-50 text-sky-800 border border-sky-300 rounded-lg text-[11px] font-medium transition shadow-xs">
-                            ⚡ 對等互評 (1↔2, 3↔4...)
-                        </button>
-                        <button type="button" onclick="togglePeerReviewCustomMatrix()" class="px-2.5 py-1 bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-[11px] font-bold shadow-xs transition">
-                            ⚙️ 自訂個別指定
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Custom Pairing Matrix Drawer (Hidden by default) -->
-                <div id="peerReviewMatrixDrawer" class="hidden mb-4 p-4 bg-sky-50/60 border border-sky-200 rounded-2xl space-y-3">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-slate-800">🎯 自訂 8 組指定互評對象矩陣：</span>
-                        <span class="text-[10px] text-slate-500">選擇每組負責點評的目標組別</span>
-                    </div>
-                    <div id="peerReviewMatrixGrid" class="grid grid-cols-2 md:grid-cols-4 gap-2.5">
-                        <!-- Select dropdowns for 8 groups injected here -->
-                    </div>
-                </div>
-
-                <!-- 8 Cards Grid (4x2 on large screens) -->
-                <div id="teacherGroupGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-                    <!-- Cards for Group 1 to Group 8 rendered here -->
-                </div>
-            </div>
 
         </div>
 
@@ -2652,7 +2477,7 @@
             const promptText = `
 你是一位具備頂尖教學素養的中小學科學與 STEM 教育專家 (Science Pedagogical Expert)。
 請仔細觀察並閱讀這張學生手寫/印刷工作紙相片（以及可能補充的文字：「${studentText || ''}」）。
-學生正在進行「Exp 2.5: 水的體積對方糖溶解速率的影響」的科學探究。
+學生正在進行「Exp 2.5: 水的體積對食鹽溶解速率的影響 (Rate of Dissolving Salt)」的科學探究。
 
 【學情分析要點】：
 1. 學生可能會提出各種不同維度的思考，包括微觀水分子模型、空間阻力偏誤、溫度或攪拌誤差，甚至是極具創意的 STEM / 工程傳感器自動化方案（例如：光閘感測器 Light Gate Sensors、Micro:bit / Arduino 自動計時、手機 240fps 慢動作錄影等）。
@@ -2723,7 +2548,7 @@
 
             const promptText = `
 你是一位具備頂尖教學素養的中小學科學與 STEM 教育專家 (Science Pedagogical Expert)。
-請針對學生在「Exp 2.5: 水的體積對方糖溶解速率的影響」實驗中的作答內容進行深度學情診斷：
+請針對學生在「Exp 2.5: 水的體積對食鹽溶解速率的影響 (Rate of Dissolving Salt)」實驗中的作答內容進行深度學情診斷：
 學生作答：「${studentText}」
 
 請注意：
@@ -2888,7 +2713,7 @@ Output ONLY the clean line-by-line transcribed text without any conversational p
 
             const systemPrompt = `
 你是一位專為小學高年級至初中一年級學生設計的溫暖、具啟發性的頂級科學探究 AI 導師「水精靈 (Agent Water)」。
-當前實驗主題：水的體積對方糖溶解速率的影響 (Exp 2.5: Rate of Dissolving)。
+當前實驗主題：水的體積對食鹽溶解速率的影響 (Exp 2.5: Rate of Dissolving Salt)。
 當前小組：${currentRole}
 該組實測數據：50ml=${v50}s, 100ml=${v100}s, 150ml=${v150}s, 200ml=${v200}s。
 全班 8 組平均數據大約為：50ml≈120s, 100ml≈70s, 150ml≈45s, 200ml≈30s。
@@ -2900,7 +2725,7 @@ Output ONLY the clean line-by-line transcribed text without any conversational p
 3. 認真消化同學的具體觀點，切中要害回應（嚴禁學生說 A 卻回覆 B）：
    - 若同學提到水在攪拌時濺出來 (splashed out / spilled)：必須熱烈肯定！指出水濺出讓實際水量（溶劑）減少，水分子減少直接干擾溶解時間與濃度，破壞了水量控制變因！
    - 若同學提到水溫變冷/放久變涼：指出水分子熱運動動能降低，破壞溫度控制變因。
-   - 若同學提到糖被戳碎/整爛：指出表面積暴增，破壞公平測試。
+   - 若同學提到鹽晶體被戳碎/整爛：指出表面積暴增，破壞公平測試。
    - 若同學提到量筒視線讀數：指出凹液面未平視產生視差。
    - 若同學提到碼錶反應延遲/肉眼睇唔清：指出人體神經反射延遲與主觀終點判斷為主要隨機誤差。
 
@@ -3020,7 +2845,7 @@ Output ONLY the clean line-by-line transcribed text without any conversational p
 
             const systemPrompt = `
 你是一位具備頂尖教學素養的中小學科學與 STEM 教育專家 (Science Pedagogical Expert)。
-當前公開課實驗主題：水的體積對方糖溶解速率的影響 (Exp 2.5: Rate of Dissolving)。
+當前公開課實驗主題：水的體積對食鹽溶解速率的影響 (Exp 2.5: Rate of Dissolving Salt)。
 全班 8 組實時上傳數據、反思卡與學生最新課堂對話發言彙總：
 ${JSON.stringify(summaryData, null, 2)}
 
@@ -3304,15 +3129,15 @@ ${JSON.stringify(summaryData, null, 2)}
         const dialogueStages = {
             1: {
                 aiEnglish: "Look at your group graph! When water increases from 50 cm³ to 200 cm³, what happens to the dissolving time?",
-                aiChinese: "看看你組別的折線圖！當水量由 50 cm³ 增加至 200 cm³ 時，方糖完全溶解所需的時間有何變化？",
+                aiChinese: "看看你組別的折線圖！當水量由 50 cm³ 增加至 200 cm³ 時，食鹽完全溶解所需的時間有何變化？",
                 options: [
                     {
                         perspective: "scientific",
                         tag: "🎯 極高科學性",
                         labelEn: "⏱️ Time becomes SHORTER! (More water = Faster dissolving)",
                         labelZh: "⏱️ 時間變短！（水量越多，溶解得越快！）",
-                        feedbackEn: "Super job! High five! ✋ Yes! Larger water volume makes sugar dissolve FASTER, so the time is shorter!",
-                        feedbackZh: "太棒了！答得非常準確！水量越多，糖溶解得越快，所需的時間就越短！",
+                        feedbackEn: "Super job! High five! ✋ Yes! Larger water volume makes salt dissolve FASTER, so the time is shorter!",
+                        feedbackZh: "太棒了！答得非常準確！水量越多，鹽溶解得越快，所需的時間就越短！",
                         nextStage: 2,
                         summaryEn: "Accurately recognized inverse relation between water volume and dissolving time.",
                         summaryZh: "準確辨析水量與溶解時間之反比關係，明白水量多溶解快。",
@@ -3321,14 +3146,14 @@ ${JSON.stringify(summaryData, null, 2)}
                         focusTag: "Water Volume / 水量反比",
                         pointTitleEn: "More Water = Faster Dissolving",
                         pointTitleZh: "水量越多，溶解越快",
-                        pointEn: "Larger water volume provides more solvent space to dissolve sugar faster, significantly shortening dissolving time.",
-                        pointZh: "水量越多，溶劑空間越大，方糖完全溶解所需時間顯著縮短。"
+                        pointEn: "Larger water volume provides more solvent space to dissolve salt faster, significantly shortening dissolving time.",
+                        pointZh: "水量越多，溶劑空間越大，食鹽完全溶解所需時間顯著縮短。"
                     },
                     {
                         perspective: "subjective",
                         tag: "🎈 童趣主觀",
-                        labelEn: "✨ Water has magic power! Sugar got dizzy and disappeared!",
-                        labelZh: "✨ 水很有魔法！方糖在水裡玩到頭暈就突然消失了！",
+                        labelEn: "✨ Water has magic power! Salt got dizzy and disappeared!",
+                        labelZh: "✨ 水很有魔法！鹽粒在水裡玩到頭暈就突然消失了！",
                         feedbackEn: "Haha, water is magical indeed! 😄 But as young scientists, look at the blue line: does the line go DOWN or UP?",
                         feedbackZh: "哈哈，水真的很奇妙！但作為小小科學家，看看藍色折線：它是向下傾斜還是向上爬升呢？",
                         nextStage: 1, // Scaffold back to prompt
@@ -3357,8 +3182,8 @@ ${JSON.stringify(summaryData, null, 2)}
                         focusTag: "Axis Interpretation / 讀圖細緻度",
                         pointTitleEn: "Dissolving Speed vs. Volume",
                         pointTitleZh: "水量與溶解速率之關係",
-                        pointEn: "Clarified that more water accelerates sugar dissolving rather than slowing it down.",
-                        pointZh: "釐清了迷思：水量增加能加速方糖完全溶解，縮短溶解所需時間。"
+                        pointEn: "Clarified that more water accelerates salt dissolving rather than slowing it down.",
+                        pointZh: "釐清了迷思：水量增加能加速食鹽完全溶解，縮短溶解所需時間。"
                     },
                     {
                         perspective: "critical",
@@ -3496,25 +3321,25 @@ ${JSON.stringify(summaryData, null, 2)}
                         pointTitleEn: "Visual Endpoint & Reaction Delay",
                         pointTitleZh: "主觀終點判斷與反應延遲",
                         pointEn: "Subjective naked-eye judgement of 'completely dissolved' and human stopwatch reflex latency created natural measurement variance.",
-                        pointZh: "肉眼判斷方糖完全消失的主觀標準不一，加上人體按停碼錶的神經反射延遲，是客觀存在的測量局限。"
+                        pointZh: "肉眼判斷食鹽完全消失的主觀標準不一，加上人體按停碼錶的神經反射延遲，是客觀存在的測量局限。"
                     },
                     {
                         perspective: "misconception",
                         tag: "⚠️ 常見偏誤",
-                        labelEn: "🔨 We smashed the sugar with the glass rod, so that's why it was faster!",
-                        labelZh: "🔨 我們用玻璃棒把方糖直接戳碎了，所以才溶解得特別快！",
+                        labelEn: "🔨 We smashed the salt crystals with the glass rod, so that's why it was faster!",
+                        labelZh: "🔨 我們用玻璃棒把鹽粒直接戳碎了，所以才溶解得特別快！",
                         feedbackEn: "Aha! Smashing changes the particle size! That violates the Fair Test rules for testing water volume! What a key discovery!",
-                        feedbackZh: "哈哈！戳碎方糖就改變了『顆粒大小』變因，違反了公平測試（Fair Test）原則！這個反思非常關鍵！",
+                        feedbackZh: "哈哈！戳碎鹽晶體就改變了『顆粒大小』變因，違反了公平測試（Fair Test）原則！這個反思非常關鍵！",
                         nextStage: 4,
                         summaryEn: "Realized unfair test violation by unintentionally altering solute surface area.",
-                        summaryZh: "透過戳碎方糖反思了控制變因的破壞，加深了對公平測試的敬畏。",
+                        summaryZh: "透過戳碎鹽粒反思了控制變因的破壞，加深了對公平測試的敬畏。",
                         strengthZh: "誠實反思操作細節並敏銳意識到控制變因被破壞",
                         growthZh: "進行公平測試時務必保持非測試變因完全不變",
                         focusTag: "Fair Test Control / 公平測試變因",
                         pointTitleEn: "Solute Surface Area Control",
                         pointTitleZh: "顆粒表面積與公平測試",
-                        pointEn: "Crushing sugar unintentionally altered solute surface area, demonstrating why Fair Test controls must be strictly maintained.",
-                        pointZh: "戳碎方糖意外改變了接觸表面積，深刻體會到公平測試中必須嚴格控制其他非測試變因。"
+                        pointEn: "Crushing salt unintentionally altered solute surface area, demonstrating why Fair Test controls must be strictly maintained.",
+                        pointZh: "戳碎鹽粒意外改變了接觸表面積，深刻體會到公平測試中必須嚴格控制其他非測試變因。"
                     },
                     {
                         perspective: "subjective",
@@ -3567,8 +3392,8 @@ ${JSON.stringify(summaryData, null, 2)}
                 if (typeof highlightDataFormInputs === 'function') highlightDataFormInputs();
                 if (/水量|快|慢|長|短|faster|slower|longer|shorter|water/i.test(lower)) {
                     return {
-                        feedbackEn: "Brilliant question! 💧 Water volume is exactly what we are testing! Look at your beaker: do you think more water provides more space for sugar to dissolve? Enter your group's timings (in seconds) on the left to find out!",
-                        feedbackZh: "問得太好了！💧 水量正正是我們今天要測試的關鍵變因！你猜想水量多會讓糖溶得更快還是更慢呢？快在左側填寫你們組在各水量的溶解時間（秒），水精靈就能為你繪製圖表並揭曉答案！",
+                        feedbackEn: "Brilliant question! 💧 Water volume is exactly what we are testing! Look at your beaker: do you think more water provides more space for salt to dissolve? Enter your group's timings (in seconds) on the left to find out!",
+                        feedbackZh: "問得太好了！💧 水量正正是我們今天要測試的關鍵變因！你猜想水量多會讓鹽溶得更快還是更慢呢？快在左側填寫你們組在各水量的溶解時間（秒），水精靈就能為你繪製圖表並揭曉答案！",
                         summaryZh: "學生在未提交數據前主動提問，水精靈引導其輸入數據驗證猜想。",
                         strengthZh: "具備主動猜想與探究意識",
                         growthZh: "在左側輸入溶解時間以驗證猜想",
@@ -3577,8 +3402,8 @@ ${JSON.stringify(summaryData, null, 2)}
                     };
                 } else if (/完全溶解|標準|幾時停|碼錶|停錶|stopwatch|disappear|end/i.test(lower)) {
                     return {
-                        feedbackEn: "Great scientific question! ⏱️ 'Completely dissolved' means all white sugar crystals have disappeared into the water! Press stop on your stopwatch the exact moment you cannot see any sugar grains! Then enter the seconds on the left!",
-                        feedbackZh: "非常專業的科學問題！⏱️『完全溶解』是指燒杯底部的白色方糖晶體完全看不見的瞬間！當你看到最後一粒白糖消失時，立刻按停碼錶，並把時間（秒）填在左邊表格喔！",
+                        feedbackEn: "Great scientific question! ⏱️ 'Completely dissolved' means all white salt crystals have disappeared into the water! Press stop on your stopwatch the exact moment you cannot see any salt grains! Then enter the seconds on the left!",
+                        feedbackZh: "非常專業的科學問題！⏱️『完全溶解』是指燒杯底部的白色食鹽晶體完全看不見的瞬間！當你看到最後一粒白鹽消失時，立刻按停碼錶，並把時間（秒）填在左邊表格喔！",
                         summaryZh: "學生詢問完全溶解判斷標準，水精靈提供具體觀察指引。",
                         strengthZh: "注重實驗測量標準與公平測試細節",
                         growthZh: "記錄準確秒數並填寫至左側表格",
@@ -3612,7 +3437,7 @@ ${JSON.stringify(summaryData, null, 2)}
             if (/^(hello|hi|hey|good\s*morning|yo|你好|哈囉|早晨|午安|安安|嗨)/i.test(lower) || /水精靈|你是誰|你係邊個|who are you/i.test(lower)) {
                 return {
                     feedbackEn: "Hello young scientist! 👋 I am Agent Water, your science buddy 💧! Look at the blue line on your chart: when water increases from 50 to 200 cm³, what happens to the dissolving time?",
-                    feedbackZh: "你好呀小小科學家！👋 我是水精靈 💧，你的科學好夥伴！請看看左側圖表的藍色折線：當水量由 50 增加到 200 cm³ 時，方糖完全溶解所需的時間有何變化？",
+                    feedbackZh: "你好呀小小科學家！👋 我是水精靈 💧，你的科學好夥伴！請看看左側圖表的藍色折線：當水量由 50 增加到 200 cm³ 時，食鹽完全溶解所需的時間有何變化？",
                     summaryZh: "學生向水精靈打招呼，水精靈引導觀察折線圖走勢。",
                     strengthZh: "積極參與課堂對話交流",
                     growthZh: "請嘗試直接回答問題：時間是變長還是變短？",
@@ -3652,7 +3477,7 @@ ${JSON.stringify(summaryData, null, 2)}
                     : `200 cm³ 的溶解時間反而比 150 cm³ 更長`;
 
                 return {
-                    feedbackEn: `What an eagle eye! 🦅 That is an incredible scientific observation! You noticed that ${compareTextEn}! In theory, more water provides more solvent space to dissolve sugar faster. But in real lab experiments: did someone stir a bit slower at 200 cm³? Did the water temperature drop? Or was the stopwatch pressed late? This is what scientists call "Random Error" (隨機誤差)! What human factor or operational detail do you think caused this?`,
+                    feedbackEn: `What an eagle eye! 🦅 That is an incredible scientific observation! You noticed that ${compareTextEn}! In theory, more water provides more solvent space to dissolve salt faster. But in real lab experiments: did someone stir a bit slower at 200 cm³? Did the water temperature drop? Or was the stopwatch pressed late? This is what scientists call "Random Error" (隨機誤差)! What human factor or operational detail do you think caused this?`,
                     feedbackZh: `哇！你的科學眼光太銳利了！🦅 這是一個極具探究價值的重大發現！你敏銳抓到了折線上的反常現象：${compareTextZh}！理論上水量越多溶得越快，但在真實實驗操作中：你們在測 200 cm³ 時是不是攪拌速度放慢了？還是水溫稍微變涼了？或者是按停碼錶延遲了？這種局部的「隨機誤差（Random Error）」，正正說明了為什麼科學不能只依賴單次試驗，而需要全班 8 組平均！回想一下，你覺得最可能是哪個操作細節影響了呢？`,
                     summaryZh: "敏銳發現 200 cm³ 數據反常並主動質疑，水精靈深度引導排查操作隨機誤差。",
                     strengthZh: "具備極敏銳的數據批判眼光，能主動發現非預期走勢而不盲從盲信",
@@ -3670,7 +3495,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 if (/多|長|慢|增加|上升|more|longer|slower|up/i.test(lower)) {
                     return {
                         feedbackEn: `I noticed your thoughtful guess! 💧 But look closely at the vertical axis numbers: 50 cm³ took ${t50}s, while 200 cm³ took only ${t200}s! The number dropped from ${t50} down to ${t200}! When the seconds decrease, does it mean dissolving was FASTER or SLOWER?`,
-                        feedbackZh: `我留意到你帶著猶豫在推測呢！💧 讓我們一起對照縱軸上的數字：50 cm³ 用了 ${t50} 秒，而 200 cm³ 只有 ${t200} 秒，數值由 ${t50} 往下掉到了 ${t200}！秒數變少了，代表方糖溶解得更快還是更慢呢？再想想看！`,
+                        feedbackZh: `我留意到你帶著猶豫在推測呢！💧 讓我們一起對照縱軸上的數字：50 cm³ 用了 ${t50} 秒，而 200 cm³ 只有 ${t200} 秒，數值由 ${t50} 往下掉到了 ${t200}！秒數變少了，代表食鹽溶解得更快還是更慢呢？再想想看！`,
                         summaryZh: "學生試探性猜測時間變多，水精靈透過數字比對引導其重新校正。",
                         strengthZh: "勇於表達初步思考與假設",
                         growthZh: "仔細觀察縱軸數值從左到右是下降而非上升",
@@ -3707,8 +3532,8 @@ ${JSON.stringify(summaryData, null, 2)}
             // 5. Microscopic Particle Explanation from Student ("水分子", "碰撞", "包圍", "粒子", "晶格", "擴散", "molecule", "collide", "collision")
             if (/水分子|碰撞|包圍|晶格|擴散|molecule|collide|collision|particle/i.test(lower)) {
                 return {
-                    feedbackEn: "Brilliant! You think like a real Physicist! 🌊 In a larger volume of water, more water molecules collide with the sugar crystals simultaneously, pulling them apart and diffusing them much faster! Now look at the Green Line (Class Average): why do scientists calculate the class average instead of relying on just 1 group?",
-                    feedbackZh: "太出色了！你已經具備高中科學家的微觀思維！🌊 水量越多，水分子就越多；億萬個水分子同時從四周包圍並碰撞方糖晶格，迅速把糖分子拉入水中擴散！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均，而不是只相信 1 組呢？",
+                    feedbackEn: "Brilliant! You think like a real Physicist! 🌊 In a larger volume of water, more water molecules collide with the salt crystals simultaneously, pulling them apart and diffusing them much faster! Now look at the Green Line (Class Average): why do scientists calculate the class average instead of relying on just 1 group?",
+                    feedbackZh: "太出色了！你已經具備高中科學家的微觀思維！🌊 水量越多，水分子就越多；億萬個水分子同時從四周包圍並碰撞食鹽晶格，迅速把鹽粒子拉入水中擴散！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均，而不是只相信 1 組呢？",
                     summaryZh: "學生自主運用微觀水分子碰撞與擴散原理解釋溶解加速，表現極高科研思維。",
                     strengthZh: "思維達到微觀分子層面，能將巨觀數據與微觀水分子碰撞模型連結",
                     growthZh: "嘗試進一步思考全班平均值如何幫助抵消實驗中的隨機失誤",
@@ -3722,8 +3547,8 @@ ${JSON.stringify(summaryData, null, 2)}
             if (/點解|為什麼|為何|why/i.test(lower)) {
                 if (/水多|快|短|water|faster/i.test(lower) || stage <= 1) {
                     return {
-                        feedbackEn: "Brilliant scientific curiosity! 🌊 More water contains more water molecules! More water molecules collide with the sugar cube simultaneously, dissolving and diffusing it much faster!",
-                        feedbackZh: "問得太好了！這正是科學家的好奇心！水量越多，容器裡的水分子就越多；更多水分子能同時從四面八方碰撞並包圍方糖，將糖分子快速拉入水中擴散，因此溶解時間就大幅縮短！",
+                        feedbackEn: "Brilliant scientific curiosity! 🌊 More water contains more water molecules! More water molecules collide with the salt crystal simultaneously, dissolving and diffusing it much faster!",
+                        feedbackZh: "問得太好了！這正是科學家的好奇心！水量越多，容器裡的水分子就越多；更多水分子能同時從四面八方碰撞並包圍食鹽，將鹽粒子快速拉入水中擴散，因此溶解時間就大幅縮短！",
                         summaryZh: "學生主動探究水量多溶解快的微觀原因，具備高度科學好奇心。",
                         strengthZh: "具備高階科學探究好奇心，主動詢問微觀機制",
                         growthZh: "嘗試將分子擴散概念結合圖表數據深入思考",
@@ -3758,8 +3583,8 @@ ${JSON.stringify(summaryData, null, 2)}
             // 8. Correct Trend: "Shorter" / "Faster" / "變短" / "快咗"
             if (/變短|短咗|減少|變少|快咗|更快|降|跌|shorter|faster|less\s*time|decrease|drop/i.test(lower)) {
                 return {
-                    feedbackEn: `Spot-on! Super job! 🏆 Larger water volume takes SHORTER time (from ${t50}s down to ${t200}s), meaning the sugar dissolves FASTER! Now look at the Green Line (Class Average of 8 groups): why do scientists calculate the class average instead of trusting just 1 group?`,
-                    feedbackZh: `答得非常準確！太棒了！🏆 水量越多，方糖完全溶解所需的時間越短（從 ${t50}s 減至 ${t200}s，溶解速率越高）！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均值，而不是只相信單一小組的結果？`,
+                    feedbackEn: `Spot-on! Super job! 🏆 Larger water volume takes SHORTER time (from ${t50}s down to ${t200}s), meaning the salt dissolves FASTER! Now look at the Green Line (Class Average of 8 groups): why do scientists calculate the class average instead of trusting just 1 group?`,
+                    feedbackZh: `答得非常準確！太棒了！🏆 水量越多，食鹽完全溶解所需的時間越短（從 ${t50}s 減至 ${t200}s，溶解速率越高）！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均值，而不是只相信單一小組的結果？`,
                     summaryZh: "準確指出水量越多、溶解時間越短的反比規律，成功推進至平均值探究。",
                     strengthZh: "概念清晰，能用自訂文字精確表達水量與溶解速率之反比關係",
                     growthZh: "進一步探究全班平均值如何抵消人為隨機誤差",
@@ -3773,7 +3598,7 @@ ${JSON.stringify(summaryData, null, 2)}
             // 9a-1. Water Splashed Out / Spilled / Volume Loss (Directly addresses Image 1: "Some water is splashed out during stirring")
             if (/splash|spill|leak|out\b|drop\s*out|pour\s*out|濺|潑|灑|倒瀉|漏出|水花|漏水|溢出|彈出/i.test(lower)) {
                 return {
-                    feedbackEn: "Sharp observation! 💧 Splashing water out during stirring reduces the actual solvent volume! Less water means fewer water molecules to dissolve the sugar, changing your data! Outstanding reflection on experimental error!",
+                    feedbackEn: "Sharp observation! 💧 Splashing water out during stirring reduces the actual solvent volume! Less water means fewer water molecules to dissolve the salt, changing your data! Outstanding reflection on experimental error!",
                     feedbackZh: "太細心了！敏銳捕捉到關鍵細節！💧 攪拌時水濺出來會讓燒杯裡的實際水量（溶劑）變少，導致水分子數量減少，直接干擾了溶解時間！這是一個非常深刻的實驗操作誤差反思！恭喜你圓滿完成科學探究！",
                     summaryZh: "學生敏銳指出攪拌時水花濺出導致溶劑水量流失，破壞了控制變因。",
                     strengthZh: "觀察入微，能捕捉到攪拌時水花濺出造成的水量微小流失",
@@ -3834,17 +3659,17 @@ ${JSON.stringify(summaryData, null, 2)}
                 };
             }
 
-            // 9c. Smashed sugar / Particle size
+            // 9c. Smashed salt / Particle size
             if (/smash|crush|break|戳碎|搗碎|碎咗|顆粒|表面積/i.test(lower)) {
                 return {
-                    feedbackEn: "Aha! Smashing the sugar changes the particle surface area! That alters a controlled variable and violates the Fair Test rules! What a deep reflection!",
-                    feedbackZh: "哈哈！戳碎方糖就改變了方糖的顆粒大小（表面積），破壞了公平測試（Fair Test）的控制變因！這個反思非常深刻！恭喜你圓滿完成探究！",
-                    summaryZh: "學生反思操作中戳碎方糖對公平測試控制變因的破壞。",
+                    feedbackEn: "Aha! Smashing the salt crystals changes the particle surface area! That alters a controlled variable and violates the Fair Test rules! What a deep reflection!",
+                    feedbackZh: "哈哈！戳碎鹽粒就改變了食鹽的顆粒大小（表面積），破壞了公平測試（Fair Test）的控制變因！這個反思非常深刻！恭喜你圓滿完成探究！",
+                    summaryZh: "學生反思操作中戳碎鹽粒對公平測試控制變因的破壞。",
                     strengthZh: "誠實反思操作細節並敏銳意識到控制變因被破壞",
                     growthZh: "進行公平測試時務必保持非測試變因完全不變",
                     focusTag: "Fair Test Control / 公平測試變因",
-                    personalizedPoint3En: "Fair Test Limitation: Unintentionally altering sugar particle size affects dissolution speed.",
-                    personalizedPoint3Zh: "公平測試局限：非意圖改變方糖顆粒大小會破壞控制變因。",
+                    personalizedPoint3En: "Fair Test Limitation: Unintentionally altering salt crystal size affects dissolution speed.",
+                    personalizedPoint3Zh: "公平測試局限：非意圖改變鹽粒大小會破壞控制變因。",
                     nextStage: 4,
                     advanceStage: true
                 };
@@ -3920,8 +3745,8 @@ ${JSON.stringify(summaryData, null, 2)}
             // 11. Off-topic & Casual Chit-chat
             if (/食飯|吃飯|好熱|好肚餓|好累|好靚仔|無聊|haha|哈哈|bye|再見|打機|玩遊戲|落堂|放學|食嘢/i.test(lower)) {
                 return {
-                    feedbackEn: "Haha, Agent Water enjoys chatting with you! 💧 But our science mission is calling! Look at the beaker on your desk: did more water make the sugar disappear faster or slower?",
-                    feedbackZh: "哈哈，水精靈也喜歡跟你聊天！💧 不過我們的科學任務還在召喚你呢！看看桌上的燒杯：水量越多，方糖是溶得更快還是更慢呢？",
+                    feedbackEn: "Haha, Agent Water enjoys chatting with you! 💧 But our science mission is calling! Look at the beaker on your desk: did more water make the salt disappear faster or slower?",
+                    feedbackZh: "哈哈，水精靈也喜歡跟你聊天！💧 不過我們的科學任務還在召喚你呢！看看桌上的燒杯：水量越多，食鹽是溶得更快還是更慢呢？",
                     summaryZh: "學生進行日常閒聊，水精靈以親切幽默語氣引導其回歸實驗探究。",
                     strengthZh: "性格開朗活潑，樂於交流互動",
                     growthZh: "將注意力集中回實驗數據與圖表走勢",
@@ -4997,9 +4822,9 @@ ${JSON.stringify(summaryData, null, 2)}
                             </div>
                         </div>
 
-                        <!-- CTA to Step d -->
-                        <button type="button" onclick="proceedToStep('d')" class="w-full py-2.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600 hover:from-emerald-700 hover:to-sky-700 active:scale-[0.99] text-white font-bold rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
-                            <span>📝 前往【Step d：關鍵學習小結】(Proceed to Step d)</span>
+                        <!-- CTA to Step 4 -->
+                        <button type="button" onclick="proceedToStep(4)" class="w-full py-2.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600 hover:from-emerald-700 hover:to-sky-700 active:scale-[0.99] text-white font-bold rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
+                            <span>📝 前往【Step 4：關鍵學習小結】(Proceed to Step 4)</span>
                             <i data-lucide="arrow-down" class="w-4 h-4"></i>
                         </button>
                     </div>
@@ -5008,7 +4833,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 const sendBtn = document.getElementById('chatSendBtn');
                 if (input) {
                     input.disabled = true;
-                    input.placeholder = "✅ 本組對話探究已圓滿完成！請在下方查閱關鍵學習小結 (Dialogue completed! Proceed to Step d below)";
+                    input.placeholder = "✅ 本組對話探究已圓滿完成！請在下方查閱關鍵學習小結 (Dialogue completed! Proceed to Step 4 below)";
                 }
                 if (sendBtn) sendBtn.disabled = true;
                 if (window.lucide) lucide.createIcons();
@@ -5060,8 +4885,15 @@ ${JSON.stringify(summaryData, null, 2)}
         // ================= 7-STEP PROGRESSION STATE MACHINE (a to g) =================
         let simScaffoldState = { q1: false, q2: false };
 
-        function proceedToStep(stepLetter) {
+        function proceedToStep(stepParam) {
             const map = {
+                '1': 'stepSectionA',
+                '2': 'stepSectionB',
+                '3': 'stepSectionC',
+                '4': 'stepSectionD',
+                '5': 'stepSectionE',
+                '6': 'stepSectionF',
+                '7': 'stepSectionG',
                 'a': 'stepSectionA',
                 'b': 'stepSectionB',
                 'c': 'stepSectionC',
@@ -5070,7 +4902,8 @@ ${JSON.stringify(summaryData, null, 2)}
                 'f': 'stepSectionF',
                 'g': 'stepSectionG'
             };
-            const targetId = map[stepLetter.toLowerCase()];
+            const key = String(stepParam).toLowerCase();
+            const targetId = map[key];
             if (!targetId) return;
             const targetEl = document.getElementById(targetId);
             if (targetEl) {
@@ -5106,14 +4939,14 @@ ${JSON.stringify(summaryData, null, 2)}
                     simScaffoldState[`q${qNum}`] = true;
                     feedbackEl.className = "text-[11px] p-2.5 rounded-lg font-medium bg-emerald-900/60 border border-emerald-400/50 text-emerald-200 animate-fade-in";
                     if (qNum === 1) {
-                        feedbackEl.innerHTML = `✓ <strong>Collision Theory:</strong> Correct! 4× more water provides 4× more water molecules, increasing the collision rate per second to dismantle the crystal lattice!`;
+                        feedbackEl.innerHTML = `✓ <strong>Collision Frequency:</strong> Correct! More water molecules collide with the salt crystal every second, breaking it down faster!`;
                     } else {
-                        feedbackEl.innerHTML = `✓ <strong>Diffusion Boundary:</strong> Correct! Greater water volume gives dissolved molecules ample space to diffuse away, preventing a local saturation barrier!`;
+                        feedbackEl.innerHTML = `✓ <strong>Particle Diffusion:</strong> Correct! Dissolved salt particles have more space to move away into open water!`;
                     }
                 } else {
                     simScaffoldState[`q${qNum}`] = false;
                     feedbackEl.className = "text-[11px] p-2.5 rounded-lg font-medium bg-rose-900/60 border border-rose-400/50 text-rose-200 animate-fade-in";
-                    feedbackEl.innerHTML = `⚠️ Not quite. Notice how water molecules constantly collide with sugar molecules, and how open space helps dissolved molecules diffuse away. Try again!`;
+                    feedbackEl.innerHTML = `⚠️ Not quite. Notice how water molecules bump into salt crystals, and how open space helps dissolved salt particles move away. Try again!`;
                 }
             }
 
@@ -5158,29 +4991,31 @@ ${JSON.stringify(summaryData, null, 2)}
                     progressBadge.innerText = "🎉 All 7 Tasks Completed! (7/7)";
                 } else if (hasSimConcepts) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
-                    progressBadge.innerText = "In Progress: Step g / 7 (Thinking Routine)";
+                    progressBadge.innerText = "In Progress: Step 7 / 7 (Thinking Routine)";
                 } else if (hasPeerReview) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300";
-                    progressBadge.innerText = "In Progress: Step f / 7 (Molecular Sim)";
+                    progressBadge.innerText = "In Progress: Step 6 / 7 (Molecular Sim)";
                 } else if (hasDialogueCompleted) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-300";
-                    progressBadge.innerText = "In Progress: Step e / 7 (Peer Review)";
+                    progressBadge.innerText = "In Progress: Step 5 / 7 (Peer Review)";
                 } else if (hasData) {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300";
-                    progressBadge.innerText = "In Progress: Step c / 7 (Agent Water)";
+                    progressBadge.innerText = "In Progress: Step 3 / 7 (Agent Water)";
                 } else {
                     progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
-                    progressBadge.innerText = "In Progress: Step a / 7 (Enter Dissolving Time)";
+                    progressBadge.innerText = "In Progress: Step 1 / 7 (Enter Dissolving Time)";
                 }
             }
 
             // Helper to style indicator items
+            const letterToNum = { 'a':'1', 'b':'2', 'c':'3', 'd':'4', 'e':'5', 'f':'6', 'g':'7' };
             const setIndicator = (stepId, numId, subId, isDone, isActive, doneText, activeText, lockedText) => {
                 const el = document.getElementById(stepId);
                 const numEl = document.getElementById(numId);
                 const subEl = document.getElementById(subId);
                 if (!el || !numEl || !subEl) return;
                 const letter = numId.replace('stepNumber', '').toLowerCase();
+                const stepNum = letterToNum[letter] || letter;
 
                 if (isDone) {
                     el.className = "cursor-pointer p-2 rounded-xl border-2 transition flex items-center gap-1.5 bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-sm";
@@ -5191,40 +5026,40 @@ ${JSON.stringify(summaryData, null, 2)}
                 } else if (isActive) {
                     el.className = "cursor-pointer p-2 rounded-xl border-2 transition flex items-center gap-1.5 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm";
                     numEl.className = "w-5 h-5 rounded-full bg-sky-500 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0";
-                    numEl.innerText = letter;
+                    numEl.innerText = stepNum;
                     subEl.innerText = activeText;
                     subEl.className = "text-[9px] text-sky-700 font-normal";
                 } else {
                     el.className = "cursor-pointer p-2 rounded-xl border transition flex items-center gap-1.5 bg-slate-50 border-slate-200 text-slate-400 font-medium";
                     numEl.className = "w-5 h-5 rounded-full bg-slate-300 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0";
-                    numEl.innerText = letter;
+                    numEl.innerText = stepNum;
                     subEl.innerText = lockedText;
                     subEl.className = "text-[9px] text-slate-400 font-normal";
                 }
             };
 
-            // a. Enter Time
+            // 1. Enter Time
             setIndicator('stepIndicatorA', 'stepNumberA', 'stepSubA', hasData, !hasData, "✅ Done", "Enter (s)", "Enter (s)");
-            // b. Graph & Data
+            // 2. Graph & Data
             setIndicator('stepIndicatorB', 'stepNumberB', 'stepSubB', hasData, true, "✅ Active", "Overview", "Overview");
-            // c. Agent Water
+            // 3. Agent Water
             setIndicator('stepIndicatorC', 'stepNumberC', 'stepSubC', hasDialogueCompleted, hasData, "✅ Dialogue Done", "In Progress", "🔒 Locked");
-            // d. Key Summary
+            // 4. Key Summary
             setIndicator('stepIndicatorD', 'stepNumberD', 'stepSubD', (hasPeerReview || hasSimConcepts || hasReflection), hasDialogueCompleted, "✅ Synthesized", "View Points", "🔒 Locked");
-            // e. Peer Review
+            // 5. Peer Review
             setIndicator('stepIndicatorE', 'stepNumberE', 'stepSubE', hasPeerReview, hasDialogueCompleted, "✅ Reviewed", "In Progress", "🔒 Locked");
-            // f. Molecular Sim
+            // 6. Molecular Sim
             setIndicator('stepIndicatorF', 'stepNumberF', 'stepSubF', hasSimConcepts, hasPeerReview, "✅ Mastered", "In Progress", "🔒 Locked");
-            // g. Thinking Routine
+            // 7. Thinking Routine
             setIndicator('stepIndicatorG', 'stepNumberG', 'stepSubG', hasReflection, hasSimConcepts, "✅ Submitted", "In Progress", "🔒 Locked");
 
-            // Step c (Chat Input & Send Button) Gating
+            // Step 3 (Chat Input & Send Button) Gating
             const chatInput = document.getElementById('userInput');
             const chatSendBtn = document.getElementById('chatSendBtn');
             if (chatInput && chatSendBtn) {
                 if (!hasData) {
                     chatInput.disabled = true;
-                    chatInput.placeholder = "🔒 Step c locked: Please enter & submit 4 timings in Step a first...";
+                    chatInput.placeholder = "🔒 Step 3 locked: Please enter & submit 4 timings in Step 1 first...";
                     chatSendBtn.disabled = true;
                     chatSendBtn.classList.add('opacity-40', 'cursor-not-allowed');
                 } else if (!hasDialogueCompleted) {
@@ -5235,7 +5070,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             }
 
-            // Step d Gating
+            // Step 4 (Summary) Gating
             const stepDContent = document.getElementById('stepDContentContainer');
             const stepDLocked = document.getElementById('stepDLockedBanner');
             const stepDBadge = document.getElementById('stepDStatusBadge');
@@ -5254,7 +5089,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             }
 
-            // Step e Gating
+            // Step 5 (Peer Review) Gating
             const stepEContent = document.getElementById('stepEContentContainer');
             const stepELocked = document.getElementById('stepELockedBanner');
             if (stepEContent && stepELocked) {
@@ -5268,7 +5103,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             }
 
-            // Step f Gating
+            // Step 6 (Simulator) Gating
             const stepFContent = document.getElementById('stepFContentContainer');
             const stepFLocked = document.getElementById('stepFLockedBanner');
             const stepFBadge = document.getElementById('stepFStatusBadge');
@@ -5286,7 +5121,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             }
 
-            // Step g Gating
+            // Step 7 (Reflection) Gating
             const stepGContent = document.getElementById('stepGContentContainer');
             const stepGLocked = document.getElementById('stepGLockedBanner');
             const refBadge = document.getElementById('reflectionStatusBadge');
@@ -5584,8 +5419,8 @@ ${JSON.stringify(summaryData, null, 2)}
                         perspective: 'custom',
                         pointTitleEn: "Volume & Dissolving Speed",
                         pointTitleZh: "水量與溶解速率",
-                        pointEn: aiResult.feedbackEn || "Larger water volume provides more solvent space, accelerating sugar dissolving.",
-                        pointZh: aiResult.feedbackZh || "水量越多，溶劑空間越大，能加速方糖完全溶解。"
+                        pointEn: aiResult.feedbackEn || "Larger water volume provides more solvent space, accelerating salt dissolving.",
+                        pointZh: aiResult.feedbackZh || "水量越多，溶劑空間越大，能加速食鹽完全溶解。"
                     };
                 } else if (prevStage === 2) {
                     const isRandomErrorFocused = aiResult.focusTag?.includes('隨機誤差') || /唔夠準|不夠準|random error|隨機誤差/i.test(text);
@@ -5647,8 +5482,8 @@ ${JSON.stringify(summaryData, null, 2)}
             
             // --- Point 1: Data Trend & Volume Effect ---
             let p1Title = "More Water = Faster Dissolving / 水量越多，溶解越快";
-            let p1En = "Larger water volume takes SHORTER time to dissolve sugar.";
-            let p1Zh = "水量越多，方糖完全溶解所需的時間越短（溶解速率越高）。";
+            let p1En = "Larger water volume takes SHORTER time to dissolve salt.";
+            let p1Zh = "水量越多，食鹽完全溶解所需的時間越短（溶解速率越高）。";
 
             const opt1 = group.stage1Option;
             if (data && typeof data[50] === 'number' && typeof data[200] === 'number') {
@@ -5665,8 +5500,8 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
 
                 if (diff > 0) {
-                    p1En = `Your group recorded dissolving time dropping from ${t50}s (at 50 cm³) to ${t200}s (at 200 cm³)—a significant reduction of ${diff}s! Larger water volume provides more solvent molecules to dissolve sugar faster.`;
-                    p1Zh = `貴組實測溶解時間由 50 cm³ 的 ${t50} 秒驟降至 200 cm³ 的 ${t200} 秒（縮短了 ${diff} 秒）！證實水量越多，溶劑空間越大，方糖完全溶解所需時間顯著縮短。`;
+                    p1En = `Your group recorded dissolving time dropping from ${t50}s (at 50 cm³) to ${t200}s (at 200 cm³)—a significant reduction of ${diff}s! Larger water volume provides more solvent molecules to dissolve salt faster.`;
+                    p1Zh = `貴組實測溶解時間由 50 cm³ 的 ${t50} 秒驟降至 200 cm³ 的 ${t200} 秒（縮短了 ${diff} 秒）！證實水量越多，溶劑空間越大，食鹽完全溶解所需時間顯著縮短。`;
                     
                     if (opt1 && opt1.perspective === 'critical') {
                         p1En += ` (Critical Insight: Diminishing returns observed—time dropped steeply by ${Math.round(t50 - t100)}s from 50 to 100 cm³, but leveled off between 150 and 200 cm³).`;
@@ -5674,7 +5509,7 @@ ${JSON.stringify(summaryData, null, 2)}
                     }
                 } else {
                     p1En = `Your group measured dissolving times across 50–200 cm³ (${t50}s, ${t100}s, ${t150}s, ${t200}s). In scientific principle, larger water volume provides more solvent space to speed up dissolving.`;
-                    p1Zh = `貴組測量了 50–200 cm³ 的溶解時間（分別為 ${t50}s、${t100}s、${t150}s、${t200}s）。在科學原理上，水量越多，溶劑分子越多，方糖溶解得越快。`;
+                    p1Zh = `貴組測量了 50–200 cm³ 的溶解時間（分別為 ${t50}s、${t100}s、${t150}s、${t200}s）。在科學原理上，水量越多，溶劑分子越多，食鹽溶解得越快。`;
                 }
             } else if (opt1) {
                 if (opt1.pointTitleEn) p1Title = `${opt1.pointTitleEn} / ${opt1.pointTitleZh}`;
@@ -6116,10 +5951,35 @@ ${JSON.stringify(summaryData, null, 2)}
                             </div>
 
                             <!-- Description body (English & Chinese) -->
-                            <div class="text-[11px] text-slate-600 space-y-2 leading-relaxed">
-                                <p>${card.descEn}</p>
-                                <p class="text-slate-700">${card.descZh}</p>
+                            <div class="text-[11px] text-slate-600 space-y-1.5 leading-relaxed">
+                                <p class="font-medium text-slate-700">${card.descEn}</p>
+                                <p class="text-slate-600">${card.descZh}</p>
                             </div>
+
+                            <!-- Teacher Scaffolding Accordion (Expandable Prompting / 鷹架式提示) -->
+                            <details class="group bg-amber-50/60 hover:bg-amber-50/90 rounded-xl border border-amber-200/80 text-[11px] overflow-hidden transition">
+                                <summary class="cursor-pointer font-bold text-amber-900 px-3 py-2 flex items-center justify-between select-none hover:text-amber-950">
+                                    <span class="flex items-center gap-1.5">
+                                        <span>🪜</span>
+                                        <span>Teacher Scaffolding / 教師引導鷹架</span>
+                                    </span>
+                                    <span class="text-[10px] text-amber-700 bg-amber-100/80 px-1.5 py-0.5 rounded group-open:rotate-180 transition transform">▼</span>
+                                </summary>
+                                <div class="px-3 pb-3 pt-1 space-y-1.5 border-t border-amber-200/50 text-slate-700">
+                                    <div>
+                                        <strong class="text-amber-900 text-[10px] block">Step 1 • 觀察現象 (Observe):</strong>
+                                        <span class="text-[10px] text-slate-600">${card.scaffoldStep1 || '引導學生觀察數據走勢與具體差異。 / Direct students to observe data discrepancies.'}</span>
+                                    </div>
+                                    <div>
+                                        <strong class="text-amber-900 text-[10px] block">Step 2 • 深入追問 (Inquire):</strong>
+                                        <span class="text-[10px] text-slate-600">${card.scaffoldStep2 || '追問操作過程中的未受控變因。 / Inquire about uncontrolled variables in operation.'}</span>
+                                    </div>
+                                    <div>
+                                        <strong class="text-amber-900 text-[10px] block">Step 3 • 科學結論 (Conclude):</strong>
+                                        <span class="text-[10px] text-slate-600">${card.scaffoldStep3 || '引導運用粒子碰撞模型作科學總結。 / Guide students to formulate a scientific conclusion.'}</span>
+                                    </div>
+                                </div>
+                            </details>
                         </div>
 
                         <!-- Core Objective footer -->
@@ -6179,35 +6039,44 @@ ${JSON.stringify(summaryData, null, 2)}
                 scoreIcon: "⚠️",
                 category: "discrepancies",
                 rationale: "⚠️ 系統分析全班數據走勢，急需在大組討論中引導排查未控制變因！",
-                titleEn: "Comparing Group Anomalies: What hidden variables caused this gap?",
-                titleZh: "【實測對比】不同組別數據出現顯著落差：有哪些未控制的隱藏變因？",
-                descEn: "Both groups tested identical water volumes and sugar. Why did dissolving time differ? Could stirring frequency vary, or did water cool down on the bench? How should scientists critically analyze discrepancies?",
-                descZh: "各組測試相同水量與方糖，為什麼秒數會出現落差？是攪拌頻率快慢不一，還是操作失誤？面對反常數據，科學家應如何批判排查而非盲信或隨意刪除？",
-                objective: "培養不盲從數據、能從實驗細微處排查未受控「隱藏變因」的批判思維。"
+                titleEn: "Data Discrepancy: What hidden variables caused this gap?",
+                titleZh: "【數據落差】組別之間出現顯著差異：有哪些未控制的隱藏變因？",
+                descEn: "Both groups used identical salt portions and water volumes. Why did dissolving times differ? Could stirring speed vary, or did water temperature shift?",
+                descZh: "各組使用相同鹽量與水量，為何秒數會出現落差？是攪拌速度不均，還是水溫有偏差？面對反常數據，科學家應如何排查隱藏變因？",
+                objective: "培養不盲從數據、能從實驗細微處排查未受控「隱藏變因」的批判思維。",
+                scaffoldStep1: "Direct students to spot anomalous points on the class chart. / 引導學生觀察全班趨勢圖，指出哪組數據偏離正常走勢。",
+                scaffoldStep2: "Prompt students to review operations: stirring speed, beaker stability, and timing. / 追問操作細節：各組攪拌轉速與碼錶停止時機是否嚴格一致？",
+                scaffoldStep3: "Explain that scientists do not discard anomalies, but investigate unmeasured variables. / 引導理解科學家不隨意刪除反常數據，而是嚴謹排查操作細節。"
             };
 
             if (anomalies.length > 0) {
                 const anom = anomalies[0];
-                cAnomaly.rationale = `⚠️ 系統偵測到第 ${anom.groupNum} 組出現反常走勢（${anom.detail}），急需在大組討論中引導排查未控制變因！`;
-                cAnomaly.titleEn = `Group ${anom.groupNum} Inversion (${anom.detail}): What hidden variables caused this anomaly?`;
-                cAnomaly.titleZh = `🔍 【實時反常焦點】第 ${anom.groupNum} 組實測反常：${anom.detail}折線出現反彈！理論上水量多溶得快，你會如何排查？`;
-                cAnomaly.descEn = `In Group ${anom.groupNum}'s test, dissolving time unexpectedly bounced back (${anom.detail}). Did stirring speed slow down due to fatigue, did water cool down, or was the sugar cube crushed? How should scientists critically analyze discrepancies rather than ignoring them?`;
-                cAnomaly.descZh = `實時檢測到全班第 ${anom.groupNum} 組出現了逆勢反彈走勢（${anom.detail}）。在真實科研中，面對與理論相反的異常點，我們應該直接刪除數據，還是深入排查操作細節（如攪拌速度或水溫）？`;
+                cAnomaly.rationale = `⚠️ 系統偵測到第 ${anom.groupNum} 組出現反常走勢（${anom.detail}），急需引導全班排查未控制變因！`;
+                cAnomaly.titleEn = `Group ${anom.groupNum} Inversion (${anom.detail}): What hidden variables caused this?`;
+                cAnomaly.titleZh = `🔍 【反常走勢焦點】第 ${anom.groupNum} 組實測反常 (${anom.detail})：折線為何反彈？`;
+                cAnomaly.descEn = `In Group ${anom.groupNum}'s test, dissolving time unexpectedly rebounded (${anom.detail}). Did stirring slow down due to fatigue, or was water cooler? How should scientists investigate?`;
+                cAnomaly.descZh = `第 ${anom.groupNum} 組數據出現逆勢反彈 (${anom.detail})。面對與理論相反的異常點，我們應直接刪除數據，還是深入排查攪拌與水溫操作細節？`;
+                cAnomaly.scaffoldStep1 = `Have the class look at Group ${anom.groupNum}'s curve inflection. / 引導全班指認第 ${anom.groupNum} 組的異常折線。`;
+                cAnomaly.scaffoldStep2 = `Ask Group ${anom.groupNum} about their stirring consistency and timing trigger. / 詢問該組攪拌手速是否前後一致、碼錶是否按慢。`;
+                cAnomaly.scaffoldStep3 = `Summarize that fair testing requires strictly constant control variables across all trials. / 總結公平測試必須確保所有控制變因在各次實驗中嚴格恆定。`;
                 candidateCards.push(cAnomaly);
             } else if (submitted.length >= 2) {
                 submitted.sort((a, b) => (b.data[150] || 0) - (a.data[150] || 0));
                 const maxG = submitted[0];
                 const minG = submitted[submitted.length - 1];
                 const diff = Math.round(((maxG.data[150] || 0) - (minG.data[150] || 0)) * 10) / 10;
-                cAnomaly.rationale = `⚠️ 系統偵測到第 ${minG.groupNum} 組與第 ${maxG.groupNum} 組在 150 cm³ 相差高達 ${diff} 秒，急需在大組討論中引導排查未控制變因！`;
-                cAnomaly.titleEn = `Group ${minG.groupNum} (${minG.data[150]}s) vs Group ${maxG.groupNum} (${maxG.data[150]}s): What hidden variables caused this ${diff}s gap?`;
-                cAnomaly.titleZh = `【實測對比】Group ${minG.groupNum} (${minG.data[150]}秒) vs Group ${maxG.groupNum} (${maxG.data[150]}秒)：相差 ${diff} 秒！有哪些未控制的隱藏變因？`;
-                cAnomaly.descEn = `Both groups tested identical water volume and sugar cube. Why did dissolving time differ by ${diff} seconds? Could stirring frequency vary, or did water cool down on the bench? How should scientists critically analyze discrepancies?`;
-                cAnomaly.descZh = `實時檢測到全班第 ${maxG.groupNum} 組與第 ${minG.groupNum} 組在 150 cm³ 出現顯著落差（相差 ${diff} 秒）。如果出現兩組數據走勢矛盾或數值差距顯著，我們應該直接刪除異常組別，還是重新檢查操作細節？`;
+                cAnomaly.rationale = `⚠️ 系統偵測到第 ${minG.groupNum} 組與第 ${maxG.groupNum} 組在 150 cm³ 相差高達 ${diff} 秒！`;
+                cAnomaly.titleEn = `Group ${minG.groupNum} (${minG.data[150]}s) vs Group ${maxG.groupNum} (${maxG.data[150]}s): What caused this ${diff}s gap?`;
+                cAnomaly.titleZh = `【組間對比】第 ${minG.groupNum} 組 (${minG.data[150]}s) vs 第 ${maxG.groupNum} 組 (${maxG.data[150]}s)：相差 ${diff} 秒的隱藏變因為何？`;
+                cAnomaly.descEn = `Both groups tested identical salt and water volume. Why did dissolving time differ by ${diff}s? Could stirring speed or timing accuracy differ?`;
+                cAnomaly.descZh = `兩組測試相同鹽量與水量，為何時間相差 ${diff} 秒？是否存在攪拌速度或碼錶判斷上的組間操作差異？`;
+                cAnomaly.scaffoldStep1 = `Compare the two groups' bar/line heights side by side. / 對比兩組在 150 cm³ 水量下的實測數據差距。`;
+                cAnomaly.scaffoldStep2 = `Interview both groups: Did stirring rate and eyesight criteria match? / 訪問兩組同學：攪拌頻率與肉眼判斷溶盡標準是否一致？`;
+                cAnomaly.scaffoldStep3 = `Highlight how human variations cause inter-group discrepancies in hands-on science. / 總結人手操作差異如何導致組間數據落差，引出大樣本平均的重要性。`;
                 candidateCards.push(cAnomaly);
             }
 
-            // --- Candidate 2: Melting vs Dissolving (ONLY INCLUDED IF AT LEAST ONE STUDENT MENTIONED MELTING) ---
+            // --- Candidate 2: Melting vs Dissolving ---
             if (meltingMentions.length > 0) {
                 const meltItem = meltingMentions[0];
                 const cleanQuote = meltItem.text.length > 40 ? meltItem.text.substring(0, 38) + '...' : meltItem.text;
@@ -6219,12 +6088,15 @@ ${JSON.stringify(summaryData, null, 2)}
                     score: 95,
                     scoreIcon: "🧭",
                     category: "concepts",
-                    rationale: `🗣️ 學生在探究中明確提到「${cleanQuote}」(Group ${meltItem.groupNum})，涉及「融化/melt」迷思，即時引導概念轉變！`,
-                    titleEn: `Group ${meltItem.groupNum} mentioned "${cleanQuote}": Do sugar crystals "melt" or "dissolve"?`,
-                    titleZh: `第 ${meltItem.groupNum} 組同學提到「${cleanQuote}」：方糖在水中是「融化」還是「溶解」？`,
-                    descEn: `In actual dialogue, Group ${meltItem.groupNum} mentioned "${cleanQuote}". Everyday language often confuses melting with dissolving. If all water evaporates, will sugar reappear? What is the fundamental particle difference?`,
-                    descZh: `第 ${meltItem.groupNum} 組在探究中提出「${cleanQuote}」。日常生活中常有人說糖在熱水中「融化了」。如果把水全部蒸乾，方糖分子還會在嗎？冰塊融化與方糖溶解在微觀粒子上有何本質區別？`,
-                    objective: "運用微觀粒子模型剖析「溶解」與「融化」的本質差異，實現科學概念轉變。"
+                    rationale: `🗣️ 學生提到「${cleanQuote}」(Group ${meltItem.groupNum})，涉及「融化/melt」日常迷思，即時引導概念轉變！`,
+                    titleEn: `Conceptual Shift: Does salt "melt" or "dissolve" in water?`,
+                    titleZh: `第 ${meltItem.groupNum} 組提到「${cleanQuote}」：食鹽在水中是「融化」還是「溶解」？`,
+                    descEn: `Everyday language often confuses melting with dissolving. Melting is a thermal change of state; dissolving is water molecules breaking crystal lattices.`,
+                    descZh: `日常生活中常有人說鹽在熱水中「融化了」。冰塊融化（受熱相變）與食鹽溶解（粒子分散）在微觀粒子上有何本質區別？`,
+                    objective: "運用微觀粒子模型剖析「溶解」與「融化」的本質差異，實現科學概念轉變。",
+                    scaffoldStep1: "Ask: 'If we evaporate all the water, will solid salt reappear?' / 提問：「若將水全部蒸乾，固體食鹽會重新出現嗎？」",
+                    scaffoldStep2: "Contrast melting ice (thermal state change) vs dissolving salt (water molecules separating ions). / 對比融化（受熱變液體）與溶解（粒子均勻分散）的微觀機制。",
+                    scaffoldStep3: "Formulate the scientific particle concept of dissolving. / 引導學生以粒子模型給出科學定義：溶解是溶質粒子被水分子分散的過程。"
                 });
             }
 
@@ -6241,11 +6113,14 @@ ${JSON.stringify(summaryData, null, 2)}
                     scoreIcon: "🥣",
                     category: "discrepancies",
                     rationale: `🥣 第 ${stirItem.groupNum} 組敏銳提出「${cleanQuote}」，抓住了人手攪拌無法維持恆定轉速的關鍵局限！`,
-                    titleEn: `Group ${stirItem.groupNum} reflected on stirring: "${cleanQuote}"! How does human fatigue affect experimental validity?`,
-                    titleZh: `🥣 【課堂思維火花】第 ${stirItem.groupNum} 組反思「${cleanQuote}」！人手攪拌快慢不一如何影響實驗公平？`,
-                    descEn: `Group ${stirItem.groupNum} insightfully pointed out "${cleanQuote}". Stirring faster increases collisions between water molecules and sugar. How can we ensure constant stirring speed across all trials?`,
-                    descZh: `第 ${stirItem.groupNum} 組同學非常敏銳地提出「${cleanQuote}」。攪拌越快，水分子撞擊方糖頻率越高。但人手操作容易疲勞導致後段變慢，這對公平測試有何影響？如何解決？`,
-                    objective: "引導反思人為操作局限性，理解攪拌速率作為控制變因對實驗信度的影響。"
+                    titleEn: `Fair Test & Stirring: How does human fatigue affect experimental validity?`,
+                    titleZh: `🥣 第 ${stirItem.groupNum} 組反思「${cleanQuote}」！人手攪拌快慢不一如何影響實驗公平？`,
+                    descEn: `Stirring faster increases collisions between water molecules and salt crystals. How does hand fatigue across 4 trials compromise fair testing?`,
+                    descZh: `攪拌越快，水分子撞擊鹽晶體頻率越高。但人手操作容易疲勞導致後段變慢，這對公平測試有何影響？如何改進？`,
+                    objective: "引導反思人為操作局限性，理解攪拌速率作為控制變因對實驗信度的影響。",
+                    scaffoldStep1: "Ask: 'Did your stirring speed stay identical across all 4 beakers?' / 提問：「由第1杯到第4杯，你們攪拌的速度真的完全一致嗎？」",
+                    scaffoldStep2: "Connect stirring speed to the microscopic rate of water collisions per second. / 追問：攪拌快慢如何改變每秒水分子撞擊鹽粒的頻率？",
+                    scaffoldStep3: "Conclude that stirring speed is a critical control variable that requires standardization. / 總結：攪拌速率是必須嚴格控制的不變變因。"
                 });
             }
 
@@ -6262,15 +6137,18 @@ ${JSON.stringify(summaryData, null, 2)}
                     scoreIcon: "⏱️",
                     category: "reliability",
                     rationale: `⏱️ 第 ${timerItem.groupNum} 組指出「${cleanQuote}」，鎖定碼錶反應延遲與肉眼主觀性！`,
-                    titleEn: `Group ${timerItem.groupNum} noted stopwatch delay: "${cleanQuote}"! How do reaction times cause random variations?`,
-                    titleZh: `⏱️ 【計時誤差反思】第 ${timerItem.groupNum} 組指出「${cleanQuote}」！肉眼主觀判斷如何引入隨機誤差？`,
-                    descEn: `Group ${timerItem.groupNum} identified timer delay ("${cleanQuote}"). Human nerve reaction time takes ~0.2-0.3s, and seeing the last crystal dissolve is subjective. How does this explain differences across groups?`,
-                    descZh: `第 ${timerItem.groupNum} 組指出「${cleanQuote}」。人體神經反應約需 0.2 至 0.3 秒，加上肉眼判斷方糖完全消失具主觀性。這種隨機誤差如何影響單次實驗的準確度？`,
-                    objective: "認識人體神經生理反應時間與視覺觀察主觀性對實驗數據的隨機干擾。"
+                    titleEn: `Random Error: How do human reaction times introduce variance?`,
+                    titleZh: `⏱️ 第 ${timerItem.groupNum} 組指出「${cleanQuote}」！肉眼判斷與反應延遲如何引入隨機誤差？`,
+                    descEn: `Human nerve reaction time takes ~0.2-0.3s, and spotting the last salt crystal dissolve is subjective. How does this explain differences across groups?`,
+                    descZh: `人體神經反應需 0.2 至 0.3 秒，肉眼判斷最後一顆鹽粒完全消失亦具主觀性。這種隨機誤差如何影響單次實驗的準確度？`,
+                    objective: "認識人體神經生理反應時間與視覺觀察主觀性對實驗數據的隨機干擾。",
+                    scaffoldStep1: "Ask students: 'How did you determine the exact second salt was 100% dissolved?' / 提問：「你們如何判定最後一顆鹽粒完全消失的確切瞬間？」",
+                    scaffoldStep2: "Discuss the delay between the observer shouting 'Stop' and the timer clicking. / 討論：由觀察者喊『停』到計時員按停碼錶，存在多少反應時差？",
+                    scaffoldStep3: "Explain why single-trial timing has random errors that need averaging. / 總結：人體反應延遲屬於隨機誤差，多次重複與取平均值能有效減低偏差。"
                 });
             }
 
-            // --- Candidate 5: Crushed Sugar Surface Area ---
+            // --- Candidate 5: Crushed Salt / Surface Area ---
             if (crushedMentions.length > 0) {
                 const crushItem = crushedMentions[0];
                 const cleanQuote = crushItem.text.length > 40 ? crushItem.text.substring(0, 38) + '...' : crushItem.text;
@@ -6278,20 +6156,23 @@ ${JSON.stringify(summaryData, null, 2)}
                     priority: 2,
                     priorityLabel: "💎 表面積變因研討 (Surface Area)",
                     badgeClass: "bg-purple-100 text-purple-800 border border-purple-300",
-                    subDomain: "HOTS • Surface Area / 方糖碎裂與接觸面積",
+                    subDomain: "HOTS • Surface Area / 鹽粒大小與接觸表面積",
                     score: 90,
                     scoreIcon: "💎",
                     category: "discrepancies",
-                    rationale: `💎 第 ${crushItem.groupNum} 組誠實反思「${cleanQuote}」，指出方糖碎裂破壞了接觸面積這個控制變因！`,
-                    titleEn: `Group ${crushItem.groupNum} noted crushed sugar: "${cleanQuote}"! How does surface area affect collision rates?`,
-                    titleZh: `💎 【表面積與變因】第 ${crushItem.groupNum} 組反思「${cleanQuote}」！方糖被戳碎對溶解速率有何巨大影響？`,
-                    descEn: `Group ${crushItem.groupNum} honestly shared that sugar was crushed ("${cleanQuote}"). Crushing sugar dramatically increases surface area exposed to water molecules. Why is keeping crystal intact essential for a fair test?`,
-                    descZh: `第 ${crushItem.groupNum} 組同學誠實指出「${cleanQuote}」。方糖碎裂會使暴露給水分子的表面積成倍劇增。若一組方糖碎了而另一組完好，這還是一場公平測試嗎？`,
-                    objective: "建立微觀碰撞面積理論，並深刻體會維持控制變因對科學實驗的根本重要性。"
+                    rationale: `💎 第 ${crushItem.groupNum} 組提到「${cleanQuote}」，指出鹽粒大小或壓碎影響了表面積控制變因！`,
+                    titleEn: `Surface Area: How does particle size affect dissolving rates?`,
+                    titleZh: `💎 第 ${crushItem.groupNum} 組反思「${cleanQuote}」！鹽粒大小或壓碎對溶解速率有何影響？`,
+                    descEn: `Fine salt exposes far more surface area to water molecules than coarse crystals. Why must particle size remain strictly constant for a fair test?`,
+                    descZh: `細鹽暴露給水分子的接觸表面積遠大於粗鹽粒。若各組鹽粒大小不同，為何會直接破壞公平測試？`,
+                    objective: "建立微觀碰撞面積理論，並深刻體會維持控制變因對科學實驗的根本重要性。",
+                    scaffoldStep1: "Ask: 'Will fine salt or rock salt dissolve faster in 100 cm³ water?' / 提問：「在 100 cm³ 水中，細鹽還是粗鹽粒溶得更快？」",
+                    scaffoldStep2: "Connect crystal surface area to the number of water collisions per second. / 追問：表面積增大如何改變每秒水分子撞擊鹽粒的次數？",
+                    scaffoldStep3: "Conclude that particle size is an essential controlled variable. / 總結：溶質顆粒大小直接決定碰撞頻率，必須嚴格保持一致。"
                 });
             }
 
-            // --- Candidate 6: Class Average & Random Error Canceling (Always relevant for 8-group open class) ---
+            // --- Candidate 6: Class Average & Random Error Canceling ---
             const quoteRandomError = randomErrorMentions.length > 0 ? randomErrorMentions[0] : null;
             const errorQuoteStr = quoteRandomError ? `「${quoteRandomError.text.length > 35 ? quoteRandomError.text.substring(0, 33) + '...' : quoteRandomError.text}」` : "「8組平均值能抵消隨機誤差」";
             const errorGroupNum = quoteRandomError ? quoteRandomError.groupNum : 1;
@@ -6304,15 +6185,18 @@ ${JSON.stringify(summaryData, null, 2)}
                 score: 75,
                 scoreIcon: "⚖️",
                 category: "reliability",
-                rationale: `📊 第 ${errorGroupNum} 組指出 ${errorQuoteStr}，全班已有 ${Math.max(1, submitted.length)} 組提交數據，具備充足大樣本探討「平均值如何像天平一樣抵消隨機誤差」！`,
-                titleEn: `Classroom Thought Spark: Group ${errorGroupNum} noted ${errorQuoteStr}! Why does calculating class average eliminate random errors?`,
-                titleZh: `🛠️ 【課堂思維火花】第 ${errorGroupNum} 組提出 ${errorQuoteStr}！全班討論：只做 1 組實驗存在什麼風險？8組平均如何抵消？`,
-                descEn: `If one team stopped the timer 2s late, and another stirred slightly faster, single-group data varies. How does the 8-group average balance out random positive and negative errors like a scale?`,
-                descZh: `第 ${errorGroupNum} 組同學非常敏銳地提出 ${errorQuoteStr}。人手操作時碼錶反應、攪拌速度都有不可避免的正負誤差。全班 8 組平均值是如何像天平一樣抵消這些誤差的？`,
-                objective: "深刻理解大樣本平均值消除隨機誤差的本質與科學信度 Reliability。"
+                rationale: `📊 第 ${errorGroupNum} 組指出 ${errorQuoteStr}，全班數據具備探討「平均值如何抵消隨機誤差」的良好契機！`,
+                titleEn: `Reliability: Why does the 8-group average balance out random errors?`,
+                titleZh: `⚖️ 第 ${errorGroupNum} 組提出 ${errorQuoteStr}！全班 8 組平均值如何像天平一樣抵消誤差？`,
+                descEn: `Single-trial timing involves human stopwatch and stirring variations. Averaging across 8 groups balances out random deviations to reveal true trends.`,
+                descZh: `單組測試難免有按碼錶或攪拌快慢的隨機正負誤差。全班 8 組平均能抵消隨機偏差，真實呈現科學趨勢。`,
+                objective: "深刻理解大樣本平均值消除隨機誤差的本質與科學信度 (Reliability)。",
+                scaffoldStep1: "Ask: 'Why don't scientists rely on just one group's experiment?' / 提問：「為什麼科學家不單憑 1 組的結果就下結論？」",
+                scaffoldStep2: "Explain how positive errors (+2s) and negative errors (-2s) cancel each other out. / 解釋按慢2秒（正誤差）與按快2秒（負誤差）在平均時如何互相抵消。",
+                scaffoldStep3: "Formulate the concept of experimental reliability through sample replication. / 總結：大樣本重複測試取平均能有效提升實驗信度。"
             });
 
-            // --- Candidate 7: Kinetics & Limit Thinking (50->100 drop vs 150->200 plateau) ---
+            // --- Candidate 7: Kinetics & Limit Thinking ---
             const avg200 = avgData ? avgData[200] : 30;
             const avg50 = avgData ? avgData[50] : 120;
             const avg100 = avgData ? avgData[100] : 70;
@@ -6328,12 +6212,15 @@ ${JSON.stringify(summaryData, null, 2)}
                 score: 70,
                 scoreIcon: "⚡",
                 category: "kinetics",
-                rationale: "🧪 全班實測 50→100 cm³ 大幅縮短秒數，但 150→200 cm³ 趨於平緩，引導從微觀水分子碰撞模型與極限思維切入！",
-                titleEn: `From 50 to 100 cm³, time dropped by ${dropEarly}s; but 150 to 200 cm³ only by ${dropLate}s: Why do extra water molecules have diminishing returns?`,
-                titleZh: `🌊 【極限思維探究】全班實測 50→100 cm³ 大幅縮短了 ${dropEarly} 秒，但 150→200 cm³ 僅減少約 ${dropLate} 秒！若將水量加至 10,000 cm³，溶解時間可能變成 0 秒嗎？`,
-                descEn: `When volume doubles from 50 to 100 cm³, collision frequency between free water molecules and sugar crystal surfaces skyrockets. However, when water is already abundant, sugar surface area becomes the rate-limiting factor. Can adding 10,000 cm³ water reduce dissolving time to 0 seconds?`,
-                descZh: `全班實測曲線清楚顯示「前段劇降、後段趨緩」的邊際效應特徵。即便把方糖投入整座水塘或太平洋中，水分子破壞晶格依然需要時間，這揭示了科學規律在極端條件下的什麼物理極限？`,
-                objective: "建立微觀水分子碰撞模型，並培養極限思維 (Limit Thinking) 與外推批判能力。"
+                rationale: "🧪 實測 50→100 cm³ 大幅縮短秒數，但 150→200 cm³ 趨於平緩，引導從水分子碰撞模型與極限思維切入！",
+                titleEn: `Limit Thinking: If water reaches 10,000 cm³, will dissolving time drop to 0s?`,
+                titleZh: `🌊 實測 50→100 cm³ 縮短 ${dropEarly}s，但 150→200 cm³ 僅減少 ${dropLate}s！水量加至 10,000 cm³ 能否變 0 秒？`,
+                descEn: `Increasing water adds more colliding water molecules, but crystal surface area becomes the bottleneck. Dissolving always takes physical time.`,
+                descZh: `水量倍增大幅增加水分子碰撞，但晶體表面有限成為限速瓶頸。即便投入大海，水分子拆解晶格仍需有限時間。`,
+                objective: "建立微觀水分子碰撞模型，並培養極限思維 (Limit Thinking) 與外推批判能力。",
+                scaffoldStep1: "Direct students to observe the graph curve flattening between 150 and 200 cm³. / 引導學生觀察折線圖：150 到 200 cm³ 曲線為何開始平緩？",
+                scaffoldStep2: "Challenge with extreme thought experiment: 'What if we use 10,000 cm³ water?' / 提出極限思想實驗：「若水量加到 10,000 cm³，溶解時間能變成 0 秒嗎？」",
+                scaffoldStep3: "Conclude with collision physics: Molecular dismantling requires a non-zero time duration. / 總結碰撞物理原理：水分子包圍拆解晶格必然需要時間，絕不可能為 0 秒。"
             });
 
             // --- Candidate 8: STEM Engineering & Automation ---
@@ -6345,15 +6232,18 @@ ${JSON.stringify(summaryData, null, 2)}
                 score: 65,
                 scoreIcon: "⚙️",
                 category: "stem",
-                rationale: "🤖 人手攪拌不均與肉眼終點判斷為課堂主要誤差來源，激發學生運用現代 STEM 技術設計自動化裝置！",
-                titleEn: "How can we engineer a \"Zero Human Error\" dissolving apparatus using magnetic stirrers and turbidity sensors?",
-                titleZh: "🛠️ 如果要設計一個完全「零人為誤差」的溶解實驗，你會如何改進裝置？",
-                descEn: "Manual stirring cannot maintain constant RPM, and watching for the last sugar speck is subjective. If you could integrate Arduino or micro:bit with a magnetic stirrer and a light transmission sensor, how would the machine define 100% dissolution automatically?",
-                descZh: "人手攪拌無法維持恆定轉速，肉眼觀察最後一粒晶體消失也具有強烈主觀性。若能結合微型控制器、磁力攪拌器與透光濁度傳感器，如何讓機器全自動判定「方糖 100% 溶解」並自動計時？",
-                objective: "引導 STEM 工程思維與自動化檢測概念，提高實驗精度與客觀性。"
+                rationale: "🤖 人手攪拌不均與肉眼終點判斷為主要誤差來源，激發學生運用 STEM 技術設計自動化裝置！",
+                titleEn: "STEM Engineering: How could automated sensors eliminate human errors?",
+                titleZh: "🛠️ 如果要設計「零人為誤差」的溶解裝置，你會如何結合傳感器與微控制器？",
+                descEn: "Manual stirring cannot maintain constant RPM, and watching for the last salt speck is subjective. How can magnetic stirrers and turbidity sensors automate tests?",
+                descZh: "人手攪拌無法維持恆定轉速，肉眼判斷最後一顆鹽粒亦具主觀性。若結合微控制器、磁力攪拌器與透光傳感器，如何實現客觀全自動測試？",
+                objective: "引導 STEM 工程思維與自動化檢測概念，提高實驗精度與客觀性。",
+                scaffoldStep1: "Ask: 'Which part of our experiment was most subjective?' / 提問：「實驗中哪個環節最依賴人為主觀判斷？」",
+                scaffoldStep2: "Explore solutions: 'How can a light sensor objectively detect 100% dissolution?' / 探討解決方案：「光度傳感器如何自動客觀判斷鹽粒已完全溶解？」",
+                scaffoldStep3: "Summarize how automated engineering removes human reaction error. / 總結 STEM 工程設計如何徹底排除人為誤差，提升科學檢測精度。"
             });
 
-            // If category 'concepts' is selected and student did NOT mention melting, add a grounded conceptual card about particle spacing
+            // --- Candidate 9: Grounded Particle Space Model ---
             if (meltingMentions.length === 0) {
                 candidateCards.push({
                     priority: 5,
@@ -6364,11 +6254,14 @@ ${JSON.stringify(summaryData, null, 2)}
                     scoreIcon: "💡",
                     category: "concepts",
                     rationale: "💡 運用微觀粒子模型解釋為什麼更多水量能加速溶解擴散過程。",
-                    titleEn: "Microscopic Particle Perspective: Why does larger water volume give dissolved particles faster diffusion space?",
-                    titleZh: "【微觀粒子視角】為什麼水量越多，已溶解的糖分子能更快擴散，從而不阻擋新鮮水分子？",
-                    descEn: "In small volumes of water, sugar molecules cluster near the crystal surface. In larger volumes, they diffuse rapidly away. How does particle spacing explain dissolving rates?",
-                    descZh: "水量較少時，已脫離晶格的糖分子容易在方糖表面附近形成高濃度聚集；水量較多時，擴散空間開闊，新鮮水分子能持續高效率進攻方糖表面。",
-                    objective: "深化微觀粒子擴散與碰撞空間概念，避免單純死記硬背實驗結論。"
+                    titleEn: "Particle Model: Why does more water volume give dissolved particles faster diffusion space?",
+                    titleZh: `💡 【微觀粒子視角】為什麼水量越多，已溶解的鹽粒子能更快擴散開去？`,
+                    descEn: "In small volumes, dissolved salt ions crowd near the crystal surface. In larger volumes, open space lets dissolved particles diffuse away rapidly.",
+                    descZh: `水量較少時，已溶解的鹽離子容易在晶體表面附近聚集；水量較多時擴散空間開闊，新鮮水分子能持續高效率進攻晶體表面。`,
+                    objective: "深化微觀粒子擴散與碰撞空間概念，避免單純死記硬背實驗結論。",
+                    scaffoldStep1: "Refer to the Step 6 simulator's particle distribution view. / 引導學生觀察 Step 6 模擬器中鹽粒子在水中的擴散狀態。",
+                    scaffoldStep2: "Ask: 'If dissolved particles crowd around the crystal, what happens to fresh water molecules?' / 追問：「若已溶解粒子堆在晶體周圍，新鮮水分子還容易靠近嗎？」",
+                    scaffoldStep3: "Conclude that larger water volume expands diffusion boundaries and prevents saturation buildup. / 總結：更大水量提供了開闊擴散空間，防止局部飽和屏障形成。"
                 });
             }
 
@@ -6840,19 +6733,15 @@ ${JSON.stringify(summaryData, null, 2)}
             if (!textarea) return;
 
             if (type === 'microscopic') {
-                textarea.value = "第4組工作紙：水量增加時水分子數量變多，每秒碰撞方糖的分子數量大增，所以溶解更快；但若加至5000ml時間不會是0秒，因為水分子拆解方糖晶格需要時間，不能瞬間完成。";
+                textarea.value = "Group 4: More water provides more water molecules colliding with salt crystals per second, dissolving salt faster. Even at 5,000 cm³ water, time won't be 0s because breaking the crystal lattice takes time.\n第4組：水量增加時水分子變多，每秒碰撞鹽晶體頻率大增，溶解加快；但加到5,000 cm³也不會是0秒，因拆解鹽晶格仍需時間。";
             } else if (type === 'misconception') {
-                textarea.value = "第2組工作紙：水量變多，水杯變重，方糖在水裡要走的路程更遠，所以溶解時間會變長。";
+                textarea.value = "Group 2: More water creates a deeper beaker. Salt has a longer distance to travel, so dissolving takes longer.\n第2組：水量變多杯水更深，食鹽在水中要走的路程更遠，所以溶解時間變長。";
             } else if (type === 'human_error') {
-                textarea.value = "第6組工作紙：我們組的線比全班平均慢了20秒，因為攪拌時手累了轉速變慢，碼錶按停也慢了。";
+                textarea.value = "Group 6: Our line was 20s slower than average because our hand got tired and stirred slower in later trials.\n第6組：我們組比全班平均慢20秒，因為攪拌時手累了轉速變慢。";
             } else if (type === 'timer_latency') {
-                textarea.value = "第5組工作紙：肉眼看最後一小塊方糖何時消失很難看準，每個人按停碼錶的時間有0.5秒反應時差，是主要隨機誤差。";
+                textarea.value = "Group 5: Spotting the exact moment the last salt crystal disappears is subjective. Stopwatch human reaction delay (~0.3s) causes random error.\n第5組：肉眼判斷最後一顆鹽粒消失具主觀性，加上碼錶人體反應延遲（約0.3秒），造成隨機誤差。";
             } else if (type === 'solubility_vs_rate') {
-                textarea.value = "第1組工作紙：水量越多可以溶解的糖量越多（容量更大），所以溶解速度自然就變快了。";
-            } else if (type === 'fairtest') {
-                textarea.value = "黑板板書筆記 (Fair Test Chalkboard Notes)：\nDictation 2 | LG P.5 Keywords | Draw and label 5 Bunsen burners\nFair Test (公平測試)：\n- one variable to be changed 變 (one)\n- variables to be kept constant 不變 (many)\n- variable to be compared 比較 (one)\n* time of cleaning (same size)\n* size of stain (same time of cleaning)";
-            } else if (type === 'sound_vacuum') {
-                textarea.value = "黑板板書筆記 (Sound in Vacuum Chalkboard Notes)：\nI think the boy can't hear the alarm clock ringing, because the air was pumped out then.";
+                textarea.value = "Group 1: More water has a larger capacity to dissolve more salt, so dissolving rate naturally gets faster.\n第1組：水量越多能容納溶解的食鹽量越多（容量更大），所以溶解速度自然變快。";
             }
             textarea.focus();
         }
@@ -6935,8 +6824,8 @@ ${JSON.stringify(summaryData, null, 2)}
                     focusTag = "STEM 自動化與傳感器工程 / Sensor & Automation Engineering";
                     praise = `🌟 頂尖的工程與 STEM 創客思維！${groupPrefix}跳出傳統實驗框架，主動構思『光閘感測器、Micro:bit 自動化與 240fps 慢動作錄影』三大方案，試圖用現代科技徹底消除人手碼錶的反應時差！`;
                     diag = `🔍 展現極佳的工程解決問題能力 (Engineering Design Process)。已從純粹的『反思誤差』躍升為『設計儀器消除誤差』。教學上應引導全班探討傳感器在液體濁度判定上的技術邊界。`;
-                    promptQ1 = `1. ${groupPrefix}提議使用『光閘感測器 (Light Gate)』或 Micro:bit。在方糖溶解過程中水會變混濁，光閘的透光率閾值該如何設定，才能客觀判定方糖已『完全溶解』而不是暫時被水流遮擋？`;
-                    promptQ1En = `When using Light Gate sensors, dissolving sugar creates turbidity. How should the light transmission threshold be calibrated to objectively confirm 100% dissolution?`;
+                    promptQ1 = `1. ${groupPrefix}提議使用『光閘感測器 (Light Gate)』或 Micro:bit。在食鹽溶解過程中水會變混濁，光閘的透光率閾值該如何設定，才能客觀判定食鹽已『完全溶解』而不是暫時被水流遮擋？`;
+                    promptQ1En = `When using Light Gate sensors, dissolving salt creates turbidity. How should the light transmission threshold be calibrated to objectively confirm 100% dissolution?`;
                     promptQ2 = `2. 手機 240 fps 慢動作錄影精確至 0.004 秒。如果肉眼在影片重播中依然難以看清最後一小粒晶體融解的精確瞬間，高幀率錄影是否能完全解決『肉眼主觀終點』的本質問題？`;
                     promptQ2En = `240fps video achieves 0.004s resolution. If human eyes still struggle to pinpoint the final microscopic crystal disappearance in playback, does high frame rate fully eliminate subjective endpoint ambiguity?`;
                 }
@@ -6954,10 +6843,10 @@ ${JSON.stringify(summaryData, null, 2)}
                 else if (/(?:fair\s*test|公平測試|changed|constant|compared|bunsen|stain|cleaning|不變|比較|自變|應變|控制變因)/i.test(lower)) {
                     focusTag = "公平測試與變因控制 / Fair Test & Controlled Variables";
                     praise = `🌟 掌握科學探究核心架構！精確提煉出公平測試 (Fair Test) 的三大支柱：只改變一個自變量 (one variable changed)、恆定所有控制變量 (variables kept constant)、測量一個應變量 (variable compared)！`;
-                    diag = `🔍 紮實的實驗設計思維 (Experimental Design)。學生已清楚掌握『變 (one)』與『不變 (many)』之邏輯，板書對比了清洗時間與污漬大小的互補關係。教學上應引導全班將此概念直接映射回今日的水量方糖實驗中。`;
+                    diag = `🔍 紮實的實驗設計思維 (Experimental Design)。學生已清楚掌握『變 (one)』與『不變 (many)』之邏輯，板書對比了清洗時間與污漬大小的互補關係。教學上應引導全班將此概念直接映射回今日的水量食鹽實驗中。`;
                     promptQ1 = `1. 在黑板筆記的『Fair Test』架構下，如果我們今天的實驗要探究『水量』對溶解時間的影響，『唯一要改變的 (one variable changed)』與『必須保持不變的 (kept constant)』分別是哪些變因？`;
                     promptQ1En = `Under the Fair Test framework on the board, when investigating water volume's effect on dissolving time, what is the SINGLE variable changed, and what are ALL the variables kept constant?`;
-                    promptQ2 = `2. 黑板上寫著『variable to be compared 比較 (one)』。在方糖溶解實驗中，我們『用來比較的唯一應變量』是什麼？如果同時改變水量又改變水溫，為什麼實驗就不再公平了？`;
+                    promptQ2 = `2. 黑板上寫著『variable to be compared 比較 (one)』。在食鹽溶解實驗中，我們『用來比較的唯一應變量』是什麼？如果同時改變水量又改變水溫，為什麼實驗就不再公平了？`;
                     promptQ2En = `The board notes 'variable to be compared (one)'. What is our single dependent variable measured? Why does changing both volume and temperature ruin fairness?`;
                 }
                 // 1. Physical Limits & Asymptote Thinking
@@ -6965,20 +6854,20 @@ ${JSON.stringify(summaryData, null, 2)}
                     focusTag = "物理極限思維 / Physical Limit";
                     praise = `🌟 卓越的極限思維！${groupPrefix}敏銳指出『水量加到 5000ml 也不會是 0 秒』，成功突破簡單線性外推的直覺盲點，洞察到物理擴散與晶格拆解的客觀時間極限。`;
                     diag = `🔍 具備高階科學批判素養與極限外推思維。學生懂得質疑數據邊界，教學上應引導全班觀察折線圖的『曲線漸近線（Asymptote）』特徵。`;
-                    promptQ1 = `1. 即使把方糖扔進全校游泳池甚至太平洋（無限大水量），水分子拆解方糖鍵結依然需要時間嗎？這個『物理最短極限時間』大約是多少？`;
-                    promptQ1En = `Even in an Olympic swimming pool, does water take time to break crystal bonds? What is this irreducible physical minimum time?`;
+                    promptQ1 = `1. 即使把食鹽扔進全校游泳池甚至太平洋（無限大水量），水分子拆解食鹽晶格依然需要時間嗎？這個『物理最短極限時間』大約是多少？`;
+                    promptQ1En = `Even in an Olympic swimming pool, does water take time to break salt crystal bonds? What is this irreducible physical minimum time?`;
                     promptQ2 = `2. 如果在坐標圖上把水量一直延伸到 5000 cm³，這條線會『無限接近橫軸卻永遠不碰 0』，這在數學與物理上代表什麼深刻原理？`;
                     promptQ2En = `If we extrapolate to 5000 cm³, the curve asymptotes towards zero without touching it. What does this reveal about mathematical and physical limits?`;
                 }
-                // 2. Surface Area & Crushed Sugar
+                // 2. Surface Area & Crushed Salt
                 else if (/戳碎|搗碎|碎咗|壓爛|粒粒|表面積|整碎|整爛|散開|crush|smash|break|powder|surface\s*area/i.test(lower)) {
                     focusTag = "公平測試：溶質表面積破壞 / Surface Area Control";
-                    praise = `🌟 誠實且具備高度變因警覺！${groupPrefix}能誠實反思操作細節，敏銳意識到方糖被戳碎會改變溶質顆粒大小，破壞了公平測試原則。`;
-                    diag = `🔍 深刻理解控制變因 (Controlled Variables)。方糖顆粒碎裂使接觸水的總表面積暴增，成為未受控的第二變因。應引導學生討論科研決策。`;
-                    promptQ1 = `1. 方糖被不小心戳碎成微小顆粒後，暴露在水中的『總表面積』大幅增加。這會讓它溶解得更快還是更慢？這還是一次只測試『水量影響』的公平測試嗎？`;
-                    promptQ1En = `Crushed sugar has dramatically increased total surface area. Does this accelerate dissolving, and does it violate our fair test on water volume?`;
-                    promptQ2 = `2. 如果實驗中方糖意外碎了，嚴謹的科學家應該：A. 裝作沒事繼續記數據 B. 在記錄表旁標註異常 C. 重換一顆方糖重做？為什麼？`;
-                    promptQ2En = `If a sugar cube accidentally breaks during testing, should scientists: A. Ignore it, B. Note the anomaly, or C. Discard and rerun with a fresh cube? Why?`;
+                    praise = `🌟 誠實且具備高度變因警覺！${groupPrefix}能誠實反思操作細節，敏銳意識到鹽粒被戳碎會改變溶質顆粒大小，破壞了公平測試原則。`;
+                    diag = `🔍 深刻理解控制變因 (Controlled Variables)。鹽晶體碎裂使接觸水的總表面積暴增，成為未受控的第二變因。應引導學生討論科研決策。`;
+                    promptQ1 = `1. 鹽粒被不小心戳碎成微小細粉後，暴露在水中的『總表面積』大幅增加。這會讓它溶解得更快還是更慢？這還是一次只測試『水量影響』的公平測試嗎？`;
+                    promptQ1En = `Crushed salt has dramatically increased total surface area. Does this accelerate dissolving, and does it violate our fair test on water volume?`;
+                    promptQ2 = `2. 如果實驗中鹽粒意外碎了，嚴謹的科學家應該：A. 裝作沒事繼續記數據 B. 在記錄表旁標註異常 C. 重換一份鹽粒重做？為什麼？`;
+                    promptQ2En = `If salt crystals accidentally break during testing, should scientists: A. Ignore it, B. Note the anomaly, or C. Discard and rerun with fresh salt? Why?`;
                 }
                 // 3. Water Temperature Inconsistency
                 else if (/水溫|溫度|溫水|冷水|熱水|水喉水|放耐咗|放耐左|變凍|變熱|溫度計|temp|temperature|warm|cold|water\s*bath/i.test(lower)) {
@@ -7013,12 +6902,12 @@ ${JSON.stringify(summaryData, null, 2)}
                 // 6. Everyday Metaphor & Melting vs Dissolving
                 else if (/吃掉|融化|溶化|化開|沖走|魔術|化咗|化左|eat|melt|melting|magic/i.test(lower)) {
                     focusTag = "科學術語辨析：溶化 vs 溶解 / Vocabulary Distinction";
-                    praise = `🌟 生動形象的科學想像力！${groupPrefix}能用生動的語言描述方糖逐漸在水中消失的過程。`;
+                    praise = `🌟 生動形象的科學想像力！${groupPrefix}能用生動的語言描述食鹽晶體逐漸在水中消失的過程。`;
                     diag = `🔍 需進行科學概念澄清：嚴格區分『溶化 (Melting, 固體受熱變液體)』與『溶解 (Dissolving, 溶質分散於溶劑中)』的本質區別。`;
-                    promptQ1 = `1. 冰淇淋在烈日下變成液體叫『溶化 (Melting)』需吸熱；方糖在水裡化開叫『溶解 (Dissolving)』不需加熱。你能用自己的話說說兩者最大的區別嗎？`;
-                    promptQ1En = `Ice cream melting in the sun requires heat absorption; sugar dissolving in water does not. How would you explain the core difference?`;
-                    promptQ2 = `2. 方糖在水裡『看不見了』，它是真的徹底消失了，還是變成無數肉眼看不見的微小分子均勻散佈在水中？我們可以用什麼稱重實驗來證明？`;
-                    promptQ2En = `When sugar disappears in water, does it vanish from the universe or disperse as invisible molecules? How could mass balance weighing prove it?`;
+                    promptQ1 = `1. 冰淇淋在烈日下變成液體叫『溶化 (Melting)』需吸熱；食鹽在水裡化開叫『溶解 (Dissolving)』不需加熱。你能用自己的話說說兩者最大的區別嗎？`;
+                    promptQ1En = `Ice cream melting in the sun requires heat absorption; salt dissolving in water does not. How would you explain the core difference?`;
+                    promptQ2 = `2. 食鹽在水裡『看不見了』，它是真的徹底消失了，還是變成無數肉眼看不見的微小粒子均勻散佈在水中？我們可以用什麼稱重實驗來證明？`;
+                    promptQ2En = `When salt disappears in water, does it vanish from the universe or disperse as invisible particles? How could mass balance weighing prove it?`;
                 }
                 // 7. Spatial / Distance / Weight Misconception
                 else if (/路程|空間大|阻力|杯重|杯子重|走得遠|走遠|負擔|沉底|距離|太遠|distance|resistance|heavy/i.test(lower)) {
@@ -7033,12 +6922,12 @@ ${JSON.stringify(summaryData, null, 2)}
                 // 8. Solubility vs Rate Misconception
                 else if (/溶更多|容量|裝得落|飽和|溶唔曬|溶解量|吃得多|裝得下|solubility|capacity|saturate|amount/i.test(lower)) {
                     focusTag = "概念辨析：溶解度 vs 速率 / Solubility vs Rate";
-                    praise = `🌟 敏銳關注到了水量的容納能力！${groupPrefix}能主動將『水量多寡』與『能溶多少糖』建立聯想。`;
+                    praise = `🌟 敏銳關注到了水量的容納能力！${groupPrefix}能主動將『水量多寡』與『能溶多少食鹽』建立聯想。`;
                     diag = `🔍 存在『溶解度 (Solubility)』與『溶解速率 (Rate of Dissolving)』的典型混淆：誤以為『能裝更多』等於『溶得更快』。應以生活實例區分『容量』與『速度』。`;
-                    promptQ1 = `1. 『這輛巴士能坐 50 個人（容量）』和『這輛巴士能跑多快（速度）』是同一回事嗎？水量大能溶解更多糖，與它把這 1 塊方糖化開的速度有何區別？`;
-                    promptQ1En = `Is a bus's passenger capacity identical to its driving speed? How does water's capacity to hold sugar differ from how fast 1 cube dissolves?`;
-                    promptQ2 = `2. 在今天的實驗中，方糖固定都是 1 塊。既然糖的總量完全沒變，從 120 秒縮短至 30 秒，證明改變的是溶解的『容量上限』還是『溶解速率』？`;
-                    promptQ2En = `Sugar mass was constant at 1 cube. Since the solute amount didn't change, does the drop from 120s to 30s reflect capacity or dissolving rate?`;
+                    promptQ1 = `1. 『這輛巴士能坐 50 個人（容量）』和『這輛巴士能跑多快（速度）』是同一回事嗎？水量大能溶解更多鹽，與它把固定份量的食鹽化開的速度有何區別？`;
+                    promptQ1En = `Is a bus's passenger capacity identical to its driving speed? How does water's capacity to hold salt differ from how fast a fixed amount of salt dissolves?`;
+                    promptQ2 = `2. 在今天的實驗中，食鹽份量固定不變。既然鹽的總量完全沒變，從 120 秒縮短至 30 秒，證明改變的是溶解的『容量上限』還是『溶解速率』？`;
+                    promptQ2En = `Salt mass was kept constant. Since the solute amount didn't change, does the drop from 120s to 30s reflect capacity or dissolving rate?`;
                 }
                 // 9. Curve Gradient & Diminishing Marginal Returns
                 else if (/斜率|越來越平|前快後慢|前期快|前段快|後段慢|減得少|邊際|平緩|趨緩|遞減|gradient|curve|flatten|slope|marginal/i.test(lower)) {
@@ -7054,18 +6943,18 @@ ${JSON.stringify(summaryData, null, 2)}
                 else if (/水分子|碰撞|晶格|拆解|分子|微觀|擴散|撕扯|包圍|動能|molecule|collide|collision|particle|lattice|diffusion/i.test(lower)) {
                     focusTag = "微觀分子動力學 / Microscopic Dynamics";
                     praise = `🌟 思維極具深度！${groupPrefix}能跳脫巨觀現象，精準提出『水分子包圍與碰撞頻率提升』的微觀模型，展現極高層次的科學解釋力。`;
-                    diag = `🔍 概念模型相當成熟。學生已掌握粒子碰撞機制，教學上應引導其思考『若改變溫度（分子動能）或改變糖表面積，碰撞頻率會如何再次劇變』，將微觀機制串聯至更多變因。`;
+                    diag = `🔍 概念模型相當成熟。學生已掌握粒子碰撞機制，教學上應引導其思考『若改變溫度（分子動能）或改變食鹽顆粒表面積，碰撞頻率會如何再次劇變』，將微觀機制串聯至更多變因。`;
                     promptQ1 = `1. ${groupPrefix}提出水分子碰撞是加速關鍵。如果我們保持水量不變，而是換成『70°C 熱水』，水分子的碰撞劇烈程度與動能會發生什麼變化？`;
                     promptQ1En = `Water molecular collision accelerates dissolving; how would a 70°C hot water bath alter molecular kinetic energy and collision frequency?`;
-                    promptQ2 = `2. 當方糖逐漸溶解，水裡的糖分子越來越多，『游離的自由水分子』相對減少，這能否解釋為什麼溶解後期（150→200 cm³）速度變慢？`;
-                    promptQ2En = `As more sugar dissolves, free water molecules decrease. Does this explain why acceleration slows down in later stages (150→200 cm³)?`;
+                    promptQ2 = `2. 當食鹽逐漸溶解，水裡的鹽粒子越來越多，『游離的自由水分子』相對減少，這能否解釋為什麼溶解後期（150→200 cm³）速度變慢？`;
+                    promptQ2En = `As more salt dissolves, free water molecules decrease. Does this explain why acceleration slows down in later stages (150→200 cm³)?`;
                 }
                 // 11. Direct Qualitative Inverse Relation (Default Fallback)
                 else {
                     focusTag = "水量與速率反比 / Volume vs Rate";
-                    praise = `🌟 結論精準！${groupPrefix}能準確歸納出水量與溶解時間的定性反比規律：水量越多，方糖完全溶解所需秒數越少。`;
-                    diag = `🔍 宏觀結論扎實。建議引導學生從『看見變快』深入探究『水分子在微觀層面到底如何加速撕扯方糖』，並引導思考全班平均值的意義。`;
-                    promptQ1 = `1. 全班都得出『水越多溶解越快』。如果我們戴上微觀顯微鏡看進水裡：更多的水分子到底是在對這顆方糖施加什麼動作，讓它更快分散？`;
+                    praise = `🌟 結論精準！${groupPrefix}能準確歸納出水量與溶解時間的定性反比規律：水量越多，食鹽完全溶解所需秒數越少。`;
+                    diag = `🔍 宏觀結論扎實。建議引導學生從『看見變快』深入探究『水分子在微觀層面到底如何加速拆解食鹽晶格』，並引導思考全班平均值的意義。`;
+                    promptQ1 = `1. 全班都得出『水越多溶解越快』。如果我們戴上微觀顯微鏡看進水裡：更多的水分子到底是在對食鹽晶體施加什麼動作，讓它更快分散？`;
                     promptQ1En = `All groups agree more water means faster dissolving. Looking through a molecular microscope: what are the extra water molecules doing to speed this up?`;
                     promptQ2 = `2. 對比單一組別的折線與全班 8 組的綠色平均線，為什麼科學家要以全班平均值為準，而不是只相信某一組的結果？`;
                     promptQ2En = `Comparing single group results against the 8-group average green line: why do scientists rely on class averages rather than single trials?`;
@@ -7516,13 +7405,13 @@ ${JSON.stringify(summaryData, null, 2)}
                         evidenceMsg = item;
                         evidenceIndex = i;
                         evidenceRationale = "準確捕捉到人體神經反應時間與肉眼主觀判斷對實驗終點記錄的隨機干擾。";
-                        teacherFollowUp = "老師可引導追問：「肉眼看方糖溶完可能會有誤差，如何用濁度傳感器（Light Sensor）讓它自動停止計時？」";
+                        teacherFollowUp = "老師可引導追問：「肉眼看食鹽溶完可能會有誤差，如何用濁度傳感器（Light Sensor）讓它自動停止計時？」";
                         break;
                     } else if (/smash|crush|戳碎|碎|表面積/.test(raw)) {
                         evidenceMsg = item;
                         evidenceIndex = i;
-                        evidenceRationale = "誠實反思操作細節，深刻認識到戳碎方糖破壞了公平測試（Fair Test）的控制變因。";
-                        teacherFollowUp = "老師可肯定其誠實反思：「戳碎方糖增加了什麼面積？這對溶劑分子碰撞有何影響？」";
+                        evidenceRationale = "誠實反思操作細節，深刻認識到壓碎食鹽晶體破壞了公平測試（Fair Test）的控制變因。";
+                        teacherFollowUp = "老師可肯定其誠實反思：「壓碎食鹽晶體增加了什麼面積？這對溶劑分子碰撞有何影響？」";
                         break;
                     } else if (/8組|平均|抵消|減少誤差|更準確|信度|average|reliable|cancel/.test(raw)) {
                         evidenceMsg = item;
@@ -7533,8 +7422,8 @@ ${JSON.stringify(summaryData, null, 2)}
                     } else if (/短|少|快|減少|降|跌|shorter|faster|decrease|drop/.test(raw)) {
                         evidenceMsg = item;
                         evidenceIndex = i;
-                        evidenceRationale = "能正確解讀折線圖走向，精準建立『水量增加導致方糖溶解所需時間縮短』之反比規律。";
-                        teacherFollowUp = "老師可引導追問：「水量增加讓方糖溶得更快，那微觀上水分子是怎樣加速拆解方糖的呢？」";
+                        evidenceRationale = "能正確解讀折線圖走向，精準建立『水量增加導致食鹽溶解所需時間縮短』之反比規律。";
+                        teacherFollowUp = "老師可引導追問：「水量增加讓食鹽溶得更快，那微觀上水分子是怎樣加速拆解食鹽晶格的呢？」";
                         break;
                     } else if (/不知道|不懂|唔識|點做|help|難/.test(raw)) {
                         evidenceMsg = item;
@@ -8001,7 +7890,7 @@ ${JSON.stringify(summaryData, null, 2)}
             } else if (/碼錶|延遲|按慢/i.test(gInfo.latestAnswer)) {
                 debriefSuggestion = `【點撥提示】該組反思到神經反應時間。建議肯定其誠實思維，並引導探討：「除了碼錶，日常生活中有哪些自動傳感器（例如透光濁度計）可以用客觀數據判定終點？」`;
             } else {
-                debriefSuggestion = `【點撥提示】該組數據呈現標準反比規律。建議引導深化微觀碰撞理論：「水量增加讓溶解時間顯著縮短，那麼在微觀粒子層面，水分子究竟是如何加速拆解方糖晶格的？」`;
+                debriefSuggestion = `【點撥提示】該組數據呈現標準反比規律。建議引導深化微觀碰撞理論：「水量增加讓溶解時間顯著縮短，那麼在微觀粒子層面，水分子究竟是如何加速拆解食鹽晶格的？」`;
             }
 
             input.value = debriefSuggestion;
@@ -8327,7 +8216,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 ctx.lineTo(beakerRight - 2, waterTopY);
                 ctx.stroke();
 
-                // Solid sugar lattice
+                // Solid salt crystal lattice (食鹽晶格)
                 molecularSim.lattice.forEach(cell => {
                     if (!cell.alive) return;
                     const damageRatio = cell.hits / cell.maxHits;
@@ -8354,7 +8243,7 @@ ${JSON.stringify(summaryData, null, 2)}
                     ctx.fillStyle = "#38bdf8";
                 });
 
-                // Diffusing dissolved sugar molecules with hydration shells
+                // Diffusing dissolved salt particles with hydration shells
                 molecularSim.dissolvedMolecules.forEach(m => {
                     ctx.fillStyle = "rgba(52, 211, 153, 0.85)";
                     ctx.beginPath();

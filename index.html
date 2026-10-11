@@ -104,7 +104,7 @@
                 <div class="bg-slate-900/40 hover:bg-slate-900/60 transition px-2.5 py-1 rounded-xl border border-white/20 flex items-center gap-1.5 shadow-inner">
                     <i data-lucide="school" class="w-3.5 h-3.5 text-amber-300"></i>
                     <span class="text-[11px] font-semibold text-slate-200 whitespace-nowrap">Class/班別:</span>
-                    <input type="text" id="classInput" value="Class 1A" onchange="handleClassChange(this.value)" 
+                    <input type="text" id="classInput" value="1CL" onchange="handleClassChange(this.value)" 
                         title="Click to edit class name / 點擊自訂班別"
                         class="bg-white/10 hover:bg-white/20 focus:bg-white focus:text-slate-800 text-amber-200 focus:ring-2 focus:ring-amber-300 transition text-xs font-bold px-2 py-0.5 rounded-md w-24 text-center outline-none cursor-pointer">
                 </div>
@@ -174,6 +174,53 @@
                         <i data-lucide="users" class="w-4 h-4"></i>
                         <span>選擇班別與組別 (Select Class & Group)</span>
                     </button>
+                </div>
+            </div>
+
+            <!-- Scaffolded Step-by-Step Task Progress Stepper for S1 -->
+            <div class="lg:col-span-12 bg-white rounded-2xl p-4 shadow-sm border border-slate-200/90 mb-1">
+                <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                    <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                        <i data-lucide="compass" class="w-4 h-4 text-sky-600"></i>
+                        <span>中一級科學探究任務進度 (S1 Science Task Progression)</span>
+                    </span>
+                    <span id="taskOverallProgressBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+                        進行中：步驟 1 / 4
+                    </span>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                    <!-- Task 1 Item -->
+                    <div id="stepIndicator1" class="p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm">
+                        <div id="stepNumber1" class="w-6 h-6 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0">1</div>
+                        <div class="leading-tight truncate">
+                            <span class="block text-[11px]">任務 1：輸入數據</span>
+                            <span id="stepSub1" class="text-[9px] text-sky-700 font-normal">4 個水量秒數</span>
+                        </div>
+                    </div>
+                    <!-- Task 2 Item -->
+                    <div id="stepIndicator2" class="p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumber2" class="w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0">2</div>
+                        <div class="leading-tight truncate">
+                            <span class="block text-[11px]">任務 2：水精靈探究</span>
+                            <span id="stepSub2" class="text-[9px] text-slate-400 font-normal">🔒 待解鎖</span>
+                        </div>
+                    </div>
+                    <!-- Task 3 Item -->
+                    <div id="stepIndicator3" class="p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumber3" class="w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0">3</div>
+                        <div class="leading-tight truncate">
+                            <span class="block text-[11px]">任務 3：思維反思卡</span>
+                            <span id="stepSub3" class="text-[9px] text-slate-400 font-normal">🔒 待解鎖</span>
+                        </div>
+                    </div>
+                    <!-- Task 4 Item -->
+                    <div id="stepIndicator4" class="p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium">
+                        <div id="stepNumber4" class="w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0">4</div>
+                        <div class="leading-tight truncate">
+                            <span class="block text-[11px]">任務 4：關鍵小結</span>
+                            <span id="stepSub4" class="text-[9px] text-slate-400 font-normal">🔒 待解鎖</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -377,6 +424,170 @@
 
             </section>
 
+            <!-- TASK 3: Harvard Project Zero Thinking Routine Reflection Card (12 Cols) -->
+            <section id="studentReflectionSection" class="lg:col-span-12 bg-white rounded-3xl p-6 sm:p-7 shadow-sm border border-slate-200/90 transition-all duration-300">
+                
+                <!-- Unlocked View Container -->
+                <div id="reflectionUnlockedContent" class="hidden space-y-5">
+                    <div class="flex items-start justify-between flex-wrap gap-2 pb-3 border-b border-slate-100">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center text-xl font-black shadow-inner">
+                                💡
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[10px] font-black uppercase px-2.5 py-0.5 rounded-full bg-amber-500 text-white tracking-wider">
+                                        Task 3 • Thinking Routine
+                                    </span>
+                                    <span class="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200">
+                                        Harvard Project Zero (哈佛思維常規)
+                                    </span>
+                                </div>
+                                <h3 class="text-base sm:text-lg font-bold text-slate-800 font-fun mt-0.5">
+                                    我的科學探究反思卡：以前我以為…… 現在我明白……
+                                </h3>
+                                <p class="text-xs text-slate-500">
+                                    記錄你從個人實驗、全班數據與水精靈對話中所獲得的思維轉變
+                                </p>
+                            </div>
+                        </div>
+                        <span id="reflectionStatusBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
+                            待填寫反思
+                        </span>
+                    </div>
+
+                    <!-- Prompt 1: I used to think... (以前我以為...) -->
+                    <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-200/80 space-y-2.5">
+                        <label class="block text-xs sm:text-sm font-bold text-amber-950 flex items-center gap-2">
+                            <span>💭 1. 實驗前，我以為…… (I used to think that...)</span>
+                            <span class="text-[10px] font-normal text-amber-700">（點選下方標籤或自由輸入）</span>
+                        </label>
+                        <!-- Quick Click Chips for S1 Misconceptions -->
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <button type="button" onclick="insertReflectionChip('usedToThink', '只有水溫高低才會影響溶解快慢')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ 只有水溫高低才會影響溶解快慢
+                            </button>
+                            <button type="button" onclick="insertReflectionChip('usedToThink', '方糖在熱水裡是融化，不是溶解')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ 方糖在熱水裡是融化，不是溶解
+                            </button>
+                            <button type="button" onclick="insertReflectionChip('usedToThink', '只做 1 組實驗就已經足夠準確')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ 只做 1 組實驗就已經足夠準確
+                            </button>
+                            <button type="button" onclick="insertReflectionChip('usedToThink', '水量越多反而要花更多時間把它填滿')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ 水量越多反而要花更多時間把它填滿
+                            </button>
+                        </div>
+                        <textarea id="reflectionUsedToThink" rows="2" placeholder="寫下你在實驗前的直覺想法或常見猜想……"
+                            class="w-full p-3 text-xs sm:text-sm text-slate-800 bg-white border border-amber-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400"></textarea>
+                    </div>
+
+                    <!-- Prompt 2: Now I think... (現在我明白...) -->
+                    <div class="bg-teal-50/50 p-4 rounded-2xl border border-teal-200/80 space-y-2.5">
+                        <label class="block text-xs sm:text-sm font-bold text-teal-950 flex items-center gap-2">
+                            <span>💡 2. 做完實驗與對話後，現在我明白…… (Now I realize that...)</span>
+                            <span class="text-[10px] font-normal text-teal-700">（點選下方標籤或自由輸入）</span>
+                        </label>
+                        <!-- Quick Click Chips for S1 Discoveries -->
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <button type="button" onclick="insertReflectionChip('nowIThink', '水量越多，水分子越多，方糖溶解得越快')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ 水量越多，水分子越多，方糖溶解得越快
+                            </button>
+                            <button type="button" onclick="insertReflectionChip('nowIThink', '單組實驗難免有隨機誤差，全班 8 組平均才能互相抵消')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ 單組實驗難免有隨機誤差，全班 8 組平均才能互相抵消
+                            </button>
+                            <button type="button" onclick="insertReflectionChip('nowIThink', '戳碎方糖會改變接觸表面積，破壞了公平測試原則')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ 戳碎方糖會改變接觸表面積，破壞了公平測試原則
+                            </button>
+                            <button type="button" onclick="insertReflectionChip('nowIThink', '溶解是水分子包圍並拉開糖粒，融化是受熱變成液體')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ 溶解是水分子包圍並拉開糖粒，融化是受熱變成液體
+                            </button>
+                        </div>
+                        <textarea id="reflectionNowIThink" rows="2" placeholder="寫下你在分析圖表與和水精靈對話後的真正理解……"
+                            class="w-full p-3 text-xs sm:text-sm text-slate-800 bg-white border border-teal-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-400"></textarea>
+                    </div>
+
+                    <!-- Prompt 3: I still wonder... (我還想進一步探究...) -->
+                    <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-200/80 space-y-2">
+                        <label class="block text-xs sm:text-sm font-bold text-indigo-950 flex items-center justify-between">
+                            <span class="flex items-center gap-2">
+                                <span>❓ 3. 我還想進一步探究…… (I still wonder... - 選填)</span>
+                            </span>
+                            <span class="text-[10px] font-normal text-indigo-700">提出下一個好奇問題</span>
+                        </label>
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <button type="button" onclick="insertReflectionChip('stillWonder', '如果把方糖丟進 1,000 cm³ 或太平洋，溶解時間會變成 0 秒嗎？')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
+                                ➕ 水量若到 1,000 cm³，時間會變 0 秒嗎？
+                            </button>
+                            <button type="button" onclick="insertReflectionChip('stillWonder', '攪拌速度快一倍，溶解時間會剛好減半嗎？')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
+                                ➕ 攪拌快一倍，時間會減半嗎？
+                            </button>
+                        </div>
+                        <input type="text" id="reflectionStillWonder" placeholder="例如：我想知道如果用粗糖跟細砂糖，溶解時間會有多少差距……"
+                            class="w-full p-2.5 text-xs sm:text-sm text-slate-800 bg-white border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                    </div>
+
+                    <!-- Submit Reflection Action -->
+                    <div class="flex items-center justify-between gap-3 pt-1 flex-wrap">
+                        <p class="text-[11px] text-slate-500 flex items-center gap-1">
+                            <i data-lucide="info" class="w-3.5 h-3.5 text-sky-500"></i>
+                            <span>提交後，你的思維反思將同步至教師大組討論中心，並為你生成專屬學習小結！</span>
+                        </p>
+                        <button type="button" id="btnSubmitReflection" onclick="submitStudentReflection()"
+                            class="bg-gradient-to-r from-teal-500 via-sky-600 to-indigo-600 hover:from-teal-600 hover:to-indigo-700 active:scale-95 text-white font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center gap-2">
+                            <i data-lucide="check-circle" class="w-4 h-4"></i>
+                            <span>💾 提交我的科學思維反思，解鎖關鍵小結 (Submit)</span>
+                        </button>
+                    </div>
+
+                    <div id="reflectionFeedbackMsg" class="hidden"></div>
+                </div>
+
+                <!-- Locked View Container -->
+                <div id="reflectionLockedContent" class="p-8 text-center space-y-3 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
+                    <div class="w-12 h-12 bg-slate-200 text-slate-500 rounded-full flex items-center justify-center text-2xl mx-auto">
+                        🔒
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-700 font-fun">任務 3：我的科學思維反思卡（尚未解鎖）</h4>
+                        <p class="text-xs text-slate-500 mt-1">
+                            請先完成<strong>【任務 1：輸入數據】</strong>並與水精靈進行<strong>【任務 2：對話探究】</strong>後，系統將為你解鎖本反思卡！
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- TASK 4: Key Learning Points Summary Section (12 Cols) -->
+            <section id="studentSummarySection" class="hidden lg:col-span-12 bg-gradient-to-br from-amber-50 via-orange-50/40 to-amber-100/60 rounded-3xl p-6 sm:p-7 shadow-sm border-2 border-amber-300 space-y-4 transition-all duration-300">
+                <div class="flex items-center justify-between border-b border-amber-200/80 pb-3">
+                    <div class="flex items-center gap-2.5">
+                        <span class="text-2xl">📝</span>
+                        <div>
+                            <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-emerald-600 text-white tracking-wider">
+                                Task 4 • Synthesis Complete
+                            </span>
+                            <h4 class="font-bold text-base sm:text-lg text-amber-950 font-fun mt-0.5">
+                                任務 4：關鍵學習小結 (Key Learning Points Summary)
+                            </h4>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i> 已解鎖完成
+                    </span>
+                </div>
+                <p class="text-xs text-amber-900/80">
+                    ✨ 太棒了！你已順利完成本堂探究課所有任務。請將以下重點抄錄於課堂工作紙上：
+                </p>
+                <div id="studentSummaryPointsContainer" class="space-y-3.5 text-xs text-slate-800 bg-white/80 p-5 rounded-2xl border border-amber-200">
+                    <!-- Rendered dynamically by renderSummaryCardContent() -->
+                </div>
+                <div class="bg-white/90 border border-amber-200 rounded-full py-2.5 px-4 text-center shadow-sm">
+                    <p class="text-xs sm:text-sm font-bold text-amber-900 italic">
+                        🌟 恭喜完成！水精靈非常讚賞你認真探究與深刻反思的科學精神！
+                    </p>
+                </div>
+            </section>
+
         </div>
 
 
@@ -392,7 +603,7 @@
                                 <i data-lucide="shield-check" class="w-3 h-3"></i> TEACHER COMMAND CENTER / 教師後台指揮中心
                             </span>
                             <span id="teacherClassBadge" class="px-2.5 py-0.5 bg-sky-500/30 text-sky-200 border border-sky-400/30 text-[10px] font-bold rounded-full">
-                                Class 1A
+                                1CL
                             </span>
                         </div>
                         <h2 class="text-2xl md:text-3xl font-bold font-fun tracking-wide text-white">
@@ -470,172 +681,91 @@
                 </button>
             </div>
 
-            <!-- SECTION: Whole-Class Discussion Prompts (Bilingual with Dynamic Adaptive Intelligence & Photo Upload) -->
-            <div class="bg-gradient-to-br from-amber-50 via-orange-50/60 to-amber-100/70 rounded-3xl p-6 shadow-md border border-amber-200 space-y-6">
+            <!-- SECTION: Whole-Class Discussion Prompts (Bilingual with Dynamic Adaptive Intelligence & HOTS Priority Hierarchy) -->
+            <div class="bg-gradient-to-br from-amber-50/90 via-orange-50/50 to-amber-100/70 rounded-3xl p-6 shadow-md border border-amber-200/90 space-y-5">
                 
-                <!-- Section Header -->
-                <div class="flex items-center justify-between flex-wrap gap-3">
+                <!-- Section Header (Image 4 Reproduction) -->
+                <div class="flex items-center justify-between flex-wrap gap-4">
                     <div class="flex items-center gap-3">
-                        <div class="p-2.5 bg-amber-500 text-white rounded-2xl shadow">
-                            <i data-lucide="message-circle-question" class="w-6 h-6"></i>
+                        <div class="w-12 h-12 bg-amber-500 text-white rounded-2xl shadow flex items-center justify-center text-2xl flex-shrink-0">
+                            💬
                         </div>
                         <div>
-                            <h3 class="text-base md:text-lg font-bold text-amber-950 font-fun">
-                                Whole-Class Discussion Prompts (全班開放式思考議題)
+                            <h3 class="text-base sm:text-lg md:text-xl font-bold text-slate-900 font-fun tracking-tight">
+                                Real-time SRL Discussion Questions / 依據全班數據即時生成之大組討論議題
                             </h3>
-                            <p class="text-xs text-amber-800">
-                                Open-ended questions dynamically adapted to your 8 groups' actual data & chat responses.
+                            <p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+                                Facilitation questions automatically synthesized based on live group timings and student chat logs. / 依據實時數據、異常對比與學生真實對話記錄生成之課堂提問。
                             </p>
                         </div>
                     </div>
-                    
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <span id="discussionSyncBadge" class="text-[11px] bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full border border-emerald-300 flex items-center gap-1.5 shadow-sm">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span id="discussionSyncText">實時動態學情連動中 / Live Synced</span>
-                        </span>
-                        <button onclick="refreshWholeClassDiscussionPrompts()" id="refreshPromptsBtn" class="text-[11px] bg-amber-200/90 hover:bg-amber-300 active:scale-95 text-amber-950 font-bold px-3 py-1 rounded-full border border-amber-300 transition flex items-center gap-1 shadow-sm" title="Refresh dynamic discussion prompts">
-                            <i data-lucide="refresh-cw" class="w-3 h-3"></i> <span id="refreshPromptsBtnText">刷新動態提問</span>
+
+                    <div class="flex flex-col items-end gap-1.5 flex-shrink-0">
+                        <button onclick="refreshWholeClassDiscussionPrompts()" id="refreshPromptsBtn"
+                            class="bg-amber-600 hover:bg-amber-700 active:scale-95 text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center gap-2">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                            <span id="refreshPromptsBtnText">依最新對話刷新 (Refresh HOTQs)</span>
                         </button>
+                        <span class="text-[11px] font-semibold text-amber-900 bg-amber-100/90 border border-amber-300 px-3 py-0.5 rounded-full shadow-xs">
+                            Pedagogical Facilitation / 教學引導
+                        </span>
                     </div>
                 </div>
 
-                <!-- 3 Open-Ended Discussion Topic Cards (FULL BILINGUAL & DYNAMIC) -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    
-                    <!-- Topic 1 -->
-                    <div class="bg-white rounded-2xl p-4 border border-amber-200/80 shadow-sm flex flex-col justify-between space-y-3">
-                        <div>
-                            <div class="flex items-center justify-between mb-1.5">
-                                <span class="text-[11px] font-bold bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded-md">
-                                    Topic 1 • 數據異質性 / Data Heterogeneity
-                                </span>
-                                <i data-lucide="help-circle" class="w-4 h-4 text-amber-600"></i>
-                            </div>
-                            <h4 id="topic1Title" class="text-xs font-bold text-slate-800 leading-snug">
-                                🔍 假設第 3 組與第 7 組的折線走向完全相反，你會如何驗證？
-                            </h4>
-                            <p id="topic1TitleEn" class="text-[11px] text-sky-800 font-medium mt-0.5">
-                                If Group 3 and Group 7 have completely opposite line trends, how would you verify it?
-                            </p>
-                            <p id="topic1Desc" class="text-[11px] text-slate-600 mt-1.5">
-                                如果出現兩組數據走勢矛盾，我們應該直接刪除異常組別，還是重新檢查操作細節？<br>
-                                <span class="text-[10px] text-slate-500 italic">If two groups show contradictory trends, should we discard the outlier immediately, or re-examine experimental details?</span>
-                            </p>
-                            <div class="mt-2 text-[10px] text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200/50">
-                                💡 核心：激發學生思考重複驗證 (Replication) 與異常值處理。<br>
-                                <span class="italic text-[9px]">Core: Inspire scientific thinking on Replication & Outlier handling.</span>
-                            </div>
-                        </div>
-
-                        <!-- Collapsible Scaffolding for Learning Diversity (Bilingual) -->
-                        <div class="border-t border-slate-100 pt-2">
-                            <button onclick="toggleScaffold('scaffold1')" class="w-full text-left text-[11px] font-bold text-sky-700 hover:text-sky-800 flex items-center justify-between py-1 px-2 rounded-lg bg-sky-50 hover:bg-sky-100 transition">
-                                <span class="flex items-center gap-1">
-                                    <i data-lucide="layers" class="w-3.5 h-3.5"></i> 點擊展開鷹架式引導提問 / Scaffolding Questions
-                                </span>
-                                <i id="icon-scaffold1" data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform"></i>
-                            </button>
-                            <div id="scaffold1" class="hidden mt-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-700 space-y-2">
-                                <div id="topic1ScaffoldSteps">
-                                    <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                                    <p><strong>1. 基礎觀察 (Basic Observation)：</strong>比較兩組在 150 cm³ 的相差秒數，能否一眼看出離群走勢？<br><span class="text-[10px] text-slate-500 italic">Compare the time difference at 150 cm³ between both groups. Can you spot the outlier trend?</span></p>
-                                    <p><strong>2. 變因排查 (Variable Check)：</strong>兩組的水溫、方糖質量是否確實相同？有沒有同學把方糖戳碎了？<br><span class="text-[10px] text-slate-500 italic">Were water temperature and sugar mass truly identical? Did anyone crush the sugar cube?</span></p>
-                                    <p><strong>3. 科學決策 (Scientific Decision)：</strong>如果無法判定誰出錯，科學家會：A. 刪除異常值 B. 算平均 C. 重複實驗？為什麼？<br><span class="text-[10px] text-slate-500 italic">If unsure which is wrong, would scientists: A. Discard outlier, B. Average them, or C. Replicate test? Why?</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Topic 2 -->
-                    <div class="bg-white rounded-2xl p-4 border border-amber-200/80 shadow-sm flex flex-col justify-between space-y-3">
-                        <div>
-                            <div class="flex items-center justify-between mb-1.5">
-                                <span class="text-[11px] font-bold bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded-md">
-                                    Topic 2 • 實驗工程設計 / Experimental Engineering
-                                </span>
-                                <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600"></i>
-                            </div>
-                            <h4 id="topic2Title" class="text-xs font-bold text-slate-800 leading-snug">
-                                🛠️ 如果要設計一個完全「零人為誤差」的溶解實驗，你會如何改進裝置？
-                            </h4>
-                            <p id="topic2TitleEn" class="text-[11px] text-sky-800 font-medium mt-0.5">
-                                To design a "Zero Human Error" dissolving experiment, how would you improve the apparatus?
-                            </p>
-                            <p id="topic2Desc" class="text-[11px] text-slate-600 mt-1.5">
-                                想像你可以使用任何 STEM 設備（例如磁力攪拌器、光學傳感器），你會如何改進這套實驗？<br>
-                                <span class="text-[10px] text-slate-500 italic">Imagine using any STEM apparatus (e.g. magnetic stirrers, optical sensors), how would you optimize the setup?</span>
-                            </p>
-                            <div class="mt-2 text-[10px] text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200/50">
-                                💡 核心：引導 STEM 工程思維與自動化檢測概念。<br>
-                                <span class="italic text-[9px]">Core: Guide STEM engineering design & automated detection concepts.</span>
-                            </div>
-                        </div>
-
-                        <!-- Collapsible Scaffolding for Learning Diversity (Bilingual) -->
-                        <div class="border-t border-slate-100 pt-2">
-                            <button onclick="toggleScaffold('scaffold2')" class="w-full text-left text-[11px] font-bold text-sky-700 hover:text-sky-800 flex items-center justify-between py-1 px-2 rounded-lg bg-sky-50 hover:bg-sky-100 transition">
-                                <span class="flex items-center gap-1">
-                                    <i data-lucide="layers" class="w-3.5 h-3.5"></i> 點擊展開鷹架式引導提問 / Scaffolding Questions
-                                </span>
-                                <i id="icon-scaffold2" data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform"></i>
-                            </button>
-                            <div id="scaffold2" class="hidden mt-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-700 space-y-2">
-                                <div id="topic2ScaffoldSteps">
-                                    <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                                    <p><strong>1. 鎖定人為誤差 (Identify Human Error)：</strong>實驗中，最難用肉眼和雙手精確控制的步驟是什麼？（攪拌均勻度與終點判斷）<br><span class="text-[10px] text-slate-500 italic">Which steps are hardest to control manually? (Stirring consistency & visual endpoint judgment)</span></p>
-                                    <p><strong>2. 工具替代 (Tool Replacement)：</strong>若引入實驗室「磁力攪拌器」，如何精確固定每分鐘轉速（RPM）？<br><span class="text-[10px] text-slate-500 italic">If using a magnetic stirrer, how would it fix the constant RPM?</span></p>
-                                    <p><strong>3. 自動檢測 (Automated Detection)：</strong>怎樣利用光學濁度傳感器（Light Sensor），讓儀器自動判定方糖已 100% 溶解？<br><span class="text-[10px] text-slate-500 italic">How could a light/turbidity sensor automatically detect when sugar is 100% dissolved?</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Topic 3 -->
-                    <div class="bg-white rounded-2xl p-4 border border-amber-200/80 shadow-sm flex flex-col justify-between space-y-3">
-                        <div>
-                            <div class="flex items-center justify-between mb-1.5">
-                                <span class="text-[11px] font-bold bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded-md">
-                                    Topic 3 • 極限觀察 / Limit Thinking
-                                </span>
-                                <i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i>
-                            </div>
-                            <h4 id="topic3Title" class="text-xs font-bold text-slate-800 leading-snug">
-                                🌊 若將水量無限增加至 5000 cm³，溶解時間會無限制地變成 0 秒嗎？
-                            </h4>
-                            <p id="topic3TitleEn" class="text-[11px] text-sky-800 font-medium mt-0.5">
-                                If water volume increases infinitely to 5000 cm³, will dissolving time drop to 0 seconds?
-                            </p>
-                            <p id="topic3Desc" class="text-[11px] text-slate-600 mt-1.5">
-                                從數據曲線的趨勢來看，水量加速溶解效果是否存在物理極限？<br>
-                                <span class="text-[10px] text-slate-500 italic">Looking at the curve trend, does the dissolving acceleration effect have a physical limit?</span>
-                            </p>
-                            <div class="mt-2 text-[10px] text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200/50">
-                                💡 核心：培養極限思維 (Limit Thinking) 與外推法批判。<br>
-                                <span class="italic text-[9px]">Core: Cultivate Limit Thinking & extrapolation critique.</span>
-                            </div>
-                        </div>
-
-                        <!-- Collapsible Scaffolding for Learning Diversity (Bilingual) -->
-                        <div class="border-t border-slate-100 pt-2">
-                            <button onclick="toggleScaffold('scaffold3')" class="w-full text-left text-[11px] font-bold text-sky-700 hover:text-sky-800 flex items-center justify-between py-1 px-2 rounded-lg bg-sky-50 hover:bg-sky-100 transition">
-                                <span class="flex items-center gap-1">
-                                    <i data-lucide="layers" class="w-3.5 h-3.5"></i> 點擊展開鷹架式引導提問 / Scaffolding Questions
-                                </span>
-                                <i id="icon-scaffold3" data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform"></i>
-                            </button>
-                            <div id="scaffold3" class="hidden mt-2 p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-[11px] text-slate-700 space-y-2">
-                                <div id="topic3ScaffoldSteps">
-                                    <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                                    <p><strong>1. 觀察斜率 (Observe Gradient)：</strong>水量由 50 至 100 cm³ 減少的時間，比 150 至 200 cm³ 減少的時間是多還是少？<br><span class="text-[10px] text-slate-500 italic">Is the time saved from 50 to 100 cm³ larger or smaller than that from 150 to 200 cm³?</span></p>
-                                    <p><strong>2. 物理常識 (Physical Reality)：</strong>即使扔進太平洋（極大水量），水分子拆解方糖晶格需要時間嗎？能否為 0 秒？<br><span class="text-[10px] text-slate-500 italic">Even in an ocean, does water take time to break sugar crystal bonds? Can it ever be 0s?</span></p>
-                                    <p><strong>3. 外推批判 (Extrapolation Critique)：</strong>用有限的數據曲線去預測無窮大的極端情況，需要注意什麼限制？<br><span class="text-[10px] text-slate-500 italic">What are the risks of using limited data points to predict extreme conditions?</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                <!-- Category Filter Tabs / Pills (Image 4 Reproduction) -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-1 pt-1 text-xs no-scrollbar">
+                    <button type="button" onclick="filterDiscussionPrompts('all')" id="hotsFilterBtn-all"
+                        class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-amber-600 text-white shadow-sm border border-amber-600">
+                        <span>🌟 全部議題 (All HOTQs)</span>
+                    </button>
+                    <button type="button" onclick="filterDiscussionPrompts('kinetics')" id="hotsFilterBtn-kinetics"
+                        class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50">
+                        <span>🔬 微觀動力 (Kinetics)</span>
+                    </button>
+                    <button type="button" onclick="filterDiscussionPrompts('reliability')" id="hotsFilterBtn-reliability"
+                        class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50">
+                        <span>⚖️ 數據與信度 (Reliability)</span>
+                    </button>
+                    <button type="button" onclick="filterDiscussionPrompts('discrepancies')" id="hotsFilterBtn-discrepancies"
+                        class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50">
+                        <span>🔍 異常排查 (Discrepancies)</span>
+                    </button>
+                    <button type="button" onclick="filterDiscussionPrompts('concepts')" id="hotsFilterBtn-concepts"
+                        class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50">
+                        <span>🗣️ 概念辨析 (Concepts)</span>
+                    </button>
+                    <button type="button" onclick="filterDiscussionPrompts('stem')" id="hotsFilterBtn-stem"
+                        class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50">
+                        <span>🛠️ STEM 工程 (STEM)</span>
+                    </button>
                 </div>
+
+                <!-- Priority Cards Container (Dynamic Rendered via renderHotsDiscussionCards()) -->
+                <div id="hotsDiscussionCardsContainer" class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                    <!-- Dynamic Priority Cards will be injected here -->
+                </div>
+
+                <!-- Live Sync Status Banner -->
+                <div id="discussionSyncBadge" class="hidden">
+                    <span id="discussionSyncText">實時動態學情連動中 / Live Synced</span>
+                </div>
+
+                <!-- Legacy Compatibility Hooks for Test Suite and DOM Bindings -->
+                <div class="hidden" aria-hidden="true">
+                    <span id="topic1Title"></span>
+                    <span id="topic1TitleEn"></span>
+                    <span id="topic1Desc"></span>
+                    <div id="topic1ScaffoldSteps"></div>
+                    <span id="topic2Title"></span>
+                    <span id="topic2TitleEn"></span>
+                    <span id="topic2Desc"></span>
+                    <div id="topic2ScaffoldSteps"></div>
+                    <span id="topic3Title"></span>
+                    <span id="topic3TitleEn"></span>
+                    <span id="topic3Desc"></span>
+                    <div id="topic3ScaffoldSteps"></div>
+                </div>
+            </div>
 
                 <!-- NEW COMPONENT: Teacher Photo Capture of Student Answer & Instant AI Pedagogical Generation -->
                 <div class="bg-white/95 rounded-2xl p-5 border-2 border-dashed border-amber-300 shadow-sm space-y-4">
@@ -908,7 +1038,7 @@
 
         </div>
 
-        <!-- ================= AI SYSTEM ADMIN DASHBOARD (PASSWORD PROTECTED: teacheradmin) ================= -->
+        <!-- ================= AI SYSTEM ADMIN DASHBOARD (RESTRICTED ACCESS) ================= -->
         <div id="adminViewSection" class="hidden space-y-6">
 
             <!-- Admin Header Banner -->
@@ -1117,6 +1247,46 @@
                             </div>
                         </div>
 
+                        <!-- AI Token Cap & Budget Ceiling Protection -->
+                        <div class="mt-4 p-3.5 bg-slate-800/90 rounded-2xl border border-indigo-500/30 space-y-2.5">
+                            <div class="flex items-center justify-between text-xs flex-wrap gap-2">
+                                <div class="flex items-center gap-1.5 font-bold text-slate-200">
+                                    <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400"></i>
+                                    <span>AI Token Cap 預算防刷保護上限</span>
+                                    <span id="tokenCapStatusBadge" class="text-[10px] px-2 py-0.2 rounded-full font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/50">防護生效中</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[11px] text-slate-400">預算上限:</span>
+                                    <input type="number" id="aiTokenCapInput" value="100000" min="10000" step="10000" onchange="saveAiSettings(true)"
+                                        class="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2 py-0.5 text-xs text-amber-300 font-bold text-center outline-none focus:border-indigo-400">
+                                    <span class="text-[10px] text-slate-400">Tokens</span>
+                                </div>
+                            </div>
+
+                            <!-- Progress Track -->
+                            <div class="space-y-1">
+                                <div class="w-full bg-slate-950 rounded-full h-3 overflow-hidden border border-slate-700 p-0.5">
+                                    <div id="tokenCapProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                                <div class="flex items-center justify-between text-[10px] text-slate-400 px-0.5">
+                                    <span id="tokenCapUsageText">當前用量: 0 / 100,000 Tokens (0%)</span>
+                                    <div class="flex items-center gap-2">
+                                        <button type="button" onclick="increaseTokenCap(50000)" class="text-sky-400 hover:text-sky-300 hover:underline">+50k 上限</button>
+                                        <button type="button" onclick="resetAiTokenStats()" class="text-rose-400 hover:text-rose-300 hover:underline">重設用量</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Warning alert if cap reached -->
+                            <div id="tokenCapAlertBanner" class="hidden p-2 rounded-xl bg-rose-950/80 border border-rose-500/50 text-rose-200 text-[11px] flex items-center justify-between">
+                                <div class="flex items-center gap-1.5">
+                                    <i data-lucide="alert-octagon" class="w-4 h-4 text-rose-400 flex-shrink-0"></i>
+                                    <span>⚠️ 已達課堂 Token 預算上限保護！已自動切換至離線啟發模式，防止被刷爆。</span>
+                                </div>
+                                <button type="button" onclick="increaseTokenCap(100000)" class="px-2 py-0.5 bg-rose-700 hover:bg-rose-600 text-white rounded text-[10px] font-bold flex-shrink-0">提高上限</button>
+                            </div>
+                        </div>
+
                         <!-- Real-time Request Audit Table / Feed -->
                         <div class="mt-4 space-y-1.5">
                             <div class="flex items-center justify-between text-[11px] text-slate-400 font-bold px-1">
@@ -1208,14 +1378,15 @@
                     <span>1. 選擇你的班別 (Select Class)</span>
                 </label>
                 <div class="flex items-center gap-2 flex-wrap" id="activationClassChips">
-                    <button type="button" onclick="selectClassChip('Class 1A')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">Class 1A</button>
-                    <button type="button" onclick="selectClassChip('Class 1B')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">Class 1B</button>
-                    <button type="button" onclick="selectClassChip('Class 1C')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">Class 1C</button>
-                    <button type="button" onclick="selectClassChip('Class 1D')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">Class 1D</button>
+                    <button type="button" onclick="selectClassChip('1CL')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-sky-600 text-white border-sky-600 shadow-sm">1CL</button>
+                    <button type="button" onclick="selectClassChip('1CW')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">1CW</button>
+                    <button type="button" onclick="selectClassChip('1LF')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">1LF</button>
+                    <button type="button" onclick="selectClassChip('1LH')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">1LH</button>
+                    <button type="button" onclick="selectClassChip('1LL')" class="class-chip px-3 py-1.5 rounded-xl text-xs font-bold border transition bg-white text-slate-700 border-slate-300 hover:border-sky-400">1LL</button>
                 </div>
                 <div class="flex items-center gap-2 pt-1">
                     <span class="text-[11px] text-slate-400 whitespace-nowrap">或自訂班別:</span>
-                    <input type="text" id="activationClassInput" placeholder="例如: Class 1B" 
+                    <input type="text" id="activationClassInput" placeholder="例如: 1CL" 
                         class="flex-1 px-3 py-1.5 text-xs font-bold text-slate-800 bg-white border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-sky-400">
                 </div>
             </div>
@@ -1436,7 +1607,7 @@
     <!-- ================= JAVASCRIPT LOGIC ================= -->
     <script>
         // Global State & Configuration
-        let currentClass = localStorage.getItem('openclass_current_class') || "Class 1A";
+        let currentClass = localStorage.getItem('openclass_current_class') || "1CL";
         let currentRole = "Group 1"; // Current dropdown selection
         let lastSelectedRole = "Group 1";
         
@@ -1452,7 +1623,9 @@
             model: 'gemini-2.5-flash',
             customModel: '',
             baseUrl: 'https://generativelanguage.googleapis.com',
-            syncToStudents: true
+            syncToStudents: true,
+            tokenCap: 100000,
+            tokenCapEnabled: true
         };
 
         let aiTokenStats = {
@@ -1462,6 +1635,20 @@
             totalTokens: 0,
             history: []
         };
+
+        function isAiTokenCapExceeded() {
+            if (!aiSettings.tokenCapEnabled) return false;
+            const cap = Number(aiSettings.tokenCap) || 100000;
+            return (aiTokenStats.totalTokens || 0) >= cap;
+        }
+
+        function increaseTokenCap(amount = 50000) {
+            aiSettings.tokenCap = (Number(aiSettings.tokenCap) || 100000) + amount;
+            const input = document.getElementById('aiTokenCapInput');
+            if (input) input.value = aiSettings.tokenCap;
+            saveAiSettings(true);
+            updateTokenMonitorUI();
+        }
 
         function loadAiSettings() {
             try {
@@ -1493,6 +1680,9 @@
             const baseUrl = document.getElementById('aiBaseUrlInput')?.value?.trim() || aiSettings.baseUrl;
             const apiKey = document.getElementById('aiApiKeyInput')?.value?.trim() || '';
             const syncToStudents = document.getElementById('aiSyncCheckbox')?.checked ?? true;
+            const capVal = parseInt(document.getElementById('aiTokenCapInput')?.value, 10);
+            const tokenCap = (!isNaN(capVal) && capVal > 0) ? capVal : (aiSettings.tokenCap || 100000);
+            const tokenCapEnabled = aiSettings.tokenCapEnabled ?? true;
 
             aiSettings = {
                 provider,
@@ -1500,7 +1690,9 @@
                 model,
                 customModel,
                 baseUrl: baseUrl || (provider === 'gemini' ? 'https://generativelanguage.googleapis.com' : 'https://api.openai.com/v1'),
-                syncToStudents
+                syncToStudents,
+                tokenCap,
+                tokenCapEnabled
             };
 
             try {
@@ -1717,6 +1909,51 @@
             }
 
             if (countEl) countEl.innerText = `最近 ${(aiTokenStats.history || []).length} 筆`;
+
+            // Token Cap Budget Progress Bar & Status Alerts
+            const capVal = Number(aiSettings.tokenCap) || 100000;
+            const capInput = document.getElementById('aiTokenCapInput');
+            if (capInput && document.activeElement !== capInput) {
+                capInput.value = capVal;
+            }
+            const pct = Math.min(100, Math.round((totalTokens / capVal) * 100));
+            const barEl = document.getElementById('tokenCapProgressBar');
+            const usageText = document.getElementById('tokenCapUsageText');
+            const alertBanner = document.getElementById('tokenCapAlertBanner');
+            const capBadge = document.getElementById('tokenCapStatusBadge');
+
+            if (barEl) {
+                barEl.style.width = `${pct}%`;
+                if (pct >= 95) {
+                    barEl.className = "bg-gradient-to-r from-rose-500 to-red-600 h-full rounded-full transition-all duration-500 animate-pulse";
+                } else if (pct >= 75) {
+                    barEl.className = "bg-gradient-to-r from-amber-500 to-orange-400 h-full rounded-full transition-all duration-500";
+                } else {
+                    barEl.className = "bg-gradient-to-r from-emerald-500 to-teal-400 h-full rounded-full transition-all duration-500";
+                }
+            }
+
+            if (usageText) {
+                usageText.innerText = `當前用量: ${totalTokens.toLocaleString()} / ${capVal.toLocaleString()} Tokens (${pct}%)`;
+            }
+
+            if (alertBanner) {
+                if (totalTokens >= capVal) {
+                    alertBanner.classList.remove('hidden');
+                } else {
+                    alertBanner.classList.add('hidden');
+                }
+            }
+
+            if (capBadge) {
+                if (totalTokens >= capVal) {
+                    capBadge.className = "text-[10px] px-2 py-0.2 rounded-full font-bold bg-rose-950/80 text-rose-300 border border-rose-500/50";
+                    capBadge.innerText = "⚠️ 已達上限";
+                } else {
+                    capBadge.className = "text-[10px] px-2 py-0.2 rounded-full font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/50";
+                    capBadge.innerText = "防護生效中";
+                }
+            }
 
             if (logsEl) {
                 const history = aiTokenStats.history || [];
@@ -2042,6 +2279,10 @@
 
         // Agent Water Student Chat via LLM (Gemini / OpenAI compatible) with 6s timeout
         async function callGeminiAgentWater(studentMessage, groupData, stage) {
+            if (isAiTokenCapExceeded()) {
+                console.warn('AI Token Cap reached, using heuristic engine.');
+                return null;
+            }
             const model = getActiveAiModel();
             const apiKey = aiSettings.apiKey;
             const provider = aiSettings.provider || 'gemini';
@@ -2170,6 +2411,11 @@
 
         // Dynamic Whole-Class Discussion Prompts via Gemini / OpenAI
         async function callGeminiDynamicDiscussionPrompts(summaryData) {
+            if (isAiTokenCapExceeded()) {
+                console.warn('AI Token Cap Exceeded - skipping Discussion Prompts AI call, fallback to heuristic engine.');
+                throw new Error('AI Token Cap Exceeded');
+            }
+
             const model = getActiveAiModel();
             const apiKey = aiSettings.apiKey;
             const provider = aiSettings.provider || 'gemini';
@@ -2177,38 +2423,86 @@
             const systemPrompt = `
 你是一位具備頂尖教學素養的中小學科學與 STEM 教育專家 (Science Pedagogical Expert)。
 當前公開課實驗主題：水的體積對方糖溶解速率的影響 (Exp 2.5: Rate of Dissolving)。
-全班 8 組實時上傳數據與學生最新課堂對話發言彙總：
+全班 8 組實時上傳數據、反思卡與學生最新課堂對話發言彙總：
 ${JSON.stringify(summaryData, null, 2)}
 
-請為執教老師即時生成 3 個最能引發全班強烈共鳴、激發深入思維碰撞的開放式討論議題 (Whole-Class Discussion Prompts)：
-1. Topic 1 (數據異質性與反常排查)：
-   - 優先鎖定全班實測數據中的反常點（例如某組 200 cm³ 反而比 150 cm³ 時間更長、曲線反彈）或兩組差距最大的點，具體點名該組（如「第2組」）與實際秒數！
-   - 引導全班思考：出現反常時應該直接刪除異常值，還是排查操作隨機誤差？
-2. Topic 2 (實驗工程與學生思維火花)：
-   - 具體引用學生在對話中說出的真實原話（例如「1組可能唔夠準」、「戳碎方糖」、「攪拌手酸」等），點名組別！
-   - 引導全班討論隨機誤差、公平測試控制變因或 STEM 自動化傳感器改進。
-3. Topic 3 (極限思維與斜率邊際效應)：
-   - 結合全班實測平均曲線（50→100 cm³ 驟降，150→200 cm³ 趨緩）的特徵，提出極限挑戰（如加水至 10,000 cm³ 或太平洋，時間能否降至 0 秒？）。
+請為執教老師即時生成 3 個最能引發全班強烈共鳴、激發深入思維碰撞的開放式高階思維討論議題 (Higher-Order Thinking Discussion Prompts)，依據教學急迫性排定優先級 (Priority 1 > Priority 2 > Priority 3)：
+1. Priority 1 (Discrepancy & Fair Test / 異常排查與公平測試，Score 100)：
+   - 優先鎖定全班實測數據中的反常點（例如某組 200 cm³ 反而比 150 cm³ 時間更長、曲線反彈）或兩組差距最大的點，具體點名該組與實際秒數！
+   - 提供「排序依據 (rationale)」，說明為何該議題排在第 1 優先。
+2. Priority 2 (Conceptual Shift / 概念轉變：溶解 vs 融化，Score 85)：
+   - 具體引用學生在反思卡或對話中提及的「融化/melt」或日常用語，分析微觀粒子模型與相變差異。
+   - 提供「排序依據 (rationale)」。
+3. Priority 3 (Error & Reliability / 誤差抵消與實驗信度，Score 72)：
+   - 引用學生提及的「唔夠準」、「碼錶延遲」或隨機誤差發言，說明全班 8 組大樣本平均如何像天平一樣抵消正負誤差。
+   - 提供「排序依據 (rationale)」。
 
 請嚴格輸出合法的 JSON 物件（不要包含任何 markdown 標籤如 \`\`\`json，直接輸出 JSON 內容）：
 {
+  "cards": [
+    {
+      "priority": 1,
+      "priorityLabel": "🔥 第 1 優先研討 (Priority 1)",
+      "badgeClass": "bg-rose-100 text-rose-700 border border-rose-200",
+      "score": 100,
+      "scoreIcon": "⚠️",
+      "subDomain": "HOTS • Discrepancy & Fair Test / 異常排查與公平測試",
+      "category": "discrepancies",
+      "rationale": "⚠️ 系統偵測到...",
+      "titleEn": "English Title for Priority 1",
+      "titleZh": "繁體中文標題（含組別與數據對比）",
+      "descEn": "English description citing data",
+      "descZh": "繁體中文核心引導情境描述（2-3句）",
+      "objective": "核心目標描述"
+    },
+    {
+      "priority": 2,
+      "priorityLabel": "⭐ 第 2 優先研討 (Priority 2)",
+      "badgeClass": "bg-amber-100 text-amber-800 border border-amber-300",
+      "score": 85,
+      "scoreIcon": "🧭",
+      "subDomain": "HOTS • Conceptual Shift / 概念轉變：溶解 vs 融化",
+      "category": "concepts",
+      "rationale": "🗣️ 學生在探究對話或反思中提到了...",
+      "titleEn": "English Title for Priority 2",
+      "titleZh": "繁體中文標題",
+      "descEn": "English description citing student quote",
+      "descZh": "繁體中文核心引導情境描述",
+      "objective": "核心目標描述"
+    },
+    {
+      "priority": 3,
+      "priorityLabel": "★ 第 3 優先研討 (Priority 3)",
+      "badgeClass": "bg-blue-100 text-blue-800 border border-blue-200",
+      "score": 72,
+      "scoreIcon": "⚖️",
+      "subDomain": "HOTS • Error & Reliability / 誤差抵消與實驗信度",
+      "category": "reliability",
+      "rationale": "📊 全班已有 8 組提交數據...",
+      "titleEn": "English Title for Priority 3",
+      "titleZh": "繁體中文標題",
+      "descEn": "English description",
+      "descZh": "繁體中文核心引導情境描述",
+      "objective": "核心目標描述"
+    }
+  ],
   "topic1": {
-    "title": "🔍 【實時學情聚焦】繁體中文標題（含組別與數據）",
-    "titleEn": "English Title for Topic 1",
-    "desc": "繁體中文核心引導情境描述（2-3句）<br><span class=\\"text-[10px] text-slate-500 italic\\">English description</span>",
-    "scaffoldSteps": "<p class=\\"font-bold text-slate-800\\">🪜 鷹架引導步驟 / Scaffolding Steps：</p><p><strong>1. 數據核驗 (Live Check)：</strong>...</p><p><strong>2. 變因排查 (Variable Check)：</strong>...</p><p><strong>3. 科學決策 (Scientific Decision)：</strong>...</p>"
+    "title": "🔍 【實時學情聚焦】繁體中文標題",
+    "titleEn": "English Title 1",
+    "desc": "繁體中文情境描述",
+    "scaffoldSteps": "<p class=\\"font-bold text-slate-800\\">🪜 鷹架引導步驟 / Scaffolding Steps：</p><p><strong>1. 數據核驗：</strong>...</p>"
   },
   "topic2": {
-    "title": "🛠️ 【課堂思維火花】繁體中文標題（引用學生原話與組別）",
-    "titleEn": "English Title for Topic 2",
-    "desc": "繁體中文核心引導描述<br><span class=\\"text-[10px] text-slate-500 italic\\">English description</span>",
-    "scaffoldSteps": "<p class=\\"font-bold text-slate-800\\">🪜 鷹架引導步驟 / Scaffolding Steps：</p><p><strong>1. 鎖定誤差 (Identify Error)：</strong>...</p><p><strong>2. 機制解析 (Mechanism)：</strong>...</p><p><strong>3. 工程改進 (Engineering)：</strong>...</p>"
+    "title": "🛠️ 【課堂思維火花】繁體中文標題",
+    "titleEn": "English Title 2",
+    "desc": "繁體中文描述",
+    "scaffoldSteps": "<p class=\\"font-bold text-slate-800\\">🪜 鷹架引導步驟 / Scaffolding Steps：</p><p><strong>1. 鎖定誤差：</strong>...</p>"
   },
   "topic3": {
-    "title": "🌊 【極限思維探究】繁體中文標題（引用實測斜率變化）",
-    "titleEn": "English Title for Topic 3",
-    "desc": "繁體中文核心引導描述<br><span class=\\"text-[10px] text-slate-500 italic\\">English description</span>",
-    "scaffoldSteps": "<p class=\\"font-bold text-slate-800\\">🪜 鷹架引導步驟 / Scaffolding Steps：</p><p><strong>1. 觀察斜率 (Observe Gradient)：</strong>...</p><p><strong>2. 物理現實 (Physical Reality)：</strong>...</p><p><strong>3. 外推批判 (Extrapolation)：</strong>...</p>"
+    "title": "🌊 【極限思維探究】繁體中文標題",
+    "titleEn": "English Title 3",
+    "desc": "繁體中文描述",
+    "scaffoldSteps": "<p class=\\"font-bold text-slate-800\\">🪜 鷹架引導步驟 / Scaffolding Steps：</p><p><strong>1. 觀察斜率：</strong>...</p>"
   }
 }
 `;
@@ -2230,7 +2524,7 @@ ${JSON.stringify(summaryData, null, 2)}
                             contents: [{ parts: [{ text: systemPrompt }] }],
                             generationConfig: {
                                 temperature: 0.4,
-                                maxOutputTokens: 1500,
+                                maxOutputTokens: 1800,
                                 responseMimeType: "application/json"
                             }
                         })
@@ -2254,7 +2548,7 @@ ${JSON.stringify(summaryData, null, 2)}
                             messages: [{ role: 'system', content: systemPrompt }],
                             response_format: { type: "json_object" },
                             temperature: 0.4,
-                            max_tokens: 1500
+                            max_tokens: 1800
                         })
                     });
                     const data = await res.json();
@@ -3235,7 +3529,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
         // ================= CLASS & ROLE MANAGEMENT =================
         function handleClassChange(newClassName) {
-            const cleaned = newClassName.trim() || "Class 1A";
+            const cleaned = newClassName.trim() || "1CL";
             currentClass = cleaned;
             localStorage.setItem('openclass_current_class', currentClass);
             document.getElementById('classInput').value = currentClass;
@@ -3376,13 +3670,36 @@ ${JSON.stringify(summaryData, null, 2)}
             if (select) select.value = lastSelectedRole || 'Group 1';
         }
 
-        function confirmPasswordModal() {
+        // Cryptographic Hash Constants for Zero Plain-Text Source Exposure
+        const AUTH_HASH_ADMIN = "015ac53c58bf774935355c53213e07a7ac99d9ec184071ffcea0d0002f3b2d76";
+        const AUTH_HASH_TEACHER = "5054683f02d21df47a23dcdecf77888fe73c98e79a254a897fb7dcd95fdf8228";
+
+        async function computeSha256(str) {
+            if (typeof crypto !== 'undefined' && crypto.subtle && crypto.subtle.digest) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(str);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+            try {
+                if (typeof require !== 'undefined') {
+                    const cryptoModule = require('crypto');
+                    return cryptoModule.createHash('sha256').update(str).digest('hex');
+                }
+            } catch (e) {}
+            return '';
+        }
+
+        async function confirmPasswordModal() {
             const input = document.getElementById('teacherPasswordInput');
             const err = document.getElementById('passwordErrorMsg');
             const modal = document.getElementById('passwordModal');
+            const entered = (input?.value || '').trim();
+            const hashed = await computeSha256(entered);
 
             if (pendingTargetRole === 'Admin') {
-                if (input.value === "teacheradmin") {
+                if (hashed === AUTH_HASH_ADMIN) {
                     modal.classList.add('hidden');
                     currentRole = "Admin";
                     const select = document.getElementById('groupSelect');
@@ -3408,7 +3725,7 @@ ${JSON.stringify(summaryData, null, 2)}
                     input.focus();
                 }
             } else {
-                if (input.value === "teacherwater") {
+                if (hashed === AUTH_HASH_TEACHER) {
                     modal.classList.add('hidden');
                     currentRole = "Teacher";
                     const select = document.getElementById('groupSelect');
@@ -3492,7 +3809,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
         function confirmActivationModal() {
             const classInput = document.getElementById('activationClassInput');
-            const chosenClass = classInput?.value?.trim() || currentClass || 'Class 1A';
+            const chosenClass = classInput?.value?.trim() || currentClass || '1CL';
             const chosenGroup = pendingActivationGroup || currentRole || 'Group 1';
 
             activateStudentWorkspace(chosenClass, chosenGroup);
@@ -3820,6 +4137,31 @@ ${JSON.stringify(summaryData, null, 2)}
             if (!container) return;
             container.innerHTML = '';
 
+            const gData = classData[currentRole]?.data;
+            const hasData = !!(gData && !isNaN(gData[50]) && !isNaN(gData[100]) && !isNaN(gData[150]) && !isNaN(gData[200]));
+
+            if (!hasData) {
+                container.innerHTML = `
+                    <div class="p-6 bg-sky-50/90 rounded-2xl border-2 border-dashed border-sky-300 text-center space-y-3 my-auto">
+                        <div class="w-12 h-12 bg-sky-100 text-sky-600 rounded-full flex items-center justify-center text-2xl mx-auto shadow-inner">
+                            🔒
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-sky-950 font-fun">任務 2：與水精靈對話探究（鎖定中）</h4>
+                            <p class="text-xs text-sky-800 mt-1 leading-relaxed">
+                                請先在左側輸入 4 個水量的溶解時間（秒）並點擊<strong>「上傳本組溶解時間」</strong>，水精靈將立即為你解鎖專屬對話！
+                            </p>
+                        </div>
+                        <button type="button" onclick="highlightDataFormInputs()" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 active:scale-95 text-white font-bold rounded-xl text-xs shadow transition flex items-center justify-center gap-1.5 mx-auto">
+                            <span>👈 前往輸入實驗數據 (Task 1)</span>
+                        </button>
+                    </div>
+                `;
+                renderStudentOptions();
+                updateTaskGatingUI();
+                return;
+            }
+
             const logs = classData[currentRole]?.chatLogs || [];
 
             if (logs.length === 0) {
@@ -3827,10 +4169,10 @@ ${JSON.stringify(summaryData, null, 2)}
                     <div class="flex items-start gap-2.5">
                         <div class="w-8 h-8 bg-sky-200 text-sky-800 rounded-2xl flex items-center justify-center text-sm font-bold flex-shrink-0 shadow-sm">💧</div>
                         <div class="chat-bubble-ai p-3.5 text-xs sm:text-sm text-slate-700 max-w-[88%] space-y-2">
-                            <p class="font-bold text-sky-900">Hello young scientist! 👋</p>
-                            <p>I am <strong>Agent Water (水精靈)</strong>. Enter and submit your group's 4 experiment timings (in seconds) on the left to start our scientific inquiry!</p>
+                            <p class="font-bold text-sky-900">你好！我是水精靈！👋</p>
+                            <p>我已經收到你組別的 4 個水量溶解時間！現在看看折線圖，我們一起開始科學探究吧！</p>
                             <p class="text-slate-500 text-[11px] border-t border-sky-200/60 pt-1.5">
-                                你好！我是水精靈！請在左側輸入並上傳你組別的 4 個水量溶解時間（秒），我們便可以開始深入探討！
+                                I received your experiment timings! Let's explore how water volume affects dissolving rate!
                             </p>
                         </div>
                     </div>
@@ -3861,80 +4203,366 @@ ${JSON.stringify(summaryData, null, 2)}
                         container.appendChild(div);
                     }
                 });
-
-                // If Stage 4 (Inquiry Completed), Render the Yellow-Border Learning Summary Card!
-                if (classData[currentRole]?.stage >= 4) {
-                    renderSummaryCard(container);
-                }
             }
 
             renderStudentOptions();
+            updateTaskGatingUI();
             container.scrollTop = container.scrollHeight;
         }
 
         function renderStudentOptions() {
             const container = document.getElementById('optionsContainer');
             if (!container) return;
-            const stage = classData[currentRole]?.stage || 0;
-            const stageData = dialogueStages[stage];
+            const gData = classData[currentRole]?.data;
+            const hasData = !!(gData && !isNaN(gData[50]) && !isNaN(gData[100]) && !isNaN(gData[150]) && !isNaN(gData[200]));
 
-            if (!stageData || stage >= 4) {
-                if (stage >= 4) {
-                    container.innerHTML = `
-                        <div class="p-3 bg-emerald-50 border border-emerald-300 rounded-2xl text-center space-y-0.5">
-                            <p class="text-xs sm:text-sm font-extrabold text-emerald-800 flex items-center justify-center gap-1.5">
-                                <span>🎉 Inquiry Completed! / 探究順利完成！</span>
-                            </p>
-                            <p class="text-[11px] text-emerald-700">Please jot down the Key Learning Points Summary onto your worksheet.</p>
-                        </div>
-                    `;
-                } else {
-                    // Interactive Quick-Start when not submitted yet
-                    container.innerHTML = `
-                        <div class="p-2.5 bg-sky-50/90 border border-sky-200 rounded-xl space-y-2 text-xs">
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-sky-900 flex items-center gap-1">
-                                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
-                                    <span>快速啟動探究對話 (Quick Start):</span>
-                                </span>
-                                <span class="text-[10px] text-slate-400">填寫左側時間數據即可開始</span>
-                            </div>
-                            <div class="grid grid-cols-1 gap-1.5">
-                                <button type="button" onclick="quickStartSubmitOrGuide()" class="text-left px-3 py-2 rounded-lg bg-white hover:bg-sky-100/80 border border-sky-200 text-sky-950 font-semibold transition flex items-center justify-between shadow-sm group">
-                                    <span class="group-hover:text-teal-700">⏱️ 我已量好溶解時間，立刻上傳！</span>
-                                    <span class="text-[10px] text-teal-700 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200 font-bold">上傳數據</span>
-                                </button>
-                                <button type="button" onclick="askAgentWaterPreQuestion('水量越多，方糖會溶得更快定更慢？')" class="text-left px-3 py-2 rounded-lg bg-white hover:bg-sky-100/80 border border-sky-200 text-sky-950 font-semibold transition flex items-center justify-between shadow-sm group">
-                                    <span class="group-hover:text-sky-700">💧 水量越多，溶解時間會變長定變短？</span>
-                                    <span class="text-[10px] text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 font-bold">提出猜想</span>
-                                </button>
-                                <button type="button" onclick="askAgentWaterPreQuestion('怎樣才算完全溶解？碼錶應該什麼時候按停？')" class="text-left px-3 py-2 rounded-lg bg-white hover:bg-sky-100/80 border border-sky-200 text-sky-950 font-semibold transition flex items-center justify-between shadow-sm group">
-                                    <span class="group-hover:text-indigo-700">❓ 怎樣才算『完全溶解』？碼錶幾時停？</span>
-                                    <span class="text-[10px] text-indigo-700 bg-indigo-50 px-1.5 py-0.5 rounded border border-indigo-200 font-bold">測量標準</span>
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    if (window.lucide) lucide.createIcons();
-                }
+            if (!hasData) {
+                container.innerHTML = `
+                    <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-center text-xs text-slate-400 font-medium">
+                        🔒 請先在左側完成任務 1 數據上傳，以解鎖探究選項。
+                    </div>
+                `;
                 return;
             }
 
+            const stage = classData[currentRole]?.stage || 1;
+            const stageData = dialogueStages[stage] || dialogueStages[1];
+
             // Render 4 diverse options
             container.innerHTML = '';
-            stageData.options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.className = "w-full text-left p-2.5 rounded-xl border border-sky-200 bg-sky-50/70 hover:bg-sky-100 hover:border-sky-300 active:scale-[0.99] transition shadow-sm flex flex-col gap-0.5 group";
-                btn.onclick = () => selectStudentOption(opt);
-                btn.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold text-sky-950 group-hover:text-sky-800 leading-snug">${opt.labelEn}</span>
-                        <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-white/80 border border-sky-200 text-slate-600 whitespace-nowrap ml-1">${opt.tag}</span>
+            if (stageData && stageData.options) {
+                stageData.options.forEach(opt => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = "w-full text-left p-2.5 rounded-xl border border-sky-200 bg-sky-50/70 hover:bg-sky-100 hover:border-sky-300 active:scale-[0.99] transition shadow-sm flex flex-col gap-0.5 group";
+                    btn.onclick = () => selectStudentOption(opt);
+                    btn.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-bold text-sky-950 group-hover:text-sky-800 leading-snug">${opt.labelEn}</span>
+                            <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-white/80 border border-sky-200 text-slate-600 whitespace-nowrap ml-1">${opt.tag}</span>
+                        </div>
+                        <span class="text-[11px] text-slate-600 leading-tight">${opt.labelZh}</span>
+                    `;
+                    container.appendChild(btn);
+                });
+            }
+
+            // Always provide a button to proceed to Task 3 (Thinking Routine Reflection Card)
+            const proceedBtn = document.createElement('div');
+            proceedBtn.className = "pt-1 border-t border-slate-100";
+            proceedBtn.innerHTML = `
+                <button type="button" onclick="proceedToReflectionStep()" class="w-full py-2 bg-gradient-to-r from-teal-500 via-sky-600 to-indigo-600 hover:from-teal-600 hover:to-indigo-700 active:scale-[0.99] text-white font-bold rounded-xl text-xs shadow transition flex items-center justify-center gap-1.5">
+                    <span>✨ 我已理解走勢，前往【任務 3：思維反思卡】</span>
+                    <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+                </button>
+            `;
+            container.appendChild(proceedBtn);
+
+            if (window.lucide) lucide.createIcons();
+        }
+
+        // ================= TASK GATING & PROGRESSION STATE MACHINE =================
+        function updateTaskGatingUI() {
+            const groupData = classData[currentRole]?.data;
+            const hasData = !!(groupData && !isNaN(groupData[50]) && !isNaN(groupData[100]) && !isNaN(groupData[150]) && !isNaN(groupData[200]));
+            const userChatLogs = (classData[currentRole]?.chatLogs || []).filter(m => m.sender === 'user');
+            const hasChat = hasData && ((classData[currentRole]?.stage >= 2) || (userChatLogs.length >= 1));
+            const reflection = classData[currentRole]?.reflection;
+            const hasReflection = !!(reflection && (reflection.nowIThink || '').trim().length >= 2);
+
+            // 1. Overall Progress Badge
+            const progressBadge = document.getElementById('taskOverallProgressBadge');
+            if (progressBadge) {
+                if (hasReflection) {
+                    progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
+                    progressBadge.innerText = "🎉 探究任務全部完成 (4/4)";
+                } else if (hasChat) {
+                    progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
+                    progressBadge.innerText = "進行中：任務 3 / 4 (思維反思)";
+                } else if (hasData) {
+                    progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 border border-sky-300";
+                    progressBadge.innerText = "進行中：任務 2 / 4 (水精靈探究)";
+                } else {
+                    progressBadge.className = "text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
+                    progressBadge.innerText = "進行中：任務 1 / 4 (輸入實驗數據)";
+                }
+            }
+
+            // 2. Stepper Indicators
+            const s1 = document.getElementById('stepIndicator1');
+            const s1Num = document.getElementById('stepNumber1');
+            const s1Sub = document.getElementById('stepSub1');
+            if (s1 && s1Num && s1Sub) {
+                if (hasData) {
+                    s1.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-sm";
+                    s1Num.className = "w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
+                    s1Num.innerHTML = "✓";
+                    s1Sub.innerText = "✅ 數據已上傳";
+                    s1Sub.className = "text-[9px] text-emerald-700 font-bold";
+                } else {
+                    s1.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm";
+                    s1Num.className = "w-6 h-6 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
+                    s1Num.innerText = "1";
+                    s1Sub.innerText = "請輸入 4 個水量秒數";
+                    s1Sub.className = "text-[9px] text-sky-700 font-normal";
+                }
+            }
+
+            const s2 = document.getElementById('stepIndicator2');
+            const s2Num = document.getElementById('stepNumber2');
+            const s2Sub = document.getElementById('stepSub2');
+            if (s2 && s2Num && s2Sub) {
+                if (hasReflection || classData[currentRole]?.stage >= 3) {
+                    s2.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-sm";
+                    s2Num.className = "w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
+                    s2Num.innerHTML = "✓";
+                    s2Sub.innerText = "✅ 對話探究完成";
+                    s2Sub.className = "text-[9px] text-emerald-700 font-bold";
+                } else if (hasData) {
+                    s2.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-sky-50 border-sky-400 text-sky-950 font-bold shadow-sm";
+                    s2Num.className = "w-6 h-6 rounded-full bg-sky-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
+                    s2Num.innerText = "2";
+                    s2Sub.innerText = "進行中 (水精靈探究)";
+                    s2Sub.className = "text-[9px] text-sky-700 font-normal";
+                } else {
+                    s2.className = "p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium";
+                    s2Num.className = "w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
+                    s2Num.innerText = "2";
+                    s2Sub.innerText = "🔒 待解鎖";
+                    s2Sub.className = "text-[9px] text-slate-400 font-normal";
+                }
+            }
+
+            const s3 = document.getElementById('stepIndicator3');
+            const s3Num = document.getElementById('stepNumber3');
+            const s3Sub = document.getElementById('stepSub3');
+            if (s3 && s3Num && s3Sub) {
+                if (hasReflection) {
+                    s3.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-sm";
+                    s3Num.className = "w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
+                    s3Num.innerHTML = "✓";
+                    s3Sub.innerText = "✅ 反思卡已提交";
+                    s3Sub.className = "text-[9px] text-emerald-700 font-bold";
+                } else if (hasChat || (hasData && classData[currentRole]?.stage >= 2)) {
+                    s3.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-amber-50 border-amber-400 text-amber-950 font-bold shadow-sm";
+                    s3Num.className = "w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
+                    s3Num.innerText = "3";
+                    s3Sub.innerText = "進行中 (請寫下反思)";
+                    s3Sub.className = "text-[9px] text-amber-700 font-normal";
+                } else {
+                    s3.className = "p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium";
+                    s3Num.className = "w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
+                    s3Num.innerText = "3";
+                    s3Sub.innerText = "🔒 待解鎖";
+                    s3Sub.className = "text-[9px] text-slate-400 font-normal";
+                }
+            }
+
+            const s4 = document.getElementById('stepIndicator4');
+            const s4Num = document.getElementById('stepNumber4');
+            const s4Sub = document.getElementById('stepSub4');
+            if (s4 && s4Num && s4Sub) {
+                if (hasReflection) {
+                    s4.className = "p-2.5 rounded-xl border-2 transition flex items-center gap-2 bg-emerald-50 border-emerald-400 text-emerald-950 font-bold shadow-sm";
+                    s4Num.className = "w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
+                    s4Num.innerHTML = "✓";
+                    s4Sub.innerText = "✅ 小結已生成";
+                    s4Sub.className = "text-[9px] text-emerald-700 font-bold";
+                } else {
+                    s4.className = "p-2.5 rounded-xl border transition flex items-center gap-2 bg-slate-50 border-slate-200 text-slate-400 font-medium";
+                    s4Num.className = "w-6 h-6 rounded-full bg-slate-300 text-white flex items-center justify-center text-xs font-black flex-shrink-0";
+                    s4Num.innerText = "4";
+                    s4Sub.innerText = "🔒 待解鎖";
+                    s4Sub.className = "text-[9px] text-slate-400 font-normal";
+                }
+            }
+
+            // 3. Task 2 (Chat Input & Send Button) Gating
+            const chatInput = document.getElementById('userInput');
+            const chatSendBtn = document.getElementById('chatSendBtn');
+            if (chatInput && chatSendBtn) {
+                if (!hasData) {
+                    chatInput.disabled = true;
+                    chatInput.placeholder = "🔒 步驟 2 鎖定中：請先在左側輸入並上傳 4 個水量溶解時間...";
+                    chatSendBtn.disabled = true;
+                    chatSendBtn.classList.add('opacity-40', 'cursor-not-allowed');
+                } else {
+                    chatInput.disabled = false;
+                    chatInput.placeholder = "用你自己的文字回答水精靈，或提出好奇……";
+                    chatSendBtn.disabled = false;
+                    chatSendBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+                }
+            }
+
+            // 4. Task 3 (Reflection Card) Gating
+            const refUnlocked = document.getElementById('reflectionUnlockedContent');
+            const refLocked = document.getElementById('reflectionLockedContent');
+            const isReflectionUnlocked = hasChat || (hasData && (classData[currentRole]?.stage >= 2 || userChatLogs.length >= 1));
+
+            if (refUnlocked && refLocked) {
+                if (isReflectionUnlocked) {
+                    refUnlocked.classList.remove('hidden');
+                    refLocked.classList.add('hidden');
+                    
+                    if (reflection) {
+                        const uInput = document.getElementById('reflectionUsedToThink');
+                        const nInput = document.getElementById('reflectionNowIThink');
+                        const wInput = document.getElementById('reflectionStillWonder');
+                        if (uInput && document.activeElement !== uInput && reflection.usedToThink) uInput.value = reflection.usedToThink;
+                        if (nInput && document.activeElement !== nInput && reflection.nowIThink) nInput.value = reflection.nowIThink;
+                        if (wInput && document.activeElement !== wInput && reflection.stillWonder) wInput.value = reflection.stillWonder;
+                        const badge = document.getElementById('reflectionStatusBadge');
+                        if (badge) {
+                            badge.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
+                            badge.innerText = "✓ 反思已提交";
+                        }
+                    }
+                } else {
+                    refUnlocked.classList.add('hidden');
+                    refLocked.classList.remove('hidden');
+                }
+            }
+
+            // 5. Task 4 (Key Learning Summary) Gating
+            const summarySec = document.getElementById('studentSummarySection');
+            if (summarySec) {
+                if (hasReflection) {
+                    summarySec.classList.remove('hidden');
+                    renderSummaryCardContent();
+                } else {
+                    summarySec.classList.add('hidden');
+                }
+            }
+        }
+
+        // ================= PROJECT ZERO THINKING ROUTINE HELPERS =================
+        function insertReflectionChip(fieldName, text) {
+            let elId = 'reflectionUsedToThink';
+            if (fieldName === 'nowIThink') elId = 'reflectionNowIThink';
+            if (fieldName === 'stillWonder') elId = 'reflectionStillWonder';
+
+            const el = document.getElementById(elId);
+            if (!el) return;
+            const currentVal = el.value.trim();
+            if (currentVal.length === 0) {
+                el.value = text;
+            } else if (!currentVal.includes(text)) {
+                el.value = currentVal + '；' + text;
+            }
+            el.focus();
+        }
+
+        function proceedToReflectionStep() {
+            const refSection = document.getElementById('studentReflectionSection');
+            if (refSection) {
+                refSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                refSection.classList.add('ring-4', 'ring-amber-300');
+                setTimeout(() => {
+                    refSection.classList.remove('ring-4', 'ring-amber-300');
+                }, 2000);
+            }
+            const nowInput = document.getElementById('reflectionNowIThink');
+            if (nowInput) nowInput.focus();
+        }
+
+        function submitStudentReflection() {
+            const usedToThink = (document.getElementById('reflectionUsedToThink')?.value || '').trim();
+            const nowIThink = (document.getElementById('reflectionNowIThink')?.value || '').trim();
+            const stillWonder = (document.getElementById('reflectionStillWonder')?.value || '').trim();
+            const msgEl = document.getElementById('reflectionFeedbackMsg');
+
+            if (nowIThink.length < 2) {
+                if (msgEl) {
+                    msgEl.className = "p-3 bg-amber-50 border border-amber-300 text-amber-900 rounded-xl text-xs flex items-center gap-2";
+                    msgEl.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i><span>請在第 2 題「現在我明白……」寫下你的探究心得或點選輔助標籤！</span>`;
+                    msgEl.classList.remove('hidden');
+                    if (window.lucide) lucide.createIcons();
+                }
+                document.getElementById('reflectionNowIThink')?.focus();
+                return;
+            }
+
+            if (!classData[currentRole]) classData = ensureClassDataStructure(classData);
+            classData[currentRole].reflection = {
+                usedToThink: usedToThink || "實驗前我以為只有水溫才會影響溶解速率",
+                nowIThink: nowIThink,
+                stillWonder: stillWonder,
+                timestamp: Date.now()
+            };
+            classData[currentRole].stage = 4;
+
+            if (msgEl) {
+                msgEl.className = "p-3 bg-emerald-50 border border-emerald-300 text-emerald-950 rounded-xl text-xs flex items-center justify-between gap-2 animate-fade-in";
+                msgEl.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
+                        <span class="font-bold">🎉 反思卡提交成功！已為你解鎖【任務 4：關鍵學習小結】！</span>
                     </div>
-                    <span class="text-[11px] text-slate-600 leading-tight">${opt.labelZh}</span>
                 `;
-                container.appendChild(btn);
-            });
+                msgEl.classList.remove('hidden');
+                if (window.lucide) lucide.createIcons();
+            }
+
+            broadcastSync();
+            updateAllUI();
+
+            setTimeout(() => {
+                const sumSec = document.getElementById('studentSummarySection');
+                if (sumSec) sumSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+
+        function renderSummaryCardContent() {
+            const container = document.getElementById('studentSummaryPointsContainer');
+            if (!container) return;
+            const points = generatePersonalizedSummaryPoints(currentRole);
+            const ref = classData[currentRole]?.reflection;
+
+            let customRefQuote = "";
+            if (ref && ref.nowIThink) {
+                customRefQuote = `
+                    <div class="mt-2 p-2.5 rounded-xl bg-amber-50 border border-amber-200/80 text-[11px] text-amber-950 flex items-start gap-2">
+                        <span class="text-base">💭</span>
+                        <div>
+                            <strong class="text-amber-900 font-bold">你的反思摘錄：</strong>
+                            <span>「${ref.nowIThink}」</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <!-- Point 1 -->
+                <div class="flex items-start gap-2 pb-2 border-b border-slate-100">
+                    <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0 mt-0.5">1</span>
+                    <div>
+                        <p class="font-bold text-slate-900 text-xs sm:text-sm">${points.point1.title}</p>
+                        <p class="text-slate-700 text-xs mt-0.5 leading-relaxed">${points.point1.zh}</p>
+                        <p class="text-[11px] text-slate-500 italic mt-0.5">${points.point1.en}</p>
+                    </div>
+                </div>
+
+                <!-- Point 2 -->
+                <div class="flex items-start gap-2 pb-2 border-b border-slate-100">
+                    <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0 mt-0.5">2</span>
+                    <div>
+                        <p class="font-bold text-slate-900 text-xs sm:text-sm">${points.point2.title}</p>
+                        <p class="text-slate-700 text-xs mt-0.5 leading-relaxed">${points.point2.zh}</p>
+                        <p class="text-[11px] text-slate-500 italic mt-0.5">${points.point2.en}</p>
+                    </div>
+                </div>
+
+                <!-- Point 3 -->
+                <div class="flex items-start gap-2">
+                    <span class="w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-xs font-black flex-shrink-0 mt-0.5">3</span>
+                    <div>
+                        <p class="font-bold text-slate-900 text-xs sm:text-sm">${points.point3.title}</p>
+                        <p class="text-slate-700 text-xs mt-0.5 leading-relaxed">${points.point3.zh}</p>
+                        <p class="text-[11px] text-slate-500 italic mt-0.5">${points.point3.en}</p>
+                        ${customRefQuote}
+                    </div>
+                </div>
+            `;
             if (window.lucide) lucide.createIcons();
         }
 
@@ -4409,6 +5037,7 @@ ${JSON.stringify(summaryData, null, 2)}
             let submittedGroups = [];
             let anomalies = [];
             let studentQuotes = [];
+            let studentReflections = [];
             const avgData = calculateClassAverage();
 
             for (let i = 1; i <= 8; i++) {
@@ -4455,6 +5084,14 @@ ${JSON.stringify(summaryData, null, 2)}
                             }
                         });
                     }
+                    // Collect student reflections
+                    if (g.reflection && (g.reflection.usedToThink || g.reflection.nowIThink || g.reflection.stillWonder)) {
+                        studentReflections.push({
+                            group: gKey,
+                            groupNum: i,
+                            reflection: g.reflection
+                        });
+                    }
                 }
             }
 
@@ -4462,8 +5099,247 @@ ${JSON.stringify(summaryData, null, 2)}
                 submittedGroups,
                 anomalies,
                 studentQuotes,
+                studentReflections,
                 classAverage: avgData
             };
+        }
+
+        // ================= DYNAMIC ADAPTIVE WHOLE-CLASS DISCUSSION PROMPTS (HOTS & PRIORITY) =================
+        let currentHotsCategory = 'all';
+        let currentHotsCards = [];
+
+        function filterDiscussionPrompts(category) {
+            currentHotsCategory = category || 'all';
+            const categories = ['all', 'kinetics', 'reliability', 'discrepancies', 'concepts', 'stem'];
+            categories.forEach(cat => {
+                const btn = document.getElementById(`hotsFilterBtn-${cat}`);
+                if (btn) {
+                    if (cat === currentHotsCategory) {
+                        btn.className = "hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-amber-600 text-white shadow-sm border border-amber-600";
+                    } else {
+                        btn.className = "hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50";
+                    }
+                }
+            });
+            renderHotsDiscussionCards();
+        }
+
+        function renderHotsDiscussionCards() {
+            const container = document.getElementById('hotsDiscussionCardsContainer');
+            if (!container) return;
+
+            if (!currentHotsCards || currentHotsCards.length === 0) {
+                currentHotsCards = generateHotsDiscussionCardsData(buildClassContextForDiscussionPrompts());
+            }
+
+            let cardsToRender = [];
+            if (currentHotsCategory === 'all') {
+                cardsToRender = currentHotsCards.slice(0, 3); // Top 3 Priorities in All HOTQs view
+            } else {
+                cardsToRender = currentHotsCards.filter(c => c.category === currentHotsCategory);
+                if (cardsToRender.length === 0) {
+                    // Fallback to top cards if empty
+                    cardsToRender = currentHotsCards.slice(0, 3);
+                }
+            }
+
+            let html = '';
+            cardsToRender.forEach(card => {
+                html += `
+                    <div class="hots-card bg-white rounded-2xl p-5 border border-amber-200/80 shadow-sm flex flex-col justify-between space-y-3.5 transition hover:shadow-md">
+                        <div class="space-y-3">
+                            <!-- Badges Row -->
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${card.badgeClass}">
+                                    ${card.priorityLabel}
+                                </span>
+                                <span class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-sky-50 text-sky-800 border border-sky-200">
+                                    Score: ${card.score} ${card.scoreIcon || ''}
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60 inline-block">
+                                    ${card.subDomain}
+                                </span>
+                            </div>
+
+                            <!-- Rationale box -->
+                            <div class="bg-amber-50/70 border border-amber-200/70 rounded-xl p-2.5 text-[11px] text-amber-950 leading-relaxed font-medium">
+                                🎯 <strong>排序依據：</strong>${card.rationale}
+                            </div>
+
+                            <!-- Title (English & Chinese) -->
+                            <div>
+                                <h4 class="text-sm font-bold text-slate-900 leading-snug">
+                                    ${card.titleEn}
+                                </h4>
+                                <h5 class="text-xs font-bold text-slate-800 leading-snug mt-1">
+                                    ${card.titleZh}
+                                </h5>
+                            </div>
+
+                            <!-- Description body (English & Chinese) -->
+                            <div class="text-[11px] text-slate-600 space-y-2 leading-relaxed">
+                                <p>${card.descEn}</p>
+                                <p class="text-slate-700">${card.descZh}</p>
+                            </div>
+                        </div>
+
+                        <!-- Core Objective footer -->
+                        <div class="pt-3 border-t border-slate-100 text-[11px] text-amber-950 font-medium flex items-start gap-1.5">
+                            <span class="text-amber-600 flex-shrink-0">💡</span>
+                            <div><strong>核心目標：</strong>${card.objective}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function generateHotsDiscussionCardsData(ctx) {
+            const context = ctx || buildClassContextForDiscussionPrompts();
+            const submitted = context.submittedGroups || [];
+            const anomalies = context.anomalies || [];
+            const quotes = context.studentQuotes || [];
+            const reflections = context.studentReflections || [];
+            const avgData = context.classAverage || calculateClassAverage();
+
+            // --- Card 1: Priority 1 (Discrepancies & Fair Test) ---
+            let c1 = {
+                priority: 1,
+                priorityLabel: "🔥 第 1 優先研討 (Priority 1)",
+                badgeClass: "bg-rose-100 text-rose-700 border border-rose-200",
+                subDomain: "HOTS • Discrepancy & Fair Test / 異常排查與公平測試",
+                score: 100,
+                scoreIcon: "⚠️",
+                category: "discrepancies",
+                rationale: "⚠️ 系統偵測到 3 組極端或反常數據 (Group 2, Group 3, Group 8)，急需在大組討論中引導排查未控制變因！",
+                titleEn: "Group 6 (18s) vs Group 8 (53s): What hidden variables caused this 35s gap?",
+                titleZh: "【實測對比】Group 6 (18秒) vs Group 8 (53秒)：相差 35 秒！有哪些未控制的隱藏變因？",
+                descEn: "Both groups tested 80°C hot water with identical 100 mL volume and 5.0 g salt. Why did dissolving time differ by 35 seconds? Could stirring frequency vary, or did water cool down on the bench? How should scientists critically analyze discrepancies?",
+                descZh: "兩組明明都是 80°C 熱水、100 mL 水與 5.0 g 食鹽，為什麼秒數相差了 35 秒？是攪拌頻率快慢不一，還是水放久變涼？面對反常數據，科學家應如何批判排查而非盲信或隨意刪除？",
+                objective: "培養不盲從數據、能從實驗細微處排查未受控「隱藏變因」的批判思維。"
+            };
+
+            if (anomalies.length > 0) {
+                const anom = anomalies[0];
+                c1.rationale = `⚠️ 系統偵測到第 ${anom.groupNum} 組出現反常走勢（${anom.detail}），急需在大組討論中引導排查未控制變因！`;
+                c1.titleEn = `Group ${anom.groupNum} Inversion (${anom.detail}): What hidden variables caused this anomaly?`;
+                c1.titleZh = `🔍 【實時反常焦點】第 ${anom.groupNum} 組實測反常：${anom.detail}折線出現反彈！理論上水量多溶得快，你會如何排查？`;
+                c1.descEn = `In Group ${anom.groupNum}'s test, dissolving time unexpectedly bounced back (${anom.detail}). Did stirring speed slow down due to fatigue, did water cool down, or was the sugar cube crushed? How should scientists critically analyze discrepancies rather than ignoring them?`;
+                c1.descZh = `實時檢測到全班第 ${anom.groupNum} 組出現了逆勢反彈走勢（${anom.detail}）。在真實科研中，面對與理論相反的異常點，我們應該直接刪除數據，還是深入排查操作細節（如攪拌速度或水溫）？`;
+            } else if (submitted.length >= 2) {
+                submitted.sort((a, b) => (b.data[150] || 0) - (a.data[150] || 0));
+                const maxG = submitted[0];
+                const minG = submitted[submitted.length - 1];
+                const diff = Math.round(((maxG.data[150] || 0) - (minG.data[150] || 0)) * 10) / 10;
+                c1.rationale = `⚠️ 系統偵測到第 ${minG.groupNum} 組與第 ${maxG.groupNum} 組在 150 cm³ 相差高達 ${diff} 秒，急需在大組討論中引導排查未控制變因！`;
+                c1.titleEn = `Group ${minG.groupNum} (${minG.data[150]}s) vs Group ${maxG.groupNum} (${maxG.data[150]}s): What hidden variables caused this ${diff}s gap?`;
+                c1.titleZh = `【實測對比】Group ${minG.groupNum} (${minG.data[150]}秒) vs Group ${maxG.groupNum} (${maxG.data[150]}秒)：相差 ${diff} 秒！有哪些未控制的隱藏變因？`;
+                c1.descEn = `Both groups tested identical water volume and sugar cube. Why did dissolving time differ by ${diff} seconds? Could stirring frequency vary, or did water cool down on the bench? How should scientists critically analyze discrepancies?`;
+                c1.descZh = `實時檢測到全班第 ${maxG.groupNum} 組與第 ${minG.groupNum} 組在 150 cm³ 出現顯著落差（相差 ${diff} 秒）。如果出現兩組數據走勢矛盾或數值差距顯著，我們應該直接刪除異常組別，還是重新檢查操作細節？`;
+            }
+
+            // --- Card 2: Priority 2 (Conceptual Shift: Dissolve vs Melt) ---
+            let c2 = {
+                priority: 2,
+                priorityLabel: "⭐ 第 2 優先研討 (Priority 2)",
+                badgeClass: "bg-amber-100 text-amber-800 border border-amber-300",
+                subDomain: "HOTS • Conceptual Shift / 概念轉變：溶解 vs 融化",
+                score: 85,
+                scoreIcon: "🧭",
+                category: "concepts",
+                rationale: "🗣️ 學生在探究對話或反思中提到了「融化/melt」(Group 1, Group 8)，此為初中科學最經典迷思概念，優先度極高！",
+                titleEn: "Do salt crystals \"melt\" in hot water, or \"dissolve\"? How do particle models distinguish them?",
+                titleZh: "食鹽在熱水中是「融化」還是「溶解」？微觀粒子模型如何區分兩者？",
+                descEn: "Group 1 shared in reflection: \"實驗前，我以為只有溫度才會影響溶解速度\". Everyday speech often says salt \"melts\" in hot soup. If water completely evaporates, does salt reappear? What is the fundamental particle difference between melting and dissolving?",
+                descZh: "Group 1 在反思卡中寫道：「實驗前，我以為只有溫度才會影響溶解速度」。日常口語常說鹽在熱湯中「融化了」。若把水完全蒸乾，食鹽還會在嗎？冰塊融化與食鹽溶解在微觀粒子上有何根本區別？",
+                objective: "運用微觀粒子理論徹底剖析「溶解」與「融化」的本質差異，實現科學概念轉變。"
+            };
+
+            const meltReflect = reflections.find(r => /融化|melt/i.test(r.reflection?.usedToThink || '') || /融化|melt/i.test(r.reflection?.nowIThink || ''));
+            const anyReflect = reflections.find(r => (r.reflection?.usedToThink || '').length > 3);
+            if (meltReflect) {
+                const quoteText = meltReflect.reflection.usedToThink || meltReflect.reflection.nowIThink;
+                c2.rationale = `🗣️ 學生在反思卡中提到了「融化/melt」(Group ${meltReflect.groupNum})，此為初中科學最經典迷思概念，優先度極高！`;
+                c2.descZh = `Group ${meltReflect.groupNum} 在反思卡中寫道：「${quoteText}」。日常口語常說鹽在熱湯中「融化了」。若把水完全蒸乾，食鹽還會在嗎？冰塊融化與食鹽溶解在微觀粒子上有何根本區別？`;
+                c2.descEn = `Group ${meltReflect.groupNum} shared in reflection: "${quoteText}". Everyday speech often says salt "melts" in hot soup. If water completely evaporates, does salt reappear? What is the fundamental particle difference between melting and dissolving?`;
+            } else if (anyReflect) {
+                const quoteText = anyReflect.reflection.usedToThink;
+                c2.descZh = `Group ${anyReflect.groupNum} 在反思卡中寫道：「${quoteText}」。日常口語常說鹽在熱湯中「融化了」。若把水完全蒸乾，食鹽還會在嗎？冰塊融化與食鹽溶解在微觀粒子上有何根本區別？`;
+                c2.descEn = `Group ${anyReflect.groupNum} shared in reflection: "${quoteText}". Everyday speech often says salt "melts" in hot soup. If water completely evaporates, does salt reappear? What is the fundamental particle difference between melting and dissolving?`;
+            }
+
+            // --- Card 3: Priority 3 (Error & Reliability) ---
+            let c3 = {
+                priority: 3,
+                priorityLabel: "★ 第 3 優先研討 (Priority 3)",
+                badgeClass: "bg-blue-100 text-blue-800 border border-blue-200",
+                subDomain: "HOTS • Error & Reliability / 誤差抵消與實驗信度",
+                score: 72,
+                scoreIcon: "⚖️",
+                category: "reliability",
+                rationale: "📊 全班已有 8 組提交數據，具備充足大樣本探討「平均值如何像天平一樣抵消隨機誤差」！",
+                titleEn: "Why does calculating the 8-group class average eliminate individual stopwatch delay?",
+                titleZh: "為什麼計算全班 8 組平均值能「消除」個人隨機誤差？",
+                descEn: "Group 1 insightfully remarked: \"🎯 為了減少按碼錶與攪拌的人為誤差，提高數據可靠性！\". If one team stopped the timer 2s late, and another stirred slightly faster, single-group data varies. How does the 8-group average balance out random positive and negative errors like a scale?",
+                descZh: "Group 1 在探究中敏銳指出：「🎯 為了減少按碼錶與攪拌的人為誤差，提高數據可靠性！」。若某組按停碼錶慢了 2 秒，另一組攪拌稍快，單組數據都有偏差。全班平均值如何像天平一樣互相抵消正負誤差、提高科學信度 (Reliability)？",
+                objective: "深刻理解大樣本平均值消除隨機誤差的本質與科學信度 Reliability。"
+            };
+
+            const quoteRandomError = quotes.find(q => /唔夠準|不夠準|唔準|不準|誤差|偏差|random error/i.test(q.quote));
+            if (quoteRandomError) {
+                c3.rationale = `📊 第 ${quoteRandomError.groupNum} 組敏銳指出「${quoteRandomError.quote}」，全班已有 ${Math.max(1, submitted.length)} 組提交數據，具備充足大樣本探討「平均值如何像天平一樣抵消隨機誤差」！`;
+                c3.titleEn = `Classroom Thought Spark: Group ${quoteRandomError.groupNum} noted "${quoteRandomError.quote}"! Why does calculating the class average eliminate individual random errors?`;
+                c3.titleZh = `🛠️ 【課堂思維火花】第 ${quoteRandomError.groupNum} 組同學提出「${quoteRandomError.quote}」！全班討論：只做 1 組實驗到底存在什麼隨機誤差？8組平均如何抵消？`;
+                c3.descEn = `Group ${quoteRandomError.groupNum} insightfully remarked: "${quoteRandomError.quote}". If one team stopped the timer 2s late, and another stirred slightly faster, single-group data varies. How does the 8-group average balance out random positive and negative errors like a scale?`;
+                c3.descZh = `第 ${quoteRandomError.groupNum} 組同學非常敏銳地提出「${quoteRandomError.quote}」。人手操作時碼錶反應、攪拌速度都有不可避免的正負誤差。全班 8 組平均值是如何像天平一樣抵消這些誤差的？`;
+            }
+
+            // --- Card 4: Kinetics (Microscopic Kinetics & Limit Thinking) ---
+            const avg200 = avgData ? avgData[200] : 30;
+            const avg50 = avgData ? avgData[50] : 120;
+            const avg100 = avgData ? avgData[100] : 70;
+            const avg150 = avgData ? avgData[150] : 45;
+            const dropEarly = Math.round((avg50 - avg100) * 10) / 10;
+            const dropLate = Math.round((avg150 - avg200) * 10) / 10;
+
+            let c4 = {
+                priority: 4,
+                priorityLabel: "🔬 微觀動力研討 (Kinetics Focus)",
+                badgeClass: "bg-teal-100 text-teal-800 border border-teal-200",
+                subDomain: "HOTS • Molecular Kinetics & Limit Thinking / 微觀動力與極限思維",
+                score: 68,
+                scoreIcon: "⚡",
+                category: "kinetics",
+                rationale: "🧪 全班實測 50→100 cm³ 大幅縮短秒數，但 150→200 cm³ 趨於平緩，引導從微觀水分子碰撞模型與極限思維切入！",
+                titleEn: `From 50 to 100 cm³, time dropped by ${dropEarly}s; but 150 to 200 cm³ only by ${dropLate}s: Why do extra water molecules have diminishing returns?`,
+                titleZh: `🌊 【極限思維探究】全班實測 50→100 cm³ 大幅縮短了 ${dropEarly} 秒，但 150→200 cm³ 僅減少約 ${dropLate} 秒！若將水量加至 10,000 cm³，溶解時間可能變成 0 秒嗎？`,
+                descEn: `When volume doubles from 50 to 100 cm³, collision frequency between free water molecules and sugar crystal surfaces skyrockets. However, when water is already abundant, sugar surface area becomes the rate-limiting factor. Can adding 10,000 cm³ water reduce dissolving time to 0 seconds?`,
+                descZh: `全班實測曲線清楚顯示「前段劇降、後段趨緩」的邊際效應特徵。即便把方糖投入整座水塘或太平洋中，水分子破壞晶格依然需要時間，這揭示了科學規律在極端條件下的什麼物理極限？`,
+                objective: "建立微觀水分子碰撞模型，並培養極限思維 (Limit Thinking) 與外推批判能力。"
+            };
+
+            // --- Card 5: STEM Engineering ---
+            let c5 = {
+                priority: 5,
+                priorityLabel: "🛠️ STEM 工程研討 (Engineering Focus)",
+                badgeClass: "bg-purple-100 text-purple-800 border border-purple-200",
+                subDomain: "HOTS • Experimental Engineering / 自動化工程與零誤差設計",
+                score: 65,
+                scoreIcon: "⚙️",
+                category: "stem",
+                rationale: "🤖 人手攪拌不均與肉眼終點判斷為課堂主要誤差來源，激發學生運用現代 STEM 技術設計自動化裝置！",
+                titleEn: "How can we engineer a \"Zero Human Error\" dissolving apparatus using magnetic stirrers and turbidity sensors?",
+                titleZh: "🛠️ 如果要設計一個完全「零人為誤差」的溶解實驗，你會如何改進裝置？",
+                descEn: "Manual stirring cannot maintain constant RPM, and watching for the last sugar speck is subjective. If you could integrate Arduino or micro:bit with a magnetic stirrer and a light transmission sensor, how would the machine define 100% dissolution automatically?",
+                descZh: "人手攪拌無法維持恆定轉速，肉眼觀察最後一粒晶體消失也具有強烈主觀性。若能結合微型控制器、磁力攪拌器與透光濁度傳感器，如何讓機器全自動判定「方糖 100% 溶解」並自動計時？",
+                objective: "引導 STEM 工程思維與自動化檢測概念，提高實驗精度與客觀性。"
+            };
+
+            return [c1, c2, c3, c4, c5];
         }
 
         function updateDynamicDiscussionPromptsHeuristic(contextData) {
@@ -4473,166 +5349,48 @@ ${JSON.stringify(summaryData, null, 2)}
             const quotes = ctx.studentQuotes || [];
             const avgData = ctx.classAverage || calculateClassAverage();
 
+            currentHotsCards = generateHotsDiscussionCardsData(ctx);
+            renderHotsDiscussionCards();
+
+            // Backward Compatibility: Sync DOM elements for automated test suites
+            const t1 = currentHotsCards[0];
+            const t2 = currentHotsCards[1];
+            const t3 = currentHotsCards[2];
+            const t4 = currentHotsCards[3]; // kinetics (limit thinking)
+
             const t1Title = document.getElementById('topic1Title');
             const t1TitleEn = document.getElementById('topic1TitleEn');
             const t1Desc = document.getElementById('topic1Desc');
-            const t1Scaffold = document.getElementById('topic1ScaffoldSteps');
+            if (t1Title && t1) t1Title.innerHTML = t1.titleZh;
+            if (t1TitleEn && t1) t1TitleEn.innerText = t1.titleEn;
+            if (t1Desc && t1) t1Desc.innerHTML = t1.descZh;
 
-            // --- Topic 1: Live Anomaly or Max Heterogeneity ---
-            if (anomalies.length > 0) {
-                const anom = anomalies[0];
-                if (t1Title) {
-                    t1Title.innerHTML = `🔍 【實時反常焦點】第 ${anom.groupNum} 組實測反常：${anom.detail}折線出現反彈！理論上水量多溶得快，你會如何排查？`;
-                }
-                if (t1TitleEn) {
-                    t1TitleEn.innerText = `Live Anomaly Focus: Group ${anom.groupNum} observed that dissolving time bounced back! How would you troubleshoot this unexpected trend?`;
-                }
-                if (t1Desc) {
-                    t1Desc.innerHTML = `
-                        實時檢測到全班第 ${anom.groupNum} 組出現了逆勢反彈走勢（${anom.detail}）。在真實科研中，面對與理論相反的異常點，我們應該直接刪除數據，還是深入排查操作細節（如攪拌速度或水溫）？<br>
-                        <span class="text-[10px] text-slate-500 italic">Group ${anom.groupNum} showed an unexpected time bounce (${anom.detail}). In real scientific practice, should we delete this outlier or inspect manual factors?</span>
-                    `;
-                }
-                if (t1Scaffold) {
-                    t1Scaffold.innerHTML = `
-                        <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                        <p><strong>1. 實時數據核驗 (Live Check)：</strong>確認第 ${anom.groupNum} 組在該水量下的實測秒數，折線是否有明顯往上突起？<br><span class="text-[10px] text-slate-500 italic">Check the actual numbers for Group ${anom.groupNum}. Does the graph spike upward?</span></p>
-                        <p><strong>2. 變因排查 (Variable Check)：</strong>做這個水量時，攪拌手指是否手酸變慢？還是水溫放久變涼了？有沒有及時停錶？<br><span class="text-[10px] text-slate-500 italic">Did manual stirring tire out and slow down? Did water cool down? Was timer delayed?</span></p>
-                        <p><strong>3. 科學決策 (Scientific Decision)：</strong>單獨一組有隨機誤差，全班 8 組平均如何幫助我們得出更具信度的規律？<br><span class="text-[10px] text-slate-500 italic">Single groups have random errors. How does the 8-group class average restore high validity?</span></p>
-                    `;
-                }
-            } else if (submitted.length >= 2) {
-                submitted.sort((a, b) => (b.data[150] || 0) - (a.data[150] || 0));
-                const maxG = submitted[0];
-                const minG = submitted[submitted.length - 1];
-                const diff = Math.round(((maxG.data[150] || 0) - (minG.data[150] || 0)) * 10) / 10;
-
-                if (t1Title) {
-                    t1Title.innerHTML = `🔍 實時學情聚焦：第 ${maxG.groupNum} 組 (${maxG.data[150]}s) 與第 ${minG.groupNum} 組 (${minG.data[150]}s) 在 150 cm³ 相差高達 ${diff} 秒！你會如何驗證原因？`;
-                }
-                if (t1TitleEn) {
-                    t1TitleEn.innerText = `Real-time Class Focus: Group ${maxG.groupNum} (${maxG.data[150]}s) and Group ${minG.groupNum} (${minG.data[150]}s) differ by ${diff}s at 150 cm³! How would you verify it?`;
-                }
-                if (t1Desc) {
-                    t1Desc.innerHTML = `
-                        實時檢測到全班第 ${maxG.groupNum} 組與第 ${minG.groupNum} 組在 150 cm³ 出現顯著落差（相差 ${diff} 秒）。如果出現兩組數據走勢矛盾或數值差距顯著，我們應該直接刪除異常組別，還是重新檢查操作細節？<br>
-                        <span class="text-[10px] text-slate-500 italic">Discrepancy of ${diff}s detected between Group ${maxG.groupNum} and Group ${minG.groupNum}. If groups show contradictory trends, should we discard outliers or inspect operational details?</span>
-                    `;
-                }
-                if (t1Scaffold) {
-                    t1Scaffold.innerHTML = `
-                        <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                        <p><strong>1. 實時數據對比 (Live Comparison)：</strong>第 ${maxG.groupNum} 組 (${maxG.data[150]}s) 與第 ${minG.groupNum} 組 (${minG.data[150]}s) 相差 ${diff} 秒！這是在各組中差距最大的點，能否看出哪組可能是離群值？<br><span class="text-[10px] text-slate-500 italic">Group ${maxG.groupNum} (${maxG.data[150]}s) vs Group ${minG.groupNum} (${minG.data[150]}s) has the largest gap of ${diff}s. Can you spot potential outliers?</span></p>
-                        <p><strong>2. 變因排查 (Variable Check)：</strong>兩組的水溫、方糖質量是否確實相同？有沒有同學中途戳碎方糖或忘記立刻按錶？<br><span class="text-[10px] text-slate-500 italic">Were water temperature and sugar mass identical? Did anyone crush the sugar or delay the timer?</span></p>
-                        <p><strong>3. 科學決策 (Scientific Decision)：</strong>如果無法判定誰出錯，科學家會：A. 刪除異常值 B. 算平均 C. 重複實驗？為什麼？<br><span class="text-[10px] text-slate-500 italic">If unsure which is wrong, would scientists: A. Discard outlier, B. Average them, or C. Replicate test? Why?</span></p>
-                    `;
-                }
-            } else {
-                if (t1Title) t1Title.innerHTML = `🔍 假設第 3 組與第 7 組的折線走向完全相反，你會如何驗證？`;
-                if (t1TitleEn) t1TitleEn.innerText = `If Group 3 and Group 7 have completely opposite line trends, how would you verify it?`;
-            }
-
-            // --- Topic 2: Student Chat Quotes & Reflections ---
             const t2Title = document.getElementById('topic2Title');
             const t2TitleEn = document.getElementById('topic2TitleEn');
             const t2Desc = document.getElementById('topic2Desc');
-            const t2Scaffold = document.getElementById('topic2ScaffoldSteps');
-
-            const quoteInaccurate = quotes.find(q => /唔夠準|不夠準|唔準|不準/i.test(q.quote));
-            const quoteCrushedSugar = quotes.find(q => /戳碎|搗碎|碎咗|碎/i.test(q.quote));
-            const quoteStirring = quotes.find(q => /手酸|慢咗|攪拌|轉速|攪得慢/i.test(q.quote));
-            const quoteStem = quotes.find(q => /傳感器|自動|磁力|機器|sensor/i.test(q.quote));
-            const quoteRandomError = quoteInaccurate || quotes.find(q => /誤差|偏差|random error/i.test(q.quote));
-
-            if (quoteRandomError) {
-                if (t2Title) {
+            const quoteRandomError = quotes.find(q => /唔夠準|不夠準|唔準|不準|誤差|偏差|random error/i.test(q.quote));
+            if (t2Title) {
+                if (quoteRandomError) {
                     t2Title.innerHTML = `🛠️ 【課堂思維火花】第 ${quoteRandomError.groupNum} 組同學提出「${quoteRandomError.quote}」！全班討論：只做 1 組實驗到底存在什麼隨機誤差？8組平均如何抵消？`;
+                } else if (t2) {
+                    t2Title.innerHTML = t2.titleZh;
                 }
-                if (t2TitleEn) {
-                    t2TitleEn.innerText = `Classroom Thought Spark: Group ${quoteRandomError.groupNum} noted "${quoteRandomError.quote}"! What random errors make a single group imprecise, and how does the 8-group average balance them out?`;
-                }
-                if (t2Desc) {
-                    t2Desc.innerHTML = `
-                        第 ${quoteRandomError.groupNum} 組同學非常敏銳地提出只做 1 組可能「唔夠準」。人手操作時碼錶反應、攪拌速度都有不可避免的正負誤差。全班 8 組平均值是如何像天平一樣抵消這些誤差的？<br>
-                        <span class="text-[10px] text-slate-500 italic">Group ${quoteRandomError.groupNum} keenly observed that 1 group might not be accurate enough. How does taking an 8-group average balance out manual random errors like a balance scale?</span>
-                    `;
-                }
-                if (t2Scaffold) {
-                    t2Scaffold.innerHTML = `
-                        <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                        <p><strong>1. 具體化「唔夠準」(Clarify Inaccuracy)：</strong>單獨一組操作時，手指按錶反應快慢或攪拌節奏，會令秒數偏大還是偏小？<br><span class="text-[10px] text-slate-500 italic">Does reaction latency make measured seconds larger or smaller?</span></p>
-                        <p><strong>2. 正負抵消原理 (Cancellation Effect)：</strong>全班 8 組中，有人按早了幾秒，有人按遲了幾秒，將 8 組數據加起來算平均會發生什麼？<br><span class="text-[10px] text-slate-500 italic">When some groups press early and some late, what happens when averaging 8 groups?</span></p>
-                        <p><strong>3. 信度結論 (Reliability)：</strong>為什麼大樣本的平均值比單獨一組的數據更具科學說服力？<br><span class="text-[10px] text-slate-500 italic">Why does larger sample size average provide stronger scientific validity?</span></p>
-                    `;
-                }
-            } else if (quoteCrushedSugar) {
-                if (t2Title) {
-                    t2Title.innerHTML = `🛠️ 【公平測試反思】第 ${quoteCrushedSugar.groupNum} 組同學提到「${quoteCrushedSugar.quote}」！方糖碎裂如何改變了控制變因？這對測試公平性有何影響？`;
-                }
-                if (t2TitleEn) {
-                    t2TitleEn.innerText = `Fair Test Critique: Group ${quoteCrushedSugar.groupNum} noted "${quoteCrushedSugar.quote}"! How did crushing the sugar alter controlled variables?`;
-                }
-                if (t2Desc) {
-                    t2Desc.innerHTML = `
-                        第 ${quoteCrushedSugar.groupNum} 組同學誠實反思了實驗操作中的細節。方糖碎成小顆粒後，表面積大幅增加，這是否違反了公平測試（Fair Test）的原則？<br>
-                        <span class="text-[10px] text-slate-500 italic">Group ${quoteCrushedSugar.groupNum} reflected on crushing the sugar. Did increasing the surface area violate the controlled variables of a Fair Test?</span>
-                    `;
-                }
-            } else if (quoteStirring) {
-                if (t2Title) {
-                    t2Title.innerHTML = `🛠️ 【人為誤差分析】第 ${quoteStirring.groupNum} 組同學反映「${quoteStirring.quote}」！如何改進實驗設備做到完全恆速攪拌？`;
-                }
-                if (t2TitleEn) {
-                    t2TitleEn.innerText = `Operational Limitation: Group ${quoteStirring.groupNum} reported "${quoteStirring.quote}"! How to engineer constant stirring apparatus?`;
-                }
-                if (t2Desc) {
-                    t2Desc.innerHTML = `人手攪拌極難保持固定頻率與力道。想像你可以引入任何實驗室科技工具，你會如何改進攪拌裝置？<br><span class="text-[10px] text-slate-500 italic">Manual stirring cannot maintain constant RPM. How could laboratory automated devices eliminate this?</span>`;
-                }
-            } else if (quoteStem) {
-                if (t2Title) {
-                    t2Title.innerHTML = `🛠️ 【STEM 工程創新】第 ${quoteStem.groupNum} 組提出「${quoteStem.quote}」！如何利用光學傳感器實現零人為誤差？`;
-                }
-                if (t2TitleEn) {
-                    t2TitleEn.innerText = `STEM Innovation: Group ${quoteStem.groupNum} suggested "${quoteStem.quote}"! How can optical turbidity sensors achieve zero human error?`;
-                }
-            } else {
-                if (t2Title) t2Title.innerHTML = `🛠️ 如果要設計一個完全「零人為誤差」的溶解實驗，你會如何改進裝置？`;
-                if (t2TitleEn) t2TitleEn.innerText = `To design a "Zero Human Error" dissolving experiment, how would you improve the apparatus?`;
             }
+            if (t2TitleEn && t2) t2TitleEn.innerText = t2.titleEn;
+            if (t2Desc && t2) t2Desc.innerHTML = t2.descZh;
 
-            // --- Topic 3: Class Curve Deceleration & Limit Thinking ---
             const t3Title = document.getElementById('topic3Title');
             const t3TitleEn = document.getElementById('topic3TitleEn');
             const t3Desc = document.getElementById('topic3Desc');
-            const t3Scaffold = document.getElementById('topic3ScaffoldSteps');
-
-            const avg200 = avgData ? avgData[200] : 30;
-            const avg50 = avgData ? avgData[50] : 120;
-            const avg100 = avgData ? avgData[100] : 70;
-            const avg150 = avgData ? avgData[150] : 45;
-            const dropEarly = Math.round((avg50 - avg100) * 10) / 10;
-            const dropLate = Math.round((avg150 - avg200) * 10) / 10;
-
             if (t3Title) {
-                t3Title.innerHTML = `🌊 【極限思維探究】全班實測 50→100 cm³ 大幅縮短了 ${dropEarly} 秒，但 150→200 cm³ 僅減少約 ${dropLate} 秒！若將水量加至 10,000 cm³，溶解時間可能變成 0 秒嗎？`;
+                if (t4) {
+                    t3Title.innerHTML = t4.titleZh;
+                } else if (t3) {
+                    t3Title.innerHTML = t3.titleZh;
+                }
             }
-            if (t3TitleEn) {
-                t3TitleEn.innerText = `Limit Thinking: Dissolving time dropped by ${dropEarly}s from 50→100 cm³, but only by ${dropLate}s from 150→200 cm³! If water volume is 10,000 cm³, can time ever reach 0s?`;
-            }
-            if (t3Desc) {
-                t3Desc.innerHTML = `
-                    全班實測曲線清楚顯示「前段劇降、後段趨緩」的邊際效應特徵。即便把方糖投入整座水塘或太平洋中，水分子破壞晶格依然需要時間，這揭示了科學規律在極端條件下的什麼物理極限？<br>
-                    <span class="text-[10px] text-slate-500 italic">The class curve exhibits diminishing returns. Even in an entire reservoir or ocean, molecular bond breaking takes time. What physical limit does this reveal?</span>
-                `;
-            }
-            if (t3Scaffold) {
-                t3Scaffold.innerHTML = `
-                    <p class="font-bold text-slate-800">🪜 鷹架引導步驟 / Scaffolding Steps：</p>
-                    <p><strong>1. 觀察斜率 (Observe Gradient)：</strong>全班前期下降了 ${dropEarly} 秒，後期僅下降了 ${dropLate} 秒，曲線越來越平緩，代表什麼？<br><span class="text-[10px] text-slate-500 italic">Early decrease is ${dropEarly}s while later is only ${dropLate}s. The curve flattens—what does this signify?</span></p>
-                    <p><strong>2. 物理常識 (Physical Reality)：</strong>即便把方糖扔進太平洋（極大水量），水分子拆解方糖晶格需要時間嗎？能否為 0 秒？<br><span class="text-[10px] text-slate-500 italic">Even in an ocean, does water take time to break sugar crystal bonds? Can it ever be 0s?</span></p>
-                    <p><strong>3. 外推批判 (Extrapolation Critique)：</strong>用有限的數據曲線去預測無窮大的極端情況，需要注意什麼限制？<br><span class="text-[10px] text-slate-500 italic">What are the risks of using limited data points to predict extreme conditions?</span></p>
-                `;
-            }
+            if (t3TitleEn && t4) t3TitleEn.innerText = t4.titleEn;
+            if (t3Desc && t4) t3Desc.innerHTML = t4.descZh;
 
             if (window.lucide) lucide.createIcons();
         }
@@ -4654,11 +5412,11 @@ ${JSON.stringify(summaryData, null, 2)}
 
             const classContext = buildClassContextForDiscussionPrompts();
 
-            // 1. If API Key is configured, call Gemini
-            if (aiSettings.apiKey && aiSettings.apiKey.trim().length > 5) {
+            // 1. If API Key is configured and within token cap, call Gemini/OpenAI
+            if (aiSettings.apiKey && aiSettings.apiKey.trim().length > 5 && !isAiTokenCapExceeded()) {
                 try {
                     const aiPrompts = await callGeminiDynamicDiscussionPrompts(classContext);
-                    if (aiPrompts && aiPrompts.topic1 && aiPrompts.topic2 && aiPrompts.topic3) {
+                    if (aiPrompts && (aiPrompts.cards || (aiPrompts.topic1 && aiPrompts.topic2 && aiPrompts.topic3))) {
                         applyDiscussionPromptsToDOM(aiPrompts);
                         if (badge) {
                             badge.className = "text-[11px] bg-purple-100 text-purple-900 font-bold px-3 py-1 rounded-full border border-purple-300 flex items-center gap-1.5 shadow-sm";
@@ -4684,33 +5442,50 @@ ${JSON.stringify(summaryData, null, 2)}
                 badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span>實時動態學情連動中 / Live Synced</span>`;
             }
             if (btn) {
-                btn.innerHTML = `<i data-lucide="refresh-cw" class="w-3 h-3"></i> <span>刷新動態提問</span>`;
+                btn.innerHTML = `<i data-lucide="refresh-cw" class="w-3 h-3"></i> <span>依最新對話刷新 (Refresh HOTQs)</span>`;
                 btn.disabled = false;
             }
             if (window.lucide) lucide.createIcons();
         }
 
         function applyDiscussionPromptsToDOM(prompts) {
+            if (prompts.cards && Array.isArray(prompts.cards) && prompts.cards.length > 0) {
+                currentHotsCards = prompts.cards;
+                renderHotsDiscussionCards();
+            } else if (prompts.topic1 || prompts.topic2 || prompts.topic3) {
+                currentHotsCards = generateHotsDiscussionCardsData();
+                if (prompts.topic1) {
+                    currentHotsCards[0].titleZh = prompts.topic1.title || currentHotsCards[0].titleZh;
+                    currentHotsCards[0].titleEn = prompts.topic1.titleEn || currentHotsCards[0].titleEn;
+                }
+                if (prompts.topic2) {
+                    currentHotsCards[1].titleZh = prompts.topic2.title || currentHotsCards[1].titleZh;
+                    currentHotsCards[1].titleEn = prompts.topic2.titleEn || currentHotsCards[1].titleEn;
+                }
+                if (prompts.topic3) {
+                    currentHotsCards[2].titleZh = prompts.topic3.title || currentHotsCards[2].titleZh;
+                    currentHotsCards[2].titleEn = prompts.topic3.titleEn || currentHotsCards[2].titleEn;
+                }
+                renderHotsDiscussionCards();
+            }
+
             if (prompts.topic1) {
                 const t1 = prompts.topic1;
                 if (document.getElementById('topic1Title') && t1.title) document.getElementById('topic1Title').innerHTML = t1.title;
                 if (document.getElementById('topic1TitleEn') && t1.titleEn) document.getElementById('topic1TitleEn').innerText = t1.titleEn;
                 if (document.getElementById('topic1Desc') && t1.desc) document.getElementById('topic1Desc').innerHTML = t1.desc;
-                if (document.getElementById('topic1ScaffoldSteps') && t1.scaffoldSteps) document.getElementById('topic1ScaffoldSteps').innerHTML = t1.scaffoldSteps;
             }
             if (prompts.topic2) {
                 const t2 = prompts.topic2;
                 if (document.getElementById('topic2Title') && t2.title) document.getElementById('topic2Title').innerHTML = t2.title;
                 if (document.getElementById('topic2TitleEn') && t2.titleEn) document.getElementById('topic2TitleEn').innerText = t2.titleEn;
                 if (document.getElementById('topic2Desc') && t2.desc) document.getElementById('topic2Desc').innerHTML = t2.desc;
-                if (document.getElementById('topic2ScaffoldSteps') && t2.scaffoldSteps) document.getElementById('topic2ScaffoldSteps').innerHTML = t2.scaffoldSteps;
             }
             if (prompts.topic3) {
                 const t3 = prompts.topic3;
                 if (document.getElementById('topic3Title') && t3.title) document.getElementById('topic3Title').innerHTML = t3.title;
                 if (document.getElementById('topic3TitleEn') && t3.titleEn) document.getElementById('topic3TitleEn').innerText = t3.titleEn;
                 if (document.getElementById('topic3Desc') && t3.desc) document.getElementById('topic3Desc').innerHTML = t3.desc;
-                if (document.getElementById('topic3ScaffoldSteps') && t3.scaffoldSteps) document.getElementById('topic3ScaffoldSteps').innerHTML = t3.scaffoldSteps;
             }
         }
 

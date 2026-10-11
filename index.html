@@ -630,11 +630,30 @@
                             <i data-lucide="sparkles" class="w-4 h-4"></i>
                             <span>補齊未提交組別數據 (Auto-fill)</span>
                         </button>
-                        <button onclick="clearCurrentClassData()" 
-                            class="bg-rose-600/80 hover:bg-rose-600 active:scale-95 text-white font-bold px-3.5 py-2.5 rounded-xl text-xs shadow transition flex items-center gap-1.5 border border-rose-400/30">
-                            <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            <span>清空本班數據</span>
-                        </button>
+                        <!-- Clear Specific Group or All Class Data -->
+                        <div class="flex items-center gap-1.5 bg-rose-950/40 p-1 rounded-xl border border-rose-500/30">
+                            <select id="teacherResetGroupSelect" class="bg-slate-900/90 text-rose-200 text-xs px-2 py-1.5 rounded-lg border border-rose-500/40 focus:outline-none focus:ring-1 focus:ring-rose-400">
+                                <option value="Group 1">Group 1</option>
+                                <option value="Group 2">Group 2</option>
+                                <option value="Group 3">Group 3</option>
+                                <option value="Group 4">Group 4</option>
+                                <option value="Group 5">Group 5</option>
+                                <option value="Group 6">Group 6</option>
+                                <option value="Group 7">Group 7</option>
+                                <option value="Group 8">Group 8</option>
+                            </select>
+                            <button onclick="clearSelectedGroupData()" 
+                                class="bg-rose-700 hover:bg-rose-600 active:scale-95 text-white font-bold px-2.5 py-1.5 rounded-lg text-xs shadow transition flex items-center gap-1"
+                                title="只清空所選個別組別的數據，保留其他 7 組">
+                                <i data-lucide="trash" class="w-3.5 h-3.5"></i>
+                                <span>清空該組</span>
+                            </button>
+                            <button onclick="clearCurrentClassData()" 
+                                class="bg-rose-900/80 hover:bg-rose-800 active:scale-95 text-rose-200 hover:text-white font-medium px-2 py-1.5 rounded-lg text-xs transition border border-rose-600/30"
+                                title="清空全班所有 8 組數據">
+                                <span>清空全班</span>
+                            </button>
+                        </div>
                         <button onclick="openAdminPasswordModal()" 
                             class="bg-purple-900/80 hover:bg-purple-800 active:scale-95 text-purple-200 hover:text-white font-bold px-3.5 py-2.5 rounded-xl text-xs shadow-lg transition flex items-center gap-1.5 border border-purple-500/40"
                             title="管理敏感的 API Key、學生端模型派發與全班 Token 使用量 (需系統管理員密碼)">
@@ -821,6 +840,11 @@
                                     <img id="photoPreviewImg" src="" alt="Student Answer" class="max-h-28 rounded-xl border border-amber-200 shadow-sm object-contain bg-white">
                                     <div class="flex items-center gap-2 flex-wrap justify-center">
                                         <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">✓ 照片已加載</span>
+                                        <select id="ocrLanguageMode" onclick="event.stopPropagation();" onchange="reRunOcrOnCurrentPhoto();" class="text-[10px] bg-white border border-slate-300 rounded px-1.5 py-0.5 text-slate-700 font-medium cursor-pointer shadow-xs" title="OCR 識字語言模式">
+                                            <option value="eng" selected>🔤 英文/黑板手寫 (English Chalkboard)</option>
+                                            <option value="auto">🌐 自動增強 (Auto Enhance)</option>
+                                            <option value="chi_tra+eng">🀄 中英雙語 (Chi+Eng)</option>
+                                        </select>
                                         <button type="button" onclick="event.stopPropagation(); reRunOcrOnCurrentPhoto();" class="text-[10px] text-sky-600 hover:text-sky-800 font-bold underline flex items-center gap-1">
                                             <i data-lucide="scan-text" class="w-3 h-3"></i><span>重新辨識 (OCR)</span>
                                         </button>
@@ -871,6 +895,9 @@
                                 </button>
                                 <button type="button" onclick="fillSampleStudentAnswer('fairtest')" class="text-[10px] bg-rose-50 hover:bg-rose-100 text-rose-800 font-medium px-2 py-0.5 rounded-lg border border-rose-200 transition">
                                     🎯 範例F: 公平測試黑板手寫筆記 (Fair Test Chalkboard)
+                                </button>
+                                <button type="button" onclick="fillSampleStudentAnswer('sound_vacuum')" class="text-[10px] bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-medium px-2 py-0.5 rounded-lg border border-indigo-200 transition">
+                                    🔔 範例G: 聲音與真空黑板手寫筆記 (Sound & Vacuum Bell Jar)
                                 </button>
                             </div>
                         </div>
@@ -2269,6 +2296,7 @@ Pay special attention to Junior Secondary Science terms present in the image, in
 - time of cleaning (same size)
 - size of stain (same time of cleaning)
 - Bunsen burner / laboratory apparatus
+- Sound in vacuum / bell jar experiment: "I think the boy can't hear the alarm clock ringing, because the air was pumped out then", vacuum, medium, air pumped out
 - dissolving time, temperature, stirring, water volume.
 Output ONLY the clean line-by-line transcribed text without any conversational preamble or markdown code fences.`;
 
@@ -2349,6 +2377,11 @@ Output ONLY the clean line-by-line transcribed text without any conversational p
             const v150 = groupData ? groupData['150'] : 45;
             const v200 = groupData ? groupData['200'] : 30;
 
+            const recentLogs = (classData[currentRole]?.chatLogs || []).slice(-4);
+            const historyText = recentLogs.length > 0 
+                ? recentLogs.map(m => `${m.sender === 'user' ? '學生' : '水精靈'}：${m.zh || m.en}`).join('\n')
+                : '（剛開始對話）';
+
             const systemPrompt = `
 你是一位專為小學高年級至初中一年級學生設計的溫暖、具啟發性的頂級科學探究 AI 導師「水精靈 (Agent Water)」。
 當前實驗主題：水的體積對方糖溶解速率的影響 (Exp 2.5: Rate of Dissolving)。
@@ -2358,32 +2391,36 @@ Output ONLY the clean line-by-line transcribed text without any conversational p
 當前探究階段：Stage ${stage} (1=觀察數據趨勢, 2=全班平均信度, 3=批判思考與操作誤差)。
 
 【核心溝通原則——嚴禁劇本感與套話】：
-1. 嚴禁使用生硬的罐頭回覆（絕對不要說「收到你的想法！💧 讓我們回歸藍色折線...」或「明白你的看法！🌟 現在請思考誤差問題...」）。
-2. 理解香港學生常用廣東話及口語（如「1組可能唔夠準」、「時間長咗」、「升咗」、「慢咗」、「點解」、「好奇怪」）。
+1. 嚴禁使用生硬的罐頭回覆（絕對不要無視學生文字，或說「收到你的想法！讓我們回歸...」）。
+2. 理解香港學生常用廣東話、英文及口語（如「1組可能唔夠準」、「時間長咗」、「升咗」、「慢咗」、「點解」、「好奇怪」、「water splashed out」）。
+3. 認真消化同學的具體觀點，切中要害回應（嚴禁學生說 A 卻回覆 B）：
+   - 若同學提到水在攪拌時濺出來 (splashed out / spilled)：必須熱烈肯定！指出水濺出讓實際水量（溶劑）減少，水分子減少直接干擾溶解時間與濃度，破壞了水量控制變因！
+   - 若同學提到水溫變冷/放久變涼：指出水分子熱運動動能降低，破壞溫度控制變因。
+   - 若同學提到糖被戳碎/整爛：指出表面積暴增，破壞公平測試。
+   - 若同學提到量筒視線讀數：指出凹液面未平視產生視差。
+   - 若同學提到碼錶反應延遲/肉眼睇唔清：指出人體神經反射延遲與主觀終點判斷為主要隨機誤差。
 
 【關鍵情境 1：學生發現數據反常（例如 200 cm³ 反而比 150 cm³ 時間更長）】：
 - 該組實測 150ml=${v150}s, 200ml=${v200}s。若 ${v200} > ${v150} 或學生提到 200ml 時間變長/反彈/變慢/好奇怪：
-- 必須極大肯定學生的敏銳眼光（如「哇！你的科學眼光太銳利了！這是一個重大發現！」）。
-- 解釋理論上水量多溶解快，但在真實實驗中，人手攪拌速度可能放慢、水溫微涼、或碼錶按停延遲，這正是「隨機誤差（Random Error）」！
-- 追問學生在測 200 cm³ 時是否手酸攪慢了或水溫變涼，引導其體會全班平均值的必要性。
+- 必須極大肯定學生的敏銳眼光，解釋理論上水量多溶解快，但在真實實驗中，人手攪拌速度可能放慢、水溫微涼、或水花濺出，這正是「隨機誤差（Random Error）」！
 
 【關鍵情境 2：學生回答「1組可能唔夠準」或指出單組誤差】：
-- 必須熱烈肯定學生已經直達科學核心（「太棒了！你的回答已經非常非常接近科學核心！沒錯，只做 1 組確實『唔夠準』！」）。
-- 明確指出這在科學上正是因為存在「隨機誤差 (Random Error)」。
-- 進一步追問：是什麼具體人為操作（例如手部攪拌不均或停錶延遲）導致了不夠準？而全班 8 組平均又如何將這些誤差抵消？
+- 必須熱烈肯定學生已經直達科學核心，明確指出存在「隨機誤差 (Random Error)」，並追問全班 8 組平均如何互相抵消。
 
 【回覆格式】：輸出嚴格 JSON：
 {
-  "feedbackEn": "Friendly, encouraging Socratic response in simple English addressing student's exact point (under 45 words)",
-  "feedbackZh": "生動親切的繁體中文引導（50-90字內，針對學生具體發言回應，嚴禁套話，適當加粗重點）",
+  "feedbackEn": "Friendly, encouraging Socratic response in simple English directly addressing student's exact statement (under 45 words)",
+  "feedbackZh": "生動親切的繁體中文引導（50-90字內，針對學生具體發言點深入剖析，嚴禁套話，適當加粗重點）",
   "summaryZh": "簡短的學生觀點學情小結（20字內）",
   "strengthZh": "本輪對答展現之思維強項（25字內）",
   "growthZh": "建議下一步深入思考的方向（25字內）",
-  "focusTag": "思維標籤（如：異常數據質疑 / 隨機誤差探究 / 微觀分子動力學）",
+  "focusTag": "思維標籤（如：溶劑濺出流失 / 隨機誤差探究 / 微觀分子動力學）",
   "advanceStage": true,
   "nextStage": ${Math.min(stage + 1, 4)}
 }
 `;
+
+            const userPromptText = `【前序對話背景】：\n${historyText}\n\n【學生最新發言】：\n「${studentMessage}」\n\n請務必緊扣學生這句發言的字面意思與科學思考，給出精準且具啟發性的回應！`;
 
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), 6000);
@@ -2400,7 +2437,7 @@ Output ONLY the clean line-by-line transcribed text without any conversational p
                         signal: controller.signal,
                         body: JSON.stringify({
                             contents: [
-                                { parts: [{ text: `學生最新發言：「${studentMessage}」` }] }
+                                { parts: [{ text: userPromptText }] }
                             ],
                             systemInstruction: {
                                 parts: [{ text: systemPrompt }]
@@ -2433,7 +2470,7 @@ Output ONLY the clean line-by-line transcribed text without any conversational p
                             model: model,
                             messages: [
                                 { role: 'system', content: systemPrompt },
-                                { role: 'user', content: `學生最新發言：「${studentMessage}」` }
+                                { role: 'user', content: userPromptText }
                             ],
                             response_format: { type: "json_object" },
                             temperature: 0.6,
@@ -2652,29 +2689,35 @@ ${JSON.stringify(summaryData, null, 2)}
                             sampled++;
                         }
                         const avgBrightness = totalBrightness / Math.max(1, sampled);
-                        // If dark background (e.g. blackboard < 135), invert colors for Tesseract OCR
-                        if (avgBrightness < 135) {
-                            for (let i = 0; i < data.length; i += 4) {
-                                let r = 255 - data[i];
-                                let g = 255 - data[i+1];
-                                let b = 255 - data[i+2];
-                                r = Math.min(255, Math.max(0, (r - 128) * 1.3 + 128));
-                                g = Math.min(255, Math.max(0, (g - 128) * 1.3 + 128));
-                                b = Math.min(255, Math.max(0, (b - 128) * 1.3 + 128));
-                                data[i] = r;
-                                data[i+1] = g;
-                                data[i+2] = b;
+                        const isDarkBg = avgBrightness < 140;
+
+                        // High contrast grayscale processing for Tesseract
+                        for (let i = 0; i < data.length; i += 4) {
+                            let gray = data[i] * 0.299 + data[i+1] * 0.587 + data[i+2] * 0.114;
+                            if (isDarkBg) {
+                                // Invert dark blackboard (white chalk on black becomes black text on white)
+                                gray = 255 - gray;
+                                // Contrast stretch to enhance chalk text edges
+                                gray = Math.min(255, Math.max(0, (gray - 100) * 1.5 + 100));
+                            } else {
+                                // Paper notebook contrast enhancement
+                                gray = Math.min(255, Math.max(0, (gray - 128) * 1.25 + 128));
                             }
-                            ctx.putImageData(imgData, 0, 0);
-                            resolve(canvas.toDataURL('image/png'));
-                        } else {
-                            resolve(imgSrc);
+                            data[i] = gray;
+                            data[i+1] = gray;
+                            data[i+2] = gray;
                         }
+                        ctx.putImageData(imgData, 0, 0);
+                        resolve({
+                            dataUrl: canvas.toDataURL('image/png'),
+                            isDarkBg: isDarkBg,
+                            avgBrightness: avgBrightness
+                        });
                     } catch (err) {
-                        resolve(imgSrc);
+                        resolve({ dataUrl: imgSrc, isDarkBg: false, avgBrightness: 128 });
                     }
                 };
-                img.onerror = () => resolve(imgSrc);
+                img.onerror = () => resolve({ dataUrl: imgSrc, isDarkBg: false, avgBrightness: 128 });
                 img.src = imgSrc;
             });
         }
@@ -2690,7 +2733,14 @@ ${JSON.stringify(summaryData, null, 2)}
                  .replace(/(?:kett\s*|)(?:Lcorstant|constant)\s*(?:本\s*受|不變|\(many\))/gi, 'variables to be kept constant 不變 (many)')
                  .replace(/(?:Corpared|compared)\s*(?:輸|比較|\(one\))/gi, 'variable to be compared 比較 (one)')
                  .replace(/time\s*of\s*clea[^\s]*/gi, 'time of cleaning (same size)')
-                 .replace(/size\s*of\s*stain[^\s]*/gi, 'size of stain (same time of cleaning)');
+                 .replace(/size\s*of\s*stain[^\s]*/gi, 'size of stain (same time of cleaning)')
+                 // Sound in vacuum / bell jar experiment (specifically targeting Image 5 notes)
+                 .replace(/(?:I\s*think\s*the\s*|I\s*thin[k\s]*|)(?:boy\s*can['’]?t|boy\s*cant|can\s*not|can['’]?t)\s*hear\s*the\s*alarm\s*clock\s*ringing/gi, "I think the boy can't hear the alarm clock ringing")
+                 .replace(/(?:because\s*the\s*|cuz\s*the\s*|)air\s*was\s*pumped\s*out\s*(?:then|there|)/gi, "because the air was pumped out then")
+                 .replace(/alarm\s*cl[o0]ck/gi, 'alarm clock')
+                 .replace(/pumped\s*out/gi, 'pumped out')
+                 .replace(/bell\s*jar/gi, 'bell jar')
+                 .replace(/vacuum/gi, 'vacuum');
             return t;
         }
 
@@ -3204,6 +3254,38 @@ ${JSON.stringify(summaryData, null, 2)}
             }
 
             // 9. Stage 3: Specific Human Errors / Limitations
+            // 9a-1. Water Splashed Out / Spilled / Volume Loss (Directly addresses Image 1: "Some water is splashed out during stirring")
+            if (/splash|spill|leak|out\b|drop\s*out|pour\s*out|濺|潑|灑|倒瀉|漏出|水花|漏水|溢出|彈出/i.test(lower)) {
+                return {
+                    feedbackEn: "Sharp observation! 💧 Splashing water out during stirring reduces the actual solvent volume! Less water means fewer water molecules to dissolve the sugar, changing your data! Outstanding reflection on experimental error!",
+                    feedbackZh: "太細心了！敏銳捕捉到關鍵細節！💧 攪拌時水濺出來會讓燒杯裡的實際水量（溶劑）變少，導致水分子數量減少，直接干擾了溶解時間！這是一個非常深刻的實驗操作誤差反思！恭喜你圓滿完成科學探究！",
+                    summaryZh: "學生敏銳指出攪拌時水花濺出導致溶劑水量流失，破壞了控制變因。",
+                    strengthZh: "觀察入微，能捕捉到攪拌時水花濺出造成的水量微小流失",
+                    growthZh: "注意控制攪拌力道防止液體濺出，維持水量恆定",
+                    focusTag: "Solvent Loss / 水量濺出流失",
+                    personalizedPoint3En: "Human Error Limitation: Splashing water out during stirring reduces the actual solvent volume and alters dissolution time.",
+                    personalizedPoint3Zh: "實驗人為局限：攪拌時水花濺出減少了實際溶劑水量，破壞了水量控制變因。",
+                    nextStage: 4,
+                    advanceStage: true
+                };
+            }
+
+            // 9a-2. Measuring cylinder parallax / meniscus reading
+            if (/meniscus|cylinder|scale|parallax|reading|量筒|刻度|凹液面|睇錯|視線|水刻度/i.test(lower)) {
+                return {
+                    feedbackEn: "Brilliant laboratory insight! 📐 Reading the measuring cylinder requires eye level with the bottom of the meniscus! Parallax reading errors alter the initial water volume! Superb critical thinking!",
+                    feedbackZh: "非常出色的實驗室技能反思！📐 讀取量筒刻度時視線必須與凹液面最低處平視！如果俯視或仰視產生視差誤差，量取的水量就會不準確！恭喜你圓滿完成探究！",
+                    summaryZh: "學生反思量筒讀數視差對初始水量控制變因之影響。",
+                    strengthZh: "具備嚴謹的實驗量度素養，洞察到量筒凹液面讀數視差",
+                    growthZh: "操作時務必平視量筒凹液面水平讀數",
+                    focusTag: "Meniscus Reading / 量筒讀數視差",
+                    personalizedPoint3En: "Measurement Limitation: Parallax errors when reading the measuring cylinder meniscus alter initial water volume.",
+                    personalizedPoint3Zh: "測量人為局限：量筒讀數時的視差或未平視凹液面會使初始水量產生偏差。",
+                    nextStage: 4,
+                    advanceStage: true
+                };
+            }
+
             // 9a. Stirring
             if (/stir|speed|manual|hand|攪拌|手速|轉速|手攪|快慢|手酸|手累/i.test(lower)) {
                 return {
@@ -4031,6 +4113,10 @@ ${JSON.stringify(summaryData, null, 2)}
                 renderTeacherDashboardUI();
             }
 
+            // Keep Task Progression Stepper & Summary Reactive
+            updateTaskGatingUI();
+            renderSummaryCardContent();
+
             if (window.lucide) {
                 lucide.createIcons();
             }
@@ -4323,14 +4409,79 @@ ${JSON.stringify(summaryData, null, 2)}
             const stage = classData[currentRole]?.stage || 1;
 
             if (stage >= 4) {
+                const points = generatePersonalizedSummaryPoints(currentRole);
+                const gInfo = classData[currentRole] || {};
+                const strength = gInfo.strengthZh || "能敏銳反思實驗變因與操作局限";
+                const focus = gInfo.focusTag || "科學探究 / Scientific Inquiry";
+
                 container.innerHTML = `
-                    <div class="p-3.5 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl text-center space-y-2 shadow-sm">
-                        <div class="flex items-center justify-center gap-1.5 text-xs font-bold text-emerald-800">
-                            <span>🎉 本組對話探究圓滿達成！(Dialogue Inquiry Completed!)</span>
+                    <div class="p-4 bg-gradient-to-r from-emerald-50 via-teal-50 to-sky-50 border-2 border-emerald-300 rounded-2xl space-y-3.5 shadow-sm text-left">
+                        <!-- Header & Badge -->
+                        <div class="flex items-center justify-between flex-wrap gap-2 pb-2 border-b border-emerald-200">
+                            <div class="flex items-center gap-2">
+                                <span class="text-xl">🎉</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-emerald-950 font-fun">
+                                        本組對話探究圓滿達成！(Dialogue Inquiry Completed!)
+                                    </h4>
+                                    <p class="text-[10px] text-emerald-800">
+                                        你已掌握水量走勢、全班平均值消除隨機誤差及實驗操作局限！
+                                    </p>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900 border border-emerald-300">
+                                焦點：${focus}
+                            </span>
                         </div>
-                        <p class="text-[11px] text-emerald-700 leading-relaxed">
-                            你們組已經成功掌握水量走勢、全班平均消除隨機誤差及實驗操作局限！請前往下方完成【任務 3：思維反思卡】。
-                        </p>
+
+                        <!-- Dialogue Performance Note -->
+                        <div class="bg-white/90 p-2.5 rounded-xl border border-emerald-200 text-[11px] text-emerald-950 space-y-1">
+                            <div class="flex items-center gap-1 font-bold text-emerald-900">
+                                <i data-lucide="award" class="w-3.5 h-3.5 text-amber-600"></i>
+                                <span>剛才對話中的卓越表現 (Dialogue Performance)：</span>
+                            </div>
+                            <p class="text-slate-700 pl-4.5">${strength}</p>
+                        </div>
+
+                        <!-- Key Learning Summary Box -->
+                        <div class="bg-amber-50/80 border border-amber-300 rounded-xl p-3 space-y-2.5">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-amber-950 flex items-center gap-1.5">
+                                    <span>📝 關鍵學習小結 (Key Learning Points Summary)：</span>
+                                </span>
+                                <span class="text-[9px] font-bold text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded border border-amber-200">請抄錄於筆記本</span>
+                            </div>
+
+                            <!-- 3 Points -->
+                            <div class="space-y-2 text-[11px] text-slate-800">
+                                <div class="flex items-start gap-1.5">
+                                    <span class="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0 mt-0.5">1</span>
+                                    <div>
+                                        <p class="font-bold text-emerald-950">${points.point1.title}</p>
+                                        <p class="text-slate-700 leading-tight">${points.point1.zh}</p>
+                                        <p class="text-[10px] text-slate-500 italic">${points.point1.en}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-1.5">
+                                    <span class="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0 mt-0.5">2</span>
+                                    <div>
+                                        <p class="font-bold text-emerald-950">${points.point2.title}</p>
+                                        <p class="text-slate-700 leading-tight">${points.point2.zh}</p>
+                                        <p class="text-[10px] text-slate-500 italic">${points.point2.en}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-1.5">
+                                    <span class="w-4 h-4 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-black flex-shrink-0 mt-0.5">3</span>
+                                    <div>
+                                        <p class="font-bold text-emerald-950">${points.point3.title}</p>
+                                        <p class="text-slate-700 leading-tight">${points.point3.zh}</p>
+                                        <p class="text-[10px] text-slate-500 italic">${points.point3.en}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CTA to Task 3 -->
                         <button type="button" onclick="proceedToReflectionStep()" class="w-full py-2.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600 hover:from-emerald-700 hover:to-sky-700 active:scale-[0.99] text-white font-bold rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
                             <span>📝 前往填寫【任務 3：思維反思卡】(Proceed to Task 3)</span>
                             <i data-lucide="arrow-down" class="w-4 h-4"></i>
@@ -4359,7 +4510,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
             const stageData = dialogueStages[stage] || dialogueStages[1];
 
-            // Render 4 diverse options
+            // Render 4 diverse options (without biasing meta-tags)
             container.innerHTML = '';
             if (stageData && stageData.options) {
                 stageData.options.forEach(opt => {
@@ -4368,11 +4519,8 @@ ${JSON.stringify(summaryData, null, 2)}
                     btn.className = "w-full text-left p-2.5 rounded-xl border border-sky-200 bg-sky-50/70 hover:bg-sky-100 hover:border-sky-300 active:scale-[0.99] transition shadow-sm flex flex-col gap-0.5 group";
                     btn.onclick = () => selectStudentOption(opt);
                     btn.innerHTML = `
-                        <div class="flex items-center justify-between">
-                            <span class="text-xs font-bold text-sky-950 group-hover:text-sky-800 leading-snug">${opt.labelEn}</span>
-                            <span class="text-[9px] font-bold px-1.5 py-0.2 rounded bg-white/80 border border-sky-200 text-slate-600 whitespace-nowrap ml-1">${opt.tag}</span>
-                        </div>
-                        <span class="text-[11px] text-slate-600 leading-tight">${opt.labelZh}</span>
+                        <span class="text-xs font-bold text-sky-950 group-hover:text-sky-800 leading-snug">${opt.labelEn}</span>
+                        <span class="text-[11px] text-slate-600 leading-tight mt-0.5">${opt.labelZh}</span>
                     `;
                     container.appendChild(btn);
                 });
@@ -4636,6 +4784,8 @@ ${JSON.stringify(summaryData, null, 2)}
 
             broadcastSync();
             updateAllUI();
+            updateTaskGatingUI();
+            renderSummaryCardContent();
 
             setTimeout(() => {
                 const sumSec = document.getElementById('studentSummarySection');
@@ -5159,6 +5309,40 @@ ${JSON.stringify(summaryData, null, 2)}
             alert(`✅ 非破壞性 Auto-fill 完成！已保留所有已提交組別數據，共為 ${filledCount} 個未填寫小組填補合理的模擬數據。`);
         }
 
+        function clearSelectedGroupData() {
+            const select = document.getElementById('teacherResetGroupSelect');
+            const target = select ? select.value : 'Group 1';
+            clearSingleGroupData(target);
+        }
+
+        function clearSingleGroupData(targetGroup) {
+            if (!targetGroup) return;
+            if (confirm(`⚠️ 確定要單獨清空「${targetGroup}」的所有數據（實驗秒數、對話記錄與反思卡）嗎？\n此操作不會影響其他小組。`)) {
+                if (!classData) classData = initClassDataStructure();
+                classData[targetGroup] = {
+                    data: null,
+                    chatLogs: [],
+                    stage: 0,
+                    summaryEn: "Awaiting experiment data submission...",
+                    summaryZh: "尚未上傳實驗數據...",
+                    latestAnswer: "No responses yet",
+                    strengthEn: "Ready to explore",
+                    strengthZh: "準備開始探究，已準備好各水量數據測量",
+                    growthEn: "Pending evaluation",
+                    growthZh: "待評估，建議引導觀察水量與溶解秒數之變化",
+                    focusTag: "Stirring Speed"
+                };
+                broadcastSync();
+                updateAllUI();
+                updateTaskGatingUI();
+                if (currentRole === targetGroup) {
+                    renderStudentChatHistory();
+                    renderStudentOptions();
+                }
+                alert(`🧹 已成功清空「${targetGroup}」的數據！`);
+            }
+        }
+
         function clearCurrentClassData() {
             if (confirm(`⚠️ 確定要清空當前「${currentClass}」的所有組別數據嗎？此操作無法撤銷。`)) {
                 classData = initClassDataStructure();
@@ -5325,17 +5509,12 @@ ${JSON.stringify(summaryData, null, 2)}
                 html += `
                     <div class="hots-card bg-white rounded-2xl p-5 border border-amber-200/80 shadow-sm flex flex-col justify-between space-y-3.5 transition hover:shadow-md">
                         <div class="space-y-3">
-                            <!-- Badges Row -->
+                            <!-- Badges Row (Score removed as requested) -->
                             <div class="flex items-center justify-between flex-wrap gap-2">
                                 <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${card.badgeClass}">
                                     ${card.priorityLabel}
                                 </span>
-                                <span class="px-2 py-0.5 rounded-md text-[11px] font-bold bg-sky-50 text-sky-800 border border-sky-200">
-                                    Score: ${card.score} ${card.scoreIcon || ''}
-                                </span>
-                            </div>
-                            <div>
-                                <span class="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60 inline-block">
+                                <span class="text-[10px] font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200/70 inline-block">
                                     ${card.subDomain}
                                 </span>
                             </div>
@@ -5740,9 +5919,24 @@ ${JSON.stringify(summaryData, null, 2)}
                 if (progressBadge) progressBadge.innerText = "15%";
                 if (window.lucide) lucide.createIcons();
 
-                const processedImg = await preprocessImageForOcr(imageSource);
+                const pre = await preprocessImageForOcr(imageSource);
+                const processedImg = (pre && pre.dataUrl) ? pre.dataUrl : (pre || imageSource);
 
-                const worker = await Tesseract.createWorker('chi_tra+eng', 1, {
+                let ocrLang = 'eng';
+                const langSelect = document.getElementById('ocrLanguageMode');
+                if (langSelect && langSelect.value) {
+                    if (langSelect.value === 'chi_tra+eng') {
+                        ocrLang = 'chi_tra+eng';
+                    } else if (langSelect.value === 'eng') {
+                        ocrLang = 'eng';
+                    } else {
+                        ocrLang = (pre && pre.isDarkBg) ? 'eng' : 'chi_tra+eng';
+                    }
+                } else if (pre && pre.isDarkBg) {
+                    ocrLang = 'eng';
+                }
+
+                const worker = await Tesseract.createWorker(ocrLang, 1, {
                     logger: m => {
                         if (m.status === 'recognizing text' && m.progress) {
                             const pct = Math.round(m.progress * 100);
@@ -5965,6 +6159,8 @@ ${JSON.stringify(summaryData, null, 2)}
                 textarea.value = "第1組工作紙：水量越多可以溶解的糖量越多（容量更大），所以溶解速度自然就變快了。";
             } else if (type === 'fairtest') {
                 textarea.value = "黑板板書筆記 (Fair Test Chalkboard Notes)：\nDictation 2 | LG P.5 Keywords | Draw and label 5 Bunsen burners\nFair Test (公平測試)：\n- one variable to be changed 變 (one)\n- variables to be kept constant 不變 (many)\n- variable to be compared 比較 (one)\n* time of cleaning (same size)\n* size of stain (same time of cleaning)";
+            } else if (type === 'sound_vacuum') {
+                textarea.value = "黑板板書筆記 (Sound in Vacuum Chalkboard Notes)：\nI think the boy can't hear the alarm clock ringing, because the air was pumped out then.";
             }
             textarea.focus();
         }
@@ -6051,6 +6247,16 @@ ${JSON.stringify(summaryData, null, 2)}
                     promptQ1En = `When using Light Gate sensors, dissolving sugar creates turbidity. How should the light transmission threshold be calibrated to objectively confirm 100% dissolution?`;
                     promptQ2 = `2. 手機 240 fps 慢動作錄影精確至 0.004 秒。如果肉眼在影片重播中依然難以看清最後一小粒晶體融解的精確瞬間，高幀率錄影是否能完全解決『肉眼主觀終點』的本質問題？`;
                     promptQ2En = `240fps video achieves 0.004s resolution. If human eyes still struggle to pinpoint the final microscopic crystal disappearance in playback, does high frame rate fully eliminate subjective endpoint ambiguity?`;
+                }
+                // Sound in Vacuum / Bell Jar Experiment (e.g. alarm clock, ringing, pumped out, vacuum, medium, sound wave)
+                else if (/(?:alarm\s*clock|ringing|pumped\s*out|vacuum|sound\s*can(?:'t|not)\s*hear|cannot\s*hear|can't\s*hear|真空|鬧鐘|抽走|抽氣|介質|空氣抽走|傳聲|聲波)/i.test(lower)) {
+                    focusTag = "聲音傳播與真空實驗 / Sound Propagation & Vacuum Bell Jar";
+                    praise = `🌟 卓越的物理概念洞察！${groupPrefix}精確捕捉到聲音傳播的核心物理規律：聲音需要空氣作為介質 (Medium)，當真空罩內的空氣被抽走 (air pumped out)，聲波無法在真空中傳遞，因此男孩聽不到鬧鐘鈴聲！`;
+                    diag = `🔍 扎實的物理波動與粒子模型思維。學生能準確將『空氣被抽走』與『聽不到聲音』建立因果關係。教學上應引導全班探討『雖然聽不到聲音，但能否看見鬧鐘的鎚子仍在敲擊』以區分聲波與光波的傳播本質！`;
+                    promptQ1 = `1. 當空氣被抽真空後，男孩聽不到鈴聲。但如果我們看著玻璃鐘罩，我們還能『看到』鬧鐘的指針在動、敲擊鎚在震動嗎？這說明光波與聲波在真空中的傳播有何本質不同？`;
+                    promptQ1En = `When air is pumped out, the boy cannot hear the ringing. Can we still SEE the alarm clock hammer vibrating through the bell jar? What fundamental difference does this reveal between light waves and sound waves in a vacuum?`;
+                    promptQ2 = `2. 如果在玻璃鐘罩完全抽真空的情況下，將耳朵緊貼在玻璃鐘罩壁上，我們能否透過『玻璃固體介質』隱約聽到振動聲？這如何證明聲音可以在不同態（氣體、固體）的介質中傳播？`;
+                    promptQ2En = `In an evacuated bell jar, if you press your ear firmly against the glass wall, could sound vibrations travel through the solid glass? How does this prove sound travels through different states of matter?`;
                 }
                 // Fair Test & Blackboard Chalkboard Notes (Fair Test, changed, constant, compared, Bunsen burner, stain)
                 else if (/(?:fair\s*test|公平測試|changed|constant|compared|bunsen|stain|cleaning|不變|比較|自變|應變|控制變因)/i.test(lower)) {

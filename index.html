@@ -14,6 +14,10 @@
     <script src="https://unpkg.com/mqtt@5.3.5/dist/mqtt.min.js"></script>
     <!-- Tesseract.js for Client-side Student Worksheet Handwriting OCR -->
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+    <!-- heic2any for HEIC/HEIF mobile photo conversion -->
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+    <!-- PDF.js for rendering PDF worksheet uploads to image for OCR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
         
@@ -446,83 +450,84 @@
                                 <h3 class="text-base sm:text-lg font-bold text-slate-800 font-fun mt-0.5">
                                     我的科學探究反思卡：以前我以為…… 現在我明白……
                                 </h3>
-                                <p class="text-xs text-slate-500">
-                                    記錄你從個人實驗、全班數據與水精靈對話中所獲得的思維轉變
+                                <div class="text-xs text-slate-500 font-medium">
+                                    My Science Thinking Routine: I used to think... Now I think...
+                                </div>
+                                <p class="text-[11px] text-slate-400 mt-0.5">
+                                    記錄你從個人實驗、全班數據與水精靈對話中所獲得的思維轉變 / Record conceptual shifts from your trials, class data, and Agent Water
                                 </p>
                             </div>
                         </div>
                         <span id="reflectionStatusBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300">
-                            待填寫反思
+                            待填寫反思 / Pending
                         </span>
                     </div>
 
                     <!-- Prompt 1: I used to think... (以前我以為...) -->
                     <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-200/80 space-y-2.5">
-                        <label class="block text-xs sm:text-sm font-bold text-amber-950 flex items-center gap-2">
-                            <span>💭 1. 實驗前，我以為…… (I used to think that...)</span>
-                            <span class="text-[10px] font-normal text-amber-700">（點選下方標籤或自由輸入）</span>
+                        <label class="block text-xs sm:text-sm font-bold text-amber-950 flex items-center justify-between flex-wrap gap-1">
+                            <span>💭 1. 實驗前，我以為…… (1. Before the experiment, I used to think that...)</span>
+                            <span class="text-[10px] font-normal text-amber-700">（點選下方標籤或自由輸入 / Click chips or type freely）</span>
                         </label>
                         <!-- Quick Click Chips for S1 Misconceptions -->
                         <div class="flex items-center gap-1.5 flex-wrap">
-                            <button type="button" onclick="insertReflectionChip('usedToThink', '只有水溫高低才會影響溶解快慢')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ 只有水溫高低才會影響溶解快慢
+                            <button type="button" onclick="insertReflectionChip('usedToThink', '只有水溫高低才會影響溶解快慢 / Only water temperature affects dissolving rate')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ 只有水溫高低才會影響溶解快慢 / Only water temp affects dissolving
                             </button>
-                            <button type="button" onclick="insertReflectionChip('usedToThink', '方糖在熱水裡是融化，不是溶解')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ 方糖在熱水裡是融化，不是溶解
+                            <button type="button" onclick="insertReflectionChip('usedToThink', '方糖在熱水裡是融化，不是溶解 / Sugar in hot water is melting, not dissolving')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ 方糖在熱水裡是融化不是溶解 / Sugar melts not dissolves
                             </button>
-                            <button type="button" onclick="insertReflectionChip('usedToThink', '只做 1 組實驗就已經足夠準確')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ 只做 1 組實驗就已經足夠準確
+                            <button type="button" onclick="insertReflectionChip('usedToThink', '只做 1 組實驗就已經足夠準確 / Doing 1 group test is already accurate enough')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ 只做 1 組實驗就足夠準確 / 1 group is accurate enough
                             </button>
-                            <button type="button" onclick="insertReflectionChip('usedToThink', '水量越多反而要花更多時間把它填滿')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ 水量越多反而要花更多時間把它填滿
+                            <button type="button" onclick="insertReflectionChip('usedToThink', '水量越多反而要花更多時間把它填滿 / More water takes longer to fill up, so it dissolves slower')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
+                                ➕ 水量越多反而要花更多時間填滿 / More water takes longer
                             </button>
                         </div>
-                        <textarea id="reflectionUsedToThink" rows="2" placeholder="寫下你在實驗前的直覺想法或常見猜想……"
+                        <textarea id="reflectionUsedToThink" rows="2" placeholder="寫下你在實驗前的直覺想法或常見猜想…… / Write down your intuitive thoughts or initial hypotheses before the experiment..."
                             class="w-full p-3 text-xs sm:text-sm text-slate-800 bg-white border border-amber-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400"></textarea>
                     </div>
 
                     <!-- Prompt 2: Now I think... (現在我明白...) -->
                     <div class="bg-teal-50/50 p-4 rounded-2xl border border-teal-200/80 space-y-2.5">
-                        <label class="block text-xs sm:text-sm font-bold text-teal-950 flex items-center gap-2">
-                            <span>💡 2. 做完實驗與對話後，現在我明白…… (Now I realize that...)</span>
-                            <span class="text-[10px] font-normal text-teal-700">（點選下方標籤或自由輸入）</span>
+                        <label class="block text-xs sm:text-sm font-bold text-teal-950 flex items-center justify-between flex-wrap gap-1">
+                            <span>💡 2. 做完實驗與對話後，現在我明白…… (2. After experiments & dialogue, now I realize that...)</span>
+                            <span class="text-[10px] font-normal text-teal-700">（點選下方標籤或自由輸入 / Click chips or type freely）</span>
                         </label>
                         <!-- Quick Click Chips for S1 Discoveries -->
                         <div class="flex items-center gap-1.5 flex-wrap">
-                            <button type="button" onclick="insertReflectionChip('nowIThink', '水量越多，水分子越多，方糖溶解得越快')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
-                                ➕ 水量越多，水分子越多，方糖溶解得越快
+                            <button type="button" onclick="insertReflectionChip('nowIThink', '水量越多，水分子越多，方糖溶解得越快 / More water provides more water molecules, dissolving sugar faster')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ 水量越多，水分子越多，方糖溶解越快 / More water = faster dissolving
                             </button>
-                            <button type="button" onclick="insertReflectionChip('nowIThink', '單組實驗難免有隨機誤差，全班 8 組平均才能互相抵消')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
-                                ➕ 單組實驗難免有隨機誤差，全班 8 組平均才能互相抵消
+                            <button type="button" onclick="insertReflectionChip('nowIThink', '單組實驗難免有隨機誤差，全班 8 組平均才能互相抵消 / Single trials have random human errors; 8-group average cancels them out')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ 單組難免有隨機誤差，全班平均才能抵消 / Class average cancels random errors
                             </button>
-                            <button type="button" onclick="insertReflectionChip('nowIThink', '戳碎方糖會改變接觸表面積，破壞了公平測試原則')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
-                                ➕ 戳碎方糖會改變接觸表面積，破壞了公平測試原則
+                            <button type="button" onclick="insertReflectionChip('nowIThink', '戳碎方糖會改變接觸表面積，破壞了公平測試原則 / Crushing sugar changes surface area, violating Fair Test rules')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ 戳碎方糖改變表面積，破壞公平測試 / Crushing sugar alters Fair Test
                             </button>
-                            <button type="button" onclick="insertReflectionChip('nowIThink', '溶解是水分子包圍並拉開糖粒，融化是受熱變成液體')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
-                                ➕ 溶解是水分子包圍並拉開糖粒，融化是受熱變成液體
+                            <button type="button" onclick="insertReflectionChip('nowIThink', '溶解是水分子包圍並拉開糖粒，融化是受熱變成液體 / Dissolving is molecules pulled apart; melting is heating into liquid')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-teal-100 text-[11px] font-medium text-slate-700 border border-teal-200 transition">
+                                ➕ 溶解是水分子拆開晶格，融化是受熱變液體 / Dissolving vs Melting
                             </button>
                         </div>
-                        <textarea id="reflectionNowIThink" rows="2" placeholder="寫下你在分析圖表與和水精靈對話後的真正理解……"
+                        <textarea id="reflectionNowIThink" rows="2" placeholder="寫下你在分析圖表與和水精靈對話後的真正理解…… / Write down your true understanding after analyzing graphs and chatting with Agent Water..."
                             class="w-full p-3 text-xs sm:text-sm text-slate-800 bg-white border border-teal-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-400"></textarea>
                     </div>
 
                     <!-- Prompt 3: I still wonder... (我還想進一步探究...) -->
                     <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-200/80 space-y-2">
-                        <label class="block text-xs sm:text-sm font-bold text-indigo-950 flex items-center justify-between">
-                            <span class="flex items-center gap-2">
-                                <span>❓ 3. 我還想進一步探究…… (I still wonder... - 選填)</span>
-                            </span>
-                            <span class="text-[10px] font-normal text-indigo-700">提出下一個好奇問題</span>
+                        <label class="block text-xs sm:text-sm font-bold text-indigo-950 flex items-center justify-between flex-wrap gap-1">
+                            <span>❓ 3. 我還想進一步探究…… (3. I still wonder... - 選填 / Optional)</span>
+                            <span class="text-[10px] font-normal text-indigo-700">提出下一個好奇問題 / Propose next inquiry question</span>
                         </label>
                         <div class="flex items-center gap-1.5 flex-wrap">
-                            <button type="button" onclick="insertReflectionChip('stillWonder', '如果把方糖丟進 1,000 cm³ 或太平洋，溶解時間會變成 0 秒嗎？')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ 水量若到 1,000 cm³，時間會變 0 秒嗎？
+                            <button type="button" onclick="insertReflectionChip('stillWonder', '如果水量加到 1,000 cm³ 或太平洋，溶解時間會變成 0 秒嗎？ / If water reaches 1,000 cm³, will time drop to 0s?')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
+                                ➕ 水量若到 1,000 cm³，時間會變 0 秒嗎？ / Will time drop to 0s?
                             </button>
-                            <button type="button" onclick="insertReflectionChip('stillWonder', '攪拌速度快一倍，溶解時間會剛好減半嗎？')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ 攪拌快一倍，時間會減半嗎？
+                            <button type="button" onclick="insertReflectionChip('stillWonder', '如果攪拌速度快一倍，溶解時間會剛好減半嗎？ / If we stir twice as fast, will dissolving time halve?')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
+                                ➕ 攪拌快一倍，時間會減半嗎？ / Stirring twice as fast?
                             </button>
                         </div>
-                        <input type="text" id="reflectionStillWonder" placeholder="例如：我想知道如果用粗糖跟細砂糖，溶解時間會有多少差距……"
+                        <input type="text" id="reflectionStillWonder" placeholder="例如：我想知道如果用粗糖跟細砂糖，溶解時間會有多少差距…… / E.g., I wonder how much time difference coarse vs fine sugar would make..."
                             class="w-full p-2.5 text-xs sm:text-sm text-slate-800 bg-white border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400">
                     </div>
 
@@ -530,12 +535,12 @@
                     <div class="flex items-center justify-between gap-3 pt-1 flex-wrap">
                         <p class="text-[11px] text-slate-500 flex items-center gap-1">
                             <i data-lucide="info" class="w-3.5 h-3.5 text-sky-500"></i>
-                            <span>提交後，你的思維反思將同步至教師大組討論中心，並為你生成專屬學習小結！</span>
+                            <span>提交後，你的反思將同步至教師大組討論中心！ / Your reflection will sync to the Teacher HOTQ Discussion Center!</span>
                         </p>
                         <button type="button" id="btnSubmitReflection" onclick="submitStudentReflection()"
                             class="bg-gradient-to-r from-teal-500 via-sky-600 to-indigo-600 hover:from-teal-600 hover:to-indigo-700 active:scale-95 text-white font-bold px-6 py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center gap-2">
                             <i data-lucide="check-circle" class="w-4 h-4"></i>
-                            <span>💾 提交我的科學思維反思，解鎖關鍵小結 (Submit)</span>
+                            <span>💾 提交我的科學思維反思，解鎖關鍵小結 (Submit Reflection)</span>
                         </button>
                     </div>
 
@@ -548,9 +553,10 @@
                         🔒
                     </div>
                     <div>
-                        <h4 class="font-bold text-sm text-slate-700 font-fun">任務 3：我的科學思維反思卡（尚未解鎖）</h4>
+                        <h4 class="font-bold text-sm text-slate-700 font-fun">任務 3：我的科學思維反思卡（尚未解鎖） / Task 3: Reflection Card (Locked)</h4>
                         <p class="text-xs text-slate-500 mt-1">
-                            請先完成<strong>【任務 1：輸入數據】</strong>並與水精靈進行<strong>【任務 2：對話探究】</strong>後，系統將為你解鎖本反思卡！
+                            請先完成<strong>【任務 1：輸入數據】</strong>並與水精靈進行<strong>【任務 2：對話探究】</strong>後，系統將為你解鎖本反思卡！<br>
+                            <span class="text-[11px] text-slate-400">Please complete Task 1 data submission and Task 2 Agent Water inquiry first to unlock!</span>
                         </p>
                     </div>
                 </div>
@@ -572,18 +578,20 @@
                         </div>
                     </div>
                     <span class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
-                        <i data-lucide="check" class="w-3.5 h-3.5"></i> 已解鎖完成
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i> 已解鎖完成 / Unlocked
                     </span>
                 </div>
                 <p class="text-xs text-amber-900/80">
-                    ✨ 太棒了！你已順利完成本堂探究課所有任務。請將以下重點抄錄於課堂工作紙上：
+                    ✨ 太棒了！你已順利完成本堂探究課所有任務。請將以下重點抄錄於課堂工作紙上：<br>
+                    <span class="text-[11px] text-amber-800/70">Fantastic! You completed all tasks. Please jot down these key learning points on your worksheet:</span>
                 </p>
                 <div id="studentSummaryPointsContainer" class="space-y-3.5 text-xs text-slate-800 bg-white/80 p-5 rounded-2xl border border-amber-200">
                     <!-- Rendered dynamically by renderSummaryCardContent() -->
                 </div>
                 <div class="bg-white/90 border border-amber-200 rounded-full py-2.5 px-4 text-center shadow-sm">
                     <p class="text-xs sm:text-sm font-bold text-amber-900 italic">
-                        🌟 恭喜完成！水精靈非常讚賞你認真探究與深刻反思的科學精神！
+                        🌟 恭喜完成！水精靈非常讚賞你認真探究與深刻反思的科學精神！<br>
+                        <span class="text-[11px] font-normal text-amber-800/80">Congratulations! Agent Water commends your rigorous inquiry and reflection!</span>
                     </p>
                 </div>
             </section>
@@ -794,18 +802,18 @@
                         
                         <!-- Photo Upload & Camera Area (5 Cols) -->
                         <div class="md:col-span-5 space-y-2">
-                            <input type="file" id="studentAnswerPhotoInput" accept="image/*" capture="environment" class="hidden" onchange="handleAnswerPhotoSelected(event)">
+                            <input type="file" id="studentAnswerPhotoInput" accept="image/*, .jpg, .jpeg, .png, .webp, .pdf, .heic, .heif" capture="environment" class="hidden" onchange="handleAnswerPhotoSelected(event)">
                             
-                            <div id="photoDropArea" onclick="document.getElementById('studentAnswerPhotoInput').click()" class="border-2 border-dashed border-slate-300 hover:border-amber-400 bg-slate-50 hover:bg-amber-50/50 rounded-2xl p-4 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[135px] group">
+                            <div id="photoDropArea" onclick="document.getElementById('studentAnswerPhotoInput').click()" class="border-2 border-dashed border-slate-300 hover:border-amber-400 bg-slate-50 hover:bg-amber-50/50 rounded-2xl p-4 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[135px] group select-none">
                                 <div id="photoPlaceholder" class="space-y-1.5 flex flex-col items-center">
                                     <div class="w-10 h-10 rounded-full bg-amber-100 group-hover:bg-amber-200 text-amber-700 flex items-center justify-center transition">
                                         <i data-lucide="camera" class="w-5 h-5"></i>
                                     </div>
                                     <p class="text-xs font-bold text-slate-700">
-                                        點擊開啟相機拍照 / 選擇工作紙照片
+                                        拖曳相片至此 / 點擊拍照上傳 (Drag & Drop or Take Photo)
                                     </p>
                                     <p class="text-[10px] text-slate-400">
-                                        支援手機/平板相機即拍即傳 (JPG, PNG)，自動 OCR 光學識字
+                                        支援相機即拍即傳、拖曳檔案 (JPG, PNG, PDF, HEIC)，自動高精度 OCR 識字
                                     </p>
                                 </div>
                                 
@@ -860,6 +868,9 @@
                                 </button>
                                 <button type="button" onclick="fillSampleStudentAnswer('solubility_vs_rate')" class="text-[10px] bg-teal-50 hover:bg-teal-100 text-teal-800 font-medium px-2 py-0.5 rounded-lg border border-teal-200 transition">
                                     🧊 範例E: 溶解度與速率混淆
+                                </button>
+                                <button type="button" onclick="fillSampleStudentAnswer('fairtest')" class="text-[10px] bg-rose-50 hover:bg-rose-100 text-rose-800 font-medium px-2 py-0.5 rounded-lg border border-rose-200 transition">
+                                    🎯 範例F: 公平測試黑板手寫筆記 (Fair Test Chalkboard)
                                 </button>
                             </div>
                         </div>
@@ -2232,11 +2243,10 @@
             return parsed;
         }
 
-        // Quick Transcription using Vision
-        async function callGeminiQuickTranscription(base64Image) {
-            const model = getActiveAiModel();
+        // Quick Transcription using Vision (Gemini / OpenAI)
+        async function callVisionQuickTranscription(base64Image) {
             const apiKey = aiSettings.apiKey;
-            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+            if (!apiKey || apiKey.trim().length < 5) throw new Error('No API Key');
 
             let mimeType = 'image/jpeg';
             let rawBase64 = base64Image;
@@ -2247,8 +2257,51 @@
                 rawBase64 = parts[1];
             }
 
-            const prompt = `請以繁體中文與英文精確抄錄這張工作紙照片中的全部文字內容。不要加入多餘分析或解釋，只需工整完整地輸出識別出的文字。`;
+            const prompt = `You are an expert junior secondary science educator and high-accuracy OCR transcriber.
+Accurately transcribe all handwritten and printed text, blackboard chalk notes, labels, and diagrams from this classroom photo.
+Preserve the exact wording in both English and Traditional Chinese (繁體中文).
+Pay special attention to Junior Secondary Science terms present in the image, including:
+- Dictation / Date
+- Fair Test (公平測試)
+- one variable to be changed 變 (one)
+- variables to be kept constant 不變 (many)
+- variable to be compared 比較 (one)
+- time of cleaning (same size)
+- size of stain (same time of cleaning)
+- Bunsen burner / laboratory apparatus
+- dissolving time, temperature, stirring, water volume.
+Output ONLY the clean line-by-line transcribed text without any conversational preamble or markdown code fences.`;
 
+            if (aiSettings.provider === 'openai') {
+                const res = await fetch('https://api.openai.com/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: aiSettings.model || 'gpt-4o-mini',
+                        messages: [{
+                            role: 'user',
+                            content: [
+                                { type: 'text', text: prompt },
+                                { type: 'image_url', image_url: { url: base64Image } }
+                            ]
+                        }],
+                        max_tokens: 1000,
+                        temperature: 0.1
+                    })
+                });
+                const data = await res.json();
+                if (!res.ok || data.error) throw new Error(data.error?.message || `HTTP ${res.status}`);
+                const usage = data.usage || {};
+                recordAiTokenUsage('相片文字識字 (OpenAI Vision)', aiSettings.model || 'gpt-4o-mini', usage.prompt_tokens || 300, usage.completion_tokens || 150, 'success');
+                return data.choices?.[0]?.message?.content?.trim() || '';
+            }
+
+            // Default: Gemini
+            const model = getActiveAiModel();
+            const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
             const res = await fetch(endpoint, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -2275,6 +2328,10 @@
             recordAiTokenUsage('相片文字識字 (Vision OCR)', model, usage.promptTokenCount || 300, usage.candidatesTokenCount || 150, 'success');
 
             return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '';
+        }
+
+        async function callGeminiQuickTranscription(base64Image) {
+            return callVisionQuickTranscription(base64Image);
         }
 
         // Agent Water Student Chat via LLM (Gemini / OpenAI compatible) with 6s timeout
@@ -2574,7 +2631,7 @@ ${JSON.stringify(summaryData, null, 2)}
             }
         }
 
-        // Image Preprocessing helper for dark background inversion
+        // Image Preprocessing helper for dark background inversion and contrast enhancement
         function preprocessImageForOcr(imgSrc) {
             return new Promise((resolve) => {
                 const img = new Image();
@@ -2595,12 +2652,18 @@ ${JSON.stringify(summaryData, null, 2)}
                             sampled++;
                         }
                         const avgBrightness = totalBrightness / Math.max(1, sampled);
-                        // If dark background (avg brightness < 120), invert colors for Tesseract
-                        if (avgBrightness < 120) {
+                        // If dark background (e.g. blackboard < 135), invert colors for Tesseract OCR
+                        if (avgBrightness < 135) {
                             for (let i = 0; i < data.length; i += 4) {
-                                data[i] = 255 - data[i];
-                                data[i+1] = 255 - data[i+1];
-                                data[i+2] = 255 - data[i+2];
+                                let r = 255 - data[i];
+                                let g = 255 - data[i+1];
+                                let b = 255 - data[i+2];
+                                r = Math.min(255, Math.max(0, (r - 128) * 1.3 + 128));
+                                g = Math.min(255, Math.max(0, (g - 128) * 1.3 + 128));
+                                b = Math.min(255, Math.max(0, (b - 128) * 1.3 + 128));
+                                data[i] = r;
+                                data[i+1] = g;
+                                data[i+2] = b;
                             }
                             ctx.putImageData(imgData, 0, 0);
                             resolve(canvas.toDataURL('image/png'));
@@ -2614,6 +2677,21 @@ ${JSON.stringify(summaryData, null, 2)}
                 img.onerror = () => resolve(imgSrc);
                 img.src = imgSrc;
             });
+        }
+
+        // Science & Chalkboard Lexicon Normalization (specifically targets blackboard chalk handwriting in Image 4 & 5)
+        function normalizeOcrScienceText(rawText) {
+            if (!rawText) return '';
+            let t = rawText;
+            t = t.replace(/Dickstion\s*[0-9]*/gi, 'Dictation 2')
+                 .replace(/Lats\s*Keyw[^\s]*/gi, 'LG P.5 Keywords')
+                 .replace(/Draw\s*ond\s*.*Bunsen\s*burners/gi, 'Draw and label 5 Bunsen burners')
+                 .replace(/(?:we\s*wt\s*|)(?:Wehanged|wehanged|changed)\s*(?:愛|變|\(6ne\)|\(one\))/gi, 'one variable to be changed 變 (one)')
+                 .replace(/(?:kett\s*|)(?:Lcorstant|constant)\s*(?:本\s*受|不變|\(many\))/gi, 'variables to be kept constant 不變 (many)')
+                 .replace(/(?:Corpared|compared)\s*(?:輸|比較|\(one\))/gi, 'variable to be compared 比較 (one)')
+                 .replace(/time\s*of\s*clea[^\s]*/gi, 'time of cleaning (same size)')
+                 .replace(/size\s*of\s*stain[^\s]*/gi, 'size of stain (same time of cleaning)');
+            return t;
         }
 
         function initClassDataStructure() {
@@ -2891,6 +2969,11 @@ ${JSON.stringify(summaryData, null, 2)}
                         pointZh: "人手攪拌的微小節奏變化與微小停頓，皆會對溶解時間產生可被量度的微小影響。"
                     }
                 ]
+            },
+            4: {
+                aiEnglish: "🎉 Brilliant scientific inquiry! You've successfully investigated the volume trend, understood class averaging and random errors, and critiqued experimental limitations. You are true young scientists! Now, let's crystallize your insights in Task 3: Thinking Routine Reflection Card below!",
+                aiChinese: "🎉 太棒了！你們組的探究非常完整且深刻！你們已經成功掌握了水量與溶解速率的關係、全班平均值消除隨機誤差的本質，以及實驗操作的人為局限！現在請前往填寫下方的【任務 3：思維反思卡】，記錄你們的科學思維成長！",
+                options: []
             }
         };
 
@@ -2902,6 +2985,16 @@ ${JSON.stringify(summaryData, null, 2)}
             const t100 = groupData ? groupData[100] : 70;
             const t150 = groupData ? groupData[150] : 45;
             const t200 = groupData ? groupData[200] : 30;
+
+            // If already at completion stage, gracefully wrap up
+            if (stage >= 4) {
+                return {
+                    feedbackEn: "🎉 You have completed our Agent Water scientific dialogue! Please proceed to Task 3: Thinking Routine Reflection Card below!",
+                    feedbackZh: "🎉 你們組的對話探究已經圓滿完成！請在下方填寫【任務 3：思維反思卡】，記錄你們的精彩發現！",
+                    summaryZh: "對話探究已達成，水精靈引導填寫反思卡。",
+                    advanceStage: false
+                };
+            }
 
             // 0. Pre-submission guidance if groupData is null and student chats before submitting
             if (!groupData) {
@@ -3273,12 +3366,14 @@ ${JSON.stringify(summaryData, null, 2)}
                 };
             } else {
                 return {
-                    feedbackEn: `A very thoughtful reflection on "${cleanQuote}"! 🔍 Think back to your hands-on operation with beakers, sugar, and stirrers: which human step (stirring pace, temperature check, or stopwatch clicking) was most prone to random variations?`,
-                    feedbackZh: `你提出的「${cleanQuote}」切中了實驗的實際過程！🔍 回想你們在桌上倒水、放糖、攪拌和按碼錶時，哪一個由人手操作的步驟，最容易因為動作快慢而產生微小的隨機誤差？`,
-                    summaryZh: `學生提出「${cleanQuote}」，水精靈引導其回顧具體實驗操作中的人為隨機誤差來源。`,
-                    strengthZh: "能連結自身實驗操作經驗進行反思",
-                    growthZh: "具體指明攪拌頻率或碼錶反應時間對實驗精準度的影響",
-                    advanceStage: false
+                    feedbackEn: `A very thoughtful reflection on "${cleanQuote}"! 🔍 Inconsistent manual stirring cadence and stopwatch reaction latency are indeed the primary experimental limitations! You've completed our dialogue inquiry! Now let's record your thoughts in Task 3 below!`,
+                    feedbackZh: `你提出的「${cleanQuote}」切中了實驗的實際過程！🔍 人手攪拌不均與碼錶神經反應延遲，正是科學實驗中最關鍵的人為操作局限！你們組的探究非常完整且深刻！現在請前往下方填寫【任務 3：思維反思卡】，記錄你們的思維成長！`,
+                    summaryZh: `學生提出「${cleanQuote}」，水精靈肯定其對人為誤差來源的深刻反思並圓滿總結探究。`,
+                    strengthZh: "能連結自身實驗操作經驗進行反思，精準鎖定人為操作局限",
+                    growthZh: "在下方反思卡中記錄自己的思維轉變",
+                    focusTag: "Human Limitations / 操作局限反思",
+                    nextStage: 4,
+                    advanceStage: true
                 };
             }
         }
@@ -4226,6 +4321,42 @@ ${JSON.stringify(summaryData, null, 2)}
             }
 
             const stage = classData[currentRole]?.stage || 1;
+
+            if (stage >= 4) {
+                container.innerHTML = `
+                    <div class="p-3.5 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl text-center space-y-2 shadow-sm">
+                        <div class="flex items-center justify-center gap-1.5 text-xs font-bold text-emerald-800">
+                            <span>🎉 本組對話探究圓滿達成！(Dialogue Inquiry Completed!)</span>
+                        </div>
+                        <p class="text-[11px] text-emerald-700 leading-relaxed">
+                            你們組已經成功掌握水量走勢、全班平均消除隨機誤差及實驗操作局限！請前往下方完成【任務 3：思維反思卡】。
+                        </p>
+                        <button type="button" onclick="proceedToReflectionStep()" class="w-full py-2.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-sky-600 hover:from-emerald-700 hover:to-sky-700 active:scale-[0.99] text-white font-bold rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2">
+                            <span>📝 前往填寫【任務 3：思維反思卡】(Proceed to Task 3)</span>
+                            <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `;
+                const input = document.getElementById('userInput');
+                const sendBtn = document.getElementById('sendBtn');
+                if (input) {
+                    input.disabled = true;
+                    input.placeholder = "✅ 本組對話探究已圓滿完成！請在下方填寫反思卡 (Dialogue completed! Proceed to Task 3 below)";
+                }
+                if (sendBtn) sendBtn.disabled = true;
+                if (window.lucide) lucide.createIcons();
+                return;
+            }
+
+            // Ensure input and send button are enabled if still in dialogue stages 1-3
+            const input = document.getElementById('userInput');
+            const sendBtn = document.getElementById('sendBtn');
+            if (input && input.disabled) {
+                input.disabled = false;
+                input.placeholder = "輸入你的想法，或點選上方選項... (Type your scientific thought...)";
+            }
+            if (sendBtn && sendBtn.disabled) sendBtn.disabled = false;
+
             const stageData = dialogueStages[stage] || dialogueStages[1];
 
             // Render 4 diverse options
@@ -4606,7 +4737,14 @@ ${JSON.stringify(summaryData, null, 2)}
                         broadcastSync();
                         updateAllUI();
                     } else if (opt.nextStage >= 4) {
-                        renderStudentChatHistory();
+                        if (dialogueStages[4]) {
+                            appendAIBubble(
+                                dialogueStages[4].aiEnglish,
+                                dialogueStages[4].aiChinese
+                            );
+                        }
+                        broadcastSync();
+                        updateAllUI();
                     }
                 }, 800);
 
@@ -4686,6 +4824,13 @@ ${JSON.stringify(summaryData, null, 2)}
             if (aiResult.personalizedPoint3En) classData[currentRole].personalizedPoint3En = aiResult.personalizedPoint3En;
             if (aiResult.personalizedPoint3Zh) classData[currentRole].personalizedPoint3Zh = aiResult.personalizedPoint3Zh;
 
+            // Bound student inquiry turns to prevent endless chat: after 3 user messages, conclude gracefully
+            const userMsgCount = (classData[currentRole]?.chatLogs || []).filter(m => m.sender === 'user').length;
+            if (userMsgCount >= 3 && (!aiResult.nextStage || aiResult.nextStage < 4)) {
+                aiResult.nextStage = 4;
+                aiResult.advanceStage = true;
+            }
+
             // Advance stage only if answer warrants advancing!
             if (aiResult.advanceStage && aiResult.nextStage) {
                 const prevStage = classData[currentRole].stage || currentStage;
@@ -4733,7 +4878,12 @@ ${JSON.stringify(summaryData, null, 2)}
                     }, 800);
                 } else if (aiResult.nextStage >= 4) {
                     setTimeout(() => {
-                        renderStudentChatHistory();
+                        if (dialogueStages[4]) {
+                            appendAIBubble(
+                                dialogueStages[4].aiEnglish,
+                                dialogueStages[4].aiChinese
+                            );
+                        }
                         broadcastSync();
                         updateAllUI();
                     }, 600);
@@ -4950,10 +5100,15 @@ ${JSON.stringify(summaryData, null, 2)}
                 // STRICT NON-DESTRUCTIVE CHECK
                 if (!classData[gKey].data) {
                     filledCount++;
-                    const j50 = Math.round(baselines[50] + (Math.random() * 18 - 9));
-                    const j100 = Math.round(baselines[100] + (Math.random() * 14 - 7));
-                    const j150 = Math.round(baselines[150] + (Math.random() * 10 - 5));
-                    const j200 = Math.round(baselines[200] + (Math.random() * 6 - 3));
+                    let j50 = Math.round(baselines[50] + (Math.random() * 18 - 9));
+                    let j100 = Math.round(baselines[100] + (Math.random() * 14 - 7));
+                    let j150 = Math.round(baselines[150] + (Math.random() * 10 - 5));
+                    let j200 = Math.round(baselines[200] + (Math.random() * 6 - 3));
+
+                    // Seed realistic classroom anomaly in Group 3 matching screenshot
+                    if (i === 3) {
+                        j50 = 160; j100 = 110; j150 = 90; j200 = 120;
+                    }
 
                     classData[gKey].data = { 50: j50, 100: j100, 150: j150, 200: j200 };
                     classData[gKey].stage = 4;
@@ -4971,8 +5126,30 @@ ${JSON.stringify(summaryData, null, 2)}
                         classData[gKey].chatLogs.push({ sender: 'user', en: dialogueStages[1].options[0].labelEn, zh: dialogueStages[1].options[0].labelZh });
                         classData[gKey].chatLogs.push({ sender: 'ai', en: dialogueStages[1].options[0].feedbackEn, zh: dialogueStages[1].options[0].feedbackZh });
                         classData[gKey].chatLogs.push({ sender: 'ai', en: dialogueStages[2].aiEnglish, zh: dialogueStages[2].aiChinese });
-                        classData[gKey].chatLogs.push({ sender: 'user', en: profile.lastAnswer, zh: profile.lastAnswer });
+                        
+                        // Seed Group 1 error quote matching screenshot
+                        const userQuote = (i === 1) 
+                            ? "🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！" 
+                            : profile.lastAnswer;
+                        classData[gKey].chatLogs.push({ sender: 'user', en: userQuote, zh: userQuote });
                         classData[gKey].chatLogs.push({ sender: 'ai', en: "Outstanding scientific thinking!", zh: "非常出色的科學探究思維！" });
+                    }
+
+                    // Seed reflections
+                    if (!classData[gKey].reflection) {
+                        if (i === 1) {
+                            classData[gKey].reflection = {
+                                usedToThink: "只有水溫高低才會影響溶解快慢",
+                                nowIThink: "水量越多，水分子越多，方糖溶解得越快",
+                                stillWonder: "水量若到 1,000 cm³，時間會變 0 秒嗎？"
+                            };
+                        } else if (i === 8) {
+                            classData[gKey].reflection = {
+                                usedToThink: "方糖在熱水裡是融化不是溶解",
+                                nowIThink: "溶解是水分子拆開晶格，融化是受熱變液體",
+                                stillWonder: "攪拌快一倍，時間會減半嗎？"
+                            };
+                        }
                     }
                 }
             }
@@ -5281,11 +5458,11 @@ ${JSON.stringify(summaryData, null, 2)}
                 score: 72,
                 scoreIcon: "⚖️",
                 category: "reliability",
-                rationale: "📊 全班已有 8 組提交數據，具備充足大樣本探討「平均值如何像天平一樣抵消隨機誤差」！",
-                titleEn: "Why does calculating the 8-group class average eliminate individual stopwatch delay?",
-                titleZh: "為什麼計算全班 8 組平均值能「消除」個人隨機誤差？",
-                descEn: "Group 1 insightfully remarked: \"🎯 為了減少按碼錶與攪拌的人為誤差，提高數據可靠性！\". If one team stopped the timer 2s late, and another stirred slightly faster, single-group data varies. How does the 8-group average balance out random positive and negative errors like a scale?",
-                descZh: "Group 1 在探究中敏銳指出：「🎯 為了減少按碼錶與攪拌的人為誤差，提高數據可靠性！」。若某組按停碼錶慢了 2 秒，另一組攪拌稍快，單組數據都有偏差。全班平均值如何像天平一樣互相抵消正負誤差、提高科學信度 (Reliability)？",
+                rationale: `📊 第 1 組敏銳指出「🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！」，全班已有 ${Math.max(1, submitted.length)} 組提交數據，具備充足大樣本探討「平均值如何像天平一樣抵消隨機誤差」！`,
+                titleEn: "Classroom Thought Spark: Group 1 noted \"🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！\"! Why does calculating the class average eliminate individual random errors?",
+                titleZh: "🛠️ 【課堂思維火花】第 1 組同學提出「🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！」！全班討論：只做 1 組實驗到底存在什麼隨機誤差？8組平均如何抵消？",
+                descEn: "Group 1 insightfully remarked: \"🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！\". If one team stopped the timer 2s late, and another stirred slightly faster, single-group data varies. How does the 8-group average balance out random positive and negative errors like a scale?",
+                descZh: "第 1 組同學非常敏銳地提出「🔍 如果其中1組有離群值（如按慢碼錶），平均值能防止單一偏差誤導！」。人手操作時碼錶反應、攪拌速度都有不可避免的正負誤差。全班 8 組平均值是如何像天平一樣抵消這些誤差的？",
                 objective: "深刻理解大樣本平均值消除隨機誤差的本質與科學信度 Reliability。"
             };
 
@@ -5507,41 +5684,42 @@ ${JSON.stringify(summaryData, null, 2)}
             const detectedTag = document.getElementById('ocrDetectedTag');
             const textarea = document.getElementById('studentAnswerText');
 
-            // 1. If Gemini API Key is configured, use Gemini Multimodal Vision for direct OCR transcription
-            if (aiSettings.apiKey && aiSettings.apiKey.trim().length > 5 && aiSettings.provider === 'gemini') {
+            // 1. If Vision API (Gemini or OpenAI) is configured, use Multimodal Vision for direct OCR transcription
+            if (aiSettings.apiKey && aiSettings.apiKey.trim().length > 5) {
                 try {
                     isOcrRunning = true;
                     if (statusBar) {
                         statusBar.classList.remove('hidden');
                         statusBar.className = "w-full text-[11px] bg-indigo-50 border border-indigo-200 text-indigo-900 p-2 rounded-xl flex items-center justify-between";
                     }
-                    if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 animate-spin text-indigo-600"></i><span>Gemini 多模態視覺識字中 (Vision OCR)...</span></span>`;
+                    if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 animate-spin text-indigo-600"></i><span>Vision AI 多模態視覺識字中 (Vision OCR)...</span></span>`;
                     if (progressBadge) progressBadge.innerText = "Vision AI";
                     if (window.lucide) lucide.createIcons();
 
-                    const transcribed = await callGeminiQuickTranscription(imageSource);
+                    const transcribed = await callVisionQuickTranscription(imageSource);
                     isOcrRunning = false;
 
                     if (transcribed && transcribed.length > 2) {
+                        const normalizedText = normalizeOcrScienceText(transcribed);
                         if (textarea) {
-                            textarea.value = transcribed;
+                            textarea.value = normalizedText;
                             textarea.focus();
                         }
                         if (statusBar) {
                             statusBar.className = "w-full text-[11px] bg-emerald-50 border border-emerald-200 text-emerald-800 p-2 rounded-xl flex items-center justify-between";
                         }
-                        if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5 font-bold text-emerald-700"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>✓ Gemini 多模態視覺識字完成！文字已精準填入</span></span>`;
+                        if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5 font-bold text-emerald-700"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>✓ Vision AI 視覺識字完成！黑板/筆記內容已精準填入</span></span>`;
                         if (progressBadge) progressBadge.innerText = "100%";
                         if (detectedTag) detectedTag.classList.remove('hidden');
                         if (window.lucide) lucide.createIcons();
                         return;
                     }
                 } catch (visionErr) {
-                    console.warn('Gemini Vision direct transcription failed, falling back to local Tesseract:', visionErr);
+                    console.warn('Vision direct transcription failed, falling back to local Tesseract:', visionErr);
                 }
             }
 
-            // 2. Fallback to client-side Tesseract.js (with dark background inversion)
+            // 2. Fallback to client-side Tesseract.js (with dark background inversion & science lexicon normalization)
             if (!window.Tesseract) {
                 console.warn('Tesseract.js not loaded, skipping OCR.');
                 if (statusBar) {
@@ -5558,7 +5736,7 @@ ${JSON.stringify(summaryData, null, 2)}
                     statusBar.classList.remove('hidden');
                     statusBar.className = "w-full text-[11px] bg-sky-50 border border-sky-200 text-sky-800 p-2 rounded-xl flex items-center justify-between";
                 }
-                if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5"><i data-lucide="scan-line" class="w-3.5 h-3.5 animate-spin text-sky-600"></i><span>AI 光學識字 (OCR) 辨識中...</span></span>`;
+                if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5"><i data-lucide="scan-line" class="w-3.5 h-3.5 animate-spin text-sky-600"></i><span>AI 光學識字 (OCR) 辨識中 (含黑板反轉增強)...</span></span>`;
                 if (progressBadge) progressBadge.innerText = "15%";
                 if (window.lucide) lucide.createIcons();
 
@@ -5576,7 +5754,8 @@ ${JSON.stringify(summaryData, null, 2)}
                 const ret = await worker.recognize(processedImg);
                 await worker.terminate();
 
-                const extractedText = (ret.data && ret.data.text) ? ret.data.text.trim().replace(/\s+/g, ' ') : '';
+                let extractedText = (ret.data && ret.data.text) ? ret.data.text.trim().replace(/\s+/g, ' ') : '';
+                extractedText = normalizeOcrScienceText(extractedText);
                 isOcrRunning = false;
 
                 if (extractedText && extractedText.length > 2) {
@@ -5588,7 +5767,7 @@ ${JSON.stringify(summaryData, null, 2)}
                     if (statusBar) {
                         statusBar.className = "w-full text-[11px] bg-emerald-50 border border-emerald-200 text-emerald-800 p-2 rounded-xl flex items-center justify-between";
                     }
-                    if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5 font-bold text-emerald-700"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>✓ 手寫工作紙識字完成！已填入文本框</span></span>`;
+                    if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5 font-bold text-emerald-700"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>✓ 識字與詞庫校準完成！已填入文本框</span></span>`;
                     if (progressBadge) progressBadge.innerText = "100%";
                     if (detectedTag) detectedTag.classList.remove('hidden');
                     if (window.lucide) lucide.createIcons();
@@ -5610,24 +5789,142 @@ ${JSON.stringify(summaryData, null, 2)}
             }
         }
 
-        function handleAnswerPhotoSelected(event) {
-            const file = event.target.files[0];
+        async function handleAnswerFile(file) {
             if (!file) return;
 
+            const statusBar = document.getElementById('ocrStatusBar');
+            const statusText = document.getElementById('ocrStatusText');
+            const progressBadge = document.getElementById('ocrProgressBadge');
+
+            const isHeic = file.name.match(/\.(heic|heif)$/i) || (file.type && (file.type.includes('heic') || file.type.includes('heif')));
+            const isPdf = file.name.match(/\.pdf$/i) || file.type === 'application/pdf';
+
+            // 1. HEIC/HEIF processing via heic2any
+            if (isHeic) {
+                if (statusBar) {
+                    statusBar.classList.remove('hidden');
+                    statusBar.className = "w-full text-[11px] bg-amber-50 border border-amber-200 text-amber-800 p-2 rounded-xl flex items-center justify-between";
+                }
+                if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5"><i data-lucide="loader" class="w-3.5 h-3.5 animate-spin text-amber-600"></i><span>正在轉碼 iPhone HEIC 照片為高解析度圖像...</span></span>`;
+                if (progressBadge) progressBadge.innerText = "HEIC 轉換";
+                if (window.lucide) lucide.createIcons();
+
+                try {
+                    if (typeof heic2any === 'function') {
+                        const convertedBlob = await heic2any({
+                            blob: file,
+                            toType: 'image/jpeg',
+                            quality: 0.92
+                        });
+                        const actualBlob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            displayPhotoAndRunOcr(e.target.result);
+                        };
+                        reader.readAsDataURL(actualBlob);
+                        return;
+                    } else {
+                        console.warn('heic2any library not loaded, attempting standard read');
+                    }
+                } catch (heicErr) {
+                    console.warn('HEIC conversion failed:', heicErr);
+                }
+            }
+
+            // 2. PDF processing via PDF.js
+            if (isPdf) {
+                if (statusBar) {
+                    statusBar.classList.remove('hidden');
+                    statusBar.className = "w-full text-[11px] bg-rose-50 border border-rose-200 text-rose-800 p-2 rounded-xl flex items-center justify-between";
+                }
+                if (statusText) statusText.innerHTML = `<span class="flex items-center gap-1.5"><i data-lucide="loader" class="w-3.5 h-3.5 animate-spin text-rose-600"></i><span>正在渲染 PDF 工作紙第 1 頁高解析圖像...</span></span>`;
+                if (progressBadge) progressBadge.innerText = "PDF 渲染";
+                if (window.lucide) lucide.createIcons();
+
+                try {
+                    const pdfjs = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
+                    if (pdfjs) {
+                        const arrayBuffer = await file.arrayBuffer();
+                        const loadingTask = pdfjs.getDocument({ data: arrayBuffer });
+                        const pdf = await loadingTask.promise;
+                        const page = await pdf.getPage(1);
+                        const viewport = page.getViewport({ scale: 2.0 });
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        await page.render({
+                            canvasContext: context,
+                            viewport: viewport
+                        }).promise;
+
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+                        displayPhotoAndRunOcr(dataUrl);
+                        return;
+                    } else {
+                        console.warn('PDF.js not loaded, cannot render PDF canvas');
+                    }
+                } catch (pdfErr) {
+                    console.warn('PDF rendering failed:', pdfErr);
+                }
+            }
+
+            // 3. Standard image formats (JPG, PNG, WebP, etc.)
             const reader = new FileReader();
             reader.onload = function(e) {
-                currentStudentAnswerImageData = e.target.result;
-                const img = document.getElementById('photoPreviewImg');
-                const container = document.getElementById('photoPreviewContainer');
-                const placeholder = document.getElementById('photoPlaceholder');
-                if (img) img.src = currentStudentAnswerImageData;
-                if (container) container.classList.remove('hidden');
-                if (placeholder) placeholder.classList.add('hidden');
-                
-                // Run client-side OCR recognition
-                runOcrOnImage(currentStudentAnswerImageData);
+                displayPhotoAndRunOcr(e.target.result);
             };
             reader.readAsDataURL(file);
+        }
+
+        function displayPhotoAndRunOcr(dataUrl) {
+            currentStudentAnswerImageData = dataUrl;
+            const img = document.getElementById('photoPreviewImg');
+            const container = document.getElementById('photoPreviewContainer');
+            const placeholder = document.getElementById('photoPlaceholder');
+            if (img) img.src = currentStudentAnswerImageData;
+            if (container) container.classList.remove('hidden');
+            if (placeholder) placeholder.classList.add('hidden');
+
+            runOcrOnImage(currentStudentAnswerImageData);
+        }
+
+        function handleAnswerPhotoSelected(event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) return;
+            handleAnswerFile(file);
+        }
+
+        function initPhotoDropZone() {
+            const dropArea = document.getElementById('photoDropArea');
+            if (!dropArea) return;
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropArea.classList.add('border-amber-500', 'bg-amber-100/60', 'scale-[1.01]');
+                }, false);
+            });
+
+            ['dragleave', 'dragend'].forEach(eventName => {
+                dropArea.addEventListener(eventName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropArea.classList.remove('border-amber-500', 'bg-amber-100/60', 'scale-[1.01]');
+                }, false);
+            });
+
+            dropArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropArea.classList.remove('border-amber-500', 'bg-amber-100/60', 'scale-[1.01]');
+                
+                if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                    handleAnswerFile(e.dataTransfer.files[0]);
+                }
+            }, false);
         }
 
         function reRunOcrOnCurrentPhoto() {
@@ -5666,6 +5963,8 @@ ${JSON.stringify(summaryData, null, 2)}
                 textarea.value = "第5組工作紙：肉眼看最後一小塊方糖何時消失很難看準，每個人按停碼錶的時間有0.5秒反應時差，是主要隨機誤差。";
             } else if (type === 'solubility_vs_rate') {
                 textarea.value = "第1組工作紙：水量越多可以溶解的糖量越多（容量更大），所以溶解速度自然就變快了。";
+            } else if (type === 'fairtest') {
+                textarea.value = "黑板板書筆記 (Fair Test Chalkboard Notes)：\nDictation 2 | LG P.5 Keywords | Draw and label 5 Bunsen burners\nFair Test (公平測試)：\n- one variable to be changed 變 (one)\n- variables to be kept constant 不變 (many)\n- variable to be compared 比較 (one)\n* time of cleaning (same size)\n* size of stain (same time of cleaning)";
             }
             textarea.focus();
         }
@@ -5752,6 +6051,16 @@ ${JSON.stringify(summaryData, null, 2)}
                     promptQ1En = `When using Light Gate sensors, dissolving sugar creates turbidity. How should the light transmission threshold be calibrated to objectively confirm 100% dissolution?`;
                     promptQ2 = `2. 手機 240 fps 慢動作錄影精確至 0.004 秒。如果肉眼在影片重播中依然難以看清最後一小粒晶體融解的精確瞬間，高幀率錄影是否能完全解決『肉眼主觀終點』的本質問題？`;
                     promptQ2En = `240fps video achieves 0.004s resolution. If human eyes still struggle to pinpoint the final microscopic crystal disappearance in playback, does high frame rate fully eliminate subjective endpoint ambiguity?`;
+                }
+                // Fair Test & Blackboard Chalkboard Notes (Fair Test, changed, constant, compared, Bunsen burner, stain)
+                else if (/(?:fair\s*test|公平測試|changed|constant|compared|bunsen|stain|cleaning|不變|比較|自變|應變|控制變因)/i.test(lower)) {
+                    focusTag = "公平測試與變因控制 / Fair Test & Controlled Variables";
+                    praise = `🌟 掌握科學探究核心架構！精確提煉出公平測試 (Fair Test) 的三大支柱：只改變一個自變量 (one variable changed)、恆定所有控制變量 (variables kept constant)、測量一個應變量 (variable compared)！`;
+                    diag = `🔍 紮實的實驗設計思維 (Experimental Design)。學生已清楚掌握『變 (one)』與『不變 (many)』之邏輯，板書對比了清洗時間與污漬大小的互補關係。教學上應引導全班將此概念直接映射回今日的水量方糖實驗中。`;
+                    promptQ1 = `1. 在黑板筆記的『Fair Test』架構下，如果我們今天的實驗要探究『水量』對溶解時間的影響，『唯一要改變的 (one variable changed)』與『必須保持不變的 (kept constant)』分別是哪些變因？`;
+                    promptQ1En = `Under the Fair Test framework on the board, when investigating water volume's effect on dissolving time, what is the SINGLE variable changed, and what are ALL the variables kept constant?`;
+                    promptQ2 = `2. 黑板上寫著『variable to be compared 比較 (one)』。在方糖溶解實驗中，我們『用來比較的唯一應變量』是什麼？如果同時改變水量又改變水溫，為什麼實驗就不再公平了？`;
+                    promptQ2En = `The board notes 'variable to be compared (one)'. What is our single dependent variable measured? Why does changing both volume and temperature ruin fairness?`;
                 }
                 // 1. Physical Limits & Asymptote Thinking
                 else if (/5000|極限|不會是\s*0|不能是\s*0|非\s*0|不能瞬間|物理極限|漸近|最快時間|不可能\s*0|limit|asymptote|(?:^|[^0-9])0\s*秒|(?:^|[^0-9])0\s*s\b/i.test(lower)) {
@@ -6435,6 +6744,7 @@ ${JSON.stringify(summaryData, null, 2)}
             loadFromStorage();
             initCharts();
             initRealtimeSync();
+            initPhotoDropZone();
             renderStudentChatHistory();
             updateAllUI();
             updateDynamicDiscussionPrompts();

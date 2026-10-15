@@ -265,53 +265,45 @@
                     </div>
 
                     <form id="dataForm" onsubmit="event.preventDefault(); submitGroupData();" class="space-y-3 pt-1">
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             <!-- 50 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
-                                <div class="flex justify-between items-center mb-0.5">
-                                    <label class="block text-xs font-bold text-slate-700">50 cm³ Water</label>
-                                </div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">Dissolving Time (s)</span>
-                                <div class="relative">
-                                    <input type="number" step="0.1" min="0" id="t50" placeholder="e.g. 120" 
-                                        class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
-                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">sec (s)</span>
+                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
+                                <label for="t50" class="block text-xs font-extrabold text-slate-800">50 cm³ Water</label>
+                                <span class="text-[10px] text-teal-800 font-semibold block mb-1.5">Dissolving Time (溶解耗時)</span>
+                                <div class="flex items-center bg-white border border-slate-300 rounded-xl overflow-hidden focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-500 shadow-inner">
+                                    <input type="number" step="0.1" min="0" id="t50" placeholder="120" 
+                                        class="w-full min-w-0 px-2.5 py-1.5 text-sm sm:text-base font-extrabold text-slate-900 bg-transparent placeholder:text-slate-400 focus:outline-none" required>
+                                    <span class="px-2 py-1.5 text-[11px] font-bold bg-slate-100 text-slate-600 border-l border-slate-200 select-none flex-shrink-0">sec (秒)</span>
                                 </div>
                             </div>
                             <!-- 100 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
-                                <div class="flex justify-between items-center mb-0.5">
-                                    <label class="block text-xs font-bold text-slate-700">100 cm³ Water</label>
-                                </div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">Dissolving Time (s)</span>
-                                <div class="relative">
-                                    <input type="number" step="0.1" min="0" id="t100" placeholder="e.g. 80" 
-                                        class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
-                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">sec (s)</span>
+                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
+                                <label for="t100" class="block text-xs font-extrabold text-slate-800">100 cm³ Water</label>
+                                <span class="text-[10px] text-teal-800 font-semibold block mb-1.5">Dissolving Time (溶解耗時)</span>
+                                <div class="flex items-center bg-white border border-slate-300 rounded-xl overflow-hidden focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-500 shadow-inner">
+                                    <input type="number" step="0.1" min="0" id="t100" placeholder="80" 
+                                        class="w-full min-w-0 px-2.5 py-1.5 text-sm sm:text-base font-extrabold text-slate-900 bg-transparent placeholder:text-slate-400 focus:outline-none" required>
+                                    <span class="px-2 py-1.5 text-[11px] font-bold bg-slate-100 text-slate-600 border-l border-slate-200 select-none flex-shrink-0">sec (秒)</span>
                                 </div>
                             </div>
                             <!-- 150 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
-                                <div class="flex justify-between items-center mb-0.5">
-                                    <label class="block text-xs font-bold text-slate-700">150 cm³ Water</label>
-                                </div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">Dissolving Time (s)</span>
-                                <div class="relative">
-                                    <input type="number" step="0.1" min="0" id="t150" placeholder="e.g. 50" 
-                                        class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
-                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">sec (s)</span>
+                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
+                                <label for="t150" class="block text-xs font-extrabold text-slate-800">150 cm³ Water</label>
+                                <span class="text-[10px] text-teal-800 font-semibold block mb-1.5">Dissolving Time (溶解耗時)</span>
+                                <div class="flex items-center bg-white border border-slate-300 rounded-xl overflow-hidden focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-500 shadow-inner">
+                                    <input type="number" step="0.1" min="0" id="t150" placeholder="50" 
+                                        class="w-full min-w-0 px-2.5 py-1.5 text-sm sm:text-base font-extrabold text-slate-900 bg-transparent placeholder:text-slate-400 focus:outline-none" required>
+                                    <span class="px-2 py-1.5 text-[11px] font-bold bg-slate-100 text-slate-600 border-l border-slate-200 select-none flex-shrink-0">sec (秒)</span>
                                 </div>
                             </div>
                             <!-- 200 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition">
-                                <div class="flex justify-between items-center mb-0.5">
-                                    <label class="block text-xs font-bold text-slate-700">200 cm³ Water</label>
-                                </div>
-                                <span class="text-[10px] text-slate-500 font-semibold block mb-1">Dissolving Time (s)</span>
-                                <div class="relative">
-                                    <input type="number" step="0.1" min="0" id="t200" placeholder="e.g. 30" 
-                                        class="w-full pl-2.5 pr-12 py-1 text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-lg focus:outline-none focus:border-teal-500" required>
-                                    <span class="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 pointer-events-none">sec (s)</span>
+                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
+                                <label for="t200" class="block text-xs font-extrabold text-slate-800">200 cm³ Water</label>
+                                <span class="text-[10px] text-teal-800 font-semibold block mb-1.5">Dissolving Time (溶解耗時)</span>
+                                <div class="flex items-center bg-white border border-slate-300 rounded-xl overflow-hidden focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-500 shadow-inner">
+                                    <input type="number" step="0.1" min="0" id="t200" placeholder="30" 
+                                        class="w-full min-w-0 px-2.5 py-1.5 text-sm sm:text-base font-extrabold text-slate-900 bg-transparent placeholder:text-slate-400 focus:outline-none" required>
+                                    <span class="px-2 py-1.5 text-[11px] font-bold bg-slate-100 text-slate-600 border-l border-slate-200 select-none flex-shrink-0">sec (秒)</span>
                                 </div>
                             </div>
                         </div>
@@ -849,7 +841,24 @@
                 </button>
             </div>
 
-            
+            <!-- Teacher Sub-Navigation Tabs (Main Cockpit vs Extension: Molecular Model) -->
+            <div class="flex items-center gap-3 border-b border-slate-700/60 pb-3 flex-wrap">
+                <button type="button" id="teacherTabBtn-cockpit" onclick="switchTeacherConsoleTab('cockpit')"
+                    class="px-5 py-2.5 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-gradient-to-r from-indigo-900 to-slate-900 text-white shadow-md border border-indigo-700/50">
+                    <i data-lucide="layout-dashboard" class="w-4 h-4 text-sky-400"></i>
+                    <span>📊 課堂主指揮台 (Main Cockpit: Analytics & HOTQs)</span>
+                </button>
+                <button type="button" id="teacherTabBtn-extension" onclick="switchTeacherConsoleTab('extension')"
+                    class="px-5 py-2.5 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-white text-slate-700 border border-slate-200 hover:border-sky-400 hover:bg-sky-50/50 shadow-xs">
+                    <span class="text-base">🌊</span>
+                    <span>延伸探究：微觀溶解模擬演示 (Extension: Molecular Model)</span>
+                    <span class="text-[10px] bg-sky-100 text-sky-800 px-2 py-0.5 rounded-full font-bold">Extension</span>
+                </button>
+            </div>
+
+            <!-- TAB 1: Main Cockpit Container -->
+            <div id="teacherCockpitTabContent" class="space-y-6">
+
             <!-- SECTION: Synchronized Class Comparison Graph & 8 Groups Table (Same as Student End) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 
@@ -941,138 +950,6 @@
                 </div>
                 <div id="teacherGroupGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                     <!-- Injected dynamically by renderTeacherGroupGrid() -->
-                </div>
-            </div>
-
-            <!-- SECTION: Interactive Molecular Dissolving Model (Teacher Explanation Console) -->
-            <div id="teacherDissolvingModelSection" class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 space-y-5 transition-all duration-300">
-                <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-indigo-500/30">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-600 rounded-2xl flex items-center justify-center text-xl shadow-lg">
-                            🌊
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <span class="text-[10px] bg-sky-500 text-white font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                                    TEACHER DEMONSTRATION
-                                </span>
-                                <span class="text-[10px] text-sky-300 font-bold bg-sky-900/60 px-2 py-0.5 rounded-full border border-sky-500/40">
-                                    Microscopic Particle Model / 微觀溶解模型
-                                </span>
-                            </div>
-                            <h3 class="text-base sm:text-lg font-bold font-fun text-white mt-0.5">
-                                Interactive Molecular Dissolving Model / 微觀食鹽溶解模擬演示
-                            </h3>
-                            <p class="text-xs text-slate-300">
-                                Why does more water make salt dissolve faster? Demonstrate particle collision frequencies and crystal lattice dissociation to the class. / 為什麼水越多溶解越快？透過微觀粒子碰撞與鹽晶格拆解向同學即時解說。
-                            </p>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-sky-300 bg-sky-900/80 px-3 py-1 rounded-full border border-sky-500/40 flex items-center gap-1.5">
-                            <i data-lucide="presentation" class="w-3.5 h-3.5"></i>
-                            <span>Teacher-Led Explanation / 教師引導解說</span>
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Teacher Simulator Controls & Canvas Container -->
-                <div id="stepFContentContainer" class="space-y-5">
-                    <!-- Top Controls Bar -->
-                    <div class="flex items-center justify-between flex-wrap gap-3 bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800">
-                        <div class="flex items-center gap-2 flex-wrap">
-                            <span class="text-xs text-slate-300 font-bold flex items-center gap-1">
-                                <i data-lucide="beaker" class="w-4 h-4 text-sky-400"></i>
-                                Water Volume:
-                            </span>
-                            <div class="flex items-center gap-1.5">
-                                <button type="button" onclick="setSimVolume(50)" id="studentSimVolBtn-50" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">50 cm³</button>
-                                <button type="button" onclick="setSimVolume(100)" id="studentSimVolBtn-100" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">100 cm³</button>
-                                <button type="button" onclick="setSimVolume(150)" id="studentSimVolBtn-150" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">150 cm³</button>
-                                <button type="button" onclick="setSimVolume(200)" id="studentSimVolBtn-200" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500 text-white border border-sky-400 shadow-md">200 cm³</button>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-2">
-                            <button type="button" onclick="toggleSimPlay()" id="studentSimPlayBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
-                                <i data-lucide="play" class="w-3.5 h-3.5"></i>
-                                <span>Start Simulation</span>
-                            </button>
-                            <button type="button" onclick="resetSim()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs rounded-xl border border-slate-700 transition flex items-center gap-1">
-                                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-                                <span>Reset</span>
-                            </button>
-                            <button type="button" onclick="toggleSimSpeed()" id="studentSimSpeedBtn" class="px-3 py-1.5 bg-indigo-900/80 hover:bg-indigo-800 text-indigo-200 font-bold text-xs rounded-xl border border-indigo-700/50 transition">
-                                ⚡ 1x Speed
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Canvas + Realtime Telemetry Grid -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
-                        <!-- Canvas Beaker View (7 cols) -->
-                        <div class="lg:col-span-7 bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col items-center shadow-inner relative">
-                            <div class="w-full flex items-center justify-between text-xs text-slate-400 mb-2 px-1">
-                                <span class="flex items-center gap-1.5 font-bold text-sky-300">
-                                    <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
-                                    Microscopic Beaker Cross-Section (Salt Dissolving in Water)
-                                </span>
-                                <span class="text-[11px] text-slate-500">🔵 Blue = Water Molecules | 🧂 Orange = Salt Lattice</span>
-                            </div>
-                            <canvas id="studentMolecularSimCanvas" width="620" height="340" class="w-full max-w-[620px] h-[320px] rounded-xl bg-slate-950 border border-slate-800 shadow-inner"></canvas>
-                            <p class="text-[11px] text-slate-400 text-center mt-2">
-                                💡 Each collision from blue water molecules chips away an orange salt crystal until the crystal lattice fully dissociates.
-                            </p>
-                        </div>
-
-                        <!-- Telemetry Stats & Classroom Debrief (5 cols) -->
-                        <div class="lg:col-span-5 space-y-3">
-                            <div class="grid grid-cols-2 gap-2.5">
-                                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
-                                    <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Collision Frequency</span>
-                                    <p id="studentSimMetricRate" class="text-lg font-black text-amber-400 mt-0.5">0 <span class="text-[10px] font-normal text-slate-400">hits/s</span></p>
-                                    <span class="text-[10px] text-slate-500 block mt-0.5">Hits against salt crystal</span>
-                                </div>
-                                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
-                                    <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Remaining Salt Lattice</span>
-                                    <div class="flex items-center justify-between text-xs mt-0.5">
-                                        <span id="studentSimMetricPercent" class="font-bold text-sky-300">100%</span>
-                                    </div>
-                                    <div class="w-full bg-slate-800 h-2 rounded-full mt-1 overflow-hidden">
-                                        <div id="studentSimMetricBar" class="bg-gradient-to-r from-amber-500 to-sky-400 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
-                                    </div>
-                                </div>
-                                <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 col-span-2">
-                                    <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Elapsed Dissolving Time</span>
-                                    <div class="flex items-center justify-between">
-                                        <p id="studentSimMetricTime" class="text-lg font-black text-teal-400 mt-0.5">0.0 <span class="text-[10px] font-normal text-slate-400">s</span></p>
-                                        <span class="text-xs text-slate-400" id="studentSimEstTotal">Est. Time: ~30s</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Concept Check for Classroom Questioning -->
-                            <div class="bg-indigo-950/40 p-3.5 rounded-xl border border-indigo-500/30 space-y-2">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-xs font-bold text-indigo-200 flex items-center gap-1.5">
-                                        <i data-lucide="help-circle" class="w-4 h-4 text-sky-400"></i>
-                                        Classroom Concept Scaffolding / 微觀提問
-                                    </span>
-                                    <span id="simScaffoldStatusBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">2 Inquiry Prompts</span>
-                                </div>
-                                <div class="space-y-2 text-xs">
-                                    <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                                        <p class="font-bold text-slate-200 text-[11px]">Q1: Why does increasing water volume speed up dissolving? / 為什麼增加水量會加快溶解？</p>
-                                        <p class="text-[10px] text-sky-300 mt-1">Key idea: More water molecules mean higher collision frequency per second against the salt crystal lattice.</p>
-                                    </div>
-                                    <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                                        <p class="font-bold text-slate-200 text-[11px]">Q2: Why won't time drop to 0s even with 5,000 cm³ water? / 為什麼就算加到 5,000 cm³ 水，時間也不會是 0 秒？</p>
-                                        <p class="text-[10px] text-amber-300 mt-1">Key idea: Breaking bonds in the crystal lattice and diffusion into solution require a finite physical duration.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -1184,6 +1061,41 @@
                         <span class="text-[11px] text-amber-800 font-semibold bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
                             Teacher AI Scaffolding Assistant
                         </span>
+                    </div>
+
+                    <!-- HOTQ Selection Bar: Specify which Real-time SRL Discussion Question this photo answers -->
+                    <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-3.5 space-y-2.5 shadow-2xs">
+                        <div class="flex items-center justify-between flex-wrap gap-2">
+                            <div class="flex items-center gap-2">
+                                <span class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-black">🎯</span>
+                                <span class="text-xs font-bold text-amber-950">
+                                    選擇此作答針對之大組討論議題 (Select Target HOTQ Question):
+                                </span>
+                            </div>
+                            <span id="currentSelectedHotqBadge" class="text-[10px] font-bold text-amber-900 bg-amber-200/90 px-2.5 py-0.5 rounded-full border border-amber-300">
+                                針對：HOTQ 1 (微觀動力學)
+                            </span>
+                        </div>
+                        <p class="text-[11px] text-amber-900/80 leading-relaxed">
+                            💡 請點選本張學生答案/板書正在回答哪一個議題，AI 將鎖定該議題的核心概念進行深度診斷，並生成全班延伸追問：
+                        </p>
+                        <div class="flex items-center gap-2 flex-wrap" id="hotqTargetButtonGroup">
+                            <button type="button" onclick="selectTargetHotq('hotq1', 'HOTQ 1: 微觀動力學與水分子碰撞 (Microscopic Kinetics & Collisions)')" id="hotqBtn-hotq1" class="hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-amber-600 text-white shadow-sm border border-amber-600">
+                                <span>🔬 HOTQ 1: 微觀動力學 (Kinetics)</span>
+                            </button>
+                            <button type="button" onclick="selectTargetHotq('hotq2', 'HOTQ 2: 隨機誤差與全班平均信度 (Random Error & Reliability / Averaging)')" id="hotqBtn-hotq2" class="hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
+                                <span>⚖️ HOTQ 2: 隨機誤差與平均 (Reliability)</span>
+                            </button>
+                            <button type="button" onclick="selectTargetHotq('hotq3', 'HOTQ 3: 極限情境與概念轉變 (Limit Thinking & Conceptual Shift: Dissolve vs Melt)')" id="hotqBtn-hotq3" class="hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
+                                <span>🌊 HOTQ 3: 極限思維與概念 (Limit & Concept)</span>
+                            </button>
+                            <button type="button" onclick="selectTargetHotq('hotq_stem', 'HOTQ 4: STEM 傳感器與工程改進 (STEM Sensors & Automation Engineering)')" id="hotqBtn-hotq_stem" class="hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
+                                <span>🛠️ STEM 工程改進 (STEM Sensors)</span>
+                            </button>
+                            <button type="button" onclick="selectTargetHotq('general', '全體科學探究通用反思 (General Scientific Inquiry & Fair Test)')" id="hotqBtn-general" class="hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
+                                <span>🌐 通用探究 (General Inquiry)</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Input Controls: Photo Camera / Upload + Text Fallback -->
@@ -1301,6 +1213,16 @@
                                     <span id="copyBtnText">Copy Prompts / 複製提問</span>
                                 </button>
                             </div>
+                        </div>
+
+                        <!-- Target HOTQ Badge in Result -->
+                        <div class="flex items-center gap-2 flex-wrap bg-amber-100/70 p-2.5 rounded-xl border border-amber-300/80">
+                            <span class="text-[11px] font-bold text-amber-950 flex items-center gap-1.5">
+                                <span>🎯 針對之大組討論議題 (Targeted SRL HOTQ):</span>
+                            </span>
+                            <span id="pedagogyTargetHotqLabel" class="text-[11px] font-extrabold text-amber-900 bg-white px-2.5 py-0.5 rounded-lg border border-amber-300 shadow-2xs">
+                                HOTQ 1: 微觀動力學與水分子碰撞 (Microscopic Kinetics & Collisions)
+                            </span>
                         </div>
 
                         <!-- 3 Pedagogical Result Cards -->
@@ -1461,7 +1383,163 @@
                 <div id="peerReviewMatrixGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                     <!-- Injected by renderPeerReviewMatrixGrid() -->
                 </div>
-            </div>
+            </div><!-- /#teacherCockpitTabContent -->
+
+            <!-- TAB 2: Extension Tab Content (Hidden by default, displayed when teacher clicks Extension) -->
+            <div id="teacherExtensionTabContent" class="hidden space-y-6">
+                <!-- Extension Header Banner with Return Button -->
+                <div class="bg-gradient-to-r from-sky-950 via-slate-900 to-indigo-950 text-white rounded-3xl p-5 border border-sky-500/30 flex items-center justify-between flex-wrap gap-3 shadow-lg">
+                    <div class="flex items-center gap-3">
+                        <button type="button" onclick="switchTeacherConsoleTab('cockpit')" class="px-4 py-2 bg-white/10 hover:bg-white/20 active:scale-95 text-white text-xs font-bold rounded-xl border border-white/20 transition flex items-center gap-1.5 shadow">
+                            <i data-lucide="arrow-left" class="w-4 h-4 text-sky-400"></i>
+                            <span>返回主指揮台 (Back to Main Cockpit)</span>
+                        </button>
+                        <div>
+                            <h4 class="text-sm font-bold text-white flex items-center gap-2 font-fun">
+                                <span>🌊 延伸微觀教學探究模組 (Extension: Microscopic Dissolving Model)</span>
+                            </h4>
+                            <p class="text-xs text-slate-300">
+                                專為深入解釋「水分子撞擊晶格頻率」與「拆解晶格物理時長」設計之微觀互動模擬演示。
+                            </p>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold text-sky-300 bg-sky-900/60 px-3 py-1 rounded-full border border-sky-500/40">
+                        Teacher Extension Feature
+                    </span>
+                </div>
+
+                <!-- SECTION: Interactive Molecular Dissolving Model (Teacher Explanation Console) -->
+                <div id="teacherDissolvingModelSection" class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-5 sm:p-6 shadow-xl border border-indigo-500/30 space-y-5 transition-all duration-300">
+                    <div class="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-indigo-500/30">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-600 rounded-2xl flex items-center justify-center text-xl shadow-lg">
+                                🌊
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[10px] bg-sky-500 text-white font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                        TEACHER DEMONSTRATION
+                                    </span>
+                                    <span class="text-[10px] text-sky-300 font-bold bg-sky-900/60 px-2 py-0.5 rounded-full border border-sky-500/40">
+                                        Microscopic Particle Model / 微觀溶解模型
+                                    </span>
+                                </div>
+                                <h3 class="text-base sm:text-lg font-bold font-fun text-white mt-0.5">
+                                    Interactive Molecular Dissolving Model / 微觀食鹽溶解模擬演示
+                                </h3>
+                                <p class="text-xs text-slate-300">
+                                    Why does more water make salt dissolve faster? Demonstrate particle collision frequencies and crystal lattice dissociation to the class. / 為什麼水越多溶解越快？透過微觀粒子碰撞與鹽晶格拆解向同學即時解說。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-bold text-sky-300 bg-sky-900/80 px-3 py-1 rounded-full border border-sky-500/40 flex items-center gap-1.5">
+                                <i data-lucide="presentation" class="w-3.5 h-3.5"></i>
+                                <span>Teacher-Led Explanation / 教師引導解說</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Teacher Simulator Controls & Canvas Container -->
+                    <div id="stepFContentContainer" class="space-y-5">
+                        <!-- Top Controls Bar -->
+                        <div class="flex items-center justify-between flex-wrap gap-3 bg-slate-950/60 p-3.5 rounded-2xl border border-slate-800">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-xs text-slate-300 font-bold flex items-center gap-1">
+                                    <i data-lucide="beaker" class="w-4 h-4 text-sky-400"></i>
+                                    Water Volume:
+                                </span>
+                                <div class="flex items-center gap-1.5">
+                                    <button type="button" onclick="setSimVolume(50)" id="studentSimVolBtn-50" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">50 cm³</button>
+                                    <button type="button" onclick="setSimVolume(100)" id="studentSimVolBtn-100" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">100 cm³</button>
+                                    <button type="button" onclick="setSimVolume(150)" id="studentSimVolBtn-150" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-white/10 hover:bg-white/20 text-white border border-white/20">150 cm³</button>
+                                    <button type="button" onclick="setSimVolume(200)" id="studentSimVolBtn-200" class="sim-vol-btn px-3 py-1.5 rounded-xl text-xs font-bold transition bg-sky-500 text-white border border-sky-400 shadow-md">200 cm³</button>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <button type="button" onclick="toggleSimPlay()" id="studentSimPlayBtn" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
+                                    <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                                    <span>Start Simulation</span>
+                                </button>
+                                <button type="button" onclick="resetSim()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs rounded-xl border border-slate-700 transition flex items-center gap-1">
+                                    <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                                    <span>Reset</span>
+                                </button>
+                                <button type="button" onclick="toggleSimSpeed()" id="studentSimSpeedBtn" class="px-3 py-1.5 bg-indigo-900/80 hover:bg-indigo-800 text-indigo-200 font-bold text-xs rounded-xl border border-indigo-700/50 transition">
+                                    ⚡ 1x Speed
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Canvas + Realtime Telemetry Grid -->
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+                            <!-- Canvas Beaker View (7 cols) -->
+                            <div class="lg:col-span-7 bg-slate-950 p-4 rounded-2xl border border-slate-800 flex flex-col items-center shadow-inner relative">
+                                <div class="w-full flex items-center justify-between text-xs text-slate-400 mb-2 px-1">
+                                    <span class="flex items-center gap-1.5 font-bold text-sky-300">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></span>
+                                        Microscopic Beaker Cross-Section (Salt Dissolving in Water)
+                                    </span>
+                                    <span class="text-[11px] text-slate-500">🔵 Blue = Water Molecules | 🧂 Orange = Salt Lattice</span>
+                                </div>
+                                <canvas id="studentMolecularSimCanvas" width="620" height="340" class="w-full max-w-[620px] h-[320px] rounded-xl bg-slate-950 border border-slate-800 shadow-inner"></canvas>
+                                <p class="text-[11px] text-slate-400 text-center mt-2">
+                                    💡 Each collision from blue water molecules chips away an orange salt crystal until the crystal lattice fully dissociates.
+                                </p>
+                            </div>
+
+                            <!-- Telemetry Stats & Classroom Debrief (5 cols) -->
+                            <div class="lg:col-span-5 space-y-3">
+                                <div class="grid grid-cols-2 gap-2.5">
+                                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Collision Frequency</span>
+                                        <p id="studentSimMetricRate" class="text-lg font-black text-amber-400 mt-0.5">0 <span class="text-[10px] font-normal text-slate-400">hits/s</span></p>
+                                        <span class="text-[10px] text-slate-500 block mt-0.5">Hits against salt crystal</span>
+                                    </div>
+                                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800">
+                                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Remaining Salt Lattice</span>
+                                        <div class="flex items-center justify-between text-xs mt-0.5">
+                                            <span id="studentSimMetricPercent" class="font-bold text-sky-300">100%</span>
+                                        </div>
+                                        <div class="w-full bg-slate-800 h-2 rounded-full mt-1 overflow-hidden">
+                                            <div id="studentSimMetricBar" class="bg-gradient-to-r from-amber-500 to-sky-400 h-full rounded-full transition-all duration-300" style="width: 100%;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-slate-950/80 p-3 rounded-xl border border-slate-800 col-span-2">
+                                        <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Elapsed Dissolving Time</span>
+                                        <div class="flex items-center justify-between">
+                                            <p id="studentSimMetricTime" class="text-lg font-black text-teal-400 mt-0.5">0.0 <span class="text-[10px] font-normal text-slate-400">s</span></p>
+                                            <span class="text-xs text-slate-400" id="studentSimEstTotal">Est. Time: ~30s</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Concept Check for Classroom Questioning -->
+                                <div class="bg-indigo-950/40 p-3.5 rounded-xl border border-indigo-500/30 space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-xs font-bold text-indigo-200 flex items-center gap-1.5">
+                                            <i data-lucide="help-circle" class="w-4 h-4 text-sky-400"></i>
+                                            Classroom Concept Scaffolding / 微觀提問
+                                        </span>
+                                        <span id="simScaffoldStatusBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">2 Inquiry Prompts</span>
+                                    </div>
+                                    <div class="space-y-2 text-xs">
+                                        <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
+                                            <p class="font-bold text-slate-200 text-[11px]">Q1: Why does increasing water volume speed up dissolving? / 為什麼增加水量會加快溶解？</p>
+                                            <p class="text-[10px] text-sky-300 mt-1">Key idea: More water molecules mean higher collision frequency per second against the salt crystal lattice.</p>
+                                        </div>
+                                        <div class="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
+                                            <p class="font-bold text-slate-200 text-[11px]">Q2: Why won't time drop to 0s even with 5,000 cm³ water? / 為什麼就算加到 5,000 cm³ 水，時間也不會是 0 秒？</p>
+                                            <p class="text-[10px] text-amber-300 mt-1">Key idea: Breaking bonds in the crystal lattice and diffusion into solution require a finite physical duration.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /#teacherExtensionTabContent -->
         </div>
 
         <!-- ================= AI SYSTEM ADMIN DASHBOARD (RESTRICTED ACCESS) ================= -->
@@ -1978,19 +2056,19 @@
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="generateAiTeacherDebrief(modalActiveGroupKey)" class="px-2.5 py-1 bg-white hover:bg-purple-100 text-purple-800 border border-purple-300 rounded-lg text-[10px] font-bold shadow-xs transition flex items-center gap-1">
                                 <i data-lucide="sparkles" class="w-3 h-3 text-purple-600"></i>
-                                <span>AI 推薦點撥思路</span>
+                                <span>AI Debrief Guidance / AI 推薦點撥思路</span>
                             </button>
                         </div>
                     </div>
                     
                     <div class="space-y-1.5">
-                        <textarea id="modalTeacherDebriefInput" rows="3" class="w-full text-xs p-3 rounded-xl border border-purple-200 bg-white focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none leading-relaxed text-slate-800" placeholder="針對該組的實驗數據反常點、操作局限（如攪拌轉速/碼錶延遲）或思維盲點，寫下教師深度點撥評語……"></textarea>
+                        <textarea id="modalTeacherDebriefInput" rows="3" class="w-full text-xs p-3 rounded-xl border border-purple-200 bg-white focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none leading-relaxed text-slate-800" placeholder="Write your targeted pedagogical debrief (e.g. empirical anomalies, stirring cadence, stopwatch reaction latency, particle collision)... / 針對該組的實驗數據反常點、操作局限（如攪拌轉速/碼錶延遲）或微觀粒子思維，寫下教師深度點撥評語……"></textarea>
                         
                         <div class="flex items-center justify-between pt-1">
                             <span id="modalTeacherDebriefSaveStatus" class="text-[11px] text-slate-500 font-medium"></span>
                             <button type="button" onclick="saveTeacherDebriefFromModal(modalActiveGroupKey)" class="px-4 py-1.5 bg-purple-700 hover:bg-purple-800 active:scale-95 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
                                 <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                                <span>儲存點撥回饋 (Save Debrief)</span>
+                                <span>Save Debrief / 儲存點撥回饋</span>
                             </button>
                         </div>
                     </div>
@@ -2606,7 +2684,7 @@
         }
 
         // Multimodal Vision Call for Student Worksheet Photos
-        async function callGeminiVisionPedagogy(base64Image, studentText) {
+        async function callGeminiVisionPedagogy(base64Image, studentText, targetHotq) {
             const model = getActiveAiModel();
             const apiKey = aiSettings.apiKey;
             const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
@@ -2620,30 +2698,36 @@
                 rawBase64 = parts[1];
             }
 
+            const hotqInfo = targetHotq ? targetHotq.label : (typeof currentSelectedTargetHotq !== 'undefined' ? currentSelectedTargetHotq.label : 'HOTQ 1: 微觀動力學 (Microscopic Kinetics)');
+
             const promptText = `
 你是一位具備頂尖教學素養的中小學科學與 STEM 教育專家 (Science Pedagogical Expert)。
 請仔細觀察並閱讀這張學生手寫/印刷工作紙相片（以及可能補充的文字：「${studentText || ''}」）。
 學生正在進行「Exp 2.5: 水的體積對食鹽溶解速率的影響 (Rate of Dissolving Salt)」的科學探究。
 
-【學情分析要點】：
-1. 學生可能會提出各種不同維度的思考，包括微觀水分子模型、空間阻力偏誤、溫度或攪拌誤差，甚至是極具創意的 STEM / 工程傳感器自動化方案（例如：光閘感測器 Light Gate Sensors、Micro:bit / Arduino 自動計時、手機 240fps 慢動作錄影等）。
-2. 請精確辨識相片中的字跡，絕不要產生胡亂拼湊的亂碼。
-3. 核心追問與深度挑戰必須「100% 針對相片中學生提出的具體方案與關鍵詞」進行量身打造，絕不要輸出通用罐頭題目！
-4. 語言優先順序：必須雙語 (Bilingual)，且「英文必須排在前面 (English first)，中文接在後面 (Chinese second)」。
-5. 切勿提及任何特定組別編號（例如第幾組、Group X），一律使用「The student / 學生」稱呼。
+【重要：學生作答所針對的課堂核心研討議題 (Target HOTQ Question)】：
+「${hotqInfo}」
+
+【學情分析與提問生成任務要求】：
+1. 學生這份作答是專門針對上述的【${hotqInfo}】議題進行思考與回答。請深入診斷學生在此特定議題上的理解水平與科學論證品質。
+2. 肯定思維亮點 (Praise)：具體指出學生在回答該議題時展現的科學推理、細節觀察、批判反思或創客工程思維。
+3. 概念診斷 (Diagnosis)：剖析其概念深度——是否具備微觀粒子碰撞模型？是否有認知迷思（如融化與溶解混淆、空間路程偏誤、人手攪拌疲勞等）？
+4. 生成全班延伸追問 (Whole-Class Prompts)：必須「緊扣學生提出的觀點與上述 HOTQ 議題」，量身設計 2 個引導全班進行高階思維 (HOTS) 辯論、極限思想實驗或深層驗證的探究問題！絕不要輸出通用罐頭題目！
+5. 語言優先順序：必須雙語 (Bilingual)，且「英文必須排在前面 (English first)，中文接在後面 (Chinese second)」。
+6. 切勿提及任何特定組別編號（例如第幾組、Group X），一律使用「The student / 學生」稱呼。
 
 請嚴格輸出合法的 JSON 物件（不要包含任何 markdown 代碼塊標籤如 \`\`\`json，直接輸出 JSON 內容）：
 {
   "transcription": "工整精確地抄錄相片中的手寫或印刷文字內容（繁中英兼顧）",
-  "focusTag": "Sensor & Automation Engineering / STEM 自動化與傳感器工程",
-  "praiseEn": "Praise highlighting student reasoning strengths in English",
-  "praiseZh": "🌟 思維亮點：肯定學生的思維優點（繁體中文）",
-  "diagEn": "Conceptual diagnosis and microscopic analysis in English",
-  "diagZh": "🔍 概念診斷：深入剖析學生觀點（繁體中文）",
-  "promptQ1En": "1. Core Inquiry Question 1 for class debate in English",
-  "promptQ1Zh": "1. 核心追問 1：全班深入論證問題（繁體中文）",
-  "promptQ2En": "2. Cognitive Challenge Question 2 in English",
-  "promptQ2Zh": "2. 深度挑戰 2：全班極限或認知衝突辯論問題（繁體中文）"
+  "focusTag": "主題分類標籤（例如：Microscopic Kinetics / 微觀動力學、Random Error & Reliability / 隨機誤差與信度等）",
+  "praiseEn": "Praise highlighting student reasoning strengths regarding the target HOTQ in English",
+  "praiseZh": "🌟 思維亮點：肯定學生在回答該議題時的思維優點（繁體中文）",
+  "diagEn": "Conceptual diagnosis and microscopic analysis regarding the target HOTQ in English",
+  "diagZh": "🔍 概念診斷：深入剖析學生觀點與概念深度（繁體中文）",
+  "promptQ1En": "1. Core Inquiry Question 1 for class debate on this HOTQ in English",
+  "promptQ1Zh": "1. 核心追問 1：針對該議題的全班深入論證問題（繁體中文）",
+  "promptQ2En": "2. Cognitive Challenge Question 2 on this HOTQ in English",
+  "promptQ2Zh": "2. 深度挑戰 2：針對該議題的全班極限或認知衝突辯論問題（繁體中文）"
 }
 `;
 
@@ -2694,34 +2778,41 @@
         }
 
         // Text-only Pedagogy Generator
-        async function callGeminiTextPedagogy(studentText) {
+        async function callGeminiTextPedagogy(studentText, targetHotq) {
             const model = getActiveAiModel();
             const apiKey = aiSettings.apiKey;
             const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+
+            const hotqInfo = targetHotq ? targetHotq.label : (typeof currentSelectedTargetHotq !== 'undefined' ? currentSelectedTargetHotq.label : 'HOTQ 1: 微觀動力學 (Microscopic Kinetics)');
 
             const promptText = `
 你是一位具備頂尖教學素養的中小學科學與 STEM 教育專家 (Science Pedagogical Expert)。
 請針對學生在「Exp 2.5: 水的體積對食鹽溶解速率的影響 (Rate of Dissolving Salt)」實驗中的作答內容進行深度學情診斷：
 學生作答：「${studentText}」
 
-請注意：
-1. 學生可能會提出各種不同維度的思考，包括微觀水分子碰撞、空間阻力偏誤、溫度或攪拌誤差、STEM傳感器工程（光閘、Micro:bit、慢動作錄影等）。
-2. 核心追問與深度挑戰必須「100% 針對學生具體提出的觀點與關鍵詞」進行量身打造，絕不要輸出通用罐頭題目！
-3. 語言優先順序：必須雙語 (Bilingual)，且「英文必須排在前面 (English first)，中文接在後面 (Chinese second)」。
-4. 切勿提及任何特定組別編號（例如第幾組、Group X），一律使用「The student / 學生」稱呼。
+【重要：學生作答所針對的課堂核心研討議題 (Target HOTQ Question)】：
+「${hotqInfo}」
+
+【學情分析與提問生成任務要求】：
+1. 學生這份作答是專門針對上述的【${hotqInfo}】議題進行思考與回答。請深入診斷學生在此特定議題上的理解水平與科學論證品質。
+2. 肯定思維亮點 (Praise)：具體指出學生在回答該議題時展現的科學推理、細節觀察、批判反思或創客工程思維。
+3. 概念診斷 (Diagnosis)：剖析其概念深度——是否具備微觀粒子碰撞模型？是否有認知迷思（如融化與溶解混淆、空間路程偏誤、人手攪拌疲勞等）？
+4. 生成全班延伸追問 (Whole-Class Prompts)：必須「緊扣學生提出的觀點與上述 HOTQ 議題」，量身設計 2 個引導全班進行高階思維 (HOTS) 辯論、極限思想實驗或深層驗證的探究問題！絕不要輸出通用罐頭題目！
+5. 語言優先順序：必須雙語 (Bilingual)，且「英文必須排在前面 (English first)，中文接在後面 (Chinese second)」。
+6. 切勿提及任何特定組別編號（例如第幾組、Group X），一律使用「The student / 學生」稱呼。
 
 請嚴格輸出合法的 JSON 物件（不要包含任何 markdown 代碼塊標籤如 \`\`\`json，直接輸出 JSON 內容）：
 {
   "transcription": "${studentText.replace(/"/g, '\\"')}",
-  "focusTag": "Sensor & Automation Engineering / STEM 自動化與傳感器工程",
-  "praiseEn": "Praise highlighting student reasoning strengths in English",
-  "praiseZh": "🌟 思維亮點：肯定學生的思維優點（繁體中文）",
-  "diagEn": "Conceptual diagnosis and microscopic analysis in English",
-  "diagZh": "🔍 概念診斷：深入剖析學生觀點（繁體中文）",
-  "promptQ1En": "1. Core Inquiry Question 1 for class debate in English",
-  "promptQ1Zh": "1. 核心追問 1：全班深入論證問題（繁體中文）",
-  "promptQ2En": "2. Cognitive Challenge Question 2 in English",
-  "promptQ2Zh": "2. 深度挑戰 2：全班極限或認知衝突辯論問題（繁體中文）"
+  "focusTag": "主題分類標籤（例如：Microscopic Kinetics / 微觀動力學、Random Error & Reliability / 隨機誤差與信度等）",
+  "praiseEn": "Praise highlighting student reasoning strengths regarding the target HOTQ in English",
+  "praiseZh": "🌟 思維亮點：肯定學生在回答該議題時的思維優點（繁體中文）",
+  "diagEn": "Conceptual diagnosis and microscopic analysis regarding the target HOTQ in English",
+  "diagZh": "🔍 概念診斷：深入剖析學生觀點與概念深度（繁體中文）",
+  "promptQ1En": "1. Core Inquiry Question 1 for class debate on this HOTQ in English",
+  "promptQ1Zh": "1. 核心追問 1：針對該議題的全班深入論證問題（繁體中文）",
+  "promptQ2En": "2. Cognitive Challenge Question 2 on this HOTQ in English",
+  "promptQ2Zh": "2. 深度挑戰 2：針對該議題的全班極限或認知衝突辯論問題（繁體中文）"
 }
 `;
 
@@ -3995,16 +4086,38 @@ ${JSON.stringify(summaryData, null, 2)}
                     growthZh: "嘗試思考 8 組平均值如何抵消單一小組的隨機操作誤差",
                     advanceStage: false
                 };
+            } else if (stage === 3) {
+                const hasMentionedErrors = /stir|speed|delay|stopwatch|timer|reaction|splashed|spilled|攪拌|手速|轉速|碼錶|計時|反應|延遲|水花|濺出/i.test(lower);
+                if (hasMentionedErrors) {
+                    return {
+                        feedbackEn: `A very thoughtful reflection on "${cleanQuote}"! 🔍 Inconsistent manual stirring cadence and stopwatch reaction latency are indeed key experimental limitations! You've achieved a deep scientific understanding! When you feel ready, you can synthesize your thoughts in Task 3: Thinking Routine below, or keep discussing with me!`,
+                        feedbackZh: `你提出的「${cleanQuote}」切中了實驗的實際過程！🔍 手動攪拌不均與停錶神經反應延遲，正是科學實驗中最關鍵的操作局限！你們組的探究非常深刻！若已準備好，可前往下方填寫【任務 3：思維反思卡】記錄成果，亦可繼續向我發問！`,
+                        summaryZh: `學生提出「${cleanQuote}」，水精靈肯定其對人為誤差來源的深刻反思。`,
+                        strengthZh: "能連結自身實驗操作經驗進行反思，精準鎖定人為操作局限",
+                        growthZh: "在下方反思卡中記錄自己的思維轉變",
+                        focusTag: "Human Limitations / 操作局限反思",
+                        nextStage: 4,
+                        advanceStage: true
+                    };
+                } else {
+                    return {
+                        feedbackEn: `Interesting perspective on "${cleanQuote}"! 💧 During our 4 trials (50 to 200 cm³), did you notice any human limitations during testing—such as how steadily we stirred, or how fast we clicked the stopwatch?`,
+                        feedbackZh: `你提到「${cleanQuote}」！💧 在我們 4 次實驗過程中（50 到 200 cm³），你們有沒有察覺到任何人為操作的局限——例如攪拌的速度是否一直保持恆定，或者按停碼錶時的反應快慢？`,
+                        summaryZh: `學生提出「${cleanQuote}」，水精靈引導其反思攪拌與計時之人為操作局限。`,
+                        strengthZh: "積極參與對話探究",
+                        growthZh: "思考手動攪拌頻率與碼錶反應延遲對數據的影響",
+                        focusTag: "Human Limitations / 操作局限引導",
+                        advanceStage: false
+                    };
+                }
             } else {
                 return {
-                    feedbackEn: `A very thoughtful reflection on "${cleanQuote}"! 🔍 Inconsistent manual stirring cadence and stopwatch reaction latency are indeed the primary experimental limitations! You've completed our dialogue inquiry! Now let's record your thoughts in Task 3 below!`,
-                    feedbackZh: `你提出的「${cleanQuote}」切中了實驗的實際過程！🔍 人手攪拌不均與碼錶神經反應延遲，正是科學實驗中最關鍵的人為操作局限！你們組的探究非常完整且深刻！現在請前往下方填寫【任務 3：思維反思卡】，記錄你們的思維成長！`,
-                    summaryZh: `學生提出「${cleanQuote}」，水精靈肯定其對人為誤差來源的深刻反思並圓滿總結探究。`,
-                    strengthZh: "能連結自身實驗操作經驗進行反思，精準鎖定人為操作局限",
-                    growthZh: "在下方反思卡中記錄自己的思維轉變",
-                    focusTag: "Human Limitations / 操作局限反思",
-                    nextStage: 4,
-                    advanceStage: true
+                    feedbackEn: `Great scientific insight on "${cleanQuote}"! 💧 Feel free to ask me any further questions, or proceed to synthesize your learning in Task 3: Thinking Routine below!`,
+                    feedbackZh: `關於「${cleanQuote}」的思考非常棒！💧 你可以繼續向我提問探究，亦可隨時前往下方【任務 3：思維反思卡】沉澱你的科學發現！`,
+                    summaryZh: `學生提出「${cleanQuote}」，水精靈給予肯定並支持持續探究。`,
+                    strengthZh: "持續保持自主科學探究精神",
+                    growthZh: "完成全階段探究與反思",
+                    advanceStage: false
                 };
             }
         }
@@ -5619,12 +5732,8 @@ ${JSON.stringify(summaryData, null, 2)}
             if (aiResult.personalizedPoint3En) classData[currentRole].personalizedPoint3En = aiResult.personalizedPoint3En;
             if (aiResult.personalizedPoint3Zh) classData[currentRole].personalizedPoint3Zh = aiResult.personalizedPoint3Zh;
 
-            // Bound student inquiry turns to prevent endless chat: after 3 user messages, conclude gracefully
-            const userMsgCount = (classData[currentRole]?.chatLogs || []).filter(m => m.sender === 'user').length;
-            if (userMsgCount >= 3 && (!aiResult.nextStage || aiResult.nextStage < 4)) {
-                aiResult.nextStage = 4;
-                aiResult.advanceStage = true;
-            }
+            // Allow natural student dialogue progression: do not forcibly cut off at turn 3.
+            // Stage transitions occur naturally as student inquiries resolve.
 
             // Advance stage only if answer warrants advancing!
             if (aiResult.advanceStage && aiResult.nextStage) {
@@ -6204,9 +6313,19 @@ ${JSON.stringify(summaryData, null, 2)}
                         </div>
 
                         <!-- Core Objective footer -->
-                        <div class="pt-3 border-t border-slate-100 text-[11px] text-amber-950 font-medium flex items-start gap-1.5">
-                            <span class="text-amber-600 flex-shrink-0">💡</span>
-                            <div><strong>核心目標：</strong>${card.objective}</div>
+                        <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                            <div class="text-[11px] text-amber-950 font-medium flex items-start gap-1.5">
+                                <span class="text-amber-600 flex-shrink-0">💡</span>
+                                <div><strong>核心目標：</strong>${card.objective}</div>
+                            </div>
+                            ${card.category === 'kinetics' ? `
+                                <div class="pt-1">
+                                    <button type="button" onclick="switchTeacherConsoleTab('extension')" class="w-full py-1.5 px-3 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-1.5">
+                                        <span>🌊 開啟延伸：微觀食鹽溶解模擬演示 (Launch Simulator)</span>
+                                        <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                </div>
+                            ` : ''}
                         </div>
                     </div>
                 `;
@@ -6967,6 +7086,66 @@ ${JSON.stringify(summaryData, null, 2)}
             textarea.focus();
         }
 
+        let currentSelectedTargetHotq = {
+            id: 'hotq1',
+            label: 'HOTQ 1: 微觀動力學與水分子碰撞 (Microscopic Kinetics & Collisions)'
+        };
+
+        function selectTargetHotq(id, label) {
+            currentSelectedTargetHotq = { id, label };
+            const badge = document.getElementById('currentSelectedHotqBadge');
+            if (badge) {
+                badge.textContent = `針對：${label.split('(')[0].trim()}`;
+            }
+            const buttons = document.querySelectorAll('.hotq-target-btn');
+            buttons.forEach(btn => {
+                if (btn.id === `hotqBtn-${id}`) {
+                    btn.className = 'hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-amber-600 text-white shadow-sm border border-amber-600';
+                } else {
+                    btn.className = 'hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50';
+                }
+            });
+        }
+
+        function switchTeacherConsoleTab(tab) {
+            const cockpitContent = document.getElementById('teacherCockpitTabContent');
+            const extensionContent = document.getElementById('teacherExtensionTabContent');
+            const btnCockpit = document.getElementById('teacherTabBtn-cockpit');
+            const btnExtension = document.getElementById('teacherTabBtn-extension');
+
+            if (tab === 'extension') {
+                if (cockpitContent) cockpitContent.classList.add('hidden');
+                if (extensionContent) extensionContent.classList.remove('hidden');
+
+                if (btnCockpit) {
+                    btnCockpit.className = "px-5 py-2.5 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-white text-slate-700 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50 shadow-xs";
+                }
+                if (btnExtension) {
+                    btnExtension.className = "px-5 py-2.5 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-gradient-to-r from-sky-600 to-indigo-600 text-white shadow-md border border-sky-400/50";
+                }
+
+                setTimeout(() => {
+                    if (typeof initMolecularSimulator === 'function') {
+                        initMolecularSimulator();
+                    }
+                    if (typeof renderMolecularCanvas === 'function') {
+                        renderMolecularCanvas();
+                    }
+                }, 50);
+            } else {
+                if (extensionContent) extensionContent.classList.add('hidden');
+                if (cockpitContent) cockpitContent.classList.remove('hidden');
+
+                if (btnCockpit) {
+                    btnCockpit.className = "px-5 py-2.5 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-gradient-to-r from-indigo-900 to-slate-900 text-white shadow-md border border-indigo-700/50";
+                }
+                if (btnExtension) {
+                    btnExtension.className = "px-5 py-2.5 rounded-2xl font-bold text-xs sm:text-sm transition flex items-center gap-2 bg-white text-slate-700 border border-slate-200 hover:border-sky-400 hover:bg-sky-50/50 shadow-xs";
+                }
+            }
+            if (window.lucide) lucide.createIcons();
+        }
+
         async function generateStudentAnswerPedagogy() {
             const textarea = document.getElementById('studentAnswerText');
             const text = textarea ? textarea.value.trim() : '';
@@ -7004,9 +7183,9 @@ ${JSON.stringify(summaryData, null, 2)}
                 try {
                     let aiPedagogy = null;
                     if (currentStudentAnswerImageData) {
-                        aiPedagogy = await callGeminiVisionPedagogy(currentStudentAnswerImageData, text);
+                        aiPedagogy = await callGeminiVisionPedagogy(currentStudentAnswerImageData, text, currentSelectedTargetHotq);
                     } else {
-                        aiPedagogy = await callGeminiTextPedagogy(text);
+                        aiPedagogy = await callGeminiTextPedagogy(text, currentSelectedTargetHotq);
                     }
 
                     if (aiPedagogy && (aiPedagogy.praiseEn || aiPedagogy.praise) && (aiPedagogy.promptQ1En || aiPedagogy.promptQ1)) {
@@ -7211,6 +7390,7 @@ ${JSON.stringify(summaryData, null, 2)}
             lastGeneratedPedagogy = {
                 studentText: activeStudentText,
                 imageSrc: currentStudentAnswerImageData,
+                targetHotq: currentSelectedTargetHotq,
                 praiseEn,
                 praiseZh,
                 diagEn,
@@ -7226,6 +7406,11 @@ ${JSON.stringify(summaryData, null, 2)}
                 promptQ2: promptQ2Zh,
                 focusTag
             };
+
+            const hotqBadgeEl = document.getElementById('pedagogyTargetHotqLabel');
+            if (hotqBadgeEl && currentSelectedTargetHotq) {
+                hotqBadgeEl.textContent = currentSelectedTargetHotq.label;
+            }
 
             // English first, Chinese second in Card 1
             if (praiseEl) {
@@ -7410,6 +7595,13 @@ ${JSON.stringify(summaryData, null, 2)}
 
                         ${imageHtml}
 
+                        ${p.targetHotq ? `
+                            <div class="p-2.5 rounded-xl ${isLight ? 'bg-amber-100/80 text-amber-950 border border-amber-300' : 'bg-amber-500/20 text-amber-200 border border-amber-400/30'} text-xs font-bold flex items-center gap-2">
+                                <span class="text-sm">🎯</span>
+                                <span>針對議題 (Target HOTQ)：${p.targetHotq.label}</span>
+                            </div>
+                        ` : ''}
+
                         <div>
                             <span class="text-[11px] font-bold ${isLight ? 'text-slate-500' : 'text-slate-400'} block mb-1">
                                 Transcribed Response / 學生作答文字記錄：
@@ -7543,6 +7735,20 @@ ${JSON.stringify(summaryData, null, 2)}
                 const hasReceivedReview = reviewerPr && reviewerPr.submitted;
                 const receivedSparks = hasReceivedReview ? (reviewerPr.sparkTags || []) : [];
                 const receivedComment = hasReceivedReview ? (reviewerPr.comment || "") : "";
+                const hasDebrief = Boolean(pr.teacherDebrief && pr.teacherDebrief.trim().length > 0);
+
+                let stageBadgeHtml = '';
+                if (gInfo.stage >= 4) {
+                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow-2xs"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span><span>✓ Complete (完成)</span></span>`;
+                } else if (gInfo.stage === 0) {
+                    stageBadgeHtml = `<span class="text-[10px] font-bold text-slate-500 bg-slate-200 px-2 py-0.5 rounded-md">Stage 0/3 (待填寫)</span>`;
+                } else if (gInfo.stage === 1) {
+                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-sky-800 bg-sky-100 px-2 py-0.5 rounded-md">Stage 1/3 (趨勢探究)</span>`;
+                } else if (gInfo.stage === 2) {
+                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded-md">Stage 2/3 (全班信度)</span>`;
+                } else {
+                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-purple-800 bg-purple-100 px-2 py-0.5 rounded-md">Stage 3/3 (誤差批判)</span>`;
+                }
 
                 const card = document.createElement('div');
                 card.className = "bg-slate-50/90 hover:bg-white rounded-2xl p-4 border border-slate-200 hover:border-sky-400 transition-all duration-200 shadow-sm hover:shadow-md space-y-3 cursor-pointer flex flex-col justify-between";
@@ -7557,9 +7763,7 @@ ${JSON.stringify(summaryData, null, 2)}
                                     ${hasData ? 'Submitted' : 'Pending'}
                                 </span>
                             </div>
-                            <span class="text-[10px] font-extrabold text-sky-700 bg-sky-100 px-2 py-0.5 rounded-md">
-                                Stage ${gInfo.stage}/3
-                            </span>
+                            ${stageBadgeHtml}
                         </div>
 
                         <div>
@@ -7612,12 +7816,17 @@ ${JSON.stringify(summaryData, null, 2)}
                         </div>
 
                         <!-- Teacher Deep Debrief Banner -->
-                        <div class="bg-purple-50/70 border border-purple-200/80 p-2.5 rounded-xl space-y-1 text-[11px]">
-                            <span class="font-bold text-purple-900 block flex items-center gap-1">
-                                <span>🎓 教師深度點撥：</span>
-                            </span>
-                            <p class="text-slate-700 text-[10px] leading-relaxed break-words ${pr.teacherDebrief ? 'font-medium' : 'text-slate-400 italic'}">
-                                ${pr.teacherDebrief || "尚未記錄點撥回饋（點擊卡片展開編輯）"}
+                        <div class="${hasDebrief ? 'bg-purple-100/80 border-purple-300 ring-1 ring-purple-300 shadow-2xs' : 'bg-purple-50/70 border-purple-200/80'} p-2.5 rounded-xl space-y-1 text-[11px] border">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-purple-950 flex items-center gap-1">
+                                    <span>🎓 教師深度點撥 (Debrief)：</span>
+                                </span>
+                                <span class="text-[9px] font-bold px-1.5 py-0.2 rounded ${hasDebrief ? 'bg-purple-700 text-white' : 'bg-slate-200 text-slate-600'}">
+                                    ${hasDebrief ? '✓ 已記錄點撥' : '待記錄'}
+                                </span>
+                            </div>
+                            <p class="text-slate-800 text-[10px] leading-relaxed break-words ${hasDebrief ? 'font-medium' : 'text-slate-400 italic'}">
+                                ${hasDebrief ? pr.teacherDebrief : "尚未記錄點撥回饋（點擊卡片展開編輯）"}
                             </p>
                         </div>
                     </div>
@@ -8382,24 +8591,61 @@ ${JSON.stringify(summaryData, null, 2)}
         }
 
         function generateAiTeacherDebrief(gKey) {
-            const gInfo = classData[gKey];
+            const groupKey = gKey || modalActiveGroupKey;
+            const gInfo = classData[groupKey];
             if (!gInfo) return;
             const input = document.getElementById('modalTeacherDebriefInput');
             if (!input) return;
 
-            let debriefSuggestion = "";
+            let debriefEn = "";
+            let debriefZh = "";
+
             if (gInfo.data && gInfo.data[200] > gInfo.data[150]) {
-                debriefSuggestion = `【點撥提示】該組在 200 cm³ 反而比 150 cm³ 慢了 ${Math.round(gInfo.data[200] - gInfo.data[150])} 秒。建議點撥引導：「請比對你們兩次實驗的攪拌手感，後段是否有手痠放慢？科學家如何面對反常數據進行變因復盤？」`;
+                const diff = Math.round(gInfo.data[200] - gInfo.data[150]);
+                debriefEn = `[Teacher Debrief Guidance] Group ${groupKey.replace('Group ', '')} recorded 200 cm³ taking ${diff}s longer than 150 cm³. Guide the inquiry: "Compare your stirring cadence in both trials—did your hands get tired towards the end? How do research scientists review controlled variables when encountering empirical anomalies?"`;
+                debriefZh = `【點撥提示】該組在 200 cm³ 反而比 150 cm³ 慢了 ${diff} 秒。建議點撥引導：「請比對你們兩次實驗的攪拌手感，後段是否有手痠放慢？科學家如何面對反常數據進行變因復盤？」`;
             } else if (gInfo.focusTag === "Stirring Speed" || /攪拌/i.test(gInfo.summaryZh)) {
-                debriefSuggestion = `【點撥提示】該組敏銳鎖定攪拌轉速局限。建議肯定其科研直覺，並追問：「如果讓你們設計一個定速磁力攪拌器，會如何校準每分鐘轉速（RPM）以達到完全零人為誤差？」`;
+                debriefEn = `[Teacher Debrief Guidance] Group ${groupKey.replace('Group ', '')} keenly detected manual stirring speed discrepancies. Praise their scientific intuition and challenge them: "If you were to design a constant-speed magnetic stirrer, how would you calibrate RPM to achieve zero human error?"`;
+                debriefZh = `【點撥提示】該組敏銳鎖定攪拌轉速局限。建議肯定其科研直覺，並追問：「如果讓你們設計一個定速磁力攪拌器，會如何校準每分鐘轉速（RPM）以達到完全零人為誤差？」`;
             } else if (/碼錶|延遲|按慢/i.test(gInfo.latestAnswer)) {
-                debriefSuggestion = `【點撥提示】該組反思到神經反應時間。建議肯定其誠實思維，並引導探討：「除了碼錶，日常生活中有哪些自動傳感器（例如透光濁度計）可以用客觀數據判定終點？」`;
+                debriefEn = `[Teacher Debrief Guidance] Group ${groupKey.replace('Group ', '')} reflected on human reaction latency. Affirm their honesty and prompt: "Beyond stopwatches, what automated sensors (e.g., optical turbidity light gates) could objectively detect the exact completion of dissolving?"`;
+                debriefZh = `【點撥提示】該組反思到神經反應時間。建議肯定其誠實思維，並引導探討：「除了碼錶，日常生活中有哪些自動傳感器（例如透光濁度計）可以用客觀數據判定終點？」`;
             } else {
-                debriefSuggestion = `【點撥提示】該組數據呈現標準反比規律。建議引導深化微觀碰撞理論：「水量增加讓溶解時間顯著縮短，那麼在微觀粒子層面，水分子究竟是如何加速拆解食鹽晶格的？」`;
+                debriefEn = `[Teacher Debrief Guidance] Group ${groupKey.replace('Group ', '')} demonstrated a clear inverse trend. Guide them towards microscopic collision kinetics: "More water significantly shortens dissolving time. At the particulate level, how do more water molecules accelerate the dismantling of the salt lattice?"`;
+                debriefZh = `【點撥提示】該組數據呈現標準反比規律。建議引導深化微觀碰撞理論：「水量增加讓溶解時間顯著縮短，那麼在微觀粒子層面，水分子究竟是如何加速拆解食鹽晶格的？」`;
             }
 
-            input.value = debriefSuggestion;
+            input.value = `${debriefEn}\n\n${debriefZh}`;
             input.focus();
+        }
+
+        function saveTeacherDebriefFromModal(gKey) {
+            const groupKey = gKey || modalActiveGroupKey;
+            if (!groupKey || !classData[groupKey]) return;
+
+            const input = document.getElementById('modalTeacherDebriefInput');
+            if (!input) return;
+            const text = input.value.trim();
+
+            if (!classData[groupKey].peerReview) classData[groupKey].peerReview = {};
+            classData[groupKey].peerReview.teacherDebrief = text;
+            classData[groupKey].teacherDebrief = text;
+
+            saveToStorage();
+            broadcastSync();
+
+            const statusEl = document.getElementById('modalTeacherDebriefSaveStatus');
+            if (statusEl) {
+                statusEl.className = "text-[11px] text-emerald-700 font-bold flex items-center gap-1";
+                statusEl.innerHTML = `<i data-lucide="check-circle" class="w-3.5 h-3.5"></i><span>✓ Saved & Synced! / 點撥回饋已儲存並同步！</span>`;
+                if (window.lucide) lucide.createIcons();
+                setTimeout(() => {
+                    if (statusEl) statusEl.innerHTML = '';
+                }, 3500);
+            }
+
+            // Immediately update the 8-group tracking cards in the background
+            renderTeacherGroupTrackingCards();
         }
 
         // ================= MOLECULAR DISSOLVING SIMULATOR CANVAS ENGINE =================

@@ -566,11 +566,14 @@
                     <!-- Spark Tag Selection Buttons -->
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 flex items-center justify-between flex-wrap gap-1">
-                            <span>✨ Tag Thinking Sparks / 標記對方思維亮點 <span class="text-rose-500 font-extrabold">* (Required / 必填至少一項)</span>:</span>
-                            <span class="text-[10px] text-indigo-600 font-medium">Select 1 or more tags</span>
+                            <span>✨ Tag Thinking Sparks / 標記對方思維亮點 <span class="text-rose-500 font-extrabold">* (Required: 1–3 tags / 必選 1 至 3 項)</span>:</span>
+                            <span id="peerSparkCountBadge" class="text-[10px] text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full font-bold border border-indigo-200">Selected: 0 / 3 tags (Min 1, Max 3)</span>
                         </label>
                         <div id="peerSparkChipsContainer" class="flex items-center gap-1.5 flex-wrap">
                             <!-- Generated buttons -->
+                        </div>
+                        <div id="peerSparkLimitToast" class="hidden text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-xl flex items-center gap-1.5 animate-fade-in">
+                            <span>⚠️ Maximum 3 tags! Tap a selected tag to unselect it first. / 最多只可選 3 項（請先點擊已選標籤取消，再改選其他亮點）</span>
                         </div>
                     </div>
 
@@ -580,20 +583,23 @@
                             <span>💬 Peer Praise & Inquiring Wonder / 給對方的讚賞或好奇追問 <span class="text-rose-500 font-extrabold">* (Required / 必填)</span>:</span>
                             <span class="text-[10px] text-slate-400">Min. 5 characters / 至少5個字元</span>
                         </label>
-                        <!-- Quick Sentence Starter Chips for S1 Students -->
+                        <!-- Quick Sentence Starter Chips for S1 Students (Simple English) -->
                         <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
-                            <span class="text-[10px] text-indigo-700 font-bold">Quick Starters / 句式提示：</span>
-                            <button type="button" onclick="insertPeerCommentChip('We appreciate that your group identified... / 我們欣賞你們組發現了...')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ We appreciate that your group identified...
+                            <span class="text-[10px] text-indigo-700 font-bold">Quick Starters:</span>
+                            <button type="button" onclick="insertPeerCommentChip('Good point about ')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
+                                ➕ Good point about...
                             </button>
-                            <button type="button" onclick="insertPeerCommentChip('How did your group ensure consistent stirring speed? / 想請問你們組如何確保攪拌速度均勻？')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ How did your group ensure consistent stirring speed?
+                            <button type="button" onclick="insertPeerCommentChip('I agree because ')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
+                                ➕ I agree because...
                             </button>
-                            <button type="button" onclick="insertPeerCommentChip('One wonder we have about your outlier data is... / 我們對你們偏離數據的好奇追問是...')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ One wonder we have about your outlier data is...
+                            <button type="button" onclick="insertPeerCommentChip('How did you keep ')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
+                                ➕ How did you keep...
+                            </button>
+                            <button type="button" onclick="insertPeerCommentChip('Why did your time ')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
+                                ➕ Why did your time...
                             </button>
                         </div>
-                        <textarea id="peerReviewCommentInput" rows="2" class="w-full text-xs p-3 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none leading-relaxed" placeholder="E.g., We appreciate your observation on stirring fatigue. We wonder: if we kept a constant stirring speed, would the trend line be smoother? / 例如：我們欣賞你們組敏銳地指出了攪拌疲勞的人為誤差。我們好奇追問：如果使用機械恆速攪拌，折線圖是否會更加平滑？"></textarea>
+                        <textarea id="peerReviewCommentInput" rows="2" class="w-full text-xs p-3 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none leading-relaxed" placeholder="E.g., Good point about stirring speed! How did you keep the water volume fair?"></textarea>
                     </div>
 
                     <!-- Submit Action -->
@@ -670,22 +676,6 @@
                             <span>✍️ Your Group's Scientific Response / 本組科學推論與回答 <span class="text-rose-500 font-extrabold">* (Required)</span>:</span>
                             <span class="text-[10px] text-slate-500 font-normal">Your answer will be displayed live on the Teacher's Comparison Wall / 提交後將即時顯示於老師後台作全班分析比較</span>
                         </label>
-                        <!-- Helpful Concept Chips -->
-                        <div class="flex items-center gap-1.5 flex-wrap">
-                            <span class="text-[10px] text-orange-800 font-bold">Concept Starters / 概念詞庫：</span>
-                            <button type="button" onclick="insertStudentHotqChip('More water molecules increase collision frequency with salt crystals / 更多水分子能增加與食鹽晶體碰撞的頻率')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-50 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ Particle Collision (粒子碰撞頻率)
-                            </button>
-                            <button type="button" onclick="insertStudentHotqChip('Averaging 8 groups balances out random human reaction delays / 全班8組平均能抵消按停碼錶的人為反應延遲')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-50 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ Random Error & Average (隨機誤差與平均)
-                            </button>
-                            <button type="button" onclick="insertStudentHotqChip('Breaking the crystal lattice takes physical time, so time cannot be 0s / 拆解食鹽晶格需要物理時間，因此時間不會變成0秒')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-50 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ Physical Dissolving Limit (物理溶解極限)
-                            </button>
-                            <button type="button" onclick="insertStudentHotqChip('Use a magnetic stirrer and light sensor to keep fair test constants / 使用磁力攪拌器及光學感測器保持公平測試')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-50 text-[11px] font-medium text-slate-700 border border-amber-200 transition">
-                                ➕ Fair Test & Sensors (公平測試與感測器)
-                            </button>
-                        </div>
                         <textarea id="studentHotqAnswerInput" rows="3" class="w-full text-xs sm:text-sm p-3.5 rounded-xl border border-amber-300 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 leading-relaxed text-slate-800" placeholder="Discuss with your group and type your answer to the teacher's HOTQ here (English or Chinese)... / 請與組員討論後，在此輸入你們對這道高階問題的科學解釋（中英文皆可）..."></textarea>
                     </div>
 
@@ -717,10 +707,10 @@
                                 </span>
                             </div>
                             <h3 class="text-base sm:text-lg font-bold text-slate-800 font-fun mt-0.5">
-                                Step 7: My Science Thinking Routine: I used to think... Now I think... / 思考常規反思
+                                Step 7: My Science Thinking Routine: I Still Wonder... / 延伸科學好奇與提問
                             </h3>
                             <p class="text-[11px] text-slate-400 mt-0.5">
-                                Record conceptual shifts from your trials, class data, Agent Water, peer insights, and HOTQ discussion. / 記錄經過實驗、全班數據、水精靈、跨組互評與大組討論後的科學認知轉變。
+                                Record your group's further scientific curiosity or next experiment idea after completing today's inquiry. / 記錄完成今日實驗、水精靈對話、跨組互評與大組討論後，你們仍然好奇、想繼續探究的科學問題。
                             </p>
                         </div>
                     </div>
@@ -742,63 +732,11 @@
                 </div>
 
                 <div id="stepGContentContainer" class="hidden space-y-5 mt-4">
-                    <!-- Prompt 1: I used to think... -->
-                    <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-200/80 space-y-2.5">
+                    <!-- Single Prompt: I still wonder... -->
+                    <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-200/80 space-y-2.5">
                         <div class="flex items-center justify-between flex-wrap gap-2">
-                            <label class="block text-xs sm:text-sm font-bold text-amber-950 flex items-center gap-1.5">
-                                <span>💭 1. Before the experiment, I used to think that... / 在實驗前，我原本以為...</span>
-                            </label>
-                            <button type="button" onclick="toggleReflectionScaffold(1)" class="text-[11px] font-bold text-amber-800 bg-amber-100 hover:bg-amber-200 px-3 py-1 rounded-lg border border-amber-300 transition flex items-center gap-1.5 shadow-xs">
-                                <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-600"></i>
-                                <span>Need inspiration? View Guiding Questions / 需要靈感？查看引導問題 ▾</span>
-                            </button>
-                        </div>
-                        <!-- Collapsible Scaffolding Drawer 1 -->
-                        <div id="reflectionScaffoldDrawer1" class="hidden p-3.5 rounded-xl bg-amber-100/70 border border-amber-300 text-xs text-amber-950 space-y-2 animate-fade-in">
-                            <p class="font-extrabold text-[11px] uppercase tracking-wider text-amber-900 flex items-center gap-1">
-                                <span>🤔 Socratic Thinking Prompts / 階梯式思維提問：</span>
-                            </p>
-                            <ul class="space-y-1.5 text-[11px] list-disc list-inside leading-relaxed text-amber-900">
-                                <li><strong>Temperature vs Volume (溫度與水量):</strong> Before measuring, did you assume that only warming up the water could make salt dissolve faster, while water volume would not matter much? / 在實驗前，你是否曾以為只有加熱水溫才能加速溶解，而水量多少影響不大？</li>
-                                <li><strong>Melting vs Dissolving (溶化與溶解):</strong> Did you previously think that salt "melts" away into hot water like ice cream, rather than dissolving into solvent molecules? / 你過去曾否以為食鹽在水中是像雪糕一樣受熱「溶化」，而不是分散在水分子間「溶解」？</li>
-                                <li><strong>Number of Trials (單組 vs 全班):</strong> Did you think testing just 1 beaker was already enough to confirm a scientific rule? / 你是否曾以為只做1次或1個組別的測試，就足以證明科學結論？</li>
-                            </ul>
-                        </div>
-                        <textarea id="reflectionUsedToThink" rows="2" placeholder="Write in your own words your intuitive thoughts or initial hypotheses before the experiment... / 請用自己的話，寫下你在實驗前的直覺想法或原有認知..."
-                            class="w-full p-3 text-xs sm:text-sm text-slate-800 bg-white border border-amber-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-400 leading-relaxed"></textarea>
-                    </div>
-
-                    <!-- Prompt 2: Now I think... -->
-                    <div class="bg-teal-50/50 p-4 rounded-2xl border border-teal-200/80 space-y-2.5">
-                        <div class="flex items-center justify-between flex-wrap gap-2">
-                            <label class="block text-xs sm:text-sm font-bold text-teal-950 flex items-center gap-1.5">
-                                <span>💡 2. After experiments, dialogue & simulation, now I realize that... / 經過實驗、對話與微觀模擬後，我現在明白到...</span>
-                            </label>
-                            <button type="button" onclick="toggleReflectionScaffold(2)" class="text-[11px] font-bold text-teal-800 bg-teal-100 hover:bg-teal-200 px-3 py-1 rounded-lg border border-teal-300 transition flex items-center gap-1.5 shadow-xs">
-                                <i data-lucide="help-circle" class="w-3.5 h-3.5 text-teal-600"></i>
-                                <span>Need inspiration? View Guiding Questions / 需要靈感？查看引導問題 ▾</span>
-                            </button>
-                        </div>
-                        <!-- Collapsible Scaffolding Drawer 2 -->
-                        <div id="reflectionScaffoldDrawer2" class="hidden p-3.5 rounded-xl bg-teal-100/70 border border-teal-300 text-xs text-teal-950 space-y-2 animate-fade-in">
-                            <p class="font-extrabold text-[11px] uppercase tracking-wider text-teal-900 flex items-center gap-1">
-                                <span>🤔 Socratic Thinking Prompts / 階梯式思維提問：</span>
-                            </p>
-                            <ul class="space-y-1.5 text-[11px] list-disc list-inside leading-relaxed text-teal-900">
-                                <li><strong>Trend & Mechanism (規律與機理):</strong> Comparing 50 to 200 cm³, how does more water provide more solvent particles to collide with the salt crystal lattice? / 對比 50 至 200 cm³，水量增加如何提供更多水分子碰撞食鹽晶格，從而加快溶解？</li>
-                                <li><strong>Fair Test & Human Error (公平測試與誤差):</strong> What human factors (e.g. stirring fatigue, stopwatch reaction delay, crushing crystals) caused data variations, and why does class average help? / 哪些人為操作（例如攪拌手酸放慢、碼錶反應延遲、戳碎晶體）造成了偏差？全班平均如何提高數據信度？</li>
-                                <li><strong>Physical Limits (物理極限):</strong> Why will dissolving time never reach 0 seconds even if water volume extends to 5,000 cm³? / 為什麼即便水量增加到 5,000 cm³，溶解時間也永遠不可能變成 0 秒？</li>
-                            </ul>
-                        </div>
-                        <textarea id="reflectionNowIThink" rows="2" placeholder="Write in your own words your scientific understanding after analyzing graphs, chatting with Agent Water, and exploring the molecular model... / 請用自己的話，寫下你經過折線圖、水精靈對話及微觀模型後的真正科學理解..."
-                            class="w-full p-3 text-xs sm:text-sm text-slate-800 bg-white border border-teal-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-400 leading-relaxed"></textarea>
-                    </div>
-
-                    <!-- Prompt 3: I still wonder... -->
-                    <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-200/80 space-y-2">
-                        <div class="flex items-center justify-between flex-wrap gap-2">
-                            <label class="block text-xs sm:text-sm font-bold text-indigo-950 flex items-center gap-1.5">
-                                <span>❓ 3. I still wonder... / 我仍然感到好奇、想繼續探究的是...</span>
+                            <label for="reflectionStillWonder" class="block text-xs sm:text-sm font-bold text-indigo-950 flex items-center gap-1.5">
+                                <span>❓ I still wonder... / 我仍然感到好奇、想繼續探究的是... <span class="text-rose-500 font-extrabold">* (Required)</span></span>
                             </label>
                             <button type="button" onclick="toggleReflectionScaffold(3)" class="text-[11px] font-bold text-indigo-800 bg-indigo-100 hover:bg-indigo-200 px-3 py-1 rounded-lg border border-indigo-300 transition flex items-center gap-1.5 shadow-xs">
                                 <i data-lucide="help-circle" class="w-3.5 h-3.5 text-indigo-600"></i>
@@ -811,12 +749,12 @@
                                 <span>🤔 Socratic Thinking Prompts / 階梯式思維提問：</span>
                             </p>
                             <ul class="space-y-1.5 text-[11px] list-disc list-inside leading-relaxed text-indigo-900">
-                                <li><strong>Next Variable to Test (下一個探究變因):</strong> If you could design next week's experiment, would you test stirring speed (RPM), water temperature, or salt crystal grain size? / 如果讓你設計下週的延伸實驗，你會想控制水溫、轉速還是鹽晶大小？</li>
-                                <li><strong>Engineering & Sensors (儀器與傳感器):</strong> How could we use turbidity sensors or motorized magnetic stirrers to eliminate subjective eye judgment and hand fatigue? / 如何運用光電濁度傳感器或定速磁力攪拌器，徹底消除肉眼主觀判斷與人手疲勞？</li>
+                                <li><strong>Next Variable to Test (下一個探究變因):</strong> If you could design next week's experiment, would you test stirring speed (RPM), water temperature, or salt crystal grain size? / 如果讓你設計下週的延伸實驗，你會想測試攪拌轉速、水溫還是鹽粒粗細？</li>
+                                <li><strong>Engineering & Sensors (儀器與傳感器):</strong> How could we use light sensors or magnetic stirrers to make our experiment even fairer? / 如何運用光學感測器或定速磁力攪拌器，令實驗更公平準確？</li>
                             </ul>
                         </div>
-                        <input type="text" id="reflectionStillWonder" placeholder="E.g., I wonder if magnetic stirrers with exact 300 RPM would produce a perfectly smooth mathematical curve... / 例如：我好奇若使用 300 RPM 定速磁力攪拌器，折線圖是否會呈現完美的平滑曲線..."
-                            class="w-full p-2.5 text-xs sm:text-sm text-slate-800 bg-white border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                        <textarea id="reflectionStillWonder" rows="2" placeholder="E.g., I wonder if warm water or faster stirring would make salt dissolve even faster... / 例如：我好奇如果改用溫水或者定速攪拌器，食鹽溶解時間會變化多少..."
+                            class="w-full p-3 text-xs sm:text-sm text-slate-800 bg-white border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 leading-relaxed"></textarea>
                     </div>
 
                     <!-- Submit Reflection Action -->
@@ -5481,7 +5419,7 @@ ${JSON.stringify(summaryData, null, 2)}
             const hotqResp = classData[currentRole]?.hotqResponse;
             const hasHotqResponse = !!(hotqResp && (hotqResp.submitted || (hotqResp.answer || '').trim().length >= 2));
             const reflection = classData[currentRole]?.reflection;
-            const hasReflection = !!(reflection && (reflection.submitted || (reflection.nowIThink || '').trim().length >= 2));
+            const hasReflection = !!(reflection && (reflection.submitted || (reflection.stillWonder || '').trim().length >= 2 || (reflection.nowIThink || '').trim().length >= 2));
 
             const canAccessStep3 = hasData || isStepBypassed(3);
             const canAccessStep4 = hasDialogueCompleted || isStepBypassed(4);
@@ -5664,6 +5602,10 @@ ${JSON.stringify(summaryData, null, 2)}
                 if (canAccessStep7) {
                     stepGContent.classList.remove('hidden');
                     stepGLocked.classList.add('hidden');
+                    const wonderInput = document.getElementById('reflectionStillWonder');
+                    if (wonderInput && document.activeElement !== wonderInput && reflection && reflection.stillWonder) {
+                        wonderInput.value = reflection.stillWonder;
+                    }
                     if (hasReflection) {
                         if (refBadge) {
                             refBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
@@ -5687,9 +5629,9 @@ ${JSON.stringify(summaryData, null, 2)}
         }
 
         function insertReflectionChip(fieldName, text) {
-            let elId = 'reflectionUsedToThink';
+            let elId = 'reflectionStillWonder';
+            if (fieldName === 'usedToThink') elId = 'reflectionUsedToThink';
             if (fieldName === 'nowIThink') elId = 'reflectionNowIThink';
-            if (fieldName === 'stillWonder') elId = 'reflectionStillWonder';
 
             const el = document.getElementById(elId);
             if (!el) return;
@@ -5703,7 +5645,7 @@ ${JSON.stringify(summaryData, null, 2)}
         }
 
         function proceedToReflectionStep() {
-            const refSection = document.getElementById('studentReflectionSection');
+            const refSection = document.getElementById('stepSectionG') || document.getElementById('studentReflectionSection');
             if (refSection) {
                 refSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 refSection.classList.add('ring-4', 'ring-amber-300');
@@ -5711,32 +5653,31 @@ ${JSON.stringify(summaryData, null, 2)}
                     refSection.classList.remove('ring-4', 'ring-amber-300');
                 }, 2000);
             }
-            const nowInput = document.getElementById('reflectionNowIThink');
-            if (nowInput) nowInput.focus();
+            const wonderInput = document.getElementById('reflectionStillWonder');
+            if (wonderInput) wonderInput.focus();
         }
 
         function submitStudentReflection() {
-            const usedToThink = (document.getElementById('reflectionUsedToThink')?.value || '').trim();
-            const nowIThink = (document.getElementById('reflectionNowIThink')?.value || '').trim();
             const stillWonder = (document.getElementById('reflectionStillWonder')?.value || '').trim();
             const msgEl = document.getElementById('reflectionFeedbackMsg');
 
-            if (nowIThink.length < 2) {
+            if (stillWonder.length < 2) {
                 if (msgEl) {
                     msgEl.className = "p-3 bg-amber-50 border border-amber-300 text-amber-900 rounded-xl text-xs flex items-center gap-2";
-                    msgEl.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i><span>Please write your insights in Question 2 "Now I realize that..." / 請於第 2 題「我現在明白到...」寫下你的科學反思（可展開「提示問題」協助思考）</span>`;
+                    msgEl.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i><span>Please write your curiosity in "I still wonder..." / 請於「我仍然感到好奇、想繼續探究的是...」寫下你的延伸科學問題（可展開「引導問題」協助思考）</span>`;
                     msgEl.classList.remove('hidden');
                     if (window.lucide) lucide.createIcons();
                 }
-                document.getElementById('reflectionNowIThink')?.focus();
+                document.getElementById('reflectionStillWonder')?.focus();
                 return;
             }
 
             if (!classData[currentRole]) classData = ensureClassDataStructure(classData);
             classData[currentRole].reflection = {
-                usedToThink: usedToThink || "",
-                nowIThink: nowIThink,
+                usedToThink: "",
+                nowIThink: stillWonder,
                 stillWonder: stillWonder,
+                submitted: true,
                 timestamp: Date.now()
             };
             classData[currentRole].stage = 4;
@@ -5746,22 +5687,18 @@ ${JSON.stringify(summaryData, null, 2)}
                 msgEl.innerHTML = `
                     <div class="flex items-center gap-2">
                         <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
-                        <span class="font-bold">🎉 Reflection submitted successfully! All science inquiry tasks complete!</span>
+                        <span class="font-bold">🎉 Reflection submitted successfully! All 7 science inquiry tasks complete!</span>
                     </div>
                 `;
                 msgEl.classList.remove('hidden');
                 if (window.lucide) lucide.createIcons();
             }
 
+            saveToStorage();
             broadcastSync();
             updateAllUI();
             updateTaskGatingUI();
             renderSummaryCardContent();
-
-            setTimeout(() => {
-                const sumSec = document.getElementById('studentSummarySection');
-                if (sumSec) sumSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 300);
         }
 
         function renderSummaryCardContent() {
@@ -5771,13 +5708,14 @@ ${JSON.stringify(summaryData, null, 2)}
             const ref = classData[currentRole]?.reflection;
 
             let customRefQuote = "";
-            if (ref && ref.nowIThink) {
+            const wonderText = ref && (ref.stillWonder || ref.nowIThink);
+            if (wonderText) {
                 customRefQuote = `
-                    <div class="mt-2.5 p-2.5 rounded-xl bg-amber-50 border border-amber-200/80 text-[11px] text-amber-950 flex items-start gap-2">
-                        <span class="text-base">💭</span>
+                    <div class="mt-2.5 p-2.5 rounded-xl bg-indigo-50 border border-indigo-200/80 text-[11px] text-indigo-950 flex items-start gap-2">
+                        <span class="text-base">❓</span>
                         <div>
-                            <strong class="text-amber-900 font-bold">你的反思摘錄：</strong>
-                            <span>「${ref.nowIThink}」</span>
+                            <strong class="text-indigo-900 font-bold">本組延伸好奇提問 (I still wonder):</strong>
+                            <span>「${wonderText}」</span>
                         </div>
                     </div>
                 `;
@@ -8055,6 +7993,21 @@ ${JSON.stringify(summaryData, null, 2)}
                             `}
                         </div>
 
+                        <!-- Step 7 Student Curiosity: I Still Wonder -->
+                        <div class="bg-sky-50/70 border border-sky-200/80 p-2.5 rounded-xl space-y-1 text-[11px]">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-sky-950 flex items-center gap-1">
+                                    <span>❓ 延伸好奇 (I still wonder)：</span>
+                                </span>
+                                <span class="text-[9px] font-bold px-1.5 py-0.2 rounded ${(gInfo.reflection && (gInfo.reflection.stillWonder || gInfo.reflection.nowIThink)) ? 'bg-sky-600 text-white' : 'bg-slate-200 text-slate-500'}">
+                                    ${(gInfo.reflection && (gInfo.reflection.stillWonder || gInfo.reflection.nowIThink)) ? '✓ Step 7 已提交' : '待提交'}
+                                </span>
+                            </div>
+                            <p class="text-slate-800 text-[10px] leading-relaxed break-words ${(gInfo.reflection && (gInfo.reflection.stillWonder || gInfo.reflection.nowIThink)) ? 'font-medium italic' : 'text-slate-400 italic'}">
+                                ${(gInfo.reflection && (gInfo.reflection.stillWonder || gInfo.reflection.nowIThink)) ? `"${gInfo.reflection.stillWonder || gInfo.reflection.nowIThink}"` : "尚未提交 Step 7 延伸好奇提問..."}
+                            </p>
+                        </div>
+
                         <!-- Teacher Deep Debrief Banner -->
                         <div class="${hasDebrief ? 'bg-purple-100/80 border-purple-300 ring-1 ring-purple-300 shadow-2xs' : 'bg-purple-50/70 border-purple-200/80'} p-2.5 rounded-xl space-y-1 text-[11px] border">
                             <div class="flex items-center justify-between">
@@ -8540,17 +8493,34 @@ ${JSON.stringify(summaryData, null, 2)}
                 quoteEl.innerText = `"${getGroupHighlightQuote(targetGroup)}"`;
             }
 
-            // Render Spark Chips (Bilingual & Multi-select)
+            // Render Spark Chips (Bilingual & Multi-select, Min 1 / Max 3)
+            const selectedTags = Array.isArray(pr.sparkTags) ? pr.sparkTags.slice(0, 3) : [];
+            pr.sparkTags = selectedTags;
+            const selectedCount = selectedTags.length;
+
+            const countBadge = document.getElementById('peerSparkCountBadge');
+            if (countBadge) {
+                countBadge.innerText = `Selected: ${selectedCount} / 3 tags (Min 1, Max 3)`;
+                if (selectedCount >= 1 && selectedCount <= 3) {
+                    countBadge.className = "text-[10px] text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full font-extrabold border border-emerald-300";
+                } else {
+                    countBadge.className = "text-[10px] text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full font-bold border border-indigo-200";
+                }
+            }
+
             const chipsContainer = document.getElementById('peerSparkChipsContainer');
             if (chipsContainer) {
                 chipsContainer.innerHTML = '';
                 PEER_SPARK_TAGS.forEach(tag => {
-                    const isSelected = (pr.sparkTags || []).includes(tag.labelEn) || (pr.sparkTags || []).includes(tag.labelZh);
+                    const isSelected = selectedTags.includes(tag.labelEn) || selectedTags.includes(tag.labelZh);
+                    const isAtMax = selectedCount >= 3 && !isSelected;
                     const btn = document.createElement('button');
                     btn.type = 'button';
                     btn.onclick = () => togglePeerSparkTag(tag.labelEn);
                     if (isSelected) {
                         btn.className = "px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1.5 bg-indigo-600 text-white shadow-sm border border-indigo-600 transform scale-105";
+                    } else if (isAtMax) {
+                        btn.className = "px-3 py-1.5 rounded-full text-xs font-medium transition flex items-center gap-1.5 bg-slate-50 text-slate-400 border border-slate-200 opacity-55";
                     } else {
                         btn.className = "px-3 py-1.5 rounded-full text-xs font-medium transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50";
                     }
@@ -8628,11 +8598,24 @@ ${JSON.stringify(summaryData, null, 2)}
             const tagObj = PEER_SPARK_TAGS.find(t => t.labelEn === tagLabel || t.labelZh === tagLabel);
             const tagVal = tagObj ? tagObj.labelEn : tagLabel;
 
+            const limitToast = document.getElementById('peerSparkLimitToast');
             const idx = pr.sparkTags.findIndex(t => t === tagVal || (tagObj && t === tagObj.labelZh));
             if (idx > -1) {
                 pr.sparkTags.splice(idx, 1);
+                if (limitToast) limitToast.classList.add('hidden');
             } else {
+                if (pr.sparkTags.length >= 3) {
+                    if (limitToast) {
+                        limitToast.classList.remove('hidden');
+                        clearTimeout(window._peerSparkLimitTimer);
+                        window._peerSparkLimitTimer = setTimeout(() => {
+                            limitToast.classList.add('hidden');
+                        }, 3800);
+                    }
+                    return;
+                }
                 pr.sparkTags.push(tagVal);
+                if (limitToast) limitToast.classList.add('hidden');
             }
 
             renderStudentPeerReviewUI();
@@ -8644,7 +8627,7 @@ ${JSON.stringify(summaryData, null, 2)}
             const current = el.value.trim();
             if (!current) {
                 el.value = text;
-            } else if (!current.includes(text)) {
+            } else if (!current.includes(text.trim())) {
                 el.value = current + ' ' + text;
             }
             el.focus();
@@ -8655,11 +8638,12 @@ ${JSON.stringify(summaryData, null, 2)}
             const comment = (document.getElementById('peerReviewCommentInput')?.value || '').trim();
             const pr = classData[currentRole].peerReview;
             
-            const hasTags = pr && pr.sparkTags && pr.sparkTags.length > 0;
+            const tagCount = (pr && Array.isArray(pr.sparkTags)) ? pr.sparkTags.length : 0;
+            const hasTags = tagCount >= 1 && tagCount <= 3;
             const hasComment = comment.length >= 5;
 
             if (!hasTags) {
-                alert("✨ 請先點選至少 1 個思維亮點標記！\nPlease select at least 1 thinking spark tag before submitting!");
+                alert("✨ 請點選 1 至 3 個思維亮點標記！\nPlease select between 1 and 3 thinking spark tags before submitting!");
                 return;
             }
 

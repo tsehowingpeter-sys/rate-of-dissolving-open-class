@@ -3564,9 +3564,158 @@ ${JSON.stringify(summaryData, null, 2)}
                     if (!data[key].hotqResponse || typeof data[key].hotqResponse !== 'object') {
                         data[key].hotqResponse = fresh[key].hotqResponse;
                     }
+                    if (typeof data[key].updatedAt !== 'number') {
+                        data[key].updatedAt = Date.now();
+                    }
                 }
             }
+            if (data._activeBroadcastHotq) fresh._activeBroadcastHotq = data._activeBroadcastHotq;
+            if (data._classHotqAiSynthesis) fresh._classHotqAiSynthesis = data._classHotqAiSynthesis;
             return data;
+        }
+
+        // ================= SMART NON-DESTRUCTIVE MULTI-DEVICE DATA MERGE ENGINE =================
+        function mergeClassData(localData, incomingData, meta = {}) {
+            localData = ensureClassDataStructure(localData);
+            if (!incomingData || typeof incomingData !== 'object') return localData;
+
+            const senderRole = meta.senderRole || '';
+            const isSenderStudentGroup = typeof senderRole === 'string' && senderRole.startsWith('Group ');
+
+            for (let i = 1; i <= 8; i++) {
+                const gKey = `Group ${i}`;
+                const localG = localData[gKey] || {};
+                const incomingG = incomingData[gKey];
+
+                if (!incomingG || typeof incomingG !== 'object') continue;
+
+                // Group Isolation Rule:
+                // A student group device is only authoritative over its OWN group!
+                // It must NEVER overwrite data of other groups.
+                if (isSenderStudentGroup && senderRole !== gKey) {
+                    continue;
+                }
+
+                // Teacher Explicit Clear Action
+                if (incomingG.clearedAt && incomingG.clearedAt > (localG.dataUpdatedAt || 0)) {
+                    localG.data = null;
+                    localG.chatLogs = [];
+                    localG.stage = 0;
+                    localG.clearedAt = incomingG.clearedAt;
+                    localG.updatedAt = incomingG.clearedAt;
+                    localG.dataUpdatedAt = 0;
+                    continue;
+                }
+
+                // 1. Experimental Timings ({ 50, 100, 150, 200 })
+                const hasIncomingData = !!(incomingG.data && typeof incomingG.data[50] === 'number');
+                const hasLocalData = !!(localG.data && typeof localG.data[50] === 'number');
+
+                if (hasIncomingData) {
+                    const incomingDataTime = incomingG.dataUpdatedAt || incomingG.updatedAt || meta.timestamp || 0;
+                    const localDataTime = localG.dataUpdatedAt || localG.updatedAt || 0;
+                    if (!hasLocalData || senderRole === gKey || incomingDataTime >= localDataTime) {
+                        localG.data = { ...incomingG.data };
+                        localG.dataUpdatedAt = incomingDataTime;
+                    }
+                }
+                // Null Shield: If incoming data is empty/null, NEVER wipe valid local data!
+
+                // 2. Socratic Chat Logs
+                const incomingChat = Array.isArray(incomingG.chatLogs) ? incomingG.chatLogs : [];
+                const localChat = Array.isArray(localG.chatLogs) ? localG.chatLogs : [];
+                if (incomingChat.length > 0) {
+                    if (localChat.length === 0 || senderRole === gKey || incomingChat.length >= localChat.length) {
+                        localG.chatLogs = [...incomingChat];
+                    }
+                }
+
+                // 3. Stage & Scientific Summaries
+                if (typeof incomingG.stage === 'number') {
+                    if (senderRole === gKey || senderRole === 'Teacher' || incomingG.stage >= (localG.stage || 0)) {
+                        localG.stage = incomingG.stage;
+                        if (incomingG.summaryEn) localG.summaryEn = incomingG.summaryEn;
+                        if (incomingG.summaryZh) localG.summaryZh = incomingG.summaryZh;
+                        if (incomingG.strengthZh) localG.strengthZh = incomingG.strengthZh;
+                        if (incomingG.growthZh) localG.growthZh = incomingG.growthZh;
+                        if (incomingG.focusTag) localG.focusTag = incomingG.focusTag;
+                        if (incomingG.latestAnswer) localG.latestAnswer = incomingG.latestAnswer;
+                        if (incomingG.stage1Option) localG.stage1Option = incomingG.stage1Option;
+                        if (incomingG.stage2Option) localG.stage2Option = incomingG.stage2Option;
+                        if (incomingG.stage3Option) localG.stage3Option = incomingG.stage3Option;
+                    }
+                }
+
+                // 4. Peer Review
+                if (incomingG.peerReview && typeof incomingG.peerReview === 'object') {
+                    if (!localG.peerReview) localG.peerReview = {};
+                    const inPr = incomingG.peerReview;
+                    const locPr = localG.peerReview;
+                    if (inPr.targetGroup) locPr.targetGroup = inPr.targetGroup;
+                    if (inPr.assignedReviewer) locPr.assignedReviewer = inPr.assignedReviewer;
+                    if (inPr.teacherDebrief) locPr.teacherDebrief = inPr.teacherDebrief;
+                    if (inPr.submitted) {
+                        if (!locPr.submitted || (inPr.submittedAt || 0) >= (locPr.submittedAt || 0)) {
+                            locPr.submitted = true;
+                            locPr.submittedAt = inPr.submittedAt || Date.now();
+                            locPr.sparkTags = Array.isArray(inPr.sparkTags) ? [...inPr.sparkTags] : [];
+                            locPr.comment = inPr.comment || locPr.comment;
+                        }
+                    }
+                }
+
+                // 5. Step 6 HOTQ Response
+                if (incomingG.hotqResponse && typeof incomingG.hotqResponse === 'object') {
+                    const inHotq = incomingG.hotqResponse;
+                    const locHotq = localG.hotqResponse || {};
+                    if (inHotq.submitted) {
+                        if (!locHotq.submitted || (inHotq.timestamp || 0) >= (locHotq.timestamp || 0)) {
+                            localG.hotqResponse = { ...inHotq };
+                        }
+                    }
+                }
+
+                // 6. Step 7 Reflection
+                if (incomingG.reflection && typeof incomingG.reflection === 'object') {
+                    const inRef = incomingG.reflection;
+                    const locRef = localG.reflection || {};
+                    const inHasText = !!((inRef.stillWonder || inRef.nowIThink || '').trim());
+                    const locHasText = !!((locRef.stillWonder || locRef.nowIThink || '').trim());
+                    if (inHasText) {
+                        if (!locHasText || (inRef.timestamp || 0) >= (locRef.timestamp || 0)) {
+                            localG.reflection = { ...inRef };
+                        }
+                    }
+                }
+
+                // 7. Teacher Bypasses
+                if (incomingG.forceUnlockedSteps && typeof incomingG.forceUnlockedSteps === 'object') {
+                    if (!localG.forceUnlockedSteps) localG.forceUnlockedSteps = { 1: true };
+                    Object.keys(incomingG.forceUnlockedSteps).forEach(k => {
+                        if (incomingG.forceUnlockedSteps[k]) localG.forceUnlockedSteps[k] = true;
+                    });
+                }
+                if (typeof incomingG.unlockedUpToStep === 'number') {
+                    localG.unlockedUpToStep = Math.max(localG.unlockedUpToStep || 1, incomingG.unlockedUpToStep);
+                }
+
+                // Keep newest timestamp
+                localG.updatedAt = Math.max(localG.updatedAt || 0, incomingG.updatedAt || meta.timestamp || Date.now());
+            }
+
+            // Global State Merge
+            if (incomingData._activeBroadcastHotq) {
+                if (!localData._activeBroadcastHotq || (incomingData._activeBroadcastHotq.timestamp || 0) >= (localData._activeBroadcastHotq.timestamp || 0)) {
+                    localData._activeBroadcastHotq = incomingData._activeBroadcastHotq;
+                }
+            }
+            if (incomingData._classHotqAiSynthesis) {
+                if (!localData._classHotqAiSynthesis || (incomingData._classHotqAiSynthesis.timestamp || 0) >= (localData._classHotqAiSynthesis.timestamp || 0)) {
+                    localData._classHotqAiSynthesis = incomingData._classHotqAiSynthesis;
+                }
+            }
+
+            return localData;
         }
 
         // Main Data Store for 8 Groups (Initialized with full structure immediately)
@@ -4393,13 +4542,13 @@ ${JSON.stringify(summaryData, null, 2)}
             if (raw) {
                 try {
                     const parsed = JSON.parse(raw);
-                    classData = ensureClassDataStructure(parsed);
+                    classData = mergeClassData(classData, parsed);
                 } catch(e) {
                     console.warn("Storage parse error, resetting...", e);
-                    classData = initClassDataStructure();
+                    classData = ensureClassDataStructure(classData);
                 }
             } else {
-                classData = initClassDataStructure();
+                classData = ensureClassDataStructure(classData);
             }
         }
 
@@ -4408,6 +4557,47 @@ ${JSON.stringify(summaryData, null, 2)}
         }
 
         // ================= MQTT CLOUD SYNC & LOCAL BROADCAST =================
+        function requestClassSync() {
+            try {
+                localBroadcastChannel.postMessage({
+                    type: 'REQUEST_SYNC_DATA',
+                    class: currentClass,
+                    requesterRole: currentRole,
+                    timestamp: Date.now()
+                });
+            } catch (e) {}
+            if (mqttClient && isMqttConnected) {
+                try {
+                    const topic = `openclass_v4/${currentClass.replace(/\s+/g, '_')}/sync`;
+                    mqttClient.publish(topic, JSON.stringify({
+                        type: 'REQUEST_SYNC_DATA',
+                        class: currentClass,
+                        requesterRole: currentRole,
+                        timestamp: Date.now()
+                    }), { qos: 0 });
+                } catch (e) {}
+            }
+        }
+
+        function handleIncomingSyncRequest(parsed) {
+            if (!parsed || parsed.class !== currentClass) return;
+            // Teacher is the ultimate authority and responds immediately with full aggregated data
+            if (currentRole === 'Teacher' || currentRole === 'Admin') {
+                broadcastSync({ isResponseToRequest: true });
+                return;
+            }
+            // Student group: only respond if our group has actual submitted data,
+            // with a staggered jitter delay to prevent packet storm
+            const myGroupData = classData[currentRole]?.data;
+            if (myGroupData && typeof myGroupData[50] === 'number') {
+                const groupNum = parseInt(currentRole.replace('Group ', '')) || 1;
+                const jitter = 100 + groupNum * 80 + Math.floor(Math.random() * 100);
+                setTimeout(() => {
+                    broadcastSync({ isResponseToRequest: true, groupUpdated: currentRole });
+                }, jitter);
+            }
+        }
+
         function initRealtimeSync() {
             localBroadcastChannel.onmessage = (event) => {
                 if (event.data) {
@@ -4419,9 +4609,13 @@ ${JSON.stringify(summaryData, null, 2)}
                         updateAiConfigFormUI();
                         updateAiStatusUI();
                     } else if (event.data.class === currentClass && event.data.type === 'REQUEST_SYNC_DATA') {
-                        broadcastSync();
+                        handleIncomingSyncRequest(event.data);
                     } else if (event.data.class === currentClass && event.data.type === 'SYNC_DATA') {
-                        classData = ensureClassDataStructure(event.data.payload);
+                        classData = mergeClassData(classData, event.data.payload, {
+                            senderRole: event.data.senderRole || '',
+                            groupUpdated: event.data.groupUpdated || null,
+                            timestamp: event.data.timestamp || Date.now()
+                        });
                         saveToStorage();
                         updateAllUI();
                         renderStudentChatHistory();
@@ -4449,6 +4643,9 @@ ${JSON.stringify(summaryData, null, 2)}
                     const aiTopic = `openclass_v4/${currentClass.replace(/\s+/g, '_')}/ai_settings`;
                     mqttClient.subscribe(syncTopic, { qos: 0 });
                     mqttClient.subscribe(aiTopic, { qos: 0 });
+
+                    // On-Connect Catch-up: Request latest data from online Teacher or peers!
+                    requestClassSync();
                 });
 
                 mqttClient.on('message', (topic, message) => {
@@ -4467,9 +4664,13 @@ ${JSON.stringify(summaryData, null, 2)}
                             updateAiConfigFormUI();
                             updateAiStatusUI();
                         } else if (parsed && parsed.type === 'REQUEST_SYNC_DATA' && parsed.class === currentClass) {
-                            broadcastSync();
+                            handleIncomingSyncRequest(parsed);
                         } else if (parsed && parsed.payload) {
-                            classData = ensureClassDataStructure(parsed.payload);
+                            classData = mergeClassData(classData, parsed.payload, {
+                                senderRole: parsed.senderRole || '',
+                                groupUpdated: parsed.groupUpdated || null,
+                                timestamp: parsed.timestamp || Date.now()
+                            });
                             saveToStorage();
                             updateAllUI();
                             renderStudentChatHistory();
@@ -4510,20 +4711,30 @@ ${JSON.stringify(summaryData, null, 2)}
             }
         }
 
-        function broadcastSync() {
+        function broadcastSync(options = {}) {
             saveToStorage();
-            localBroadcastChannel.postMessage({
+            const now = Date.now();
+            if (classData && classData[currentRole]) {
+                classData[currentRole].updatedAt = now;
+            }
+            const isStudentGroup = typeof currentRole === 'string' && currentRole.startsWith('Group ');
+            const payloadToSend = {
                 class: currentClass,
                 type: 'SYNC_DATA',
-                payload: classData
-            });
+                senderRole: currentRole,
+                groupUpdated: isStudentGroup ? currentRole : null,
+                payload: classData,
+                timestamp: now,
+                ...options
+            };
+            try {
+                localBroadcastChannel.postMessage(payloadToSend);
+            } catch (e) {}
             if (mqttClient && isMqttConnected) {
-                const topic = `openclass_v4/${currentClass.replace(/\s+/g, '_')}/sync`;
-                mqttClient.publish(topic, JSON.stringify({
-                    class: currentClass,
-                    payload: classData,
-                    timestamp: Date.now()
-                }), { qos: 0 });
+                try {
+                    const topic = `openclass_v4/${currentClass.replace(/\s+/g, '_')}/sync`;
+                    mqttClient.publish(topic, JSON.stringify(payloadToSend), { qos: 0 });
+                } catch (e) {}
             }
         }
 
@@ -5072,7 +5283,10 @@ ${JSON.stringify(summaryData, null, 2)}
             }
 
             // Save group data
+            const nowTime = Date.now();
             classData[currentRole].data = { 50: t50, 100: t100, 150: t150, 200: t200 };
+            classData[currentRole].dataUpdatedAt = nowTime;
+            classData[currentRole].updatedAt = nowTime;
             
             const wasStage0 = (classData[currentRole].stage === 0);
 
@@ -5118,21 +5332,27 @@ ${JSON.stringify(summaryData, null, 2)}
 
             showSubmitFeedback('success', `✓ ${currentRole} timings submitted successfully! Line graph updated.`);
 
-            broadcastSync();
+            broadcastSync({ groupUpdated: currentRole, senderRole: currentRole });
             updateAllUI();
             renderStudentChatHistory();
         }
 
         function appendAIBubble(en, zh) {
             if (!classData[currentRole]) classData = ensureClassDataStructure(classData);
+            const now = Date.now();
             classData[currentRole].chatLogs.push({ sender: 'ai', en: en, zh: zh });
+            classData[currentRole].chatUpdatedAt = now;
+            classData[currentRole].updatedAt = now;
             renderStudentChatHistory();
         }
 
         function appendUserBubble(en, zh) {
             if (!classData[currentRole]) classData = ensureClassDataStructure(classData);
+            const now = Date.now();
             classData[currentRole].chatLogs.push({ sender: 'user', en: en, zh: zh });
             classData[currentRole].latestAnswer = en;
+            classData[currentRole].chatUpdatedAt = now;
+            classData[currentRole].updatedAt = now;
             renderStudentChatHistory();
         }
 
@@ -5695,7 +5915,7 @@ ${JSON.stringify(summaryData, null, 2)}
             }
 
             saveToStorage();
-            broadcastSync();
+            broadcastSync({ groupUpdated: currentRole, senderRole: currentRole });
             updateAllUI();
             updateTaskGatingUI();
             renderSummaryCardContent();
@@ -6176,7 +6396,10 @@ ${JSON.stringify(summaryData, null, 2)}
                         j50 = 160; j100 = 110; j150 = 90; j200 = 120;
                     }
 
+                    const nowTime = Date.now();
                     classData[gKey].data = { 50: j50, 100: j100, 150: j150, 200: j200 };
+                    classData[gKey].dataUpdatedAt = nowTime;
+                    classData[gKey].updatedAt = nowTime;
                     classData[gKey].stage = 4;
                     
                     const profile = sampleProfiles[(i - 1) % sampleProfiles.length];
@@ -6203,7 +6426,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             }
 
-            broadcastSync();
+            broadcastSync({ senderRole: 'Teacher' });
             updateAllUI();
             alert(`✅ 非破壞性 Auto-fill 完成！已保留所有已提交組別數據，共為 ${filledCount} 個未填寫小組填補合理的模擬數據。`);
         }
@@ -6218,8 +6441,12 @@ ${JSON.stringify(summaryData, null, 2)}
             if (!targetGroup) return;
             if (confirm(`⚠️ 確定要單獨清空「${targetGroup}」的所有數據（實驗秒數、對話記錄與反思卡）嗎？\n此操作不會影響其他小組。`)) {
                 if (!classData) classData = initClassDataStructure();
+                const nowTime = Date.now();
                 classData[targetGroup] = {
                     data: null,
+                    dataUpdatedAt: 0,
+                    clearedAt: nowTime,
+                    updatedAt: nowTime,
                     chatLogs: [],
                     stage: 0,
                     summaryEn: "Awaiting experiment data submission...",
@@ -6229,9 +6456,25 @@ ${JSON.stringify(summaryData, null, 2)}
                     strengthZh: "準備開始探究，已準備好各水量數據測量",
                     growthEn: "Pending evaluation",
                     growthZh: "待評估，建議引導觀察水量與溶解秒數之變化",
-                    focusTag: "Stirring Speed"
+                    focusTag: "Stirring Speed",
+                    peerReview: {
+                        targetGroup: `Group ${(parseInt(targetGroup.replace('Group ', '')) % 8) + 1}`,
+                        assignedReviewer: `Group ${parseInt(targetGroup.replace('Group ', '')) === 1 ? 8 : parseInt(targetGroup.replace('Group ', '')) - 1}`,
+                        sparkTags: [],
+                        comment: "",
+                        teacherDebrief: "",
+                        submitted: false
+                    },
+                    hotqResponse: {
+                        hotqId: "priority_1",
+                        titleEn: "",
+                        titleZh: "",
+                        answer: "",
+                        submitted: false,
+                        timestamp: 0
+                    }
                 };
-                broadcastSync();
+                broadcastSync({ senderRole: 'Teacher', groupUpdated: targetGroup });
                 updateAllUI();
                 updateTaskGatingUI();
                 if (currentRole === targetGroup) {
@@ -6244,8 +6487,14 @@ ${JSON.stringify(summaryData, null, 2)}
 
         function clearCurrentClassData() {
             if (confirm(`⚠️ 確定要清空當前「${currentClass}」的所有組別數據嗎？此操作無法撤銷。`)) {
-                classData = initClassDataStructure();
-                broadcastSync();
+                const fresh = initClassDataStructure();
+                const nowTime = Date.now();
+                for (let i = 1; i <= 8; i++) {
+                    fresh[`Group ${i}`].clearedAt = nowTime;
+                    fresh[`Group ${i}`].updatedAt = nowTime;
+                }
+                classData = fresh;
+                broadcastSync({ senderRole: 'Teacher', isFullReset: true });
                 updateAllUI();
                 renderStudentChatHistory();
                 alert(`🧹 已清空「${currentClass}」的數據。`);
@@ -8552,27 +8801,12 @@ ${JSON.stringify(summaryData, null, 2)}
                 const raw = localStorage.getItem(getStorageKey());
                 if (raw) {
                     const parsed = JSON.parse(raw);
-                    classData = ensureClassDataStructure(parsed);
+                    classData = mergeClassData(classData, parsed);
                 }
             } catch (e) {}
 
             // 2. Request active sync from other tabs/devices via BroadcastChannel & MQTT
-            try {
-                localBroadcastChannel.postMessage({
-                    type: 'REQUEST_SYNC_DATA',
-                    class: currentClass
-                });
-            } catch (e) {}
-            if (mqttClient && isMqttConnected) {
-                try {
-                    const topic = `openclass_v4/${currentClass.replace(/\s+/g, '_')}/sync`;
-                    mqttClient.publish(topic, JSON.stringify({
-                        type: 'REQUEST_SYNC_DATA',
-                        class: currentClass,
-                        timestamp: Date.now()
-                    }), { qos: 0 });
-                } catch (e) {}
-            }
+            requestClassSync();
 
             // 3. Re-render Peer Review UI and show visual confirmation toast
             renderStudentPeerReviewUI();
@@ -8656,8 +8890,9 @@ ${JSON.stringify(summaryData, null, 2)}
             pr.comment = comment;
             pr.submitted = true;
             pr.submittedAt = Date.now();
+            classData[currentRole].updatedAt = Date.now();
 
-            broadcastSync();
+            broadcastSync({ groupUpdated: currentRole, senderRole: currentRole });
             updateAllUI();
             renderStudentPeerReviewUI();
             renderPeerReviewMatrixGrid();
@@ -9468,8 +9703,9 @@ ${JSON.stringify(summaryData, null, 2)}
                 timestamp: Date.now()
             };
 
+            classData[currentRole].updatedAt = Date.now();
             saveToStorage();
-            broadcastSync();
+            broadcastSync({ groupUpdated: currentRole, senderRole: currentRole });
             updateAllUI();
             renderStudentHotqStepUI();
             if (typeof renderTeacherHotqAnswerWall === 'function') renderTeacherHotqAnswerWall();

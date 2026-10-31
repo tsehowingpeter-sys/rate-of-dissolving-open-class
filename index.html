@@ -121,14 +121,22 @@
                     <i data-lucide="users" class="w-3.5 h-3.5 text-sky-200"></i>
                     <span class="text-[11px] font-semibold text-sky-100 whitespace-nowrap">Group / 組別:</span>
                     <select id="groupSelect" onchange="handleRoleSelectChange()" class="bg-white text-slate-800 text-xs font-bold px-2.5 py-1 rounded-lg focus:outline-none shadow cursor-pointer">
-                        <option value="Group 1">Group 1 (第1組)</option>
-                        <option value="Group 2">Group 2 (第2組)</option>
-                        <option value="Group 3">Group 3 (第3組)</option>
-                        <option value="Group 4">Group 4 (第4組)</option>
-                        <option value="Group 5">Group 5 (第5組)</option>
-                        <option value="Group 6">Group 6 (第6組)</option>
-                        <option value="Group 7">Group 7 (第7組)</option>
-                        <option value="Group 8">Group 8 (第8組)</option>
+                        <option value="Group 1A">Group 1A (Table 1 - Pair A)</option>
+                        <option value="Group 1B">Group 1B (Table 1 - Pair B)</option>
+                        <option value="Group 2A">Group 2A (Table 2 - Pair A)</option>
+                        <option value="Group 2B">Group 2B (Table 2 - Pair B)</option>
+                        <option value="Group 3A">Group 3A (Table 3 - Pair A)</option>
+                        <option value="Group 3B">Group 3B (Table 3 - Pair B)</option>
+                        <option value="Group 4A">Group 4A (Table 4 - Pair A)</option>
+                        <option value="Group 4B">Group 4B (Table 4 - Pair B)</option>
+                        <option value="Group 5A">Group 5A (Table 5 - Pair A)</option>
+                        <option value="Group 5B">Group 5B (Table 5 - Pair B)</option>
+                        <option value="Group 6A">Group 6A (Table 6 - Pair A)</option>
+                        <option value="Group 6B">Group 6B (Table 6 - Pair B)</option>
+                        <option value="Group 7A">Group 7A (Table 7 - Pair A)</option>
+                        <option value="Group 7B">Group 7B (Table 7 - Pair B)</option>
+                        <option value="Group 8A">Group 8A (Table 8 - Pair A)</option>
+                        <option value="Group 8B">Group 8B (Table 8 - Pair B)</option>
                         <option value="Teacher" class="font-bold text-amber-700 bg-amber-50">🔒 Teacher Mode (教師指揮中心)</option>
                         <option value="Admin" class="font-bold text-purple-700 bg-purple-50">🛠️ Admin Mode (AI 系統管理後台)</option>
                     </select>
@@ -1042,21 +1050,21 @@
                     <div>
                         <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
                             <i data-lucide="users" class="w-5 h-5 text-indigo-600"></i>
-                            <span>8 Groups Live Socratic Dialogue & Evidence Monitoring / 8組實時對話與學情監控</span>
+                            <span>8 Groups Live Socratic Dialogue & Evidence Monitoring</span>
                         </h3>
                         <p class="text-xs text-slate-500 mt-0.5">
-                            Click any group card to inspect their complete Agent Water chat logs, highlighted evidence, strengths, and teacher follow-up prompts. / 點擊任意小組卡片以深入查看其與水精靈的實時對話、思維強弱項證據與教師點撥建議。
+                            Click any group card to inspect their complete Agent Water chat logs, highlighted evidence, strengths, and teacher follow-up prompts.
                         </p>
                     </div>
                     <div class="flex items-center gap-2 flex-wrap">
-                        <button type="button" onclick="triggerGlobalClassSyncRefresh(this, 'teacherGridRefreshToast')" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 active:scale-95 text-indigo-800 font-bold text-[11px] border border-indigo-200 transition flex items-center gap-1 shadow-2xs" title="Click to fetch latest dialogue & data / 點擊即時刷新對話與學情">
+                        <button type="button" onclick="triggerGlobalClassSyncRefresh(this, 'teacherGridRefreshToast')" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 active:scale-95 text-indigo-800 font-bold text-[11px] border border-indigo-200 transition flex items-center gap-1 shadow-2xs" title="Click to fetch latest dialogue & data">
                             <i data-lucide="refresh-cw" class="w-3 h-3"></i>
-                            <span>Refresh / 即時更新</span>
+                            <span>Refresh</span>
                         </button>
                         <span id="teacherGridRefreshToast" class="hidden text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 animate-fade-in">✓ Updated</span>
                         <span class="text-xs text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full font-bold flex items-center gap-1.5">
                             <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-600"></i>
-                            <span>AI Evidence Diagnostics Active / AI 學情診斷連動中</span>
+                            <span>AI Evidence Diagnostics Active</span>
                         </span>
                     </div>
                 </div>
@@ -1076,10 +1084,10 @@
                         </div>
                         <div>
                             <h3 class="text-base sm:text-lg md:text-xl font-bold text-slate-900 font-fun tracking-tight">
-                                Real-time SRL Discussion Questions / 依據全班數據即時生成之大組討論議題
+                                Real-time SRL Discussion Questions
                             </h3>
                             <p class="text-xs sm:text-sm text-slate-600 mt-0.5">
-                                Facilitation questions automatically synthesized based on live group timings and student chat logs. / 依據實時數據、異常對比與學生真實對話記錄生成之課堂提問。
+                                Facilitation questions automatically synthesized based on live group timings and student chat logs.
                             </p>
                         </div>
                     </div>
@@ -1088,10 +1096,10 @@
                         <button onclick="refreshWholeClassDiscussionPrompts()" id="refreshPromptsBtn"
                             class="bg-amber-600 hover:bg-amber-700 active:scale-95 text-white font-bold px-4 py-2 rounded-xl text-xs sm:text-sm shadow-md transition flex items-center gap-2">
                             <i data-lucide="refresh-cw" class="w-4 h-4"></i>
-                            <span id="refreshPromptsBtnText">依最新對話刷新 (Refresh HOTQs)</span>
+                            <span id="refreshPromptsBtnText">Refresh Questions (HOTQs)</span>
                         </button>
                         <span class="text-[11px] font-semibold text-amber-900 bg-amber-100/90 border border-amber-300 px-3 py-0.5 rounded-full shadow-xs">
-                            Pedagogical Facilitation / 教學引導
+                            Pedagogical Facilitation
                         </span>
                     </div>
                 </div>
@@ -1100,27 +1108,27 @@
                 <div class="flex items-center gap-2 overflow-x-auto pb-1 pt-1 text-xs no-scrollbar">
                     <button type="button" onclick="filterDiscussionPrompts('all')" id="hotsFilterBtn-all"
                         class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-amber-600 text-white shadow-sm border border-amber-600">
-                        <span>🌟 全部議題 (All HOTQs)</span>
+                        <span>🌟 All HOTQs</span>
                     </button>
                     <button type="button" onclick="filterDiscussionPrompts('kinetics')" id="hotsFilterBtn-kinetics"
                         class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50">
-                        <span>🔬 微觀動力 (Kinetics)</span>
+                        <span>🔬 Kinetics</span>
                     </button>
                     <button type="button" onclick="filterDiscussionPrompts('reliability')" id="hotsFilterBtn-reliability"
                         class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50">
-                        <span>⚖️ 數據與信度 (Reliability)</span>
+                        <span>⚖️ Reliability</span>
                     </button>
                     <button type="button" onclick="filterDiscussionPrompts('discrepancies')" id="hotsFilterBtn-discrepancies"
                         class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50">
-                        <span>🔍 異常排查 (Discrepancies)</span>
+                        <span>🔍 Discrepancies</span>
                     </button>
                     <button type="button" onclick="filterDiscussionPrompts('concepts')" id="hotsFilterBtn-concepts"
                         class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50">
-                        <span>🗣️ 概念辨析 (Concepts)</span>
+                        <span>🗣️ Concepts</span>
                     </button>
                     <button type="button" onclick="filterDiscussionPrompts('stem')" id="hotsFilterBtn-stem"
                         class="hots-filter-pill px-3.5 py-1.5 rounded-full font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50/50">
-                        <span>🛠️ STEM 工程 (STEM)</span>
+                        <span>🛠️ STEM Sensors</span>
                     </button>
                 </div>
 
@@ -1139,10 +1147,10 @@
                             <div>
                                 <div class="flex items-center gap-2 flex-wrap">
                                     <h4 class="text-sm sm:text-base font-bold text-slate-900 font-fun">
-                                        8組 HOTQ 實時作答對比牆與 AI 跨組分析 (Live 8-Group HOTQ Answer Wall & AI Comparison)
+                                        Live Group HOTQ Answer Wall & AI Comparison
                                     </h4>
                                     <span id="teacherHotqSubmittedCountBadge" class="text-[11px] font-extrabold px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-900 border border-orange-300">
-                                        0 / 8 Groups Answered
+                                        0 / 16 Pairs Answered
                                     </span>
                                 </div>
                                 <p class="text-xs text-slate-500 mt-0.5">
@@ -1247,228 +1255,7 @@
 
                 
 
-            <!-- NEW COMPONENT: Teacher Photo Capture of Student Answer & Instant AI Pedagogical Generation -->
-                <div class="bg-white/95 rounded-2xl p-5 border-2 border-dashed border-amber-300 shadow-sm space-y-4">
-                    <div class="flex items-center justify-between flex-wrap gap-2">
-                        <div class="flex items-center gap-2.5">
-                            <div class="p-2 bg-gradient-to-br from-amber-500 to-orange-500 text-white rounded-xl shadow">
-                                <i data-lucide="camera" class="w-5 h-5"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-sm font-bold text-slate-800 font-fun flex items-center gap-1.5">
-                                    <span>📸 學生作答即時拍攝與 AI 啟發性提問生成</span>
-                                    <span class="text-[10px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded-md font-bold">Live AI Pedagogical Generator</span>
-                                </h4>
-                                <p class="text-xs text-slate-500">
-                                    拍下學生工作紙手寫答案或板書，AI 即刻深入診斷其科學概念，並生成全班延伸追問提問！
-                                </p>
-                            </div>
-                        </div>
-                        <span class="text-[11px] text-amber-800 font-semibold bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
-                            Teacher AI Scaffolding Assistant
-                        </span>
-                    </div>
 
-                    <!-- HOTQ Selection Bar: Specify which Real-time SRL Discussion Question this photo answers -->
-                    <div class="bg-amber-50/80 border border-amber-200 rounded-2xl p-3.5 space-y-2.5 shadow-2xs">
-                        <div class="flex items-center justify-between flex-wrap gap-2">
-                            <div class="flex items-center gap-2">
-                                <span class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-black">🎯</span>
-                                <span class="text-xs font-bold text-amber-950">
-                                    選擇此作答針對之大組討論議題 (Select Target HOTQ Question):
-                                </span>
-                            </div>
-                            <span id="currentSelectedHotqBadge" class="text-[10px] font-bold text-amber-900 bg-amber-200/90 px-2.5 py-0.5 rounded-full border border-amber-300">
-                                針對：HOTQ 1 (微觀動力學)
-                            </span>
-                        </div>
-                        <p class="text-[11px] text-amber-900/80 leading-relaxed">
-                            💡 請點選本張學生答案/板書正在回答哪一個議題，AI 將鎖定該議題的核心概念進行深度診斷，並生成全班延伸追問：
-                        </p>
-                        <div class="flex items-center gap-2 flex-wrap" id="hotqTargetButtonGroup">
-                            <button type="button" onclick="selectTargetHotq('hotq1', 'HOTQ 1: 微觀動力學與水分子碰撞 (Microscopic Kinetics & Collisions)')" id="hotqBtn-hotq1" class="hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-amber-600 text-white shadow-sm border border-amber-600">
-                                <span>🔬 HOTQ 1: 微觀動力學 (Kinetics)</span>
-                            </button>
-                            <button type="button" onclick="selectTargetHotq('hotq2', 'HOTQ 2: 隨機誤差與全班平均信度 (Random Error & Reliability / Averaging)')" id="hotqBtn-hotq2" class="hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
-                                <span>⚖️ HOTQ 2: 隨機誤差與平均 (Reliability)</span>
-                            </button>
-                            <button type="button" onclick="selectTargetHotq('hotq3', 'HOTQ 3: 極限情境與概念轉變 (Limit Thinking & Conceptual Shift: Dissolve vs Melt)')" id="hotqBtn-hotq3" class="hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
-                                <span>🌊 HOTQ 3: 極限思維與概念 (Limit & Concept)</span>
-                            </button>
-                            <button type="button" onclick="selectTargetHotq('hotq_stem', 'HOTQ 4: STEM 傳感器與工程改進 (STEM Sensors & Automation Engineering)')" id="hotqBtn-hotq_stem" class="hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
-                                <span>🛠️ STEM 工程改進 (STEM Sensors)</span>
-                            </button>
-                            <button type="button" onclick="selectTargetHotq('general', '全體科學探究通用反思 (General Scientific Inquiry & Fair Test)')" id="hotqBtn-general" class="hotq-target-btn px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-amber-400 hover:bg-amber-50">
-                                <span>🌐 通用探究 (General Inquiry)</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Input Controls: Photo Camera / Upload + Text Fallback -->
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
-                        
-                        <!-- Photo Upload & Camera Area (5 Cols) -->
-                        <div class="md:col-span-5 space-y-2">
-                            <input type="file" id="studentAnswerPhotoInput" accept="image/*, .jpg, .jpeg, .png, .webp, .pdf, .heic, .heif" capture="environment" class="hidden" onchange="handleAnswerPhotoSelected(event)">
-                            
-                            <div id="photoDropArea" onclick="document.getElementById('studentAnswerPhotoInput').click()" class="border-2 border-dashed border-slate-300 hover:border-amber-400 bg-slate-50 hover:bg-amber-50/50 rounded-2xl p-4 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[135px] group select-none">
-                                <div id="photoPlaceholder" class="space-y-1.5 flex flex-col items-center">
-                                    <div class="w-10 h-10 rounded-full bg-amber-100 group-hover:bg-amber-200 text-amber-700 flex items-center justify-center transition">
-                                        <i data-lucide="camera" class="w-5 h-5"></i>
-                                    </div>
-                                    <p class="text-xs font-bold text-slate-700">
-                                        拖曳相片至此 / 點擊拍照上傳 (Drag & Drop or Take Photo)
-                                    </p>
-                                    <p class="text-[10px] text-slate-400">
-                                        支援相機即拍即傳、拖曳檔案 (JPG, PNG, PDF, HEIC)，自動高精度 OCR 識字
-                                    </p>
-                                </div>
-                                
-                                <div id="photoPreviewContainer" class="hidden w-full flex flex-col items-center space-y-2">
-                                    <img id="photoPreviewImg" src="" alt="Student Answer" class="max-h-28 rounded-xl border border-amber-200 shadow-sm object-contain bg-white">
-                                    <div class="flex items-center gap-2 flex-wrap justify-center">
-                                        <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full">✓ 照片已加載</span>
-                                        <select id="ocrLanguageMode" onclick="event.stopPropagation();" onchange="reRunOcrOnCurrentPhoto();" class="text-[10px] bg-white border border-slate-300 rounded px-1.5 py-0.5 text-slate-700 font-medium cursor-pointer shadow-xs" title="OCR 識字語言模式">
-                                            <option value="eng" selected>🔤 英文/黑板手寫 (English Chalkboard)</option>
-                                            <option value="auto">🌐 自動增強 (Auto Enhance)</option>
-                                            <option value="chi_tra+eng">🀄 中英雙語 (Chi+Eng)</option>
-                                        </select>
-                                        <button type="button" onclick="event.stopPropagation(); reRunOcrOnCurrentPhoto();" class="text-[10px] text-sky-600 hover:text-sky-800 font-bold underline flex items-center gap-1">
-                                            <i data-lucide="scan-text" class="w-3 h-3"></i><span>重新辨識 (OCR)</span>
-                                        </button>
-                                        <button type="button" onclick="event.stopPropagation(); removeAnswerPhoto();" class="text-[10px] text-rose-600 hover:text-rose-800 font-bold underline">✕ 移除</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Live OCR Scanning Progress Bar -->
-                            <div id="ocrStatusBar" class="hidden w-full text-[11px] bg-sky-50 border border-sky-200 text-sky-800 p-2 rounded-xl flex items-center justify-between">
-                                <span id="ocrStatusText" class="flex items-center gap-1.5 font-medium">
-                                    <i data-lucide="scan-line" class="w-3.5 h-3.5 animate-spin text-sky-600"></i>
-                                    <span>AI 光學識字 (OCR) 辨識中...</span>
-                                </span>
-                                <span id="ocrProgressBadge" class="text-[10px] bg-sky-200 text-sky-900 px-1.5 py-0.5 rounded font-bold">0%</span>
-                            </div>
-                        </div>
-
-                        <!-- Text Input & Fast Presets (7 Cols) -->
-                        <div class="md:col-span-7 space-y-2">
-                            <label class="block text-xs font-bold text-slate-700 flex items-center justify-between flex-wrap gap-1">
-                                <span class="flex items-center gap-1.5">
-                                    <span>📝 學生作答內容 / 關鍵字補充：</span>
-                                    <span id="ocrDetectedTag" class="hidden text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">✓ OCR 手寫辨識已填入</span>
-                                </span>
-                                <span class="text-[10px] text-slate-400 font-normal">可直接輸入或微調照片辨識文字</span>
-                            </label>
-                            
-                            <textarea id="studentAnswerText" rows="3" class="w-full text-xs p-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-400 bg-slate-50/50 resize-none leading-relaxed" placeholder="Type or upload student answers... E.g., 'More water has more water molecules colliding with salt crystals, dissolving salt faster; but at 5000 cm³ it won't be 0s because dismantling salt lattice takes time.' / 例如：『水量增加時水分子變多，碰撞食鹽晶體頻率提高所以溶解加快；但加到5000cm³不會是0秒因為拆解晶格需要時間』"></textarea>
-                            
-                            <!-- Quick Preset Demo Chips for Open Class (Bilingual & Concise) -->
-                            <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
-                                <span class="text-[10px] font-bold text-slate-500">公開課快速範例 (Presets):</span>
-                                <button type="button" onclick="fillSampleStudentAnswer('microscopic')" class="text-[10px] bg-sky-50 hover:bg-sky-100 text-sky-800 font-medium px-2 py-0.5 rounded-lg border border-sky-200 transition">
-                                    🌟 A: Collisions & Limits / 分子碰撞與極限
-                                </button>
-                                <button type="button" onclick="fillSampleStudentAnswer('misconception')" class="text-[10px] bg-rose-50 hover:bg-rose-100 text-rose-800 font-medium px-2 py-0.5 rounded-lg border border-rose-200 transition">
-                                    ⚠️ B: Distance Error / 誤解路程變長
-                                </button>
-                                <button type="button" onclick="fillSampleStudentAnswer('human_error')" class="text-[10px] bg-amber-50 hover:bg-amber-100 text-amber-800 font-medium px-2 py-0.5 rounded-lg border border-amber-200 transition">
-                                    🥣 C: Stirring Fatigue / 攪拌手速不均
-                                </button>
-                                <button type="button" onclick="fillSampleStudentAnswer('timer_latency')" class="text-[10px] bg-purple-50 hover:bg-purple-100 text-purple-800 font-medium px-2 py-0.5 rounded-lg border border-purple-200 transition">
-                                    ⏱️ D: Stopwatch Delay / 碼錶反應延遲
-                                </button>
-                                <button type="button" onclick="fillSampleStudentAnswer('solubility_vs_rate')" class="text-[10px] bg-teal-50 hover:bg-teal-100 text-teal-800 font-medium px-2 py-0.5 rounded-lg border border-teal-200 transition">
-                                    🧂 E: Solubility vs Rate / 溶解度與速率混淆
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <!-- Action Button -->
-                    <div class="flex items-center justify-between pt-1 flex-wrap gap-2">
-                        <div class="text-[11px] text-slate-500 flex items-center gap-1">
-                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
-                            <span>AI 引擎將即時進行思維肯定、概念微觀診斷與全班啟發式追問構建</span>
-                        </div>
-                        <button id="btnGeneratePedagogy" onclick="generateStudentAnswerPedagogy()" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2">
-                            <i data-lucide="brain-circuit" class="w-4 h-4"></i>
-                            <span>✨ AI 即時生成啟發性提問 (Generate AI Pedagogy)</span>
-                        </button>
-                    </div>
-
-                    <!-- AI Pedagogical Output Container -->
-                    <div id="pedagogyResultContainer" class="hidden mt-4 p-4 rounded-2xl bg-gradient-to-br from-amber-50/90 via-orange-50/50 to-white border border-amber-300 shadow-sm space-y-4">
-                        
-                        <!-- Header with Actions -->
-                        <div class="flex items-center justify-between border-b border-amber-200/80 pb-3 flex-wrap gap-2">
-                            <div class="flex items-center gap-2">
-                                <span class="text-base">🎯</span>
-                                <h5 class="text-xs sm:text-sm font-extrabold text-amber-950 font-fun">
-                                    AI Student Response Concept Diagnosis & Pedagogical Guidance Report / AI 學生作答深度概念診斷與教學引導報告
-                                </h5>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <button onclick="openProjectorModal()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold text-xs rounded-lg shadow transition flex items-center gap-1.5">
-                                    <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
-                                    <span>Projector Mode / 全班大螢幕投影模式</span>
-                                </button>
-                                <button onclick="copyPedagogyPrompts()" class="px-3 py-1.5 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs rounded-lg border border-slate-200 transition flex items-center gap-1">
-                                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                    <span id="copyBtnText">Copy Prompts / 複製提問</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Target HOTQ Badge in Result -->
-                        <div class="flex items-center gap-2 flex-wrap bg-amber-100/70 p-2.5 rounded-xl border border-amber-300/80">
-                            <span class="text-[11px] font-bold text-amber-950 flex items-center gap-1.5">
-                                <span>🎯 針對之大組討論議題 (Targeted SRL HOTQ):</span>
-                            </span>
-                            <span id="pedagogyTargetHotqLabel" class="text-[11px] font-extrabold text-amber-900 bg-white px-2.5 py-0.5 rounded-lg border border-amber-300 shadow-2xs">
-                                HOTQ 1: 微觀動力學與水分子碰撞 (Microscopic Kinetics & Collisions)
-                            </span>
-                        </div>
-
-                        <!-- 3 Pedagogical Result Cards -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                            <!-- Card 1: Praise & Strengths -->
-                            <div class="p-3.5 bg-emerald-50 rounded-xl border border-emerald-200 space-y-1.5 shadow-sm">
-                                <div class="flex items-center gap-1.5 text-emerald-900 font-extrabold text-xs">
-                                    <span class="text-emerald-600">🌟</span>
-                                    <span>Praise & Strengths / 肯定思維亮點</span>
-                                </div>
-                                <div id="pedagogyPraise" class="text-slate-700 text-[11px] leading-relaxed">
-                                    --
-                                </div>
-                            </div>
-
-                            <!-- Card 2: Conceptual Diagnostic -->
-                            <div class="p-3.5 bg-rose-50/80 rounded-xl border border-rose-200 space-y-1.5 shadow-sm">
-                                <div class="flex items-center gap-1.5 text-rose-900 font-extrabold text-xs">
-                                    <span class="text-rose-600">🔍</span>
-                                    <span>Conceptual Diagnostic / 認知盲點與微觀診斷</span>
-                                </div>
-                                <div id="pedagogyDiagnostic" class="text-slate-700 text-[11px] leading-relaxed">
-                                    --
-                                </div>
-                            </div>
-
-                            <!-- Card 3: Inspiring Follow-up Prompts -->
-                            <div class="p-3.5 bg-amber-50 rounded-xl border border-amber-300 space-y-1.5 shadow-sm">
-                                <div class="flex items-center gap-1.5 text-amber-950 font-extrabold text-xs">
-                                    <span class="text-amber-600">💡</span>
-                                    <span>Inspiring Follow-up Prompts / 全班延伸啟發追問</span>
-                                </div>
-                                <div id="pedagogyPrompts" class="text-slate-800 text-[11px] leading-relaxed space-y-1">
-                                    --
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-</div>
 
             <!-- SECTION: Emergency Step Bypass & Force Unlock (Teacher Permission Control) -->
             <div class="bg-gradient-to-r from-slate-900 via-amber-950/40 to-slate-900 rounded-3xl p-6 shadow-xl border border-amber-500/40 text-white space-y-4">
@@ -1502,15 +1289,31 @@
                             1. Select Target Group / 選擇開放組別：
                         </label>
                         <select id="teacherBypassGroupSelect" class="w-full text-xs p-2.5 rounded-xl bg-slate-900 text-white border border-amber-400/40 focus:ring-2 focus:ring-amber-400 font-bold">
-                            <option value="ALL">🌐 All 8 Groups / 全班所有 8 組</option>
-                            <option value="Group 1">Group 1</option>
-                            <option value="Group 2">Group 2</option>
-                            <option value="Group 3">Group 3</option>
-                            <option value="Group 4">Group 4</option>
-                            <option value="Group 5">Group 5</option>
-                            <option value="Group 6">Group 6</option>
-                            <option value="Group 7">Group 7</option>
-                            <option value="Group 8">Group 8</option>
+                            <option value="ALL">🌐 All Groups & Pairs / 全班所有組別與兩人小組</option>
+                            <option value="Group 1">Table 1 (All Pairs)</option>
+                            <option value="Group 1A">Group 1A (Pair A)</option>
+                            <option value="Group 1B">Group 1B (Pair B)</option>
+                            <option value="Group 2">Table 2 (All Pairs)</option>
+                            <option value="Group 2A">Group 2A (Pair A)</option>
+                            <option value="Group 2B">Group 2B (Pair B)</option>
+                            <option value="Group 3">Table 3 (All Pairs)</option>
+                            <option value="Group 3A">Group 3A (Pair A)</option>
+                            <option value="Group 3B">Group 3B (Pair B)</option>
+                            <option value="Group 4">Table 4 (All Pairs)</option>
+                            <option value="Group 4A">Group 4A (Pair A)</option>
+                            <option value="Group 4B">Group 4B (Pair B)</option>
+                            <option value="Group 5">Table 5 (All Pairs)</option>
+                            <option value="Group 5A">Group 5A (Pair A)</option>
+                            <option value="Group 5B">Group 5B (Pair B)</option>
+                            <option value="Group 6">Table 6 (All Pairs)</option>
+                            <option value="Group 6A">Group 6A (Pair A)</option>
+                            <option value="Group 6B">Group 6B (Pair B)</option>
+                            <option value="Group 7">Table 7 (All Pairs)</option>
+                            <option value="Group 7A">Group 7A (Pair A)</option>
+                            <option value="Group 7B">Group 7B (Pair B)</option>
+                            <option value="Group 8">Table 8 (All Pairs)</option>
+                            <option value="Group 8A">Group 8A (Pair A)</option>
+                            <option value="Group 8B">Group 8B (Pair B)</option>
                         </select>
                     </div>
 
@@ -3592,41 +3395,68 @@ ${JSON.stringify(summaryData, null, 2)}
             return t;
         }
 
+        // Helper functions for 4-person table and 2-person pair mapping (16 sub-groups)
+        function getTableKey(roleOrGroup) {
+            if (!roleOrGroup || typeof roleOrGroup !== 'string') return 'Group 1';
+            const m = roleOrGroup.match(/Group\s*(\d+)/i);
+            return m ? `Group ${m[1]}` : roleOrGroup;
+        }
+
+        function getPairSuffix(roleOrGroup) {
+            if (!roleOrGroup || typeof roleOrGroup !== 'string') return 'A';
+            const m = roleOrGroup.match(/Group\s*\d+([AB])/i);
+            return m ? m[1].toUpperCase() : 'A';
+        }
+
+        function getSubGroupKeys(tableKey) {
+            const base = getTableKey(tableKey);
+            return [`${base}A`, `${base}B`];
+        }
+
+        function createDefaultGroupEntry(tableIndex, subSuffix = '') {
+            const i = tableIndex;
+            const targetTableNum = i === 8 ? 1 : i + 1;
+            const reviewerTableNum = i === 1 ? 8 : i - 1;
+            return {
+                data: null,            // { 50: num, 100: num, 150: num, 200: num }
+                chatLogs: [],          // [ { sender: 'ai'|'user', en, zh, type? } ]
+                stage: 0,              // 0: not submitted, 1: trend, 2: average, 3: error, 4: completed
+                summaryEn: "Waiting for experiment data...",
+                summaryZh: "尚未上傳實驗數據...",
+                latestAnswer: "No response yet",
+                strengthEn: "Ready to explore",
+                strengthZh: "準備開始探究，已準備好各水量數據測量",
+                growthEn: "Observe how water volume affects dissolving time",
+                growthZh: "待評估，建議引導觀察水量與溶解秒數之變化",
+                focusTag: "Stirring Speed",
+                reflection: null,      // Empty reflection by default
+                peerReview: {
+                    targetGroup: `Group ${targetTableNum}`,
+                    assignedReviewer: `Group ${reviewerTableNum}`,
+                    activeReviewTarget: `Group ${targetTableNum}`,
+                    reviewsByTarget: {},
+                    sparkTags: [],
+                    comment: "",
+                    teacherDebrief: "",
+                    submitted: false
+                },
+                hotqResponse: {
+                    hotqId: "priority_1",
+                    titleEn: "",
+                    titleZh: "",
+                    answer: "",
+                    submitted: false,
+                    timestamp: 0
+                }
+            };
+        }
+
         function initClassDataStructure() {
             const data = {};
-            for(let i=1; i<=8; i++) {
-                data[`Group ${i}`] = {
-                    data: null,            // { 50: num, 100: num, 150: num, 200: num }
-                    chatLogs: [],          // [ { sender: 'ai'|'user', en, zh, type? } ]
-                    stage: 0,              // 0: not submitted, 1: trend, 2: average, 3: error, 4: completed
-                    summaryEn: "Awaiting experiment data submission...",
-                    summaryZh: "尚未上傳實驗數據...",
-                    latestAnswer: "No responses yet",
-                    strengthEn: "Ready to explore",
-                    strengthZh: "準備開始探究，已準備好各水量數據測量",
-                    growthEn: "Pending evaluation",
-                    growthZh: "待評估，建議引導觀察水量與溶解秒數之變化",
-                    focusTag: "Stirring Speed",
-                    reflection: null,      // Empty reflection by default, never pre-fill
-                    peerReview: {
-                        targetGroup: `Group ${i === 8 ? 1 : i + 1}`,
-                        assignedReviewer: `Group ${i === 1 ? 8 : i - 1}`,
-                        activeReviewTarget: `Group ${i === 8 ? 1 : i + 1}`,
-                        reviewsByTarget: {},
-                        sparkTags: [],
-                        comment: "",
-                        teacherDebrief: "",
-                        submitted: false
-                    },
-                    hotqResponse: {
-                        hotqId: "priority_1",
-                        titleEn: "",
-                        titleZh: "",
-                        answer: "",
-                        submitted: false,
-                        timestamp: 0
-                    }
-                };
+            for (let i = 1; i <= 8; i++) {
+                data[`Group ${i}`] = createDefaultGroupEntry(i);
+                data[`Group ${i}A`] = createDefaultGroupEntry(i, 'A');
+                data[`Group ${i}B`] = createDefaultGroupEntry(i, 'B');
             }
             return data;
         }
@@ -3634,31 +3464,44 @@ ${JSON.stringify(summaryData, null, 2)}
         function ensureClassDataStructure(data) {
             const fresh = initClassDataStructure();
             if (!data || typeof data !== 'object') return fresh;
-            for(let i=1; i<=8; i++) {
-                const key = `Group ${i}`;
-                if (!data[key] || typeof data[key] !== 'object') {
-                    data[key] = fresh[key];
-                } else {
-                    if (!Array.isArray(data[key].chatLogs)) data[key].chatLogs = [];
-                    if (typeof data[key].stage !== 'number') data[key].stage = (data[key].data ? 1 : 0);
-                    if (!data[key].summaryEn) data[key].summaryEn = fresh[key].summaryEn;
-                    if (!data[key].summaryZh) data[key].summaryZh = fresh[key].summaryZh;
-                    if (!data[key].peerReview || typeof data[key].peerReview !== 'object') {
-                        data[key].peerReview = fresh[key].peerReview;
+
+            for (let i = 1; i <= 8; i++) {
+                [`Group ${i}`, `Group ${i}A`, `Group ${i}B`].forEach(key => {
+                    if (!data[key] || typeof data[key] !== 'object') {
+                        data[key] = fresh[key];
                     } else {
-                        if (!data[key].peerReview.reviewsByTarget || typeof data[key].peerReview.reviewsByTarget !== 'object') {
-                            data[key].peerReview.reviewsByTarget = {};
+                        if (!Array.isArray(data[key].chatLogs)) data[key].chatLogs = [];
+                        if (typeof data[key].stage !== 'number') data[key].stage = (data[key].data ? 1 : 0);
+                        if (!data[key].summaryEn) data[key].summaryEn = fresh[key].summaryEn;
+                        if (!data[key].summaryZh) data[key].summaryZh = fresh[key].summaryZh;
+                        if (!data[key].strengthEn) data[key].strengthEn = fresh[key].strengthEn;
+                        if (!data[key].growthEn) data[key].growthEn = fresh[key].growthEn;
+                        if (!data[key].peerReview || typeof data[key].peerReview !== 'object') {
+                            data[key].peerReview = fresh[key].peerReview;
+                        } else {
+                            if (!data[key].peerReview.reviewsByTarget || typeof data[key].peerReview.reviewsByTarget !== 'object') {
+                                data[key].peerReview.reviewsByTarget = {};
+                            }
+                            if (!data[key].peerReview.activeReviewTarget) {
+                                data[key].peerReview.activeReviewTarget = data[key].peerReview.targetGroup || fresh[key].peerReview.targetGroup;
+                            }
                         }
-                        if (!data[key].peerReview.activeReviewTarget) {
-                            data[key].peerReview.activeReviewTarget = data[key].peerReview.targetGroup || fresh[key].peerReview.targetGroup;
+                        if (!data[key].hotqResponse || typeof data[key].hotqResponse !== 'object') {
+                            data[key].hotqResponse = fresh[key].hotqResponse;
+                        }
+                        if (typeof data[key].updatedAt !== 'number') {
+                            data[key].updatedAt = Date.now();
                         }
                     }
-                    if (!data[key].hotqResponse || typeof data[key].hotqResponse !== 'object') {
-                        data[key].hotqResponse = fresh[key].hotqResponse;
-                    }
-                    if (typeof data[key].updatedAt !== 'number') {
-                        data[key].updatedAt = Date.now();
-                    }
+                });
+
+                // Auto-sync table data between Group i, Group iA, and Group iB
+                const tableKey = `Group ${i}`;
+                const sharedData = data[tableKey]?.data || data[`${tableKey}A`]?.data || data[`${tableKey}B`]?.data;
+                if (sharedData) {
+                    if (!data[tableKey].data) data[tableKey].data = sharedData;
+                    if (!data[`${tableKey}A`].data) data[`${tableKey}A`].data = sharedData;
+                    if (!data[`${tableKey}B`].data) data[`${tableKey}B`].data = sharedData;
                 }
             }
             if (data._activeBroadcastHotq) fresh._activeBroadcastHotq = data._activeBroadcastHotq;
@@ -3674,18 +3517,25 @@ ${JSON.stringify(summaryData, null, 2)}
             const senderRole = meta.senderRole || '';
             const isSenderStudentGroup = typeof senderRole === 'string' && senderRole.startsWith('Group ');
 
+            const allKeys = [];
             for (let i = 1; i <= 8; i++) {
-                const gKey = `Group ${i}`;
+                allKeys.push(`Group ${i}`);
+                allKeys.push(`Group ${i}A`);
+                allKeys.push(`Group ${i}B`);
+            }
+
+            allKeys.forEach(gKey => {
                 const localG = localData[gKey] || {};
                 const incomingG = incomingData[gKey];
-
-                if (!incomingG || typeof incomingG !== 'object') continue;
+                if (!incomingG || typeof incomingG !== 'object') return;
 
                 // Group Isolation Rule:
-                // A student group device is only authoritative over its OWN group!
-                // It must NEVER overwrite data of other groups.
-                if (isSenderStudentGroup && senderRole !== gKey) {
-                    continue;
+                // Student pair can only overwrite their own sub-group or their own table timings
+                if (isSenderStudentGroup) {
+                    const senderTable = getTableKey(senderRole);
+                    const isOwnSubGroup = (gKey === senderRole);
+                    const isOwnTable = (gKey === senderTable);
+                    if (!isOwnSubGroup && !isOwnTable) return;
                 }
 
                 // Teacher Explicit Clear Action
@@ -3696,7 +3546,7 @@ ${JSON.stringify(summaryData, null, 2)}
                     localG.clearedAt = incomingG.clearedAt;
                     localG.updatedAt = incomingG.clearedAt;
                     localG.dataUpdatedAt = 0;
-                    continue;
+                    return;
                 }
 
                 // 1. Experimental Timings ({ 50, 100, 150, 200 })
@@ -3711,7 +3561,6 @@ ${JSON.stringify(summaryData, null, 2)}
                         localG.dataUpdatedAt = incomingDataTime;
                     }
                 }
-                // Null Shield: If incoming data is empty/null, NEVER wipe valid local data!
 
                 // 2. Socratic Chat Logs
                 const incomingChat = Array.isArray(incomingG.chatLogs) ? incomingG.chatLogs : [];
@@ -3730,6 +3579,8 @@ ${JSON.stringify(summaryData, null, 2)}
                         if (incomingG.summaryZh) localG.summaryZh = incomingG.summaryZh;
                         if (incomingG.strengthZh) localG.strengthZh = incomingG.strengthZh;
                         if (incomingG.growthZh) localG.growthZh = incomingG.growthZh;
+                        if (incomingG.strengthEn) localG.strengthEn = incomingG.strengthEn;
+                        if (incomingG.growthEn) localG.growthEn = incomingG.growthEn;
                         if (incomingG.focusTag) localG.focusTag = incomingG.focusTag;
                         if (incomingG.latestAnswer) localG.latestAnswer = incomingG.latestAnswer;
                         if (incomingG.stage1Option) localG.stage1Option = incomingG.stage1Option;
@@ -3802,8 +3653,18 @@ ${JSON.stringify(summaryData, null, 2)}
                     localG.unlockedUpToStep = Math.max(localG.unlockedUpToStep || 1, incomingG.unlockedUpToStep);
                 }
 
-                // Keep newest timestamp
                 localG.updatedAt = Math.max(localG.updatedAt || 0, incomingG.updatedAt || meta.timestamp || Date.now());
+            });
+
+            // Ensure table data is shared across sub-groups A and B
+            for (let i = 1; i <= 8; i++) {
+                const tableKey = `Group ${i}`;
+                const sharedData = localData[tableKey]?.data || localData[`${tableKey}A`]?.data || localData[`${tableKey}B`]?.data;
+                if (sharedData) {
+                    if (!localData[tableKey].data) localData[tableKey].data = sharedData;
+                    if (!localData[`${tableKey}A`].data) localData[`${tableKey}A`].data = sharedData;
+                    if (!localData[`${tableKey}B`].data) localData[`${tableKey}B`].data = sharedData;
+                }
             }
 
             // Global State Merge
@@ -4948,7 +4809,13 @@ ${JSON.stringify(summaryData, null, 2)}
             document.getElementById('adminViewSection')?.classList.add('hidden');
             document.getElementById('studentViewSection')?.classList.remove('hidden');
 
-            const gData = classData[currentRole]?.data;
+            const tableKey = getTableKey(currentRole);
+            const tableData = classData[tableKey]?.data;
+            if (tableData && (!classData[currentRole]?.data || Object.keys(classData[currentRole]?.data).length === 0)) {
+                if (!classData[currentRole]) classData[currentRole] = createDefaultGroupEntry(parseInt(tableKey.replace('Group ', '')) || 1, getPairSuffix(currentRole));
+                classData[currentRole].data = { ...tableData };
+            }
+            const gData = classData[currentRole]?.data || tableData;
             if (gData) {
                 document.getElementById('t50').value = gData[50];
                 document.getElementById('t100').value = gData[100];
@@ -5119,7 +4986,7 @@ ${JSON.stringify(summaryData, null, 2)}
         function openActivationModal() {
             const modal = document.getElementById('activationModal');
             if (!modal) return;
-            pendingActivationGroup = currentRole.startsWith('Group') ? currentRole : 'Group 1';
+            pendingActivationGroup = currentRole.startsWith('Group') ? currentRole : 'Group 1A';
             renderActivationGroupGrid();
             const classInput = document.getElementById('activationClassInput');
             if (classInput) classInput.value = currentClass;
@@ -5155,26 +5022,28 @@ ${JSON.stringify(summaryData, null, 2)}
             if (!grid) return;
             grid.innerHTML = '';
             for (let i = 1; i <= 8; i++) {
-                const gName = `Group ${i}`;
-                const isSelected = (pendingActivationGroup === gName);
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.onclick = () => selectActivationGroup(gName);
-                if (isSelected) {
-                    btn.className = "p-2.5 rounded-2xl bg-sky-600 text-white font-black text-xs shadow-md border-2 border-sky-400 flex flex-col items-center justify-center gap-0.5 transform scale-105 transition";
-                    btn.innerHTML = `<span>第 ${i} 組</span><span class="text-[10px] text-sky-200 font-bold">Group ${i}</span>`;
-                } else {
-                    btn.className = "p-2.5 rounded-2xl bg-slate-50 hover:bg-sky-50 text-slate-800 font-bold text-xs border border-slate-200 transition flex flex-col items-center justify-center gap-0.5";
-                    btn.innerHTML = `<span>第 ${i} 組</span><span class="text-[10px] text-slate-400">Group ${i}</span>`;
-                }
-                grid.appendChild(btn);
+                ['A', 'B'].forEach(suffix => {
+                    const gName = `Group ${i}${suffix}`;
+                    const isSelected = (pendingActivationGroup === gName);
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.onclick = () => selectActivationGroup(gName);
+                    if (isSelected) {
+                        btn.className = "p-2 rounded-xl bg-sky-600 text-white font-black text-xs shadow-md border-2 border-sky-400 flex flex-col items-center justify-center gap-0.5 transform scale-105 transition";
+                        btn.innerHTML = `<span>第 ${i} 組 (${suffix})</span><span class="text-[10px] text-sky-200 font-bold">Group ${i}${suffix}</span>`;
+                    } else {
+                        btn.className = "p-2 rounded-xl bg-slate-50 hover:bg-sky-50 text-slate-800 font-bold text-xs border border-slate-200 transition flex flex-col items-center justify-center gap-0.5";
+                        btn.innerHTML = `<span>第 ${i} 組 (${suffix})</span><span class="text-[10px] text-slate-400">Group ${i}${suffix}</span>`;
+                    }
+                    grid.appendChild(btn);
+                });
             }
         }
 
         function confirmActivationModal() {
             const classInput = document.getElementById('activationClassInput');
             const chosenClass = classInput?.value?.trim() || currentClass || '1CL';
-            const chosenGroup = pendingActivationGroup || currentRole || 'Group 1';
+            const chosenGroup = pendingActivationGroup || currentRole || 'Group 1A';
 
             activateStudentWorkspace(chosenClass, chosenGroup);
             closeActivationModal();
@@ -5439,14 +5308,45 @@ ${JSON.stringify(summaryData, null, 2)}
 
             // Save group data with 2-decimal precision
             const nowTime = Date.now();
-            classData[currentRole].data = { 
+            const tableKey = getTableKey(currentRole);
+            const timingData = { 
                 50: Number(t50.toFixed(2)), 
                 100: Number(t100.toFixed(2)), 
                 150: Number(t150.toFixed(2)), 
                 200: Number(t200.toFixed(2)) 
             };
+
+            classData[currentRole].data = { ...timingData };
             classData[currentRole].dataUpdatedAt = nowTime;
             classData[currentRole].updatedAt = nowTime;
+
+            // Shared experimental timings across 4-person table and both iPad pairs
+            if (classData[tableKey]) {
+                classData[tableKey].data = { ...timingData };
+                classData[tableKey].dataUpdatedAt = nowTime;
+                classData[tableKey].updatedAt = nowTime;
+            }
+            const subKeys = getSubGroupKeys(tableKey);
+            subKeys.forEach(k => {
+                if (classData[k]) {
+                    classData[k].data = { ...timingData };
+                    classData[k].dataUpdatedAt = nowTime;
+                    classData[k].updatedAt = nowTime;
+                    if (classData[k].stage === 0) {
+                        classData[k].stage = 1;
+                        classData[k].summaryEn = "Analyzing dissolving trend vs water volume...";
+                        classData[k].summaryZh = "正分析水量與溶解時間之變化關係...";
+                        if (k !== currentRole && (!classData[k].chatLogs || classData[k].chatLogs.length === 0)) {
+                            classData[k].chatLogs = [{
+                                sender: 'ai',
+                                en: dialogueStages[1].aiEnglish,
+                                zh: dialogueStages[1].aiChinese,
+                                timestamp: nowTime
+                            }];
+                        }
+                    }
+                }
+            });
             
             const wasStage0 = (classData[currentRole].stage === 0);
 
@@ -5786,7 +5686,7 @@ ${JSON.stringify(summaryData, null, 2)}
         }
 
         function updateTaskGatingUI() {
-            const groupData = classData[currentRole]?.data;
+            const groupData = classData[currentRole]?.data || classData[getTableKey(currentRole)]?.data;
             const hasData = !!(groupData && !isNaN(groupData[50]) && !isNaN(groupData[100]) && !isNaN(groupData[150]) && !isNaN(groupData[200]));
             const maxBypassStep = classData[currentRole]?.unlockedUpToStep || 1;
             const isStepBypassed = (s) => (maxBypassStep >= s) || !!(classData[currentRole]?.forceUnlockedSteps && classData[currentRole]?.forceUnlockedSteps[s]);
@@ -6859,22 +6759,22 @@ ${JSON.stringify(summaryData, null, 2)}
                 html += `
                     <div class="hots-card bg-white rounded-2xl p-5 border-2 ${isBroadcast ? 'border-indigo-500 ring-2 ring-indigo-200/80 shadow-md' : 'border-amber-200/80 shadow-sm'} flex flex-col justify-between space-y-3.5 transition hover:shadow-md">
                         <div class="space-y-3">
-                            <!-- Badges Row (Score removed as requested) -->
+                            <!-- Badges Row -->
                             <div class="flex items-center justify-between flex-wrap gap-2">
                                 <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${card.badgeClass}">
-                                    ${card.priorityLabel}
+                                    ${card.priorityLabelEn || card.priorityLabel}
                                 </span>
                                 <div class="flex items-center gap-1.5">
-                                    ${isBroadcast ? `<span class="text-[10px] font-extrabold text-white bg-indigo-600 px-2 py-0.5 rounded-full animate-pulse">📡 已派發至全班 Step 6</span>` : ''}
+                                    ${isBroadcast ? `<span class="text-[10px] font-extrabold text-white bg-indigo-600 px-2 py-0.5 rounded-full animate-pulse">📡 Assigned to Class (Step 6)</span>` : ''}
                                     <span class="text-[10px] font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200/70 inline-block">
-                                        ${card.subDomain}
+                                        ${card.subDomainEn || card.subDomain}
                                     </span>
                                 </div>
                             </div>
 
                             <!-- Rationale box -->
                             <div class="bg-amber-50/70 border border-amber-200/70 rounded-xl p-2.5 text-[11px] text-amber-950 leading-relaxed font-medium">
-                                🎯 <strong>排序依據：</strong>${card.rationale}
+                                🎯 <strong>Reason:</strong> ${card.rationaleEn || card.rationale}
                             </div>
 
                             <!-- Title (English & Chinese) -->
@@ -6882,7 +6782,7 @@ ${JSON.stringify(summaryData, null, 2)}
                                 <h4 class="text-sm font-bold text-slate-900 leading-snug">
                                     ${card.titleEn}
                                 </h4>
-                                <h5 class="text-xs font-bold text-slate-800 leading-snug mt-1">
+                                <h5 class="text-xs font-semibold text-slate-700 leading-snug mt-1">
                                     ${card.titleZh}
                                 </h5>
                             </div>
@@ -6890,30 +6790,30 @@ ${JSON.stringify(summaryData, null, 2)}
                             <!-- Description body (English & Chinese) -->
                             <div class="text-[11px] text-slate-600 space-y-1.5 leading-relaxed">
                                 <p class="font-medium text-slate-700">${card.descEn}</p>
-                                <p class="text-slate-600">${card.descZh}</p>
+                                <p class="text-slate-500 text-[10px]">${card.descZh}</p>
                             </div>
 
-                            <!-- Teacher Scaffolding Accordion (Expandable Prompting / 鷹架式提示) -->
+                            <!-- Teacher Scaffolding Accordion -->
                             <details class="group bg-amber-50/60 hover:bg-amber-50/90 rounded-xl border border-amber-200/80 text-[11px] overflow-hidden transition">
                                 <summary class="cursor-pointer font-bold text-amber-900 px-3 py-2 flex items-center justify-between select-none hover:text-amber-950">
                                     <span class="flex items-center gap-1.5">
                                         <span>🪜</span>
-                                        <span>Teacher Scaffolding / 教師引導鷹架</span>
+                                        <span>Teacher Scaffolding Guide</span>
                                     </span>
                                     <span class="text-[10px] text-amber-700 bg-amber-100/80 px-1.5 py-0.5 rounded group-open:rotate-180 transition transform">▼</span>
                                 </summary>
                                 <div class="px-3 pb-3 pt-1 space-y-1.5 border-t border-amber-200/50 text-slate-700">
                                     <div>
-                                        <strong class="text-amber-900 text-[10px] block">Step 1 • 觀察現象 (Observe):</strong>
-                                        <span class="text-[10px] text-slate-600">${card.scaffoldStep1 || '引導學生觀察數據走勢與具體差異。 / Direct students to observe data discrepancies.'}</span>
+                                        <strong class="text-amber-900 text-[10px] block">Step 1 • Observe:</strong>
+                                        <span class="text-[10px] text-slate-600">${card.scaffoldStep1 || 'Direct students to observe data discrepancies on the class chart.'}</span>
                                     </div>
                                     <div>
-                                        <strong class="text-amber-900 text-[10px] block">Step 2 • 深入追問 (Inquire):</strong>
-                                        <span class="text-[10px] text-slate-600">${card.scaffoldStep2 || '追問操作過程中的未受控變因。 / Inquire about uncontrolled variables in operation.'}</span>
+                                        <strong class="text-amber-900 text-[10px] block">Step 2 • Inquire:</strong>
+                                        <span class="text-[10px] text-slate-600">${card.scaffoldStep2 || 'Inquire about uncontrolled variables in the experiment.'}</span>
                                     </div>
                                     <div>
-                                        <strong class="text-amber-900 text-[10px] block">Step 3 • 科學結論 (Conclude):</strong>
-                                        <span class="text-[10px] text-slate-600">${card.scaffoldStep3 || '引導運用粒子碰撞模型作科學總結。 / Guide students to formulate a scientific conclusion.'}</span>
+                                        <strong class="text-amber-900 text-[10px] block">Step 3 • Conclude:</strong>
+                                        <span class="text-[10px] text-slate-600">${card.scaffoldStep3 || 'Guide students to formulate a scientific conclusion using particle ideas.'}</span>
                                     </div>
                                 </div>
                             </details>
@@ -6923,16 +6823,16 @@ ${JSON.stringify(summaryData, null, 2)}
                         <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
                             <div class="text-[11px] text-amber-950 font-medium flex items-start gap-1.5">
                                 <span class="text-amber-600 flex-shrink-0">💡</span>
-                                <div><strong>核心目標：</strong>${card.objective}</div>
+                                <div><strong>Core Goal:</strong> ${card.objectiveEn || card.objective}</div>
                             </div>
                             <div class="pt-1 flex flex-col gap-1.5">
                                 <button type="button" onclick="broadcastHotqToClass(${safeIdx})" class="w-full py-2 px-3 ${isBroadcast ? 'bg-indigo-700 text-white ring-2 ring-indigo-300' : 'bg-indigo-50 hover:bg-indigo-600 text-indigo-800 hover:text-white border border-indigo-300'} active:scale-95 font-bold text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-1.5">
                                     <i data-lucide="radio" class="w-3.5 h-3.5"></i>
-                                    <span>${isBroadcast ? '✓ 已派發至學生端 Step 6 (Active on Student Devices)' : '📡 派發此題予全班作答 (Push to Class Step 6)'}</span>
+                                    <span>${isBroadcast ? '✓ Assigned to Class (Step 6)' : '📡 Push this Question to Class (Step 6)'}</span>
                                 </button>
                                 ${card.category === 'kinetics' ? `
                                     <button type="button" onclick="switchTeacherConsoleTab('extension')" class="w-full py-1.5 px-3 bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-700 hover:to-indigo-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-1.5">
-                                        <span>🌊 開啟延伸：微觀食鹽溶解模擬演示 (Launch Simulator)</span>
+                                        <span>🌊 Launch Particle Simulator</span>
                                         <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                                     </button>
                                 ` : ''}
@@ -6987,32 +6887,37 @@ ${JSON.stringify(summaryData, null, 2)}
             let cAnomaly = {
                 priority: 1,
                 priorityLabel: "🔥 第 1 優先研討 (Priority 1)",
+                priorityLabelEn: "🔥 Priority 1 (Top Focus)",
                 badgeClass: "bg-rose-100 text-rose-700 border border-rose-200",
                 subDomain: "HOTS • Discrepancy & Fair Test / 異常排查與公平測試",
+                subDomainEn: "Fair Test & Discrepancies",
                 score: 100,
                 scoreIcon: "⚠️",
                 category: "discrepancies",
                 rationale: "⚠️ 系統分析全班數據走勢，急需在大組討論中引導排查未控制變因！",
-                titleEn: "Data Discrepancy: What hidden variables caused this gap?",
+                rationaleEn: "Differences between groups were found in class data; discuss hidden variables!",
+                titleEn: "Fair Test: What hidden variables caused this gap?",
                 titleZh: "【數據落差】組別之間出現顯著差異：有哪些未控制的隱藏變因？",
-                descEn: "Both groups used identical salt portions and water volumes. Why did dissolving times differ? Could stirring speed vary, or did water temperature shift?",
+                descEn: "Both groups used the same amount of salt and water. Why did dissolving times differ? Could stirring speed or water temperature change the result?",
                 descZh: "各組使用相同鹽量與水量，為何秒數會出現落差？是攪拌速度不均，還是水溫有偏差？面對反常數據，科學家應如何排查隱藏變因？",
                 objective: "培養不盲從數據、能從實驗細微處排查未受控「隱藏變因」的批判思維。",
-                scaffoldStep1: "Direct students to spot anomalous points on the class chart. / 引導學生觀察全班趨勢圖，指出哪組數據偏離正常走勢。",
-                scaffoldStep2: "Prompt students to review operations: stirring speed, beaker stability, and timing. / 追問操作細節：各組攪拌轉速與碼錶停止時機是否嚴格一致？",
-                scaffoldStep3: "Explain that scientists do not discard anomalies, but investigate unmeasured variables. / 引導理解科學家不隨意刪除反常數據，而是嚴謹排查操作細節。"
+                objectiveEn: "Spot differences and check if all control variables were kept the same.",
+                scaffoldStep1: "Have students look at the class chart and spot groups with unexpected curves.",
+                scaffoldStep2: "Ask the groups: Did you stir at the same speed? Did you stop the timer at the same second?",
+                scaffoldStep3: "Remind students: Scientists keep all other variables the same to ensure a fair test."
             };
 
             if (anomalies.length > 0) {
                 const anom = anomalies[0];
                 cAnomaly.rationale = `⚠️ 系統偵測到第 ${anom.groupNum} 組出現反常走勢（${anom.detail}），急需引導全班排查未控制變因！`;
-                cAnomaly.titleEn = `Group ${anom.groupNum} Inversion (${anom.detail}): What hidden variables caused this?`;
+                cAnomaly.rationaleEn = `Group ${anom.groupNum}'s curve went up unexpectedly (${anom.detail}); let's investigate why!`;
+                cAnomaly.titleEn = `Group ${anom.groupNum} Result (${anom.detail}): What hidden variables caused this?`;
                 cAnomaly.titleZh = `🔍 【反常走勢焦點】第 ${anom.groupNum} 組實測反常 (${anom.detail})：折線為何反彈？`;
-                cAnomaly.descEn = `In Group ${anom.groupNum}'s test, dissolving time unexpectedly rebounded (${anom.detail}). Did stirring slow down due to fatigue, or was water cooler? How should scientists investigate?`;
+                cAnomaly.descEn = `In Group ${anom.groupNum}'s test, dissolving time unexpectedly went up (${anom.detail}). Did stirring slow down due to tired hands, or was the water cooler? How should scientists check?`;
                 cAnomaly.descZh = `第 ${anom.groupNum} 組數據出現逆勢反彈 (${anom.detail})。面對與理論相反的異常點，我們應直接刪除數據，還是深入排查攪拌與水溫操作細節？`;
-                cAnomaly.scaffoldStep1 = `Have the class look at Group ${anom.groupNum}'s curve inflection. / 引導全班指認第 ${anom.groupNum} 組的異常折線。`;
-                cAnomaly.scaffoldStep2 = `Ask Group ${anom.groupNum} about their stirring consistency and timing trigger. / 詢問該組攪拌手速是否前後一致、碼錶是否按慢。`;
-                cAnomaly.scaffoldStep3 = `Summarize that fair testing requires strictly constant control variables across all trials. / 總結公平測試必須確保所有控制變因在各次實驗中嚴格恆定。`;
+                cAnomaly.scaffoldStep1 = `Have the class look at Group ${anom.groupNum}'s curve inflection on the chart.`;
+                cAnomaly.scaffoldStep2 = `Ask Group ${anom.groupNum} about their stirring speed and timing trigger.`;
+                cAnomaly.scaffoldStep3 = `Summarize that fair testing requires all control variables to stay strictly the same.`;
                 candidateCards.push(cAnomaly);
             } else if (submitted.length >= 2) {
                 submitted.sort((a, b) => (b.data[150] || 0) - (a.data[150] || 0));
@@ -7020,13 +6925,14 @@ ${JSON.stringify(summaryData, null, 2)}
                 const minG = submitted[submitted.length - 1];
                 const diff = Math.round(((maxG.data[150] || 0) - (minG.data[150] || 0)) * 10) / 10;
                 cAnomaly.rationale = `⚠️ 系統偵測到第 ${minG.groupNum} 組與第 ${maxG.groupNum} 組在 150 cm³ 相差高達 ${diff} 秒！`;
+                cAnomaly.rationaleEn = `Group ${minG.groupNum} and Group ${maxG.groupNum} had a ${diff}s difference at 150 cm³!`;
                 cAnomaly.titleEn = `Group ${minG.groupNum} (${minG.data[150]}s) vs Group ${maxG.groupNum} (${maxG.data[150]}s): What caused this ${diff}s gap?`;
                 cAnomaly.titleZh = `【組間對比】第 ${minG.groupNum} 組 (${minG.data[150]}s) vs 第 ${maxG.groupNum} 組 (${maxG.data[150]}s)：相差 ${diff} 秒的隱藏變因為何？`;
                 cAnomaly.descEn = `Both groups tested identical salt and water volume. Why did dissolving time differ by ${diff}s? Could stirring speed or timing accuracy differ?`;
                 cAnomaly.descZh = `兩組測試相同鹽量與水量，為何時間相差 ${diff} 秒？是否存在攪拌速度或碼錶判斷上的組間操作差異？`;
-                cAnomaly.scaffoldStep1 = `Compare the two groups' bar/line heights side by side. / 對比兩組在 150 cm³ 水量下的實測數據差距。`;
-                cAnomaly.scaffoldStep2 = `Interview both groups: Did stirring rate and eyesight criteria match? / 訪問兩組同學：攪拌頻率與肉眼判斷溶盡標準是否一致？`;
-                cAnomaly.scaffoldStep3 = `Highlight how human variations cause inter-group discrepancies in hands-on science. / 總結人手操作差異如何導致組間數據落差，引出大樣本平均的重要性。`;
+                cAnomaly.scaffoldStep1 = `Compare the two groups' bar/line heights side by side on the chart.`;
+                cAnomaly.scaffoldStep2 = `Interview both groups: Did your stirring speed and eye judgments match?`;
+                cAnomaly.scaffoldStep3 = `Highlight how small human differences cause gaps between groups in science experiments.`;
                 candidateCards.push(cAnomaly);
             }
 
@@ -7037,20 +6943,24 @@ ${JSON.stringify(summaryData, null, 2)}
                 candidateCards.push({
                     priority: 2,
                     priorityLabel: "⭐ 迷思概念研討 (Concept Shift)",
+                    priorityLabelEn: "⭐ Priority 2 (Concept Shift)",
                     badgeClass: "bg-amber-100 text-amber-800 border border-amber-300",
                     subDomain: "HOTS • Conceptual Shift / 概念轉變：溶解 vs 融化",
+                    subDomainEn: "Concepts: Dissolving vs Melting",
                     score: 95,
                     scoreIcon: "🧭",
                     category: "concepts",
                     rationale: `🗣️ 學生提到「${cleanQuote}」(Group ${meltItem.groupNum})，涉及「融化/melt」日常迷思，即時引導概念轉變！`,
-                    titleEn: `Conceptual Shift: Does salt "melt" or "dissolve" in water?`,
+                    rationaleEn: `Group ${meltItem.groupNum} mentioned melting; let's explore the difference between melting and dissolving!`,
+                    titleEn: `Concept Check: Does salt 'melt' or 'dissolve' in water?`,
                     titleZh: `第 ${meltItem.groupNum} 組提到「${cleanQuote}」：食鹽在水中是「融化」還是「溶解」？`,
-                    descEn: `Everyday language often confuses melting with dissolving. Melting is a thermal change of state; dissolving is water molecules breaking crystal lattices.`,
+                    descEn: `In daily life, people often say salt 'melts' in water. Melting is when a solid turns into liquid with heat. Dissolving is when water particles break down and spread the salt particles.`,
                     descZh: `日常生活中常有人說鹽在熱水中「融化了」。冰塊融化（受熱相變）與食鹽溶解（粒子分散）在微觀粒子上有何本質區別？`,
                     objective: "運用微觀粒子模型剖析「溶解」與「融化」的本質差異，實現科學概念轉變。",
-                    scaffoldStep1: "Ask: 'If we evaporate all the water, will solid salt reappear?' / 提問：「若將水全部蒸乾，固體食鹽會重新出現嗎？」",
-                    scaffoldStep2: "Contrast melting ice (thermal state change) vs dissolving salt (water molecules separating ions). / 對比融化（受熱變液體）與溶解（粒子均勻分散）的微觀機制。",
-                    scaffoldStep3: "Formulate the scientific particle concept of dissolving. / 引導學生以粒子模型給出科學定義：溶解是溶質粒子被水分子分散的過程。"
+                    objectiveEn: "Use particle ideas to explain the difference between dissolving and melting.",
+                    scaffoldStep1: "Ask: 'If we dry up all the water, will solid salt appear again?'",
+                    scaffoldStep2: "Compare melting ice (heat turns solid to liquid) and dissolving salt (water particles separate salt particles).",
+                    scaffoldStep3: "Help students explain with particles: Dissolving is when water particles separate and spread salt particles."
                 });
             }
 
@@ -7061,20 +6971,24 @@ ${JSON.stringify(summaryData, null, 2)}
                 candidateCards.push({
                     priority: 2,
                     priorityLabel: "🥣 操作局限研討 (Stirring Focus)",
+                    priorityLabelEn: "🥣 Priority 2 (Stirring Focus)",
                     badgeClass: "bg-amber-100 text-amber-800 border border-amber-300",
                     subDomain: "HOTS • Fair Test & Stirring / 攪拌速率與控制變因",
+                    subDomainEn: "Fair Test & Stirring Speed",
                     score: 88,
                     scoreIcon: "🥣",
                     category: "discrepancies",
                     rationale: `🥣 第 ${stirItem.groupNum} 組敏銳提出「${cleanQuote}」，抓住了人手攪拌無法維持恆定轉速的關鍵局限！`,
-                    titleEn: `Fair Test & Stirring: How does human fatigue affect experimental validity?`,
+                    rationaleEn: `Group ${stirItem.groupNum} noted hand tiredness during stirring; let's talk about fair testing!`,
+                    titleEn: `Stirring Speed: How hand tiredness may change your results`,
                     titleZh: `🥣 第 ${stirItem.groupNum} 組反思「${cleanQuote}」！人手攪拌快慢不一如何影響實驗公平？`,
-                    descEn: `Stirring faster increases collisions between water molecules and salt crystals. How does hand fatigue across 4 trials compromise fair testing?`,
+                    descEn: `Stirring faster helps water particles hit salt particles more often. If your hand gets tired, stirring slows down. How does this affect a fair test?`,
                     descZh: `攪拌越快，水分子撞擊鹽晶體頻率越高。但人手操作容易疲勞導致後段變慢，這對公平測試有何影響？如何改進？`,
                     objective: "引導反思人為操作局限性，理解攪拌速率作為控制變因對實驗信度的影響。",
-                    scaffoldStep1: "Ask: 'Did your stirring speed stay identical across all 4 beakers?' / 提問：「由第1杯到第4杯，你們攪拌的速度真的完全一致嗎？」",
-                    scaffoldStep2: "Connect stirring speed to the microscopic rate of water collisions per second. / 追問：攪拌快慢如何改變每秒水分子撞擊鹽粒的頻率？",
-                    scaffoldStep3: "Conclude that stirring speed is a critical control variable that requires standardization. / 總結：攪拌速率是必須嚴格控制的不變變因。"
+                    objectiveEn: "Understand that stirring speed is an important control variable.",
+                    scaffoldStep1: "Ask: 'Did you stir at the exact same speed in all 4 beakers?'",
+                    scaffoldStep2: "Connect stirring speed to how often water particles hit the salt each second.",
+                    scaffoldStep3: "Conclude that stirring speed must be kept the same in every test."
                 });
             }
 
@@ -7085,20 +6999,24 @@ ${JSON.stringify(summaryData, null, 2)}
                 candidateCards.push({
                     priority: 3,
                     priorityLabel: "⏱️ 計時誤差研討 (Stopwatch Focus)",
+                    priorityLabelEn: "⏱️ Priority 3 (Reaction Time)",
                     badgeClass: "bg-sky-100 text-sky-800 border border-sky-300",
                     subDomain: "HOTS • Random Error / 碼錶神經反應延遲與觀察主觀性",
+                    subDomainEn: "Random Error & Reaction Time",
                     score: 82,
                     scoreIcon: "⏱️",
                     category: "reliability",
                     rationale: `⏱️ 第 ${timerItem.groupNum} 組指出「${cleanQuote}」，鎖定碼錶反應延遲與肉眼主觀性！`,
-                    titleEn: `Random Error: How do human reaction times introduce variance?`,
+                    rationaleEn: `Group ${timerItem.groupNum} spotted stopwatch delay and human eye judgments!`,
+                    titleEn: `Random Error: How human reaction may affect the results`,
                     titleZh: `⏱️ 第 ${timerItem.groupNum} 組指出「${cleanQuote}」！肉眼判斷與反應延遲如何引入隨機誤差？`,
-                    descEn: `Human nerve reaction time takes ~0.2-0.3s, and spotting the last salt crystal dissolve is subjective. How does this explain differences across groups?`,
+                    descEn: `It takes about 0.2 to 0.3 seconds for humans to react and press the stopwatch. Also, watching the last tiny salt grain disappear is hard. How does this explain small differences between groups?`,
                     descZh: `人體神經反應需 0.2 至 0.3 秒，肉眼判斷最後一顆鹽粒完全消失亦具主觀性。這種隨機誤差如何影響單次實驗的準確度？`,
                     objective: "認識人體神經生理反應時間與視覺觀察主觀性對實驗數據的隨機干擾。",
-                    scaffoldStep1: "Ask students: 'How did you determine the exact second salt was 100% dissolved?' / 提問：「你們如何判定最後一顆鹽粒完全消失的確切瞬間？」",
-                    scaffoldStep2: "Discuss the delay between the observer shouting 'Stop' and the timer clicking. / 討論：由觀察者喊『停』到計時員按停碼錶，存在多少反應時差？",
-                    scaffoldStep3: "Explain why single-trial timing has random errors that need averaging. / 總結：人體反應延遲屬於隨機誤差，多次重複與取平均值能有效減低偏差。"
+                    objectiveEn: "Learn how human reaction time introduces small random errors.",
+                    scaffoldStep1: "Ask: 'How did you decide the exact second all salt was gone?'",
+                    scaffoldStep2: "Discuss the delay between someone shouting 'Stop!' and the timer pressing the button.",
+                    scaffoldStep3: "Explain that small human reaction delays are random errors that average out."
                 });
             }
 
@@ -7109,20 +7027,24 @@ ${JSON.stringify(summaryData, null, 2)}
                 candidateCards.push({
                     priority: 2,
                     priorityLabel: "💎 表面積變因研討 (Surface Area)",
+                    priorityLabelEn: "💎 Priority 2 (Surface Area)",
                     badgeClass: "bg-purple-100 text-purple-800 border border-purple-300",
                     subDomain: "HOTS • Surface Area / 鹽粒大小與接觸表面積",
+                    subDomainEn: "Particle Size & Surface Area",
                     score: 90,
                     scoreIcon: "💎",
                     category: "discrepancies",
                     rationale: `💎 第 ${crushItem.groupNum} 組提到「${cleanQuote}」，指出鹽粒大小或壓碎影響了表面積控制變因！`,
-                    titleEn: `Surface Area: How does particle size affect dissolving rates?`,
+                    rationaleEn: `Group ${crushItem.groupNum} discussed crushing salt or using different grain sizes!`,
+                    titleEn: `Surface Area: How does particle size change dissolving time?`,
                     titleZh: `💎 第 ${crushItem.groupNum} 組反思「${cleanQuote}」！鹽粒大小或壓碎對溶解速率有何影響？`,
-                    descEn: `Fine salt exposes far more surface area to water molecules than coarse crystals. Why must particle size remain strictly constant for a fair test?`,
+                    descEn: `Smaller salt grains have more surface for water particles to touch. If one group crushed the salt, why does this break a fair test?`,
                     descZh: `細鹽暴露給水分子的接觸表面積遠大於粗鹽粒。若各組鹽粒大小不同，為何會直接破壞公平測試？`,
                     objective: "建立微觀碰撞面積理論，並深刻體會維持控制變因對科學實驗的根本重要性。",
-                    scaffoldStep1: "Ask: 'Will fine salt or rock salt dissolve faster in 100 cm³ water?' / 提問：「在 100 cm³ 水中，細鹽還是粗鹽粒溶得更快？」",
-                    scaffoldStep2: "Connect crystal surface area to the number of water collisions per second. / 追問：表面積增大如何改變每秒水分子撞擊鹽粒的次數？",
-                    scaffoldStep3: "Conclude that particle size is an essential controlled variable. / 總結：溶質顆粒大小直接決定碰撞頻率，必須嚴格保持一致。"
+                    objectiveEn: "Learn how surface area affects how fast water particles hit and dissolve salt.",
+                    scaffoldStep1: "Ask: 'Will fine salt powder dissolve faster than large salt crystals in 100 cm³ water?'",
+                    scaffoldStep2: "Connect surface area to how many water particles can hit the salt grains at once.",
+                    scaffoldStep3: "Conclude that salt grain size must be kept identical across all tests."
                 });
             }
 
@@ -7134,20 +7056,24 @@ ${JSON.stringify(summaryData, null, 2)}
             candidateCards.push({
                 priority: 3,
                 priorityLabel: "★ 實驗信度研討 (Reliability Focus)",
+                priorityLabelEn: "★ Priority 3 (Reliability)",
                 badgeClass: "bg-blue-100 text-blue-800 border border-blue-200",
                 subDomain: "HOTS • Error & Reliability / 誤差抵消與實驗信度",
+                subDomainEn: "Reliability & Class Average",
                 score: 75,
                 scoreIcon: "⚖️",
                 category: "reliability",
                 rationale: `📊 第 ${errorGroupNum} 組指出 ${errorQuoteStr}，全班數據具備探討「平均值如何抵消隨機誤差」的良好契機！`,
-                titleEn: `Reliability: Why does the 8-group average balance out random errors?`,
+                rationaleEn: `Group ${errorGroupNum} noted that the class average cancels out individual group errors!`,
+                titleEn: `Reliability: Why does the 8-group average balance out small errors?`,
                 titleZh: `⚖️ 第 ${errorGroupNum} 組提出 ${errorQuoteStr}！全班 8 組平均值如何像天平一樣抵消誤差？`,
-                descEn: `Single-trial timing involves human stopwatch and stirring variations. Averaging across 8 groups balances out random deviations to reveal true trends.`,
+                descEn: `Each group may have small timing or stirring differences (+2s or -2s). Averaging across all 8 groups cancels out these random errors to show the real scientific trend.`,
                 descZh: `單組測試難免有按碼錶或攪拌快慢的隨機正負誤差。全班 8 組平均能抵消隨機偏差，真實呈現科學趨勢。`,
                 objective: "深刻理解大樣本平均值消除隨機誤差的本質與科學信度 (Reliability)。",
-                scaffoldStep1: "Ask: 'Why don't scientists rely on just one group's experiment?' / 提問：「為什麼科學家不單憑 1 組的結果就下結論？」",
-                scaffoldStep2: "Explain how positive errors (+2s) and negative errors (-2s) cancel each other out. / 解釋按慢2秒（正誤差）與按快2秒（負誤差）在平均時如何互相抵消。",
-                scaffoldStep3: "Formulate the concept of experimental reliability through sample replication. / 總結：大樣本重複測試取平均能有效提升實驗信度。"
+                objectiveEn: "Understand how taking a class average cancels out random errors.",
+                scaffoldStep1: "Ask: 'Why do scientists repeat experiments instead of trusting just 1 test?'",
+                scaffoldStep2: "Show how pressing 2s late in one group and 2s early in another cancel out in the average.",
+                scaffoldStep3: "Conclude that repeating tests and taking averages makes our results more reliable."
             });
 
             // --- Candidate 7: Kinetics & Limit Thinking ---
@@ -7161,40 +7087,48 @@ ${JSON.stringify(summaryData, null, 2)}
             candidateCards.push({
                 priority: 4,
                 priorityLabel: "🔬 微觀動力研討 (Kinetics Focus)",
+                priorityLabelEn: "🔬 Priority 4 (Water Particles)",
                 badgeClass: "bg-teal-100 text-teal-800 border border-teal-200",
                 subDomain: "HOTS • Molecular Kinetics & Limit Thinking / 微觀動力與極限思維",
+                subDomainEn: "Water Particles & Limit Thinking",
                 score: 70,
                 scoreIcon: "⚡",
                 category: "kinetics",
                 rationale: "🧪 實測 50→100 cm³ 大幅縮短秒數，但 150→200 cm³ 趨於平緩，引導從水分子碰撞模型與極限思維切入！",
-                titleEn: `Limit Thinking: If water reaches 10,000 cm³, will dissolving time drop to 0s?`,
+                rationaleEn: "Dissolving time flattens out at larger water volumes; explore with limit thinking!",
+                titleEn: `Limit Thinking: If we add 10,000 cm³ of water, will salt dissolve in 0 seconds?`,
                 titleZh: `🌊 實測 50→100 cm³ 縮短 ${dropEarly}s，但 150→200 cm³ 僅減少 ${dropLate}s！水量加至 10,000 cm³ 能否變 0 秒？`,
-                descEn: `Increasing water adds more colliding water molecules, but crystal surface area becomes the bottleneck. Dissolving always takes physical time.`,
+                descEn: `More water gives more water particles to hit the salt. But can dissolving time ever reach 0 seconds? Why does taking apart the salt crystal always need some time?`,
                 descZh: `水量倍增大幅增加水分子碰撞，但晶體表面有限成為限速瓶頸。即便投入大海，水分子拆解晶格仍需有限時間。`,
                 objective: "建立微觀水分子碰撞模型，並培養極限思維 (Limit Thinking) 與外推批判能力。",
-                scaffoldStep1: "Direct students to observe the graph curve flattening between 150 and 200 cm³. / 引導學生觀察折線圖：150 到 200 cm³ 曲線為何開始平緩？",
-                scaffoldStep2: "Challenge with extreme thought experiment: 'What if we use 10,000 cm³ water?' / 提出極限思想實驗：「若水量加到 10,000 cm³，溶解時間能變成 0 秒嗎？」",
-                scaffoldStep3: "Conclude with collision physics: Molecular dismantling requires a non-zero time duration. / 總結碰撞物理原理：水分子包圍拆解晶格必然需要時間，絕不可能為 0 秒。"
+                objectiveEn: "Use particle ideas and extreme thinking to see why dissolving always takes time.",
+                scaffoldStep1: "Have students look at the chart: Why does the line flatten out between 150 cm³ and 200 cm³?",
+                scaffoldStep2: "Ask a big question: 'If we drop 1 spoon of salt into an entire swimming pool, will it dissolve in 0 seconds?'",
+                scaffoldStep3: "Conclude with particle ideas: Water particles still need time to hit and break down the salt particles, so time can never be 0s."
             });
 
             // --- Candidate 8: STEM Engineering & Automation ---
             candidateCards.push({
                 priority: 5,
                 priorityLabel: "🛠️ STEM 工程研討 (Engineering Focus)",
+                priorityLabelEn: "🛠️ Priority 5 (STEM Sensors)",
                 badgeClass: "bg-purple-100 text-purple-800 border border-purple-200",
                 subDomain: "HOTS • Experimental Engineering / 自動化工程與零誤差設計",
+                subDomainEn: "STEM Sensors & Automation",
                 score: 65,
                 scoreIcon: "⚙️",
                 category: "stem",
                 rationale: "🤖 人手攪拌不均與肉眼終點判斷為主要誤差來源，激發學生運用 STEM 技術設計自動化裝置！",
-                titleEn: "STEM Engineering: How could automated sensors eliminate human errors?",
+                rationaleEn: "Manual stirring and human eyesight have limitations; explore automated STEM sensors!",
+                titleEn: "STEM Sensors: How can digital sensors help us measure better?",
                 titleZh: "🛠️ 如果要設計「零人為誤差」的溶解裝置，你會如何結合傳感器與微控制器？",
-                descEn: "Manual stirring cannot maintain constant RPM, and watching for the last salt speck is subjective. How can magnetic stirrers and turbidity sensors automate tests?",
+                descEn: "Hand stirring can be uneven, and deciding when salt is gone with human eyes is tricky. How can magnetic stirrers and light sensors make our experiment fairer?",
                 descZh: "人手攪拌無法維持恆定轉速，肉眼判斷最後一顆鹽粒亦具主觀性。若結合微控制器、磁力攪拌器與透光傳感器，如何實現客觀全自動測試？",
                 objective: "引導 STEM 工程思維與自動化檢測概念，提高實驗精度與客觀性。",
-                scaffoldStep1: "Ask: 'Which part of our experiment was most subjective?' / 提問：「實驗中哪個環節最依賴人為主觀判斷？」",
-                scaffoldStep2: "Explore solutions: 'How can a light sensor objectively detect 100% dissolution?' / 探討解決方案：「光度傳感器如何自動客觀判斷鹽粒已完全溶解？」",
-                scaffoldStep3: "Summarize how automated engineering removes human reaction error. / 總結 STEM 工程設計如何徹底排除人為誤差，提升科學檢測精度。"
+                objectiveEn: "Think like a STEM engineer to design tests with fewer human errors.",
+                scaffoldStep1: "Ask: 'Which part of our experiment had the most human error?'",
+                scaffoldStep2: "Discuss how a light sensor can objectively detect when the water turns completely clear.",
+                scaffoldStep3: "Explain how automated tools and sensors remove human error in scientific investigations."
             });
 
             // --- Candidate 9: Grounded Particle Space Model ---
@@ -7202,20 +7136,24 @@ ${JSON.stringify(summaryData, null, 2)}
                 candidateCards.push({
                     priority: 5,
                     priorityLabel: "💡 微觀模型辨析 (Particle Space)",
+                    priorityLabelEn: "💡 Priority 5 (Particle Space)",
                     badgeClass: "bg-amber-100 text-amber-800 border border-amber-300",
                     subDomain: "HOTS • Particle Model / 微觀粒子運動與擴散空間",
+                    subDomainEn: "Particle Model & Space",
                     score: 66,
                     scoreIcon: "💡",
                     category: "concepts",
                     rationale: "💡 運用微觀粒子模型解釋為什麼更多水量能加速溶解擴散過程。",
-                    titleEn: "Particle Model: Why does more water volume give dissolved particles faster diffusion space?",
+                    rationaleEn: "Use the particle model to see how open space allows faster particle spreading.",
+                    titleEn: "Particle Model: Why does more water give dissolved particles more space?",
                     titleZh: `💡 【微觀粒子視角】為什麼水量越多，已溶解的鹽粒子能更快擴散開去？`,
-                    descEn: "In small volumes, dissolved salt ions crowd near the crystal surface. In larger volumes, open space lets dissolved particles diffuse away rapidly.",
+                    descEn: "In small volumes, dissolved salt particles crowd near the crystal surface. In larger volumes, open space lets dissolved particles diffuse away rapidly.",
                     descZh: `水量較少時，已溶解的鹽離子容易在晶體表面附近聚集；水量較多時擴散空間開闊，新鮮水分子能持續高效率進攻晶體表面。`,
                     objective: "深化微觀粒子擴散與碰撞空間概念，避免單純死記硬背實驗結論。",
-                    scaffoldStep1: "Refer to the Step 6 simulator's particle distribution view. / 引導學生觀察 Step 6 模擬器中鹽粒子在水中的擴散狀態。",
-                    scaffoldStep2: "Ask: 'If dissolved particles crowd around the crystal, what happens to fresh water molecules?' / 追問：「若已溶解粒子堆在晶體周圍，新鮮水分子還容易靠近嗎？」",
-                    scaffoldStep3: "Conclude that larger water volume expands diffusion boundaries and prevents saturation buildup. / 總結：更大水量提供了開闊擴散空間，防止局部飽和屏障形成。"
+                    objectiveEn: "Understand how space between particles helps dissolving.",
+                    scaffoldStep1: "Refer to the Step 6 simulator's particle distribution view.",
+                    scaffoldStep2: "Ask: 'If dissolved particles crowd around the crystal, what happens to fresh water molecules?'",
+                    scaffoldStep3: "Conclude that larger water volume expands diffusion boundaries and prevents saturation buildup."
                 });
             }
 
@@ -7224,12 +7162,15 @@ ${JSON.stringify(summaryData, null, 2)}
                 card.priority = idx + 1;
                 if (idx === 0) {
                     card.priorityLabel = "🔥 第 1 優先研討 (Priority 1)";
+                    card.priorityLabelEn = "🔥 Priority 1 (Top Focus)";
                     card.badgeClass = "bg-rose-100 text-rose-700 border border-rose-200";
                 } else if (idx === 1) {
                     card.priorityLabel = "⭐ 第 2 優先研討 (Priority 2)";
+                    card.priorityLabelEn = "⭐ Priority 2 (Concept Shift)";
                     card.badgeClass = "bg-amber-100 text-amber-800 border border-amber-300";
                 } else if (idx === 2) {
                     card.priorityLabel = "★ 第 3 優先研討 (Priority 3)";
+                    card.priorityLabelEn = "★ Priority 3 (Reliability)";
                     card.badgeClass = "bg-blue-100 text-blue-800 border border-blue-200";
                 }
             });
@@ -8322,16 +8263,21 @@ ${JSON.stringify(summaryData, null, 2)}
             }
         });
 
-        // Render 8 Groups Matrix with ample space for Strengths & Growth + Peer Review & Teacher Debrief
+        window._teacherPairTabMap = window._teacherPairTabMap || {};
+
+        // Render 8 Groups Matrix with dual pair support (Pair A / Pair B) in 100% English
         function renderTeacherGroupGrid() {
             const grid = document.getElementById('teacherGroupGrid');
             if (!grid) return;
             grid.innerHTML = '';
 
             for(let i=1; i<=8; i++) {
-                const gKey = `Group ${i}`;
-                const gInfo = classData[gKey];
-                const hasData = gInfo.data !== null;
+                const activePair = window._teacherPairTabMap[i] || 'A';
+                const activeKey = `Group ${i}${activePair}`;
+                const tableKey = `Group ${i}`;
+                const tableInfo = classData[tableKey] || {};
+                const gInfo = classData[activeKey] || {};
+                const hasData = (gInfo.data !== null && gInfo.data !== undefined) || (tableInfo.data !== null && tableInfo.data !== undefined);
 
                 // Peer Review Target and Reviewer Info
                 const pr = gInfo.peerReview || {};
@@ -8340,12 +8286,14 @@ ${JSON.stringify(summaryData, null, 2)}
                 // Find reviewer who is assigned to review this group
                 let reviewerGroup = `Group ${i === 1 ? 8 : i - 1}`;
                 for (let k = 1; k <= 8; k++) {
-                    if (classData[`Group ${k}`]?.peerReview?.targetGroup === gKey) {
+                    if (classData[`Group ${k}`]?.peerReview?.targetGroup === tableKey ||
+                        classData[`Group ${k}A`]?.peerReview?.targetGroup === tableKey ||
+                        classData[`Group ${k}B`]?.peerReview?.targetGroup === tableKey) {
                         reviewerGroup = `Group ${k}`;
                         break;
                     }
                 }
-                const reviewerPr = classData[reviewerGroup]?.peerReview;
+                const reviewerPr = classData[reviewerGroup]?.peerReview || classData[`${reviewerGroup}A`]?.peerReview || classData[`${reviewerGroup}B`]?.peerReview;
                 const hasReceivedReview = reviewerPr && reviewerPr.submitted;
                 const receivedSparks = hasReceivedReview ? (reviewerPr.sparkTags || []) : [];
                 const receivedComment = hasReceivedReview ? (reviewerPr.comment || "") : "";
@@ -8353,56 +8301,71 @@ ${JSON.stringify(summaryData, null, 2)}
 
                 let stageBadgeHtml = '';
                 if (gInfo.stage >= 4) {
-                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-md flex items-center gap-1 shadow-2xs"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span><span>✓ Complete (完成)</span></span>`;
+                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md flex items-center gap-1 shadow-2xs"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span><span>✓ Complete</span></span>`;
                 } else if (gInfo.stage === 0) {
-                    stageBadgeHtml = `<span class="text-[10px] font-bold text-slate-500 bg-slate-200 px-2 py-0.5 rounded-md">Stage 0/3 (待填寫)</span>`;
+                    stageBadgeHtml = `<span class="text-[10px] font-bold text-slate-500 bg-slate-200 px-2 py-0.5 rounded-md">Pending Timing</span>`;
                 } else if (gInfo.stage === 1) {
-                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-sky-800 bg-sky-100 px-2 py-0.5 rounded-md">Stage 1/3 (趨勢探究)</span>`;
+                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-sky-800 bg-sky-100 px-2 py-0.5 rounded-md">Trend Inquiry</span>`;
                 } else if (gInfo.stage === 2) {
-                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded-md">Stage 2/3 (全班信度)</span>`;
+                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded-md">Class Reliability</span>`;
                 } else {
-                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-purple-800 bg-purple-100 px-2 py-0.5 rounded-md">Stage 3/3 (誤差批判)</span>`;
+                    stageBadgeHtml = `<span class="text-[10px] font-extrabold text-purple-800 bg-purple-100 px-2 py-0.5 rounded-md">Error Reflection</span>`;
                 }
 
                 const card = document.createElement('div');
                 card.className = "bg-slate-50/90 hover:bg-white rounded-2xl p-4 border border-slate-200 hover:border-sky-400 transition-all duration-200 shadow-sm hover:shadow-md space-y-3 cursor-pointer flex flex-col justify-between";
-                card.onclick = () => openGroupDetailModal(gKey);
+                card.onclick = () => openGroupDetailModal(activeKey);
+
+                const summaryText = gInfo.summaryEn || gInfo.summaryZh || "Waiting for group data submission...";
+                const strengthText = gInfo.strengthEn || gInfo.strengthZh || "Ready to explore, waiting for group observations";
+                const growthText = gInfo.growthEn || gInfo.growthZh || "Encourage students to observe dissolving times";
 
                 card.innerHTML = `
                     <div class="space-y-2.5">
-                        <div class="flex items-center justify-between border-b border-slate-200 pb-2">
-                            <div class="flex items-center gap-2">
-                                <span class="font-extrabold text-xs text-slate-800">${gKey}</span>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${hasData ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'}">
+                        <div class="flex items-center justify-between border-b border-slate-200 pb-2 flex-wrap gap-1">
+                            <div class="flex items-center gap-1.5">
+                                <span class="font-extrabold text-xs text-slate-800">Table ${i}</span>
+                                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full ${hasData ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'}">
                                     ${hasData ? 'Submitted' : 'Pending'}
                                 </span>
                             </div>
-                            ${stageBadgeHtml}
+                            <div class="flex items-center gap-1">
+                                ${stageBadgeHtml}
+                            </div>
+                        </div>
+
+                        <!-- 2-Student Subgroup Pair Switcher (Pair A / Pair B) -->
+                        <div class="flex items-center justify-between bg-slate-200/70 p-1 rounded-xl text-[10px]" onclick="event.stopPropagation()">
+                            <span class="font-extrabold text-slate-600 px-1">Pair:</span>
+                            <div class="flex items-center gap-1">
+                                <button type="button" onclick="window._teacherPairTabMap[${i}]='A'; renderTeacherGroupGrid();" class="px-2.5 py-0.5 rounded-lg font-bold transition ${activePair === 'A' ? 'bg-sky-600 text-white shadow-xs' : 'bg-white text-slate-600 hover:text-slate-900'}">Pair A (iPad 1)</button>
+                                <button type="button" onclick="window._teacherPairTabMap[${i}]='B'; renderTeacherGroupGrid();" class="px-2.5 py-0.5 rounded-lg font-bold transition ${activePair === 'B' ? 'bg-sky-600 text-white shadow-xs' : 'bg-white text-slate-600 hover:text-slate-900'}">Pair B (iPad 2)</button>
+                            </div>
                         </div>
 
                         <div>
                             <p class="text-[9px] text-slate-400 font-extrabold uppercase tracking-wider">
-                                SOCRATIC TRAJECTORY / 思考軌跡
+                                THINKING PATH (${activeKey})
                             </p>
                             <p class="text-xs font-bold text-slate-800 mt-0.5 leading-snug">
-                                ${gInfo.summaryZh}
+                                ${summaryText}
                             </p>
                         </div>
 
                         <div class="bg-white p-2 rounded-xl border border-slate-200/90 text-[11px]">
                             <span class="text-[10px] text-sky-600 font-bold block">Latest Answer:</span>
-                            <p class="text-slate-700 italic font-medium mt-0.5 break-words">"${gInfo.latestAnswer}"</p>
+                            <p class="text-slate-700 italic font-medium mt-0.5 break-words">"${gInfo.latestAnswer || 'No response yet'}"</p>
                         </div>
 
-                        <!-- Strengths & Growth Areas with AMPLE SPACE (No truncate) -->
+                        <!-- Strengths & Growth Areas in English -->
                         <div class="space-y-2 pt-1">
                             <div class="bg-emerald-50 border border-emerald-200/80 p-2 rounded-xl">
-                                <span class="font-bold text-emerald-800 block text-[11px] mb-0.5">💪 強項 (Strength):</span>
-                                <p class="text-slate-700 text-[11px] leading-relaxed break-words">${gInfo.strengthZh}</p>
+                                <span class="font-bold text-emerald-800 block text-[11px] mb-0.5">💪 Strength:</span>
+                                <p class="text-slate-700 text-[11px] leading-relaxed break-words">${strengthText}</p>
                             </div>
                             <div class="bg-amber-50 border border-amber-200/80 p-2 rounded-xl">
-                                <span class="font-bold text-amber-800 block text-[11px] mb-0.5">🎯 建議 (Growth):</span>
-                                <p class="text-slate-700 text-[11px] leading-relaxed break-words">${gInfo.growthZh}</p>
+                                <span class="font-bold text-amber-800 block text-[11px] mb-0.5">🎯 Growth Tip:</span>
+                                <p class="text-slate-700 text-[11px] leading-relaxed break-words">${growthText}</p>
                             </div>
                         </div>
 
@@ -8410,11 +8373,11 @@ ${JSON.stringify(summaryData, null, 2)}
                         <div class="bg-indigo-50/70 border border-indigo-200/80 p-2.5 rounded-xl space-y-1.5 text-[11px]">
                             <div class="flex items-center justify-between">
                                 <span class="font-bold text-indigo-950 flex items-center gap-1">
-                                    <span>👥 互評配對：</span>
-                                    <span class="text-indigo-700 font-extrabold">點評 ${targetGroup}</span>
+                                    <span>👥 Peer Review:</span>
+                                    <span class="text-indigo-700 font-extrabold">Reviewing ${targetGroup}</span>
                                 </span>
                                 <span class="text-[9px] px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold">
-                                    由 ${reviewerGroup} 審評
+                                    Reviewed by ${reviewerGroup}
                                 </span>
                             </div>
                             ${hasReceivedReview ? `
@@ -8425,7 +8388,7 @@ ${JSON.stringify(summaryData, null, 2)}
                                     ${receivedComment ? `<p class="text-slate-700 italic text-[10px] break-words">"${receivedComment}"</p>` : ''}
                                 </div>
                             ` : `
-                                <p class="text-slate-500 italic text-[10px] pt-0.5">等待 ${reviewerGroup} 提交互評亮點...</p>
+                                <p class="text-slate-500 italic text-[10px] pt-0.5">Waiting for ${reviewerGroup} review sparks...</p>
                             `}
                         </div>
 
@@ -8433,14 +8396,14 @@ ${JSON.stringify(summaryData, null, 2)}
                         <div class="bg-sky-50/70 border border-sky-200/80 p-2.5 rounded-xl space-y-1 text-[11px]">
                             <div class="flex items-center justify-between">
                                 <span class="font-bold text-sky-950 flex items-center gap-1">
-                                    <span>❓ 延伸好奇 (I still wonder)：</span>
+                                    <span>❓ I Still Wonder:</span>
                                 </span>
                                 <span class="text-[9px] font-bold px-1.5 py-0.2 rounded ${(gInfo.reflection && (gInfo.reflection.stillWonder || gInfo.reflection.nowIThink)) ? 'bg-sky-600 text-white' : 'bg-slate-200 text-slate-500'}">
-                                    ${(gInfo.reflection && (gInfo.reflection.stillWonder || gInfo.reflection.nowIThink)) ? '✓ Step 7 已提交' : '待提交'}
+                                    ${(gInfo.reflection && (gInfo.reflection.stillWonder || gInfo.reflection.nowIThink)) ? '✓ Submitted' : 'Pending'}
                                 </span>
                             </div>
                             <p class="text-slate-800 text-[10px] leading-relaxed break-words ${(gInfo.reflection && (gInfo.reflection.stillWonder || gInfo.reflection.nowIThink)) ? 'font-medium italic' : 'text-slate-400 italic'}">
-                                ${(gInfo.reflection && (gInfo.reflection.stillWonder || gInfo.reflection.nowIThink)) ? `"${gInfo.reflection.stillWonder || gInfo.reflection.nowIThink}"` : "尚未提交 Step 7 延伸好奇提問..."}
+                                ${(gInfo.reflection && (gInfo.reflection.stillWonder || gInfo.reflection.nowIThink)) ? `"${gInfo.reflection.stillWonder || gInfo.reflection.nowIThink}"` : "No reflection question submitted yet..."}
                             </p>
                         </div>
 
@@ -8448,21 +8411,21 @@ ${JSON.stringify(summaryData, null, 2)}
                         <div class="${hasDebrief ? 'bg-purple-100/80 border-purple-300 ring-1 ring-purple-300 shadow-2xs' : 'bg-purple-50/70 border-purple-200/80'} p-2.5 rounded-xl space-y-1 text-[11px] border">
                             <div class="flex items-center justify-between">
                                 <span class="font-bold text-purple-950 flex items-center gap-1">
-                                    <span>🎓 教師深度點撥 (Debrief)：</span>
+                                    <span>🎓 Teacher Debrief:</span>
                                 </span>
                                 <span class="text-[9px] font-bold px-1.5 py-0.2 rounded ${hasDebrief ? 'bg-purple-700 text-white' : 'bg-slate-200 text-slate-600'}">
-                                    ${hasDebrief ? '✓ 已記錄點撥' : '待記錄'}
+                                    ${hasDebrief ? '✓ Recorded' : 'Pending'}
                                 </span>
                             </div>
                             <p class="text-slate-800 text-[10px] leading-relaxed break-words ${hasDebrief ? 'font-medium' : 'text-slate-400 italic'}">
-                                ${hasDebrief ? pr.teacherDebrief : "尚未記錄點撥回饋（點擊卡片展開編輯）"}
+                                ${hasDebrief ? pr.teacherDebrief : "Click card to add debrief notes"}
                             </p>
                         </div>
                     </div>
 
                     <!-- Click to open detail prompt -->
                     <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-sky-600 hover:text-sky-700 text-xs font-bold">
-                        <span>點擊展開詳細對話、互評與深度點撥</span>
+                        <span>Click to open dialogue details, peer review & teacher notes</span>
                         <i data-lucide="chevron-right" class="w-4 h-4"></i>
                     </div>
                 `;
@@ -8842,29 +8805,40 @@ ${JSON.stringify(summaryData, null, 2)}
         let modalActiveGroupKey = 'Group 1';
 
         function getGroupHighlightQuote(gKey) {
-            const g = classData[gKey];
-            if (!g) return "No responses yet / 尚未有發言記錄";
-            if (g.chatLogs && g.chatLogs.length > 0) {
-                for (let i = g.chatLogs.length - 1; i >= 0; i--) {
-                    if (g.chatLogs[i].sender === 'user') {
-                        const textEn = (g.chatLogs[i].en || '').trim();
-                        const textZh = (g.chatLogs[i].zh || '').trim();
-                        if (textEn.length >= 2 || textZh.length >= 2) {
-                            if (!/^(好的|ok|yes|明白|知道了|你好|hi)$/i.test(textZh)) {
-                                if (textEn && textZh && textEn !== textZh) {
-                                    return `${textEn}\n${textZh}`;
+            const tableKey = getTableKey(gKey);
+            const candidates = [
+                classData[gKey],
+                classData[tableKey + 'A'],
+                classData[tableKey + 'B'],
+                classData[tableKey]
+            ].filter(Boolean);
+
+            for (const g of candidates) {
+                if (g.chatLogs && g.chatLogs.length > 0) {
+                    for (let i = g.chatLogs.length - 1; i >= 0; i--) {
+                        if (g.chatLogs[i].sender === 'user') {
+                            const textEn = (g.chatLogs[i].en || '').trim();
+                            const textZh = (g.chatLogs[i].zh || '').trim();
+                            if (textEn.length >= 2 || textZh.length >= 2) {
+                                if (!/^(好的|ok|yes|明白|知道了|你好|hi)$/i.test(textZh)) {
+                                    if (textEn && textZh && textEn !== textZh) {
+                                        return `${textEn}\n${textZh}`;
+                                    }
+                                    return textEn || textZh;
                                 }
-                                return textEn || textZh;
                             }
                         }
                     }
                 }
+                if (g.latestAnswer && !/No responses yet/i.test(g.latestAnswer)) {
+                    return g.latestAnswer;
+                }
             }
-            if (g.latestAnswer && !/No responses yet/i.test(g.latestAnswer)) {
-                return g.latestAnswer;
-            }
-            if (g.summaryZh && !/尚未/i.test(g.summaryZh)) {
-                return (g.summaryEn ? g.summaryEn + '\n' : '') + g.summaryZh;
+
+            for (const g of candidates) {
+                if (g.summaryZh && !/尚未/i.test(g.summaryZh)) {
+                    return (g.summaryEn ? g.summaryEn + '\n' : '') + g.summaryZh;
+                }
             }
 
             // High-yield realistic scientific inquiry findings for each group (ensures instant peer review availability)
@@ -8879,15 +8853,15 @@ ${JSON.stringify(summaryData, null, 2)}
                 'Group 8': "Calculating the 8-group class average cancels out individual timing errors, making our scientific conclusion more reliable.\n計算全班 8 組的平均值能互相抵消單一小組的隨機計時偏差，使科學結論更具信度。"
             };
 
-            return defaultInquiryProfiles[gKey] || "Active scientific inquiry in progress; timings logged. / 正在探究中，已記錄實驗數據。";
+            return defaultInquiryProfiles[tableKey] || defaultInquiryProfiles[gKey] || "Active scientific inquiry in progress; timings logged. / 正在探究中，已記錄實驗數據。";
         }
 
         function selectPeerReviewTargetGroup(targetKey) {
             if (!classData[currentRole]) return;
+            const tableNum = parseInt(getTableKey(currentRole).replace('Group ', '')) || 1;
             if (!classData[currentRole].peerReview) {
-                const curIdx = parseInt(currentRole.replace('Group ', '')) || 1;
                 classData[currentRole].peerReview = {
-                    targetGroup: `Group ${curIdx === 8 ? 1 : curIdx + 1}`,
+                    targetGroup: `Group ${tableNum === 8 ? 1 : tableNum + 1}`,
                     activeReviewTarget: targetKey,
                     reviewsByTarget: {},
                     sparkTags: [],
@@ -8912,12 +8886,12 @@ ${JSON.stringify(summaryData, null, 2)}
             if (!container) return;
             if (!classData[currentRole]) return;
 
-            const curIdx = parseInt(currentRole.replace('Group ', '')) || 1;
+            const tableNum = parseInt(getTableKey(currentRole).replace('Group ', '')) || 1;
             if (!classData[currentRole].peerReview) {
                 classData[currentRole].peerReview = {
-                    targetGroup: `Group ${curIdx === 8 ? 1 : curIdx + 1}`,
-                    assignedReviewer: `Group ${curIdx === 1 ? 8 : curIdx - 1}`,
-                    activeReviewTarget: `Group ${curIdx === 8 ? 1 : curIdx + 1}`,
+                    targetGroup: `Group ${tableNum === 8 ? 1 : tableNum + 1}`,
+                    assignedReviewer: `Group ${tableNum === 1 ? 8 : tableNum - 1}`,
+                    activeReviewTarget: `Group ${tableNum === 8 ? 1 : tableNum + 1}`,
                     reviewsByTarget: {},
                     sparkTags: [],
                     comment: "",
@@ -8928,7 +8902,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
             const pr = classData[currentRole].peerReview;
             if (!pr.reviewsByTarget || typeof pr.reviewsByTarget !== 'object') pr.reviewsByTarget = {};
-            if (!pr.targetGroup) pr.targetGroup = `Group ${curIdx === 8 ? 1 : curIdx + 1}`;
+            if (!pr.targetGroup) pr.targetGroup = `Group ${tableNum === 8 ? 1 : tableNum + 1}`;
             
             const activeTarget = pr.activeReviewTarget || pr.targetGroup;
             pr.activeReviewTarget = activeTarget;
@@ -8940,7 +8914,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 tabsContainer.innerHTML = '';
                 for (let i = 1; i <= 8; i++) {
                     const gKey = `Group ${i}`;
-                    const isMyGroup = (gKey === currentRole);
+                    const isMyGroup = (gKey === currentRole || gKey === getTableKey(currentRole));
                     const isAssigned = (gKey === pr.targetGroup);
                     const isSelected = (gKey === activeTarget);
                     const targetHasReview = !!(pr.reviewsByTarget && pr.reviewsByTarget[gKey]?.submitted);
@@ -10138,10 +10112,10 @@ ${JSON.stringify(summaryData, null, 2)}
 
             const broadcastQ = classData && classData._activeBroadcastHotq ? classData._activeBroadcastHotq : null;
             if (banner) {
-                if (broadcastQ && broadcastQ.titleZh) {
-                    banner.innerHTML = `<span class="text-indigo-700">📡 目前全班指定派發題目：</span><span class="text-slate-900">${broadcastQ.titleZh}</span> <span class="text-slate-500 font-normal">(${broadcastQ.titleEn || ''})</span>`;
+                if (broadcastQ && (broadcastQ.titleEn || broadcastQ.titleZh)) {
+                    banner.innerHTML = `<span class="text-indigo-700 font-bold">📡 Active Class Question:</span> <span class="text-slate-900 font-bold">${broadcastQ.titleEn || broadcastQ.titleZh}</span>`;
                 } else {
-                    banner.innerHTML = `📡 目前派發題目：學生可自由選擇 Top 3 優先高階思考題作答（點擊上方任一題目卡的「📡 派發此題予全班作答」即可一鍵指定必答題）`;
+                    banner.innerHTML = `📡 Active Question: Students can choose any of the Top 3 Priority Questions (Click "📡 Push this Question" on any card above to assign it to everyone)`;
                 }
             }
 
@@ -10149,35 +10123,71 @@ ${JSON.stringify(summaryData, null, 2)}
             let html = '';
 
             for (let i = 1; i <= 8; i++) {
-                const gKey = `Group ${i}`;
-                const g = classData[gKey] || {};
-                const resp = g.hotqResponse || {};
-                const hasAns = !!(resp.submitted && resp.answer && resp.answer.trim().length > 0);
-                if (hasAns) submittedCount++;
+                const tableKey = `Group ${i}`;
+                const pairAKey = `Group ${i}A`;
+                const pairBKey = `Group ${i}B`;
+                
+                const respA = classData[pairAKey]?.hotqResponse || (classData[tableKey]?.hotqResponse?.pair === 'A' ? classData[tableKey]?.hotqResponse : null) || {};
+                const respB = classData[pairBKey]?.hotqResponse || (classData[tableKey]?.hotqResponse?.pair === 'B' ? classData[tableKey]?.hotqResponse : null) || {};
+                const fallbackResp = classData[tableKey]?.hotqResponse || {};
 
-                const timeStr = resp.timestamp ? new Date(resp.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
-                const qTag = resp.cardIdx !== undefined ? `Q${resp.cardIdx + 1}` : 'Q1';
+                const finalRespA = (respA.submitted && respA.answer) ? respA : (!respB.submitted && fallbackResp.submitted ? fallbackResp : respA);
+                const finalRespB = (respB.submitted && respB.answer) ? respB : respB;
+
+                const hasAnsA = !!(finalRespA.submitted && finalRespA.answer && finalRespA.answer.trim().length > 0);
+                const hasAnsB = !!(finalRespB.submitted && finalRespB.answer && finalRespB.answer.trim().length > 0);
+
+                if (hasAnsA) submittedCount++;
+                if (hasAnsB) submittedCount++;
+
+                const qTagA = finalRespA.cardIdx !== undefined ? `Q${finalRespA.cardIdx + 1}` : 'Q1';
+                const qTagB = finalRespB.cardIdx !== undefined ? `Q${finalRespB.cardIdx + 1}` : 'Q1';
+
+                const timeStrA = finalRespA.timestamp ? new Date(finalRespA.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+                const timeStrB = finalRespB.timestamp ? new Date(finalRespB.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+
+                const tableHasAny = hasAnsA || hasAnsB;
 
                 html += `
-                    <div class="p-3.5 rounded-2xl border-2 transition flex flex-col justify-between ${hasAns ? 'bg-indigo-50/50 border-indigo-300 shadow-xs' : 'bg-slate-50/70 border-slate-200 opacity-75'}">
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between gap-1">
-                                <span class="font-extrabold text-xs text-slate-900 flex items-center gap-1.5">
-                                    <span class="w-2.5 h-2.5 rounded-full ${hasAns ? 'bg-emerald-500' : 'bg-slate-300'}"></span>
-                                    <span>${gKey}</span>
-                                </span>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${hasAns ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-500'}">
-                                    ${hasAns ? `✓ 已作答 (${qTag})` : '待作答'}
-                                </span>
-                            </div>
-                            ${hasAns && resp.titleZh ? `
-                                <p class="text-[10px] font-bold text-indigo-800 line-clamp-1" title="${resp.titleZh}">${resp.titleZh}</p>
-                            ` : ''}
-                            <div class="p-2.5 rounded-xl bg-white border ${hasAns ? 'border-indigo-200 text-slate-800 font-medium' : 'border-slate-100 text-slate-400 italic'} text-xs min-h-[64px] leading-relaxed whitespace-pre-wrap">${hasAns ? resp.answer : '尚未提交 Step 6 作答...'}</div>
+                    <div class="p-3.5 rounded-2xl border-2 transition flex flex-col justify-between ${tableHasAny ? 'bg-indigo-50/50 border-indigo-300 shadow-xs' : 'bg-slate-50/70 border-slate-200 opacity-80'} space-y-3">
+                        <div class="flex items-center justify-between pb-1.5 border-b border-slate-200">
+                            <span class="font-extrabold text-xs text-slate-900 flex items-center gap-1.5">
+                                <span class="w-2.5 h-2.5 rounded-full ${tableHasAny ? 'bg-emerald-500' : 'bg-slate-300'}"></span>
+                                <span>Table ${i}</span>
+                            </span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${tableHasAny ? 'bg-indigo-600 text-white' : 'bg-slate-200 text-slate-500'}">
+                                ${(hasAnsA && hasAnsB) ? '2/2 Pairs Answered' : (tableHasAny ? '1/2 Pairs Answered' : '0/2 Answered')}
+                            </span>
                         </div>
-                        <div class="pt-2 mt-2 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-500">
-                            <span>${timeStr ? `🕒 ${timeStr}` : '等待同步'}</span>
-                            <button type="button" onclick="openGroupDetailModal('${gKey}')" class="text-indigo-600 hover:text-indigo-800 font-bold">查看詳情 ➔</button>
+
+                        <!-- Pair A & Pair B Sub-Cards -->
+                        <div class="space-y-2">
+                            <!-- Pair A -->
+                            <div class="p-2 rounded-xl bg-white border ${hasAnsA ? 'border-indigo-200' : 'border-slate-100'} text-[11px] space-y-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-sky-800">Pair A (iPad 1)</span>
+                                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded ${hasAnsA ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-500'}">
+                                        ${hasAnsA ? `✓ ${qTagA}` : 'Pending'}
+                                    </span>
+                                </div>
+                                <div class="text-slate-800 font-medium min-h-[40px] leading-relaxed break-words ${hasAnsA ? '' : 'italic text-slate-400'}">${hasAnsA ? finalRespA.answer : 'No answer submitted yet...'}</div>
+                            </div>
+
+                            <!-- Pair B -->
+                            <div class="p-2 rounded-xl bg-white border ${hasAnsB ? 'border-indigo-200' : 'border-slate-100'} text-[11px] space-y-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-purple-800">Pair B (iPad 2)</span>
+                                    <span class="text-[9px] font-bold px-1.5 py-0.2 rounded ${hasAnsB ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-500'}">
+                                        ${hasAnsB ? `✓ ${qTagB}` : 'Pending'}
+                                    </span>
+                                </div>
+                                <div class="text-slate-800 font-medium min-h-[40px] leading-relaxed break-words ${hasAnsB ? '' : 'italic text-slate-400'}">${hasAnsB ? finalRespB.answer : 'No answer submitted yet...'}</div>
+                            </div>
+                        </div>
+
+                        <div class="pt-1.5 border-t border-slate-200/60 flex items-center justify-between text-[10px] text-slate-500">
+                            <span>🕒 ${timeStrA || timeStrB || 'Waiting'}</span>
+                            <button type="button" onclick="openGroupDetailModal('${pairAKey}')" class="text-indigo-600 hover:text-indigo-800 font-bold">Details ➔</button>
                         </div>
                     </div>
                 `;
@@ -10185,7 +10195,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
             grid.innerHTML = html;
             if (badge) {
-                badge.innerText = `${submittedCount} / 8 組已提交 HOTQ 作答`;
+                badge.innerText = `${submittedCount} / 16 Pairs Answered`;
                 badge.className = submittedCount > 0
                     ? "px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300"
                     : "px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-100 text-indigo-800 border border-indigo-200";

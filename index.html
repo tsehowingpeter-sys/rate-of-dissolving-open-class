@@ -278,43 +278,43 @@
                     <form id="dataForm" onsubmit="event.preventDefault(); submitGroupData();" class="space-y-3 pt-1">
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             <!-- 50 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
+                            <div class="bg-slate-50 p-2.5 sm:p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
                                 <label for="t50" class="block text-xs font-extrabold text-slate-800">50 cm³ Water</label>
                                 <span class="text-[10px] text-teal-800 font-semibold block mb-1.5">Dissolving Time</span>
                                 <div class="flex items-center bg-white border border-slate-300 rounded-xl overflow-hidden focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-500 shadow-inner">
-                                    <input type="number" step="0.1" min="0" id="t50" placeholder="120" 
-                                        class="w-full min-w-0 px-2 py-1 text-xs sm:text-sm font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-normal bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required>
-                                    <span class="px-1.5 py-1 text-[10px] font-medium bg-slate-100 text-slate-500 border-l border-slate-200 select-none flex-shrink-0">sec</span>
+                                    <input type="number" step="0.01" min="0" id="t50" placeholder="120.00" 
+                                        class="w-full min-w-0 px-1.5 py-1 text-xs sm:text-sm font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-normal bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required>
+                                    <span class="px-1 py-1 text-[9px] font-medium bg-slate-100 text-slate-500 border-l border-slate-200 select-none flex-shrink-0">sec</span>
                                 </div>
                             </div>
                             <!-- 100 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
+                            <div class="bg-slate-50 p-2.5 sm:p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
                                 <label for="t100" class="block text-xs font-extrabold text-slate-800">100 cm³ Water</label>
                                 <span class="text-[10px] text-teal-800 font-semibold block mb-1.5">Dissolving Time</span>
                                 <div class="flex items-center bg-white border border-slate-300 rounded-xl overflow-hidden focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-500 shadow-inner">
-                                    <input type="number" step="0.1" min="0" id="t100" placeholder="80" 
-                                        class="w-full min-w-0 px-2 py-1 text-xs sm:text-sm font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-normal bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required>
-                                    <span class="px-1.5 py-1 text-[10px] font-medium bg-slate-100 text-slate-500 border-l border-slate-200 select-none flex-shrink-0">sec</span>
+                                    <input type="number" step="0.01" min="0" id="t100" placeholder="80.00" 
+                                        class="w-full min-w-0 px-1.5 py-1 text-xs sm:text-sm font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-normal bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required>
+                                    <span class="px-1 py-1 text-[9px] font-medium bg-slate-100 text-slate-500 border-l border-slate-200 select-none flex-shrink-0">sec</span>
                                 </div>
                             </div>
                             <!-- 150 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
+                            <div class="bg-slate-50 p-2.5 sm:p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
                                 <label for="t150" class="block text-xs font-extrabold text-slate-800">150 cm³ Water</label>
                                 <span class="text-[10px] text-teal-800 font-semibold block mb-1.5">Dissolving Time</span>
                                 <div class="flex items-center bg-white border border-slate-300 rounded-xl overflow-hidden focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-500 shadow-inner">
-                                    <input type="number" step="0.1" min="0" id="t150" placeholder="50" 
-                                        class="w-full min-w-0 px-2 py-1 text-xs sm:text-sm font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-normal bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required>
-                                    <span class="px-1.5 py-1 text-[10px] font-medium bg-slate-100 text-slate-500 border-l border-slate-200 select-none flex-shrink-0">sec</span>
+                                    <input type="number" step="0.01" min="0" id="t150" placeholder="50.00" 
+                                        class="w-full min-w-0 px-1.5 py-1 text-xs sm:text-sm font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-normal bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required>
+                                    <span class="px-1 py-1 text-[9px] font-medium bg-slate-100 text-slate-500 border-l border-slate-200 select-none flex-shrink-0">sec</span>
                                 </div>
                             </div>
                             <!-- 200 cm3 -->
-                            <div class="bg-slate-50 p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
+                            <div class="bg-slate-50 p-2.5 sm:p-3 rounded-2xl border border-slate-200 focus-within:border-teal-500 focus-within:ring-2 focus-within:ring-teal-100 transition shadow-2xs">
                                 <label for="t200" class="block text-xs font-extrabold text-slate-800">200 cm³ Water</label>
                                 <span class="text-[10px] text-teal-800 font-semibold block mb-1.5">Dissolving Time</span>
                                 <div class="flex items-center bg-white border border-slate-300 rounded-xl overflow-hidden focus-within:border-teal-600 focus-within:ring-1 focus-within:ring-teal-500 shadow-inner">
-                                    <input type="number" step="0.1" min="0" id="t200" placeholder="30" 
-                                        class="w-full min-w-0 px-2 py-1 text-xs sm:text-sm font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-normal bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required>
-                                    <span class="px-1.5 py-1 text-[10px] font-medium bg-slate-100 text-slate-500 border-l border-slate-200 select-none flex-shrink-0">sec</span>
+                                    <input type="number" step="0.01" min="0" id="t200" placeholder="30.00" 
+                                        class="w-full min-w-0 px-1.5 py-1 text-xs sm:text-sm font-bold text-slate-900 placeholder:text-slate-300 placeholder:font-normal bg-transparent focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" required>
+                                    <span class="px-1 py-1 text-[9px] font-medium bg-slate-100 text-slate-500 border-l border-slate-200 select-none flex-shrink-0">sec</span>
                                 </div>
                             </div>
                         </div>
@@ -363,14 +363,21 @@
 
                     <!-- 8 Groups Overview Table -->
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/90 overflow-hidden">
-                        <div class="flex items-center justify-between mb-2.5">
+                        <div class="flex items-center justify-between mb-2.5 flex-wrap gap-2">
                             <h2 class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-1.5">
                                 <i data-lucide="table" class="w-4 h-4 text-indigo-600"></i>
                                 <span>8 Groups Overview Table / 8組數據總覽</span>
                             </h2>
-                            <span id="studentSubmittedCount" class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200">
-                                0/8 Groups Submitted
-                            </span>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <button type="button" onclick="triggerGlobalClassSyncRefresh(this, 'studentOverviewRefreshToast')" class="px-2.5 py-1 rounded-lg bg-sky-50 hover:bg-sky-100 active:scale-95 text-sky-800 font-bold text-[11px] border border-sky-200 transition flex items-center gap-1 shadow-2xs" title="Click to fetch latest data / 點擊即時刷新全班數據">
+                                    <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                                    <span>Refresh / 即時更新</span>
+                                </button>
+                                <span id="studentOverviewRefreshToast" class="hidden text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 animate-fade-in">✓ Updated</span>
+                                <span id="studentSubmittedCount" class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200">
+                                    0/8 Groups Submitted
+                                </span>
+                            </div>
                         </div>
                         
                         <div class="overflow-x-auto rounded-xl border border-slate-200">
@@ -435,13 +442,18 @@
                     </div>
 
                     <!-- Custom Text Input Form -->
-                    <form id="chatForm" onsubmit="handleCustomTextSubmit(event)" class="flex gap-2 pt-2 border-t border-slate-100">
-                        <input type="text" id="userInput" placeholder="Or type your own thinking... / 或用你自己的文字回答..." 
-                            class="flex-1 px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-sky-400 focus:border-sky-400 focus:outline-none transition">
-                        <button type="submit" id="chatSendBtn" class="bg-sky-500 hover:bg-sky-600 active:scale-95 text-white px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-md transition flex items-center gap-1.5 flex-shrink-0">
-                            <i data-lucide="send" class="w-4 h-4"></i>
-                            <span>Send</span>
-                        </button>
+                    <form id="chatForm" onsubmit="handleCustomTextSubmit(event)" class="space-y-1 pt-2 border-t border-slate-100">
+                        <div class="flex gap-2">
+                            <input type="text" id="userInput" placeholder="Type your scientific thought in English... (English only)" 
+                                class="flex-1 px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-sky-400 focus:border-sky-400 focus:outline-none transition">
+                            <button type="submit" id="chatSendBtn" class="bg-sky-500 hover:bg-sky-600 active:scale-95 text-white px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-md transition flex items-center gap-1.5 flex-shrink-0">
+                                <i data-lucide="send" class="w-4 h-4"></i>
+                                <span>Send</span>
+                            </button>
+                        </div>
+                        <div id="chatEnglishWarning" class="hidden text-[10px] text-rose-700 font-bold bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-lg animate-fade-in">
+                            ⚠️ English Only: Please write in English! Remove Chinese characters before sending. / 請以全英文作答，發送前請移除中文字元。
+                        </div>
                     </form>
                 </div>
 
@@ -531,10 +543,10 @@
 
                 <div id="stepELockedBanner" class="p-6 text-center space-y-2 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
                     <p class="text-xs text-slate-600 font-medium">
-                        🔒 請先閱讀並完成<strong>【Step 4: Key Summary】</strong>，即可解鎖進行跨組對話互評！
+                        🔒 請先完成<strong>【Step 3: Agent Water 水精靈對話】</strong>，即可全面解鎖進行跨組對話互評！
                     </p>
                     <p class="text-[11px] text-slate-400">
-                        Please review Step 4 Key Summary first to unlock peer review.
+                        Please complete Step 3 Agent Water dialogue first to unlock peer review.
                     </p>
                 </div>
 
@@ -542,6 +554,21 @@
                     <p class="text-xs text-slate-600">
                         仔細閱讀老師為你組別指定的對話紀錄與發現，為他們標記思維閃光點，並提出建設性的科學讚賞或好奇追問！
                     </p>
+
+                    <!-- Multi-Group Selector Bar (Review up to all groups) -->
+                    <div class="bg-indigo-50/80 p-3 rounded-2xl border border-indigo-200/90 space-y-2">
+                        <div class="flex items-center justify-between flex-wrap gap-1">
+                            <span class="text-xs font-bold text-indigo-950 flex items-center gap-1.5">
+                                <span>🎯 Select Group to Review / 選擇欲點評之組別（可點評所有組別）:</span>
+                            </span>
+                            <span id="peerMultiReviewedCountBadge" class="text-[10px] font-bold text-indigo-700 bg-white px-2.5 py-0.5 rounded-full border border-indigo-200">
+                                Reviewed: 0 / 7 Groups
+                            </span>
+                        </div>
+                        <div id="peerReviewGroupTabsContainer" class="flex items-center gap-1.5 flex-wrap">
+                            <!-- Populated dynamically by renderStudentPeerReviewUI() -->
+                        </div>
+                    </div>
 
                     <!-- Target Group's Dialogue / Findings Card -->
                     <div class="bg-white p-4 rounded-2xl border border-indigo-100 shadow-xs space-y-2.5">
@@ -583,7 +610,7 @@
                     <!-- Peer Review Textarea -->
                     <div class="space-y-1.5">
                         <label class="block text-xs font-bold text-slate-700 flex items-center justify-between flex-wrap gap-1">
-                            <span>💬 Peer Praise & Inquiring Wonder / 給對方的讚賞或好奇追問 <span class="text-rose-500 font-extrabold">* (Required / 必填)</span>:</span>
+                            <span>💬 Peer Praise & Inquiring Wonder / 給對方的讚賞或好奇追問 <span class="text-rose-500 font-extrabold">* (Required - English Only / 必填・純英文作答)</span>:</span>
                             <span class="text-[10px] text-slate-400">Min. 5 characters / 至少5個字元</span>
                         </label>
                         <!-- Quick Sentence Starter Chips for S1 Students (Simple English) -->
@@ -602,7 +629,10 @@
                                 ➕ Why did your time...
                             </button>
                         </div>
-                        <textarea id="peerReviewCommentInput" rows="2" class="w-full text-xs p-3 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none leading-relaxed" placeholder="E.g., Good point about stirring speed! How did you keep the water volume fair?"></textarea>
+                        <textarea id="peerReviewCommentInput" rows="2" class="w-full text-xs p-3 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none leading-relaxed" placeholder="E.g., Good point about stirring speed! How did you keep the water volume fair? (English only)"></textarea>
+                        <div id="peerEnglishWarning" class="hidden text-[10px] text-rose-700 font-bold bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-lg mt-1 animate-fade-in">
+                            ⚠️ English Only: Please write your peer review in English! Remove Chinese characters before submitting. / 請以全英文作答，提交前請移除中文字元。
+                        </div>
                     </div>
 
                     <!-- Submit Action -->
@@ -649,10 +679,10 @@
 
                 <div id="stepHLockedBanner" class="p-6 text-center space-y-2 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
                     <p class="text-xs text-slate-600 font-medium">
-                        🔒 請先完成<strong>【Step 5: Peer Review 跨組互評】</strong>，即可解鎖回答老師顯示的大組討論高階問題 (HOTQ)！
+                        🔒 請先完成<strong>【Step 3: Agent Water 水精靈對話】</strong>，即可全面解鎖回答老師大組討論高階問題 (HOTQ)！
                     </p>
                     <p class="text-[11px] text-slate-400">
-                        Please submit Step 5 Peer Review first to unlock the Class HOTQ Challenge.
+                        Please complete Step 3 Agent Water dialogue first to unlock the Class HOTQ Challenge.
                     </p>
                 </div>
 
@@ -673,13 +703,29 @@
                         <!-- Dynamically populated by renderStudentHotqStepUI() -->
                     </div>
 
+                    <!-- Helpful Vocabulary Bank (Dynamic per Question) -->
+                    <div id="studentHotqVocabContainer" class="bg-amber-50/70 p-3.5 rounded-2xl border border-amber-200/90 space-y-2">
+                        <div class="flex items-center justify-between flex-wrap gap-1">
+                            <span class="text-xs font-bold text-amber-950 flex items-center gap-1.5">
+                                <span>📖 Helpful Vocabulary Bank / 核心英文詞彙輔助:</span>
+                            </span>
+                            <span class="text-[10px] text-amber-800 font-semibold">(Tap word to insert / 點擊即可插入純英文詞彙)</span>
+                        </div>
+                        <div id="studentHotqVocabChips" class="flex items-center gap-1.5 flex-wrap">
+                            <!-- Populated dynamically by renderStudentHotqStepUI() -->
+                        </div>
+                    </div>
+
                     <!-- Student Group HOTQ Answer Input -->
-                    <div class="space-y-2">
+                    <div class="space-y-1.5">
                         <label for="studentHotqAnswerInput" class="block text-xs sm:text-sm font-bold text-slate-800 flex items-center justify-between flex-wrap gap-1">
-                            <span>✍️ Your Group's Scientific Response / 本組科學推論與回答 <span class="text-rose-500 font-extrabold">* (Required)</span>:</span>
+                            <span>✍️ Your Group's Scientific Response / 本組科學推論與回答 <span class="text-rose-500 font-extrabold">* (Required - English Only / 必填・純英文作答)</span>:</span>
                             <span class="text-[10px] text-slate-500 font-normal">Your answer will be displayed live on the Teacher's Comparison Wall / 提交後將即時顯示於老師後台作全班分析比較</span>
                         </label>
-                        <textarea id="studentHotqAnswerInput" rows="3" class="w-full text-xs sm:text-sm p-3.5 rounded-xl border border-amber-300 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 leading-relaxed text-slate-800" placeholder="Discuss with your group and type your answer to the teacher's HOTQ here (English or Chinese)... / 請與組員討論後，在此輸入你們對這道高階問題的科學解釋（中英文皆可）..."></textarea>
+                        <textarea id="studentHotqAnswerInput" rows="3" class="w-full text-xs sm:text-sm p-3.5 rounded-xl border border-amber-300 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 leading-relaxed text-slate-800" placeholder="Discuss with your group and type your scientific reasoning to the teacher's HOTQ here (English only)..."></textarea>
+                        <div id="hotqEnglishWarning" class="hidden text-[10px] text-rose-700 font-bold bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-lg animate-fade-in">
+                            ⚠️ English Only: Please write your HOTQ answer in English! Remove Chinese characters before submitting. / 請以全英文作答（可點擊上方詞彙按鈕插入英文單字），提交前請移除中文字元。
+                        </div>
                     </div>
 
                     <!-- Submit HOTQ Answer Action -->
@@ -729,7 +775,7 @@
                     <div>
                         <h4 class="font-bold text-sm text-slate-700 font-fun">Step 7: Reflection Card (Locked) / 思考常規反思卡（鎖定中）</h4>
                         <p class="text-xs text-slate-500 mt-1">
-                            Please complete Steps 1 to 6 (including the Class HOTQ response) to unlock your final reflection! / 請先完成前 6 個步驟（包含回應老師 HOTQ 問題），即可解鎖最終思維反思卡！
+                            Please complete Step 3 Agent Water dialogue first to unlock your final reflection! / 請先完成【Step 3: Agent Water 水精靈對話】，即可全面解鎖最終思維反思卡！
                         </p>
                     </div>
                 </div>
@@ -739,7 +785,7 @@
                     <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-200/80 space-y-2.5">
                         <div class="flex items-center justify-between flex-wrap gap-2">
                             <label for="reflectionStillWonder" class="block text-xs sm:text-sm font-bold text-indigo-950 flex items-center gap-1.5">
-                                <span>❓ I still wonder... / 我仍然感到好奇、想繼續探究的是... <span class="text-rose-500 font-extrabold">* (Required)</span></span>
+                                <span>❓ I still wonder... / 我仍然感到好奇、想繼續探究的是... <span class="text-rose-500 font-extrabold">* (Required - English Only / 必填・純英文作答)</span></span>
                             </label>
                             <button type="button" onclick="toggleReflectionScaffold(3)" class="text-[11px] font-bold text-indigo-800 bg-indigo-100 hover:bg-indigo-200 px-3 py-1 rounded-lg border border-indigo-300 transition flex items-center gap-1.5 shadow-xs">
                                 <i data-lucide="help-circle" class="w-3.5 h-3.5 text-indigo-600"></i>
@@ -756,8 +802,11 @@
                                 <li><strong>Engineering & Sensors (儀器與傳感器):</strong> How could we use light sensors or magnetic stirrers to make our experiment even fairer? / 如何運用光學感測器或定速磁力攪拌器，令實驗更公平準確？</li>
                             </ul>
                         </div>
-                        <textarea id="reflectionStillWonder" rows="2" placeholder="E.g., I wonder if warm water or faster stirring would make salt dissolve even faster... / 例如：我好奇如果改用溫水或者定速攪拌器，食鹽溶解時間會變化多少..."
+                        <textarea id="reflectionStillWonder" rows="2" placeholder="E.g., I wonder if warm water or faster stirring would make salt dissolve even faster... (English only)"
                             class="w-full p-3 text-xs sm:text-sm text-slate-800 bg-white border border-indigo-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400 leading-relaxed"></textarea>
+                        <div id="reflectionEnglishWarning" class="hidden text-[10px] text-rose-700 font-bold bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-lg mt-1 animate-fade-in">
+                            ⚠️ English Only: Please write your reflection in English! Remove Chinese characters before submitting. / 請以全英文作答，提交前請移除中文字元。
+                        </div>
                     </div>
 
                     <!-- Submit Reflection Action -->
@@ -940,14 +989,21 @@
                 <!-- Teacher View 8 Groups Overview Table (6 Cols) -->
                 <div class="lg:col-span-6 bg-white rounded-3xl p-5 shadow-sm border border-slate-200/90 overflow-hidden flex flex-col justify-between">
                     <div>
-                        <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
                             <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
                                 <i data-lucide="layout-grid" class="w-5 h-5 text-indigo-600"></i>
                                 <span>8 Groups Data Overview / 8組數據總覽表</span>
                             </h3>
-                            <span id="teacherSubmittedCount" class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200">
-                                0/8 Groups Submitted
-                            </span>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <button type="button" onclick="triggerGlobalClassSyncRefresh(this, 'teacherOverviewRefreshToast')" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 active:scale-95 text-indigo-800 font-bold text-[11px] border border-indigo-200 transition flex items-center gap-1 shadow-2xs" title="Click to fetch latest data / 點擊即時刷新全班數據">
+                                    <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                                    <span>Refresh / 即時更新</span>
+                                </button>
+                                <span id="teacherOverviewRefreshToast" class="hidden text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 animate-fade-in">✓ Updated</span>
+                                <span id="teacherSubmittedCount" class="text-xs font-bold text-teal-700 bg-teal-50 px-2.5 py-0.5 rounded-full border border-teal-200">
+                                    0/8 Groups Submitted
+                                </span>
+                            </div>
                         </div>
                         
                         <div class="overflow-x-auto rounded-xl border border-slate-200">
@@ -992,10 +1048,17 @@
                             Click any group card to inspect their complete Agent Water chat logs, highlighted evidence, strengths, and teacher follow-up prompts. / 點擊任意小組卡片以深入查看其與水精靈的實時對話、思維強弱項證據與教師點撥建議。
                         </p>
                     </div>
-                    <span class="text-xs text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full font-bold flex items-center gap-1.5">
-                        <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-600"></i>
-                        <span>AI Evidence Diagnostics Active / AI 學情診斷連動中</span>
-                    </span>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" onclick="triggerGlobalClassSyncRefresh(this, 'teacherGridRefreshToast')" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 active:scale-95 text-indigo-800 font-bold text-[11px] border border-indigo-200 transition flex items-center gap-1 shadow-2xs" title="Click to fetch latest dialogue & data / 點擊即時刷新對話與學情">
+                            <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                            <span>Refresh / 即時更新</span>
+                        </button>
+                        <span id="teacherGridRefreshToast" class="hidden text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 animate-fade-in">✓ Updated</span>
+                        <span class="text-xs text-indigo-700 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full font-bold flex items-center gap-1.5">
+                            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-600"></i>
+                            <span>AI Evidence Diagnostics Active / AI 學情診斷連動中</span>
+                        </span>
+                    </div>
                 </div>
                 <div id="teacherGroupGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                     <!-- Injected dynamically by renderTeacherGroupGrid() -->
@@ -1089,6 +1152,11 @@
                         </div>
 
                         <div class="flex items-center gap-2 flex-wrap">
+                            <button type="button" onclick="triggerGlobalClassSyncRefresh(this, 'teacherHotqWallRefreshToast')" class="px-3 py-2 bg-amber-50 hover:bg-amber-100 active:scale-95 text-amber-900 font-bold text-xs rounded-xl border border-amber-300 transition flex items-center gap-1.5 shadow-2xs" title="Click to fetch latest HOTQ answers / 點擊即時刷新全班 HOTQ 回答">
+                                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                                <span>Refresh / 即時更新</span>
+                            </button>
+                            <span id="teacherHotqWallRefreshToast" class="hidden text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 animate-fade-in">✓ Updated</span>
                             <button type="button" onclick="runClassHotqAiComparison()" id="btnCompareClassHotq" class="px-4 py-2 bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5">
                                 <i data-lucide="sparkles" class="w-4 h-4"></i>
                                 <span>✨ AI 一鍵跨組答案比較與診斷 (AI Compare & Analyze)</span>
@@ -1504,8 +1572,13 @@
                         </div>
                     </div>
 
-                    <!-- Pairing Preset Buttons -->
+                    <!-- Pairing Preset Buttons & Refresh -->
                     <div class="flex items-center gap-2 flex-wrap">
+                        <button type="button" onclick="triggerGlobalClassSyncRefresh(this, 'teacherPeerMatrixRefreshToast')" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-bold text-xs border border-slate-300 transition flex items-center gap-1.5 shadow-xs" title="Click to fetch latest peer review statuses / 點擊即時刷新互評狀態">
+                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                            <span>Refresh / 即時更新</span>
+                        </button>
+                        <span id="teacherPeerMatrixRefreshToast" class="hidden text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 animate-fade-in">✓ Updated</span>
                         <button type="button" onclick="setPeerReviewPairingType('circular')" class="px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-800 font-bold text-xs border border-indigo-200 transition flex items-center gap-1.5 shadow-xs">
                             <span>🔄 Circular Sequence (1➔2➔3...➔1) / 順序循環</span>
                         </button>
@@ -2092,9 +2165,16 @@
                     </div>
                 </div>
 
-                <button onclick="closeGroupDetailModal()" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition font-bold" title="Close / 關閉">
-                    ✕
-                </button>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="triggerGlobalClassSyncRefresh(this, 'modalRefreshToast')" class="px-2.5 py-1.5 bg-white/20 hover:bg-white/30 active:scale-95 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-2xs" title="Refresh data / 即時更新">
+                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                        <span>Refresh / 即時更新</span>
+                    </button>
+                    <span id="modalRefreshToast" class="hidden text-[10px] font-bold text-emerald-300 bg-emerald-950/70 px-2 py-0.5 rounded-md border border-emerald-400 animate-fade-in">✓ Updated</span>
+                    <button onclick="closeGroupDetailModal()" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition font-bold" title="Close / 關閉">
+                        ✕
+                    </button>
+                </div>
             </div>
 
             <!-- Modal Body (Scrollable) -->
@@ -3531,6 +3611,8 @@ ${JSON.stringify(summaryData, null, 2)}
                     peerReview: {
                         targetGroup: `Group ${i === 8 ? 1 : i + 1}`,
                         assignedReviewer: `Group ${i === 1 ? 8 : i - 1}`,
+                        activeReviewTarget: `Group ${i === 8 ? 1 : i + 1}`,
+                        reviewsByTarget: {},
                         sparkTags: [],
                         comment: "",
                         teacherDebrief: "",
@@ -3563,6 +3645,13 @@ ${JSON.stringify(summaryData, null, 2)}
                     if (!data[key].summaryZh) data[key].summaryZh = fresh[key].summaryZh;
                     if (!data[key].peerReview || typeof data[key].peerReview !== 'object') {
                         data[key].peerReview = fresh[key].peerReview;
+                    } else {
+                        if (!data[key].peerReview.reviewsByTarget || typeof data[key].peerReview.reviewsByTarget !== 'object') {
+                            data[key].peerReview.reviewsByTarget = {};
+                        }
+                        if (!data[key].peerReview.activeReviewTarget) {
+                            data[key].peerReview.activeReviewTarget = data[key].peerReview.targetGroup || fresh[key].peerReview.targetGroup;
+                        }
                     }
                     if (!data[key].hotqResponse || typeof data[key].hotqResponse !== 'object') {
                         data[key].hotqResponse = fresh[key].hotqResponse;
@@ -3663,6 +3752,17 @@ ${JSON.stringify(summaryData, null, 2)}
                             locPr.submittedAt = inPr.submittedAt || Date.now();
                             locPr.sparkTags = Array.isArray(inPr.sparkTags) ? [...inPr.sparkTags] : [];
                             locPr.comment = inPr.comment || locPr.comment;
+                        }
+                    }
+                    if (inPr.reviewsByTarget && typeof inPr.reviewsByTarget === 'object') {
+                        if (!locPr.reviewsByTarget) locPr.reviewsByTarget = {};
+                        for (const [tgt, rItem] of Object.entries(inPr.reviewsByTarget)) {
+                            if (rItem && typeof rItem === 'object') {
+                                const curR = locPr.reviewsByTarget[tgt];
+                                if (!curR || (rItem.submittedAt || 0) >= (curR.submittedAt || 0)) {
+                                    locPr.reviewsByTarget[tgt] = { ...rItem };
+                                }
+                            }
                         }
                     }
                 }
@@ -4582,6 +4682,56 @@ ${JSON.stringify(summaryData, null, 2)}
             }
         }
 
+        // Universal real-time refresh function for cross-group data & dialogue tables
+        function triggerGlobalClassSyncRefresh(btnEl, toastId) {
+            if (btnEl) {
+                const icon = btnEl.querySelector('[data-lucide="refresh-cw"]') || btnEl.querySelector('svg');
+                if (icon) {
+                    icon.classList.add('animate-spin');
+                    setTimeout(() => icon.classList.remove('animate-spin'), 750);
+                }
+            }
+
+            try {
+                const raw = localStorage.getItem(getStorageKey());
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    classData = mergeClassData(classData, parsed);
+                }
+            } catch (e) {
+                console.warn("Refresh local storage load warning:", e);
+            }
+
+            requestClassSync();
+
+            updateAllUI();
+            if (typeof renderStudentPeerReviewUI === 'function') renderStudentPeerReviewUI();
+            if (typeof renderStudentHotqStepUI === 'function') renderStudentHotqStepUI();
+            if (typeof renderTeacherHotqAnswerWall === 'function') renderTeacherHotqAnswerWall();
+            if (typeof renderTeacherGroupGrid === 'function') renderTeacherGroupGrid();
+            if (typeof renderPeerReviewMatrixGrid === 'function') renderPeerReviewMatrixGrid();
+            if (typeof renderOverviewTable === 'function') renderOverviewTable();
+            if (typeof updateClassChart === 'function') updateClassChart();
+
+            const modal = document.getElementById('groupDetailModal');
+            if (modal && !modal.classList.contains('hidden') && window._currentModalGroupKey) {
+                if (typeof openGroupDetailModal === 'function') openGroupDetailModal(window._currentModalGroupKey);
+            }
+
+            if (toastId) {
+                const toast = document.getElementById(toastId);
+                if (toast) {
+                    const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    toast.innerText = `✓ Synced at ${nowStr} / 已即時同步最新全班數據`;
+                    toast.classList.remove('hidden');
+                    clearTimeout(toast._timer);
+                    toast._timer = setTimeout(() => {
+                        toast.classList.add('hidden');
+                    }, 3500);
+                }
+            }
+        }
+
         function handleIncomingSyncRequest(parsed) {
             if (!parsed || parsed.class !== currentClass) return;
             // Teacher is the ultimate authority and responds immediately with full aggregated data
@@ -5092,10 +5242,10 @@ ${JSON.stringify(summaryData, null, 2)}
             if (count === 0) return null;
 
             return {
-                50: Math.round((sums[50] / count) * 10) / 10,
-                100: Math.round((sums[100] / count) * 10) / 10,
-                150: Math.round((sums[150] / count) * 10) / 10,
-                200: Math.round((sums[200] / count) * 10) / 10,
+                50: Math.round((sums[50] / count) * 100) / 100,
+                100: Math.round((sums[100] / count) * 100) / 100,
+                150: Math.round((sums[150] / count) * 100) / 100,
+                200: Math.round((sums[200] / count) * 100) / 100,
                 count: count
             };
         }
@@ -5172,12 +5322,14 @@ ${JSON.stringify(summaryData, null, 2)}
                 let html = `<td class="py-2 px-2 font-bold bg-slate-50 border-r border-slate-200 whitespace-nowrap">${vol} cm³</td>`;
                 for(let i=1; i<=8; i++) {
                     const gKey = `Group ${i}`;
-                    const val = classData[gKey]?.data ? classData[gKey].data[vol] : '-';
+                    const rawVal = classData[gKey]?.data ? classData[gKey].data[vol] : null;
+                    const val = (rawVal !== null && rawVal !== undefined) ? Number(Number(rawVal).toFixed(2)) : '-';
                     const isSelected = gKey === activeRole;
                     html += `<td class="py-2 px-2 border-r border-slate-200 ${isSelected ? 'bg-sky-100/70 font-black text-sky-900' : ''}">${val}</td>`;
                 }
 
-                const avgVal = avgData ? avgData[vol] : '-';
+                const rawAvg = avgData ? avgData[vol] : null;
+                const avgVal = (rawAvg !== null && rawAvg !== undefined) ? Number(Number(rawAvg).toFixed(2)) : '-';
                 html += `<td class="py-2 px-2 font-extrabold bg-teal-50 text-teal-800">${avgVal}</td>`;
                 tr.innerHTML = html;
                 tbody.appendChild(tr);
@@ -5285,9 +5437,14 @@ ${JSON.stringify(summaryData, null, 2)}
                 classData = ensureClassDataStructure(classData);
             }
 
-            // Save group data
+            // Save group data with 2-decimal precision
             const nowTime = Date.now();
-            classData[currentRole].data = { 50: t50, 100: t100, 150: t150, 200: t200 };
+            classData[currentRole].data = { 
+                50: Number(t50.toFixed(2)), 
+                100: Number(t100.toFixed(2)), 
+                150: Number(t150.toFixed(2)), 
+                200: Number(t200.toFixed(2)) 
+            };
             classData[currentRole].dataUpdatedAt = nowTime;
             classData[currentRole].updatedAt = nowTime;
             
@@ -5647,8 +5804,8 @@ ${JSON.stringify(summaryData, null, 2)}
             const canAccessStep3 = hasData || isStepBypassed(3);
             const canAccessStep4 = hasDialogueCompleted || isStepBypassed(4);
             const canAccessStep5 = hasDialogueCompleted || isStepBypassed(5);
-            const canAccessStep6 = hasPeerReview || isStepBypassed(6);
-            const canAccessStep7 = hasHotqResponse || isStepBypassed(7);
+            const canAccessStep6 = hasDialogueCompleted || isStepBypassed(6);
+            const canAccessStep7 = hasDialogueCompleted || isStepBypassed(7);
 
             // 1. Overall Progress Badge (7 Steps)
             const progressBadge = document.getElementById('taskOverallProgressBadge');
@@ -5715,13 +5872,13 @@ ${JSON.stringify(summaryData, null, 2)}
             // 3. Agent Water
             setIndicator('stepIndicatorC', 'stepNumberC', 'stepSubC', hasDialogueCompleted, canAccessStep3, "✅ Dialogue Done", "In Progress", "🔒 Locked");
             // 4. Key Summary
-            setIndicator('stepIndicatorD', 'stepNumberD', 'stepSubD', (hasPeerReview || hasHotqResponse || hasReflection), canAccessStep4, "✅ Synthesized", "View Points", "🔒 Locked");
+            setIndicator('stepIndicatorD', 'stepNumberD', 'stepSubD', hasDialogueCompleted, canAccessStep4, "✅ Synthesized", "View Points", "🔒 Locked");
             // 5. Peer Review
-            setIndicator('stepIndicatorE', 'stepNumberE', 'stepSubE', hasPeerReview, canAccessStep5, "✅ Reviewed", isStepBypassed(5) && !hasDialogueCompleted ? "🔓 Teacher Bypass" : "In Progress", "🔒 Locked");
+            setIndicator('stepIndicatorE', 'stepNumberE', 'stepSubE', hasPeerReview, canAccessStep5, "✅ Reviewed", "In Progress", "🔒 Locked");
             // 6. Class HOTQ
-            setIndicator('stepIndicatorH', 'stepNumberH', 'stepSubH', hasHotqResponse, canAccessStep6, "✅ Answered", isStepBypassed(6) && !hasPeerReview ? "🔓 Teacher Bypass" : "In Progress", "🔒 Locked");
+            setIndicator('stepIndicatorH', 'stepNumberH', 'stepSubH', hasHotqResponse, canAccessStep6, "✅ Answered", "In Progress", "🔒 Locked");
             // 7. Thinking Routine
-            setIndicator('stepIndicatorF', 'stepNumberF', 'stepSubF', hasReflection, canAccessStep7, "✅ Submitted", isStepBypassed(7) && !hasHotqResponse ? "🔓 Teacher Bypass" : "In Progress", "🔒 Locked");
+            setIndicator('stepIndicatorF', 'stepNumberF', 'stepSubF', hasReflection, canAccessStep7, "✅ Submitted", "In Progress", "🔒 Locked");
 
             // Step 3 (Chat Input & Send Button) Gating
             const chatInput = document.getElementById('userInput');
@@ -5895,6 +6052,21 @@ ${JSON.stringify(summaryData, null, 2)}
                 return;
             }
 
+            // Task 6: Check Chinese characters
+            if (typeof hasChineseCharacters === 'function' && hasChineseCharacters(stillWonder)) {
+                const warn = document.getElementById('reflectionEnglishWarning');
+                if (warn) warn.classList.remove('hidden');
+                if (msgEl) {
+                    msgEl.className = "p-3 bg-rose-50 border border-rose-300 text-rose-900 rounded-xl text-xs flex items-center gap-2 animate-fade-in";
+                    msgEl.innerHTML = `<i data-lucide="alert-circle" class="w-4 h-4 text-rose-600"></i><span>⚠️ English Only: Please write your reflection in English! Remove Chinese characters before submitting. / 請以全英文作答，提交前請移除中文字元。</span>`;
+                    msgEl.classList.remove('hidden');
+                    if (window.lucide) lucide.createIcons();
+                }
+                alert("⚠️ English Only: Please write your reflection in English!\n請以全英文填寫反思，提交前請移除中文字元。");
+                document.getElementById('reflectionStillWonder')?.focus();
+                return;
+            }
+
             if (!classData[currentRole]) classData = ensureClassDataStructure(classData);
             classData[currentRole].reflection = {
                 usedToThink: "",
@@ -5991,7 +6163,7 @@ ${JSON.stringify(summaryData, null, 2)}
         }
 
         function selectStudentOption(opt) {
-            appendUserBubble(opt.labelEn, opt.labelZh);
+            appendUserBubble(opt.labelEn, '');
 
             // Update Trajectory
             if (!classData[currentRole]) classData = ensureClassDataStructure(classData);
@@ -6051,6 +6223,18 @@ ${JSON.stringify(summaryData, null, 2)}
             const text = input ? input.value.trim() : '';
             if (!text) return;
 
+            // Task 6: Check Chinese characters
+            if (typeof hasChineseCharacters === 'function' && hasChineseCharacters(text)) {
+                const warn = document.getElementById('chatEnglishWarning');
+                if (warn) warn.classList.remove('hidden');
+                alert("⚠️ English Only: Please write your message in English!\n請使用純英文與水精靈對話，提交前請移除中文字元。");
+                input?.focus();
+                return;
+            } else {
+                const warn = document.getElementById('chatEnglishWarning');
+                if (warn) warn.classList.add('hidden');
+            }
+
             // Auto-detect if data was entered in the left boxes but not submitted yet!
             if (!classData[currentRole]?.data) {
                 const v50 = parseFloat(document.getElementById('t50')?.value);
@@ -6062,7 +6246,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             }
 
-            appendUserBubble(text, text);
+            appendUserBubble(text, '');
             if (input) input.value = '';
 
             const currentStage = classData[currentRole]?.stage || (classData[currentRole]?.data ? 1 : 0);
@@ -8290,6 +8474,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
         // ================= GROUP DETAIL MODAL WITH EVIDENCE-BASED DIAGNOSTICS =================
         function openGroupDetailModal(gKey) {
+            window._currentModalGroupKey = gKey;
             const modal = document.getElementById('groupDetailModal');
             const gInfo = classData[gKey];
             if (!gInfo) return;
@@ -8638,6 +8823,7 @@ ${JSON.stringify(summaryData, null, 2)}
         }
 
         function closeGroupDetailModal() {
+            window._currentModalGroupKey = null;
             const modal = document.getElementById('groupDetailModal');
             modal.classList.add('hidden');
         }
@@ -8696,16 +8882,43 @@ ${JSON.stringify(summaryData, null, 2)}
             return defaultInquiryProfiles[gKey] || "Active scientific inquiry in progress; timings logged. / 正在探究中，已記錄實驗數據。";
         }
 
+        function selectPeerReviewTargetGroup(targetKey) {
+            if (!classData[currentRole]) return;
+            if (!classData[currentRole].peerReview) {
+                const curIdx = parseInt(currentRole.replace('Group ', '')) || 1;
+                classData[currentRole].peerReview = {
+                    targetGroup: `Group ${curIdx === 8 ? 1 : curIdx + 1}`,
+                    activeReviewTarget: targetKey,
+                    reviewsByTarget: {},
+                    sparkTags: [],
+                    comment: "",
+                    submitted: false
+                };
+            }
+            const pr = classData[currentRole].peerReview;
+            const oldTarget = pr.activeReviewTarget || pr.targetGroup;
+            const commentEl = document.getElementById('peerReviewCommentInput');
+            if (!pr._currentDraftCommentByTarget) pr._currentDraftCommentByTarget = {};
+            if (!pr._currentDraftTagsByTarget) pr._currentDraftTagsByTarget = {};
+            if (commentEl) pr._currentDraftCommentByTarget[oldTarget] = commentEl.value;
+            pr._currentDraftTagsByTarget[oldTarget] = [...(pr.sparkTags || [])];
+
+            pr.activeReviewTarget = targetKey;
+            renderStudentPeerReviewUI();
+        }
+
         function renderStudentPeerReviewUI() {
             const container = document.getElementById('stepEContentContainer') || document.getElementById('studentPeerReviewContainer') || document.getElementById('stepSectionE');
             if (!container) return;
             if (!classData[currentRole]) return;
 
+            const curIdx = parseInt(currentRole.replace('Group ', '')) || 1;
             if (!classData[currentRole].peerReview) {
-                const curIdx = parseInt(currentRole.replace('Group ', '')) || 1;
                 classData[currentRole].peerReview = {
                     targetGroup: `Group ${curIdx === 8 ? 1 : curIdx + 1}`,
                     assignedReviewer: `Group ${curIdx === 1 ? 8 : curIdx - 1}`,
+                    activeReviewTarget: `Group ${curIdx === 8 ? 1 : curIdx + 1}`,
+                    reviewsByTarget: {},
                     sparkTags: [],
                     comment: "",
                     teacherDebrief: "",
@@ -8714,15 +8927,65 @@ ${JSON.stringify(summaryData, null, 2)}
             }
 
             const pr = classData[currentRole].peerReview;
-            const curIdx = parseInt(currentRole.replace('Group ', '')) || 1;
-            const targetGroup = pr.targetGroup || `Group ${curIdx === 8 ? 1 : curIdx + 1}`;
-            const targetData = classData[targetGroup];
+            if (!pr.reviewsByTarget || typeof pr.reviewsByTarget !== 'object') pr.reviewsByTarget = {};
+            if (!pr.targetGroup) pr.targetGroup = `Group ${curIdx === 8 ? 1 : curIdx + 1}`;
+            
+            const activeTarget = pr.activeReviewTarget || pr.targetGroup;
+            pr.activeReviewTarget = activeTarget;
+            const targetData = classData[activeTarget];
+
+            // Render Multi-Group Selector Tabs (G1 to G8)
+            const tabsContainer = document.getElementById('peerReviewGroupTabsContainer');
+            if (tabsContainer) {
+                tabsContainer.innerHTML = '';
+                for (let i = 1; i <= 8; i++) {
+                    const gKey = `Group ${i}`;
+                    const isMyGroup = (gKey === currentRole);
+                    const isAssigned = (gKey === pr.targetGroup);
+                    const isSelected = (gKey === activeTarget);
+                    const targetHasReview = !!(pr.reviewsByTarget && pr.reviewsByTarget[gKey]?.submitted);
+                    
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    if (isMyGroup) {
+                        btn.className = "px-2.5 py-1 rounded-xl text-xs font-semibold bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60";
+                        btn.disabled = true;
+                        btn.innerText = `G${i} (本組)`;
+                    } else {
+                        btn.onclick = () => selectPeerReviewTargetGroup(gKey);
+                        if (isSelected) {
+                            btn.className = "px-3 py-1 rounded-xl text-xs font-black bg-indigo-600 text-white shadow-sm border border-indigo-600 flex items-center gap-1 transform scale-105 transition";
+                        } else if (targetHasReview) {
+                            btn.className = "px-2.5 py-1 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-emerald-100 flex items-center gap-1 transition";
+                        } else {
+                            btn.className = "px-2.5 py-1 rounded-xl text-xs font-medium bg-white text-slate-700 border border-slate-200 hover:bg-indigo-50 hover:border-indigo-300 flex items-center gap-1 transition";
+                        }
+                        btn.innerHTML = `
+                            <span>${isAssigned ? '🎯 ' : ''}G${i}</span>
+                            ${targetHasReview ? '<span class="text-[9px] bg-emerald-200 text-emerald-900 px-1 rounded-full font-bold">✓</span>' : ''}
+                        `;
+                    }
+                    tabsContainer.appendChild(btn);
+                }
+            }
+
+            // Reviewed Count Badge
+            const totalReviewed = Object.values(pr.reviewsByTarget || {}).filter(r => r && r.submitted).length;
+            const multiBadge = document.getElementById('peerMultiReviewedCountBadge');
+            if (multiBadge) {
+                multiBadge.innerText = `Reviewed: ${totalReviewed} / 7 Groups`;
+                if (totalReviewed >= 1) {
+                    multiBadge.className = "text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-300";
+                } else {
+                    multiBadge.className = "text-[10px] font-bold text-indigo-700 bg-white px-2 py-0.5 rounded-full border border-indigo-200";
+                }
+            }
 
             const badge = document.getElementById('studentPeerTargetBadge');
-            if (badge) badge.innerText = `🎯 Assigned Group: ${targetGroup} / 本組指定點評：${targetGroup}`;
+            if (badge) badge.innerText = `🎯 Assigned: ${pr.targetGroup} • Reviewed: ${totalReviewed} / 7 Groups`;
 
             const targetNameEl = document.getElementById('peerTargetGroupName');
-            if (targetNameEl) targetNameEl.innerText = targetGroup;
+            if (targetNameEl) targetNameEl.innerText = `${activeTarget}${activeTarget === pr.targetGroup ? ' (🎯 Assigned)' : ''}`;
 
             const targetStatusEl = document.getElementById('peerTargetStatus');
             if (targetStatusEl) {
@@ -8742,11 +9005,22 @@ ${JSON.stringify(summaryData, null, 2)}
 
             const quoteEl = document.getElementById('peerTargetQuote');
             if (quoteEl) {
-                quoteEl.innerText = `"${getGroupHighlightQuote(targetGroup)}"`;
+                quoteEl.innerText = `"${getGroupHighlightQuote(activeTarget)}"`;
             }
 
-            // Render Spark Chips (Bilingual & Multi-select, Min 1 / Max 3)
-            const selectedTags = Array.isArray(pr.sparkTags) ? pr.sparkTags.slice(0, 3) : [];
+            // Determine current spark tags and comment for active target
+            const existingRev = (pr.reviewsByTarget && pr.reviewsByTarget[activeTarget]) ? pr.reviewsByTarget[activeTarget] : (activeTarget === pr.targetGroup && pr.submitted ? pr : null);
+            const isTargetSubmitted = !!(existingRev && existingRev.submitted);
+            
+            let selectedTags = [];
+            if (isTargetSubmitted && Array.isArray(existingRev.sparkTags)) {
+                selectedTags = existingRev.sparkTags;
+            } else if (pr._currentDraftTagsByTarget && pr._currentDraftTagsByTarget[activeTarget]) {
+                selectedTags = pr._currentDraftTagsByTarget[activeTarget];
+            } else if (activeTarget === pr.targetGroup && Array.isArray(pr.sparkTags)) {
+                selectedTags = pr.sparkTags;
+            }
+            selectedTags = selectedTags.slice(0, 3);
             pr.sparkTags = selectedTags;
             const selectedCount = selectedTags.length;
 
@@ -8784,15 +9058,23 @@ ${JSON.stringify(summaryData, null, 2)}
             // Comment Textarea
             const commentEl = document.getElementById('peerReviewCommentInput');
             if (commentEl && document.activeElement !== commentEl) {
-                commentEl.value = pr.comment || '';
+                if (isTargetSubmitted) {
+                    commentEl.value = existingRev.comment || '';
+                } else if (pr._currentDraftCommentByTarget && pr._currentDraftCommentByTarget[activeTarget] !== undefined) {
+                    commentEl.value = pr._currentDraftCommentByTarget[activeTarget];
+                } else if (activeTarget === pr.targetGroup) {
+                    commentEl.value = pr.comment || '';
+                } else {
+                    commentEl.value = '';
+                }
             }
 
             const statusEl = document.getElementById('peerReviewSubmitStatus');
             if (statusEl) {
-                if (pr.submitted) {
-                    statusEl.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ Submitted / 已成功提交同儕點評！已解鎖 Step 6 全班高階思考題</span></span>`;
+                if (isTargetSubmitted) {
+                    statusEl.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ Submitted review for ${activeTarget}!</span></span>`;
                 } else {
-                    statusEl.innerHTML = `<span class="text-slate-400 text-[11px]">未提交點評 / Pending submission</span>`;
+                    statusEl.innerHTML = `<span class="text-slate-400 text-[11px]">未提交對 ${activeTarget} 的點評 / Pending submission for ${activeTarget}</span>`;
                 }
                 if (window.lucide) lucide.createIcons();
             }
@@ -8830,6 +9112,9 @@ ${JSON.stringify(summaryData, null, 2)}
                 renderStudentPeerReviewUI();
             }
             const pr = classData[currentRole].peerReview;
+            if (!pr) return;
+            const activeTarget = pr.activeReviewTarget || pr.targetGroup || 'Group 2';
+            if (!pr._currentDraftTagsByTarget) pr._currentDraftTagsByTarget = {};
             if (!Array.isArray(pr.sparkTags)) pr.sparkTags = [];
 
             const tagObj = PEER_SPARK_TAGS.find(t => t.labelEn === tagLabel || t.labelZh === tagLabel);
@@ -8855,6 +9140,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 if (limitToast) limitToast.classList.add('hidden');
             }
 
+            pr._currentDraftTagsByTarget[activeTarget] = [...pr.sparkTags];
             renderStudentPeerReviewUI();
         }
 
@@ -8868,16 +9154,31 @@ ${JSON.stringify(summaryData, null, 2)}
                 el.value = current + ' ' + text;
             }
             el.focus();
+            el.dispatchEvent(new Event('input', { bubbles: true }));
         }
 
         function submitPeerReview() {
             if (!classData[currentRole]) return;
             const comment = (document.getElementById('peerReviewCommentInput')?.value || '').trim();
             const pr = classData[currentRole].peerReview;
+            if (!pr) return;
+            const activeTarget = pr.activeReviewTarget || pr.targetGroup || 'Group 2';
             
             const tagCount = (pr && Array.isArray(pr.sparkTags)) ? pr.sparkTags.length : 0;
             const hasTags = tagCount >= 1 && tagCount <= 3;
             const hasComment = comment.length >= 5;
+
+            // Task 6: Check Chinese characters
+            if (typeof hasChineseCharacters === 'function' && hasChineseCharacters(comment)) {
+                const warn = document.getElementById('peerEnglishWarning');
+                if (warn) warn.classList.remove('hidden');
+                alert("⚠️ English Only: Please write your peer review in English!\n請使用純英文填寫同儕互評，提交前請移除中文字元。");
+                document.getElementById('peerReviewCommentInput')?.focus();
+                return;
+            } else {
+                const warn = document.getElementById('peerEnglishWarning');
+                if (warn) warn.classList.add('hidden');
+            }
 
             if (!hasTags) {
                 alert("✨ 請點選 1 至 3 個思維亮點標記！\nPlease select between 1 and 3 thinking spark tags before submitting!");
@@ -8890,11 +9191,23 @@ ${JSON.stringify(summaryData, null, 2)}
                 return;
             }
 
+            if (!pr.reviewsByTarget) pr.reviewsByTarget = {};
+            pr.reviewsByTarget[activeTarget] = {
+                targetGroup: activeTarget,
+                sparkTags: [...pr.sparkTags],
+                comment: comment,
+                submitted: true,
+                submittedAt: Date.now()
+            };
+
+            // Mirror top-level fields for backwards compatibility
             pr.comment = comment;
+            pr.sparkTags = [...pr.sparkTags];
             pr.submitted = true;
             pr.submittedAt = Date.now();
             classData[currentRole].updatedAt = Date.now();
 
+            saveToStorage();
             broadcastSync({ groupUpdated: currentRole, senderRole: currentRole });
             updateAllUI();
             renderStudentPeerReviewUI();
@@ -8902,7 +9215,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
             const statusEl = document.getElementById('peerReviewSubmitStatus');
             if (statusEl) {
-                statusEl.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1 animate-fade-in"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ 成功提交點評！已解鎖 Step 6 全班高階思考題</span></span>`;
+                statusEl.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1 animate-fade-in"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ 成功提交對 ${activeTarget} 的點評！已解鎖 Step 6 全班高階思考題</span></span>`;
                 if (window.lucide) lucide.createIcons();
             }
 
@@ -8964,7 +9277,14 @@ ${JSON.stringify(summaryData, null, 2)}
                 const currentTgt = pr.targetGroup || `Group ${(i % 8) + 1}`;
                 const tgtData = classData[currentTgt];
                 const hasTgtData = !!(tgtData && tgtData.data);
-                const hasReviewed = !!(pr.submitted || (pr.sparkTags && pr.sparkTags.length > 0) || (pr.comment && pr.comment.length > 0));
+                
+                let reviewedCount = 0;
+                if (pr.reviewsByTarget && typeof pr.reviewsByTarget === 'object') {
+                    reviewedCount = Object.values(pr.reviewsByTarget).filter(r => r && r.submitted).length;
+                } else if (pr.submitted) {
+                    reviewedCount = 1;
+                }
+                const hasReviewed = reviewedCount > 0;
 
                 const item = document.createElement('div');
                 item.className = "p-3 bg-slate-50/80 border border-slate-200 rounded-2xl space-y-2 shadow-xs hover:border-indigo-300 transition";
@@ -8983,7 +9303,7 @@ ${JSON.stringify(summaryData, null, 2)}
                             <span>${src}</span>
                         </span>
                         <span class="text-[10px] ${hasReviewed ? 'text-emerald-700 font-bold bg-emerald-100 px-1.5 py-0.5 rounded' : 'text-slate-400 font-normal'}">
-                            ${hasReviewed ? '✓ Reviewed' : 'Pending'}
+                            ${hasReviewed ? `✓ Reviewed (${reviewedCount} / 7)` : 'Pending'}
                         </span>
                     </div>
                     <div class="space-y-1">
@@ -9604,11 +9924,43 @@ ${JSON.stringify(summaryData, null, 2)}
             renderStudentHotqStepUI();
         }
 
+        // Useful Science Vocabulary Bank for S1 HOTQ Response Scaffolding
+        const HOTQ_VOCABULARY_LIST = [
+            // Core Dissolving Terms
+            { en: 'dissolve', zh: '溶解 (分散於溶劑中)', category: 'core' },
+            { en: 'rate of dissolving', zh: '溶解速率 (溶解快慢)', category: 'core' },
+            { en: 'solute', zh: '溶質 (被溶解的物質如食鹽)', category: 'core' },
+            { en: 'solvent', zh: '溶劑 (用以溶解的液體如水)', category: 'core' },
+            { en: 'collision frequency', zh: '碰撞頻率 (水分子碰撞顆粒次數)', category: 'core' },
+            { en: 'water volume', zh: '水體積 (水量)', category: 'core' },
+            // Variables & Fair Test
+            { en: 'hidden variable', zh: '隱藏變因 (未察覺之操作細節)', category: 'variable' },
+            { en: 'controlled variable', zh: '控制變因 (需保持不變之條件)', category: 'variable' },
+            { en: 'fair test', zh: '公平測試 (單一變量原則)', category: 'variable' },
+            { en: 'stirring speed', zh: '攪拌速度 (手速快慢)', category: 'variable' },
+            { en: 'water temperature', zh: '水溫 (冷水/熱水)', category: 'variable' },
+            { en: 'stopwatch delay', zh: '碼錶延遲 (人手按錶反應時間)', category: 'variable' },
+            // Data & Analysis
+            { en: 'class average', zh: '全班平均 (匯總數據)', category: 'data' },
+            { en: 'cancel random error', zh: '抵消隨機誤差 (平滑個體偏差)', category: 'data' },
+            { en: 'anomaly / outlier', zh: '反常值/離群值 (偏離走勢數據)', category: 'data' },
+            { en: 'reliable data', zh: '可靠數據 (具信度之實驗結果)', category: 'data' },
+            // Concepts: Dissolving vs Melting
+            { en: 'melting requires heat', zh: '融化需吸熱 (固體受熱變液體)', category: 'concept' },
+            { en: 'physical change', zh: '物理變化 (物質本質不變)', category: 'concept' },
+            { en: 'spread evenly', zh: '均勻散佈 (均勻分佈於水中)', category: 'concept' },
+            // STEM Improvements
+            { en: 'magnetic stirrer', zh: '磁力攪拌器 (恆定轉速工具)', category: 'stem' },
+            { en: 'electronic sensor', zh: '電子感測器 (精準測量工具)', category: 'stem' },
+            { en: 'standardize', zh: '標準化 (統一實驗步驟規格)', category: 'stem' }
+        ];
+
         function renderStudentHotqStepUI() {
             const topQuestions = getAvailableHotqQuestions();
             const broadcastQ = classData && classData._activeBroadcastHotq ? classData._activeBroadcastHotq : null;
             const pillsEl = document.getElementById('studentHotqSelectorPills');
             const cardEl = document.getElementById('studentActiveHotqCard');
+            const vocabChipsContainer = document.getElementById('studentHotqVocabChips');
             const inputEl = document.getElementById('studentHotqAnswerInput');
             const statusEl = document.getElementById('studentHotqSubmitStatus');
 
@@ -9654,6 +10006,33 @@ ${JSON.stringify(summaryData, null, 2)}
                 `;
             }
 
+            // Task 5: Populate Contextual Helpful Vocabulary Bank
+            if (vocabChipsContainer) {
+                vocabChipsContainer.innerHTML = '';
+                let relevantVocab = HOTQ_VOCABULARY_LIST;
+                if (activeCard) {
+                    const txt = ((activeCard.titleEn || '') + ' ' + (activeCard.descEn || '') + ' ' + (activeCard.subDomain || '')).toLowerCase();
+                    if (txt.includes('melt')) {
+                        relevantVocab = HOTQ_VOCABULARY_LIST.filter(v => v.category === 'concept' || v.category === 'core' || v.category === 'variable');
+                    } else if (txt.includes('discrepancy') || txt.includes('gap') || txt.includes('anomaly') || txt.includes('variable')) {
+                        relevantVocab = HOTQ_VOCABULARY_LIST.filter(v => v.category === 'variable' || v.category === 'core' || v.category === 'data');
+                    } else if (txt.includes('average') || txt.includes('error') || txt.includes('pattern')) {
+                        relevantVocab = HOTQ_VOCABULARY_LIST.filter(v => v.category === 'data' || v.category === 'core' || v.category === 'variable');
+                    } else if (txt.includes('stem') || txt.includes('engineer') || txt.includes('improv')) {
+                        relevantVocab = HOTQ_VOCABULARY_LIST.filter(v => v.category === 'stem' || v.category === 'variable' || v.category === 'core');
+                    }
+                }
+                relevantVocab.forEach(item => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.onclick = () => insertHotqVocabWord(item.en);
+                    btn.className = "px-2.5 py-1.5 rounded-xl bg-white hover:bg-amber-100 hover:border-amber-400 active:scale-95 text-slate-800 text-[11px] font-medium border border-amber-200 transition shadow-2xs flex items-center gap-1.5 cursor-pointer";
+                    btn.title = `Click to insert "${item.en}" / 點擊將 "${item.en}" 插入回答`;
+                    btn.innerHTML = `<span class="font-bold text-amber-950">➕ ${item.en}</span><span class="text-[10px] text-amber-800/80">(${item.zh.split('(')[0].trim()})</span>`;
+                    vocabChipsContainer.appendChild(btn);
+                });
+            }
+
             const resp = classData[currentRole]?.hotqResponse;
             if (inputEl && document.activeElement !== inputEl && resp && resp.answer) {
                 inputEl.value = resp.answer;
@@ -9668,16 +10047,36 @@ ${JSON.stringify(summaryData, null, 2)}
             if (window.lucide) lucide.createIcons();
         }
 
-        function insertStudentHotqChip(text) {
+        // Task 5: Insert Vocabulary word at cursor position
+        function insertHotqVocabWord(wordEn) {
             const el = document.getElementById('studentHotqAnswerInput');
             if (!el) return;
-            const cur = el.value.trim();
-            if (!cur) {
-                el.value = text;
-            } else if (!cur.includes(text)) {
-                el.value = cur + ' ' + text;
+            const insertText = wordEn.trim();
+            const start = el.selectionStart;
+            const end = el.selectionEnd;
+            const cur = el.value;
+            if (start !== undefined && end !== undefined && start >= 0) {
+                const before = cur.substring(0, start);
+                const after = cur.substring(end);
+                const needsSpaceBefore = before.length > 0 && !/\s$/.test(before);
+                const needsSpaceAfter = after.length > 0 && !/^\s/.test(after);
+                const addition = (needsSpaceBefore ? ' ' : '') + insertText + (needsSpaceAfter ? ' ' : ' ');
+                el.value = before + addition + after;
+                const newPos = start + addition.length;
+                el.setSelectionRange(newPos, newPos);
+            } else {
+                if (!cur.trim()) {
+                    el.value = insertText;
+                } else {
+                    el.value = cur.trim() + ' ' + insertText;
+                }
             }
             el.focus();
+            el.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+
+        function insertStudentHotqChip(text) {
+            insertHotqVocabWord(text);
         }
 
         function submitStudentHotqResponse() {
@@ -9685,9 +10084,21 @@ ${JSON.stringify(summaryData, null, 2)}
             const el = document.getElementById('studentHotqAnswerInput');
             const answer = (el?.value || '').trim();
             if (answer.length < 3) {
-                alert("🔥 請先輸入你們組對高階思考題 (HOTQ) 的科學推論（至少 3 個字）！\nPlease enter your group's scientific reasoning for the HOTQ first!");
+                alert("🔥 請先輸入你們組對高階思考題 (HOTQ) 的科學推論（至少 3 個字元）！\nPlease enter your group's scientific reasoning for the HOTQ first!");
                 el?.focus();
                 return;
+            }
+
+            // Task 6: Check Chinese characters
+            if (typeof hasChineseCharacters === 'function' && hasChineseCharacters(answer)) {
+                const warn = document.getElementById('hotqEnglishWarning');
+                if (warn) warn.classList.remove('hidden');
+                alert("⚠️ English Only: Please write your HOTQ answer in English!\n請以全英文填寫高階思考題推論（可點擊上方詞彙按鈕插入英文單字），提交前請移除中文字元。");
+                el?.focus();
+                return;
+            } else {
+                const warn = document.getElementById('hotqEnglishWarning');
+                if (warn) warn.classList.add('hidden');
             }
 
             const topQuestions = getAvailableHotqQuestions();
@@ -9892,6 +10303,28 @@ ${JSON.stringify(summaryData, null, 2)}
             runClassHotqAiComparison();
         }
 
+        // Task 6: English-only character validator and UI warning hook
+        function hasChineseCharacters(str) {
+            if (!str || typeof str !== 'string') return false;
+            return /[\u4e00-\u9fff\u3400-\u4dbf\uf900-\ufaff]/.test(str);
+        }
+
+        function setupEnglishOnlyValidation(inputId, warningId) {
+            const input = document.getElementById(inputId);
+            const warning = document.getElementById(warningId);
+            if (!input || !warning) return;
+            const check = () => {
+                if (hasChineseCharacters(input.value)) {
+                    warning.classList.remove('hidden');
+                } else {
+                    warning.classList.add('hidden');
+                }
+            };
+            input.addEventListener('input', check);
+            input.addEventListener('change', check);
+            input.addEventListener('blur', check);
+        }
+
         // ================= APP INITIALIZATION =================
         function initApp() {
             if (window.lucide) lucide.createIcons();
@@ -9944,6 +10377,26 @@ ${JSON.stringify(summaryData, null, 2)}
                 setTimeout(() => {
                     openActivationModal();
                 }, 300);
+            }
+
+            // 4. Setup English-Only real-time input watchers (Task 6)
+            setupEnglishOnlyValidation('userInput', 'chatEnglishWarning');
+            setupEnglishOnlyValidation('peerReviewCommentInput', 'peerEnglishWarning');
+            setupEnglishOnlyValidation('studentHotqAnswerInput', 'hotqEnglishWarning');
+            setupEnglishOnlyValidation('reflectionStillWonder', 'reflectionEnglishWarning');
+
+            // Wire peer review draft comment tracking on input
+            const prCommentEl = document.getElementById('peerReviewCommentInput');
+            if (prCommentEl && !prCommentEl._hasDraftListener) {
+                prCommentEl._hasDraftListener = true;
+                prCommentEl.addEventListener('input', (e) => {
+                    if (!classData[currentRole]) return;
+                    const pr = classData[currentRole].peerReview;
+                    if (!pr) return;
+                    const activeTarget = pr.activeReviewTarget || pr.targetGroup || 'Group 2';
+                    if (!pr._currentDraftCommentByTarget) pr._currentDraftCommentByTarget = {};
+                    pr._currentDraftCommentByTarget[activeTarget] = e.target.value;
+                });
             }
         }
 

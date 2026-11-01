@@ -528,20 +528,25 @@
                         <div>
                             <div class="flex items-center gap-2">
                                 <span class="text-[10px] font-black uppercase px-2 py-0.5 rounded-full bg-indigo-600 text-white tracking-wider">
-                                    Step 5 • Peer Review
+                                    Step 5 • Padlet Wall
                                 </span>
                                 <span class="text-[10px] font-bold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded-full border border-indigo-300">
-                                    Teacher-Assigned Group
+                                    Live Class Exhibition & Multi-Voting
                                 </span>
                             </div>
                             <h4 class="font-bold text-base sm:text-lg text-slate-800 font-fun mt-0.5">
-                                Step 5: Cross-Group Peer Review & Spark Tagging / 跨組對話互評與亮點標記
+                                Step 5: Cross-Group Peer Review & Spark Tagging / 跨組成果展覽牆、亮點標記與多選投票
                             </h4>
                         </div>
                     </div>
-                    <span id="studentPeerTargetBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 border border-indigo-300">
-                        🎯 Assigned Group: Loading... / 指定點評對象
-                    </span>
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span id="studentPeerTargetBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-indigo-100 text-indigo-900 border border-indigo-300">
+                            🎯 Assigned Peer: Loading...
+                        </span>
+                        <span id="peerTotalVotesBadge" class="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300">
+                            👍 My Votes: 0 / 7 Groups
+                        </span>
+                    </div>
                 </div>
 
                 <div id="stepEBypassBanner" class="hidden p-3 bg-emerald-50 rounded-xl border border-emerald-300 text-xs text-emerald-900 flex items-center gap-2 font-bold">
@@ -551,106 +556,109 @@
 
                 <div id="stepELockedBanner" class="p-6 text-center space-y-2 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
                     <p class="text-xs text-slate-600 font-medium">
-                        🔒 請先完成<strong>【Step 3: Agent Water 水精靈對話】</strong>，即可全面解鎖進行跨組對話互評！
+                        🔒 請先完成<strong>【Step 3: Agent Water 水精靈對話】</strong>，即可全面解鎖進入 Padlet 跨組成果展覽牆！
                     </p>
                     <p class="text-[11px] text-slate-400">
-                        Please complete Step 3 Agent Water dialogue first to unlock peer review.
+                        Please complete Step 3 Agent Water dialogue first to unlock the class exhibition wall.
                     </p>
                 </div>
 
+                <!-- Padlet Wall Exhibition Container -->
                 <div id="stepEContentContainer" class="hidden space-y-4">
-                    <p class="text-xs text-slate-600">
-                        仔細閱讀老師為你組別指定的對話紀錄與發現，為他們標記思維閃光點，並提出建設性的科學讚賞或好奇追問！
-                    </p>
-
-                    <!-- Multi-Group Selector Bar (Review up to all groups) -->
-                    <div class="bg-indigo-50/80 p-3 rounded-2xl border border-indigo-200/90 space-y-2">
-                        <div class="flex items-center justify-between flex-wrap gap-1">
-                            <span class="text-xs font-bold text-indigo-950 flex items-center gap-1.5">
-                                <span>🎯 Select Group to Review / 選擇欲點評之組別（可點評所有組別）:</span>
+                    <div class="flex items-center justify-between flex-wrap gap-2 bg-indigo-50/80 p-3 rounded-2xl border border-indigo-200">
+                        <p class="text-xs text-indigo-950 font-medium">
+                            📌 <strong>Padlet 成果展覽牆</strong>：閱讀全班各組探究發現與水精靈對話精華，點擊<strong>「👍 快速投票」</strong>（可多選）投選最佳組別，並可為優秀組別標記思維閃光點！
+                        </p>
+                        <div class="flex items-center gap-2">
+                            <span id="peerRefreshStatusToast" class="hidden text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 animate-fade-in">
+                                ✓ Updated / 已同步
                             </span>
-                            <span id="peerMultiReviewedCountBadge" class="text-[10px] font-bold text-indigo-700 bg-white px-2.5 py-0.5 rounded-full border border-indigo-200">
-                                Reviewed: 0 / 7 Groups
-                            </span>
-                        </div>
-                        <div id="peerReviewGroupTabsContainer" class="flex items-center gap-1.5 flex-wrap">
-                            <!-- Populated dynamically by renderStudentPeerReviewUI() -->
+                            <button type="button" onclick="refreshPeerReviewTargetData()" class="px-2.5 py-1 bg-white hover:bg-indigo-50 text-indigo-700 text-xs font-bold rounded-xl border border-indigo-200 flex items-center gap-1 shadow-xs transition">
+                                <i data-lucide="rotate-cw" class="w-3.5 h-3.5"></i>
+                                <span>Refresh Wall / 即時更新</span>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Target Group's Dialogue / Findings Card -->
-                    <div class="bg-white p-4 rounded-2xl border border-indigo-100 shadow-xs space-y-2.5">
-                        <div class="flex items-center justify-between flex-wrap gap-2 text-xs">
-                            <span class="font-bold text-indigo-950 flex items-center gap-1.5">
-                                <i data-lucide="message-square-quote" class="w-4 h-4 text-indigo-600"></i>
-                                <span id="peerTargetGroupName">Group 2</span> Findings & Agent Water Dialogue / 探究發現與對話回答：
-                            </span>
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <span id="peerRefreshStatusToast" class="hidden text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 animate-fade-in">
-                                    ✓ Updated / 已同步最新對話
-                                </span>
-                                <button type="button" onclick="refreshPeerReviewTargetData()" class="px-2.5 py-1 rounded-lg bg-indigo-50 hover:bg-indigo-100 active:scale-95 text-indigo-700 font-bold text-[11px] border border-indigo-200 transition flex items-center gap-1 shadow-2xs" title="Click to fetch the latest dialogue & findings from the target group / 點擊即時載入目標組別最新水精靈對話">
-                                    <i data-lucide="refresh-cw" class="w-3 h-3"></i>
-                                    <span>Refresh / 即時更新</span>
+                    <!-- 8-Table Padlet Grid -->
+                    <div id="padletWallGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Populated dynamically by renderStudentPeerReviewUI() -->
+                    </div>
+
+                    <!-- Slide-in Review Drawer / Modal for Active Group -->
+                    <div id="peerReviewDrawerModal" class="hidden fixed inset-0 z-[60] flex items-center justify-center bg-slate-950/70 backdrop-blur-sm p-4 overflow-y-auto">
+                        <div class="bg-white rounded-3xl p-5 sm:p-6 max-w-xl w-full shadow-2xl border border-indigo-200 space-y-4 my-auto">
+                            <div class="flex items-center justify-between pb-2 border-b border-indigo-100">
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xl">✨</span>
+                                    <div>
+                                        <h4 id="drawerTargetTitle" class="font-bold text-slate-900 text-sm sm:text-base">
+                                            點評組別：Group X
+                                        </h4>
+                                        <p class="text-[11px] text-slate-500">Spark Tagging & Peer Praise (English Only)</p>
+                                    </div>
+                                </div>
+                                <button type="button" onclick="closePeerReviewDrawer()" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition">
+                                    <i data-lucide="x" class="w-5 h-5"></i>
                                 </button>
-                                <span id="peerTargetStatus" class="text-[10px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full font-medium border border-emerald-200">Submitted</span>
+                            </div>
+
+                            <!-- Quote Box -->
+                            <div class="p-3 bg-indigo-50/70 rounded-2xl border border-indigo-100 space-y-1">
+                                <span class="text-[10px] font-bold text-indigo-700 uppercase tracking-wide">Scientific Finding / 對話精華:</span>
+                                <p id="drawerTargetQuote" class="text-xs text-slate-800 italic leading-snug font-medium">
+                                    "Loading..."
+                                </p>
+                            </div>
+
+                            <!-- Spark Tags (1 to 3 tags) -->
+                            <div class="space-y-1.5">
+                                <div class="flex items-center justify-between">
+                                    <label class="text-xs font-bold text-slate-800 flex items-center gap-1">
+                                        <span>✨ Tag Thinking Sparks / 標記思維閃光點 * (1至3項)</span>
+                                    </label>
+                                    <span id="drawerSparkCountBadge" class="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-200">
+                                        Selected: 0 / 3
+                                    </span>
+                                </div>
+                                <div id="drawerSparkChipsContainer" class="flex flex-wrap gap-1.5 max-h-40 overflow-y-auto p-1">
+                                    <!-- Chips -->
+                                </div>
+                            </div>
+
+                            <!-- Praise Input -->
+                            <div class="space-y-1.5">
+                                <label class="text-xs font-bold text-slate-800 flex items-center justify-between">
+                                    <span>💬 Peer Praise & Inquiring Wonder / 評語或好奇追問 * (純英文)</span>
+                                    <span class="text-[10px] text-slate-400">Min. 5 characters</span>
+                                </label>
+                                <div class="flex items-center gap-1.5 flex-wrap text-[11px]">
+                                    <span class="text-slate-400 font-medium">Quick Starters:</span>
+                                    <button type="button" onclick="insertDrawerStarter('Good point about ')" class="px-2 py-0.5 rounded-lg bg-sky-50 text-sky-700 border border-sky-200 hover:bg-sky-100 font-medium text-[11px]">+ Good point about...</button>
+                                    <button type="button" onclick="insertDrawerStarter('I agree because ')" class="px-2 py-0.5 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100 font-medium text-[11px]">+ I agree because...</button>
+                                    <button type="button" onclick="insertDrawerStarter('Why did your time ')" class="px-2 py-0.5 rounded-lg bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 font-medium text-[11px]">+ Why did your time...</button>
+                                </div>
+                                <textarea id="drawerCommentInput" rows="3" placeholder="E.g., Good point about stirring speed! How did you keep the water volume fair? (English only)"
+                                    class="w-full p-2.5 text-xs text-slate-800 bg-slate-50 border border-slate-300 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 transition resize-none"></textarea>
+                                <p id="drawerEnglishWarning" class="hidden text-[11px] text-rose-600 font-bold flex items-center gap-1">
+                                    <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                                    <span>⚠️ English Only: Please write your review in English. 請使用純英文作答。</span>
+                                </p>
+                            </div>
+
+                            <!-- Submit / Close -->
+                            <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                                <button type="button" onclick="closePeerReviewDrawer()" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl transition">
+                                    取消 / Close
+                                </button>
+                                <button type="button" onclick="submitDrawerPeerReview()" class="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-700 hover:to-sky-700 text-white font-bold rounded-xl text-xs shadow-md active:scale-95 transition flex items-center gap-1.5">
+                                    <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                                    <span>儲存並提交點評 / Save & Submit</span>
+                                </button>
                             </div>
                         </div>
-                        <div id="peerTargetQuote" class="text-xs text-slate-700 italic bg-slate-50/80 p-3 rounded-xl border border-slate-200/70 leading-relaxed space-y-1.5">
-                            "Loading findings..."
-                        </div>
                     </div>
 
-                    <!-- Spark Tag Selection Buttons -->
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 flex items-center justify-between flex-wrap gap-1">
-                            <span>✨ Tag Thinking Sparks / 標記對方思維亮點 <span class="text-rose-500 font-extrabold">* (Required: 1–3 tags / 必選 1 至 3 項)</span>:</span>
-                            <span id="peerSparkCountBadge" class="text-[10px] text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full font-bold border border-indigo-200">Selected: 0 / 3 tags (Min 1, Max 3)</span>
-                        </label>
-                        <div id="peerSparkChipsContainer" class="flex items-center gap-1.5 flex-wrap">
-                            <!-- Generated buttons -->
-                        </div>
-                        <div id="peerSparkLimitToast" class="hidden text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-xl flex items-center gap-1.5 animate-fade-in">
-                            <span>⚠️ Maximum 3 tags! Tap a selected tag to unselect it first. / 最多只可選 3 項（請先點擊已選標籤取消，再改選其他亮點）</span>
-                        </div>
-                    </div>
-
-                    <!-- Peer Review Textarea -->
-                    <div class="space-y-1.5">
-                        <label class="block text-xs font-bold text-slate-700 flex items-center justify-between flex-wrap gap-1">
-                            <span>💬 Peer Praise & Inquiring Wonder / 給對方的讚賞或好奇追問 <span class="text-rose-500 font-extrabold">* (Required - English Only / 必填・純英文作答)</span>:</span>
-                            <span class="text-[10px] text-slate-400">Min. 5 characters / 至少5個字元</span>
-                        </label>
-                        <!-- Quick Sentence Starter Chips for S1 Students (Simple English) -->
-                        <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
-                            <span class="text-[10px] text-indigo-700 font-bold">Quick Starters:</span>
-                            <button type="button" onclick="insertPeerCommentChip('Good point about ')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ Good point about...
-                            </button>
-                            <button type="button" onclick="insertPeerCommentChip('I agree because ')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ I agree because...
-                            </button>
-                            <button type="button" onclick="insertPeerCommentChip('How did you keep ')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ How did you keep...
-                            </button>
-                            <button type="button" onclick="insertPeerCommentChip('Why did your time ')" class="px-2.5 py-1 rounded-lg bg-white hover:bg-indigo-100 text-[11px] font-medium text-slate-700 border border-indigo-200 transition">
-                                ➕ Why did your time...
-                            </button>
-                        </div>
-                        <textarea id="peerReviewCommentInput" rows="2" class="w-full text-xs p-3 rounded-xl border border-indigo-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-400 resize-none leading-relaxed" placeholder="E.g., Good point about stirring speed! How did you keep the water volume fair? (English only)"></textarea>
-                        <div id="peerEnglishWarning" class="hidden text-[10px] text-rose-700 font-bold bg-rose-50 border border-rose-200 px-2.5 py-1 rounded-lg mt-1 animate-fade-in">
-                            ⚠️ English Only: Please write your peer review in English! Remove Chinese characters before submitting. / 請以全英文作答，提交前請移除中文字元。
-                        </div>
-                    </div>
-
-                    <!-- Submit Action -->
-                    <div class="flex items-center justify-between flex-wrap gap-2 pt-1">
-                        <span id="peerReviewSubmitStatus" class="text-xs text-slate-500 font-medium"></span>
-                        <button type="button" onclick="submitPeerReview()" class="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-700 hover:to-sky-700 active:scale-95 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5">
-                            <i data-lucide="send" class="w-4 h-4"></i>
-                            <span>Submit Peer Review (Unlock Step 6 HOTQ) / 提交互評 (解鎖 Step 6 大組討論問題)</span>
-                        </button>
-                    </div>
                 </div>
             </section>
 
@@ -1835,7 +1843,7 @@
     </main>
 
     <!-- ================= PASSWORD MODAL (MASKED INPUT) ================= -->
-    <div id="passwordModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+    <div id="passwordModal" class="hidden fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/80 backdrop-blur-md p-4">
         <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-slate-200 space-y-4 transition transform">
             <div class="flex items-center gap-3">
                 <div id="passwordModalIcon" class="w-10 h-10 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold text-lg shadow-inner">
@@ -3429,6 +3437,8 @@ ${JSON.stringify(summaryData, null, 2)}
                 growthEn: "Observe how water volume affects dissolving time",
                 growthZh: "待評估，建議引導觀察水量與溶解秒數之變化",
                 focusTag: "Stirring Speed",
+                votes: [],             // Roles that voted for this table
+                votedGroups: [],       // Tables this role voted for
                 reflection: null,      // Empty reflection by default
                 peerReview: {
                     targetGroup: `Group ${targetTableNum}`,
@@ -3489,6 +3499,8 @@ ${JSON.stringify(summaryData, null, 2)}
                         if (!data[key].hotqResponse || typeof data[key].hotqResponse !== 'object') {
                             data[key].hotqResponse = fresh[key].hotqResponse;
                         }
+                        if (!Array.isArray(data[key].votes)) data[key].votes = [];
+                        if (!Array.isArray(data[key].votedGroups)) data[key].votedGroups = [];
                         if (typeof data[key].updatedAt !== 'number') {
                             data[key].updatedAt = Date.now();
                         }
@@ -3562,11 +3574,12 @@ ${JSON.stringify(summaryData, null, 2)}
                     }
                 }
 
-                // 2. Socratic Chat Logs
+                // 2. Socratic Chat Logs (Strict Student Sub-Group Isolation)
                 const incomingChat = Array.isArray(incomingG.chatLogs) ? incomingG.chatLogs : [];
                 const localChat = Array.isArray(localG.chatLogs) ? localG.chatLogs : [];
                 if (incomingChat.length > 0) {
-                    if (localChat.length === 0 || senderRole === gKey || incomingChat.length >= localChat.length) {
+                    // Chat logs can only be overwritten if it is the sender's own sub-group or local has no chat
+                    if (localChat.length === 0 || senderRole === gKey) {
                         localG.chatLogs = [...incomingChat];
                     }
                 }
@@ -3627,6 +3640,14 @@ ${JSON.stringify(summaryData, null, 2)}
                             localG.hotqResponse = { ...inHotq };
                         }
                     }
+                }
+
+                // 6. Step 5 Padlet Votes
+                if (Array.isArray(incomingG.votes)) {
+                    localG.votes = Array.from(new Set([...(localG.votes || []), ...incomingG.votes]));
+                }
+                if (senderRole === gKey && Array.isArray(incomingG.votedGroups)) {
+                    localG.votedGroups = [...incomingG.votedGroups];
                 }
 
                 // 6. Step 7 Reflection
@@ -4849,6 +4870,8 @@ ${JSON.stringify(summaryData, null, 2)}
         }
 
         // Password Modal Management (Handles both Teacher and Admin)
+        let isOpenedFromActivationModal = false;
+
         function openPasswordModal(role = 'Teacher') {
             pendingTargetRole = role;
             const modal = document.getElementById('passwordModal');
@@ -4859,6 +4882,13 @@ ${JSON.stringify(summaryData, null, 2)}
             const prompt = document.getElementById('passwordModalPrompt');
             const icon = document.getElementById('passwordModalIcon');
             const confirmBtn = document.getElementById('passwordModalConfirmBtn');
+
+            // Seamless Modal Switch: If opened from activation modal, hide activation modal so it doesn't block password input
+            const activationModal = document.getElementById('activationModal');
+            if (activationModal && !activationModal.classList.contains('hidden')) {
+                isOpenedFromActivationModal = true;
+                activationModal.classList.add('hidden');
+            }
             
             if (role === 'Admin') {
                 if (title) title.innerText = "AI 系統管理員權限驗證";
@@ -4884,10 +4914,10 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             }
 
-            input.value = '';
-            err.classList.add('hidden');
-            modal.classList.remove('hidden');
-            input.focus();
+            if (input) input.value = '';
+            if (err) err.classList.add('hidden');
+            if (modal) modal.classList.remove('hidden');
+            setTimeout(() => { if (input) input.focus(); }, 50);
         }
 
         function openAdminPasswordModal() {
@@ -4896,9 +4926,16 @@ ${JSON.stringify(summaryData, null, 2)}
 
         function cancelPasswordModal() {
             const modal = document.getElementById('passwordModal');
-            modal.classList.add('hidden');
-            const select = document.getElementById('groupSelect');
-            if (select) select.value = lastSelectedRole || 'Group 1';
+            if (modal) modal.classList.add('hidden');
+            // If user clicked cancel and was coming from activation screen, smoothly return to activation modal
+            if (isOpenedFromActivationModal) {
+                const activationModal = document.getElementById('activationModal');
+                if (activationModal) activationModal.classList.remove('hidden');
+                isOpenedFromActivationModal = false;
+            } else {
+                const select = document.getElementById('groupSelect');
+                if (select) select.value = lastSelectedRole || 'Group 1';
+            }
         }
 
         // Cryptographic Hash Constants for Zero Plain-Text Source Exposure
@@ -4931,7 +4968,9 @@ ${JSON.stringify(summaryData, null, 2)}
 
             if (pendingTargetRole === 'Admin') {
                 if (hashed === AUTH_HASH_ADMIN) {
+                    isOpenedFromActivationModal = false;
                     modal.classList.add('hidden');
+                    closeActivationModal();
                     currentRole = "Admin";
                     const select = document.getElementById('groupSelect');
                     if (select) select.value = "Admin";
@@ -4957,7 +4996,9 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             } else {
                 if (hashed === AUTH_HASH_TEACHER) {
+                    isOpenedFromActivationModal = false;
                     modal.classList.add('hidden');
+                    closeActivationModal();
                     currentRole = "Teacher";
                     const select = document.getElementById('groupSelect');
                     if (select) select.value = "Teacher";
@@ -5695,7 +5736,9 @@ ${JSON.stringify(summaryData, null, 2)}
             const userChatLogs = (classData[currentRole]?.chatLogs || []).filter(m => m.sender === 'user');
             const hasDialogueCompleted = (stage >= 4) || (stage >= 3 && userChatLogs.length >= 3);
             const pr = classData[currentRole]?.peerReview;
-            const hasPeerReview = !!(pr && (pr.submitted || (pr.sparkTags && pr.sparkTags.length > 0 && (pr.comment || '').trim().length >= 5)));
+            const totalReviewedCount = Object.values(pr?.reviewsByTarget || {}).filter(r => r && r.submitted).length;
+            const totalVotesCount = Array.isArray(classData[currentRole]?.votedGroups) ? classData[currentRole].votedGroups.length : 0;
+            const hasPeerReview = (totalReviewedCount >= 1) || (totalVotesCount >= 1) || !!(pr && (pr.submitted || (pr.sparkTags && pr.sparkTags.length > 0 && (pr.comment || '').trim().length >= 5)));
             const hotqResp = classData[currentRole]?.hotqResponse;
             const hasHotqResponse = !!(hotqResp && (hotqResp.submitted || (hotqResp.answer || '').trim().length >= 2));
             const reflection = classData[currentRole]?.reflection;
@@ -6062,7 +6105,22 @@ ${JSON.stringify(summaryData, null, 2)}
             if (window.lucide) lucide.createIcons();
         }
 
+        let isDialogueProcessing = false;
+
         function selectStudentOption(opt) {
+            // Strict Dialogue Mutex Lock: Prevent duplicate events or rapid tapping on iPad
+            if (isDialogueProcessing) return;
+            isDialogueProcessing = true;
+
+            // Immediately visually lock all option buttons in the container
+            const optionBtns = document.querySelectorAll('#dialogueOptionsContainer button');
+            optionBtns.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'pointer-events-none');
+            });
+            const chatInput = document.getElementById('userInput');
+            if (chatInput) chatInput.disabled = true;
+
             appendUserBubble(opt.labelEn, '');
 
             // Update Trajectory
@@ -6085,21 +6143,22 @@ ${JSON.stringify(summaryData, null, 2)}
                 if (opt.pointZh) classData[currentRole].personalizedPoint3Zh = opt.pointZh;
             }
 
+            // Step 1: In 400ms, AI gives praise & feedback to student's answer
             setTimeout(() => {
                 appendAIBubble(opt.feedbackEn, opt.feedbackZh);
                 classData[currentRole].stage = opt.nextStage;
 
-                broadcastSync();
+                broadcastSync({ groupUpdated: currentRole, senderRole: currentRole });
                 updateAllUI();
 
-                // If next stage exists and is <= 3, show next question
+                // Step 2: In 1000ms, AI asks the next stage question (AND STRICTLY ONLY THE NEXT QUESTION)
                 setTimeout(() => {
                     if (opt.nextStage <= 3 && dialogueStages[opt.nextStage]) {
                         appendAIBubble(
                             dialogueStages[opt.nextStage].aiEnglish,
                             dialogueStages[opt.nextStage].aiChinese
                         );
-                        broadcastSync();
+                        broadcastSync({ groupUpdated: currentRole, senderRole: currentRole });
                         updateAllUI();
                     } else if (opt.nextStage >= 4) {
                         if (dialogueStages[4]) {
@@ -6108,10 +6167,17 @@ ${JSON.stringify(summaryData, null, 2)}
                                 dialogueStages[4].aiChinese
                             );
                         }
-                        broadcastSync();
+                        broadcastSync({ groupUpdated: currentRole, senderRole: currentRole });
                         updateAllUI();
                     }
-                }, 800);
+
+                    // Release dialogue mutex lock and re-render interactive options for next stage ONLY
+                    isDialogueProcessing = false;
+                    renderStudentOptions();
+                    if (chatInput) {
+                        chatInput.disabled = false;
+                    }
+                }, 1000);
 
             }, 400);
         }
@@ -6119,9 +6185,11 @@ ${JSON.stringify(summaryData, null, 2)}
         // Handle Free-text typing with Autonomous Socratic AI Engine or LLM
         async function handleCustomTextSubmit(e) {
             if (e && e.preventDefault) e.preventDefault();
+            if (isDialogueProcessing) return;
             const input = document.getElementById('userInput');
             const text = input ? input.value.trim() : '';
             if (!text) return;
+            isDialogueProcessing = true;
 
             // Task 6: Check Chinese characters
             if (typeof hasChineseCharacters === 'function' && hasChineseCharacters(text)) {
@@ -6263,6 +6331,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             }
 
+            isDialogueProcessing = false;
             broadcastSync();
             updateAllUI();
         }
@@ -8881,8 +8950,10 @@ ${JSON.stringify(summaryData, null, 2)}
             renderStudentPeerReviewUI();
         }
 
+        let activeDrawerTarget = 'Group 2';
+
         function renderStudentPeerReviewUI() {
-            const container = document.getElementById('stepEContentContainer') || document.getElementById('studentPeerReviewContainer') || document.getElementById('stepSectionE');
+            const container = document.getElementById('stepEContentContainer') || document.getElementById('stepSectionE');
             if (!container) return;
             if (!classData[currentRole]) return;
 
@@ -8903,159 +8974,154 @@ ${JSON.stringify(summaryData, null, 2)}
             const pr = classData[currentRole].peerReview;
             if (!pr.reviewsByTarget || typeof pr.reviewsByTarget !== 'object') pr.reviewsByTarget = {};
             if (!pr.targetGroup) pr.targetGroup = `Group ${tableNum === 8 ? 1 : tableNum + 1}`;
-            
-            const activeTarget = pr.activeReviewTarget || pr.targetGroup;
-            pr.activeReviewTarget = activeTarget;
-            const targetData = classData[activeTarget];
+            if (!Array.isArray(classData[currentRole].votedGroups)) classData[currentRole].votedGroups = [];
 
-            // Render Multi-Group Selector Tabs (G1 to G8)
-            const tabsContainer = document.getElementById('peerReviewGroupTabsContainer');
-            if (tabsContainer) {
-                tabsContainer.innerHTML = '';
-                for (let i = 1; i <= 8; i++) {
-                    const gKey = `Group ${i}`;
-                    const isMyGroup = (gKey === currentRole || gKey === getTableKey(currentRole));
-                    const isAssigned = (gKey === pr.targetGroup);
-                    const isSelected = (gKey === activeTarget);
-                    const targetHasReview = !!(pr.reviewsByTarget && pr.reviewsByTarget[gKey]?.submitted);
-                    
-                    const btn = document.createElement('button');
-                    btn.type = 'button';
-                    if (isMyGroup) {
-                        btn.className = "px-2.5 py-1 rounded-xl text-xs font-semibold bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed opacity-60";
-                        btn.disabled = true;
-                        btn.innerText = `G${i} (本組)`;
-                    } else {
-                        btn.onclick = () => selectPeerReviewTargetGroup(gKey);
-                        if (isSelected) {
-                            btn.className = "px-3 py-1 rounded-xl text-xs font-black bg-indigo-600 text-white shadow-sm border border-indigo-600 flex items-center gap-1 transform scale-105 transition";
-                        } else if (targetHasReview) {
-                            btn.className = "px-2.5 py-1 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300 hover:bg-emerald-100 flex items-center gap-1 transition";
-                        } else {
-                            btn.className = "px-2.5 py-1 rounded-xl text-xs font-medium bg-white text-slate-700 border border-slate-200 hover:bg-indigo-50 hover:border-indigo-300 flex items-center gap-1 transition";
-                        }
-                        btn.innerHTML = `
-                            <span>${isAssigned ? '🎯 ' : ''}G${i}</span>
-                            ${targetHasReview ? '<span class="text-[9px] bg-emerald-200 text-emerald-900 px-1 rounded-full font-bold">✓</span>' : ''}
-                        `;
-                    }
-                    tabsContainer.appendChild(btn);
-                }
-            }
+            const assignedTarget = pr.targetGroup;
+            const myVotes = classData[currentRole].votedGroups;
 
-            // Reviewed Count Badge
-            const totalReviewed = Object.values(pr.reviewsByTarget || {}).filter(r => r && r.submitted).length;
-            const multiBadge = document.getElementById('peerMultiReviewedCountBadge');
-            if (multiBadge) {
-                multiBadge.innerText = `Reviewed: ${totalReviewed} / 7 Groups`;
-                if (totalReviewed >= 1) {
-                    multiBadge.className = "text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-300";
-                } else {
-                    multiBadge.className = "text-[10px] font-bold text-indigo-700 bg-white px-2 py-0.5 rounded-full border border-indigo-200";
-                }
-            }
-
+            // Top Badges
             const badge = document.getElementById('studentPeerTargetBadge');
-            if (badge) badge.innerText = `🎯 Assigned: ${pr.targetGroup} • Reviewed: ${totalReviewed} / 7 Groups`;
+            if (badge) badge.innerText = `🎯 Assigned Peer: ${assignedTarget}`;
 
-            const targetNameEl = document.getElementById('peerTargetGroupName');
-            if (targetNameEl) targetNameEl.innerText = `${activeTarget}${activeTarget === pr.targetGroup ? ' (🎯 Assigned)' : ''}`;
-
-            const targetStatusEl = document.getElementById('peerTargetStatus');
-            if (targetStatusEl) {
-                const targetStage = targetData?.stage || 0;
-                const targetUserChats = (targetData?.chatLogs || []).filter(m => m.sender === 'user').length;
-                if (targetStage >= 4 || (targetStage >= 3 && targetUserChats >= 3)) {
-                    targetStatusEl.innerText = "✓ Dialogue Completed / 已完成水精靈對話";
-                    targetStatusEl.className = "text-[10px] text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full font-bold border border-emerald-300";
-                } else if ((targetData && targetData.data) || targetUserChats > 0) {
-                    targetStatusEl.innerText = "💬 Dialogue Active / 已輸入數據・對話中";
-                    targetStatusEl.className = "text-[10px] text-sky-700 bg-sky-50 px-2.5 py-0.5 rounded-full font-medium border border-sky-200";
+            const votesBadge = document.getElementById('peerTotalVotesBadge');
+            if (votesBadge) {
+                votesBadge.innerText = `👍 My Votes: ${myVotes.length} / 7 Groups`;
+                if (myVotes.length > 0) {
+                    votesBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300";
                 } else {
-                    targetStatusEl.innerText = "⏳ In Progress / 實驗進行中";
-                    targetStatusEl.className = "text-[10px] text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full font-medium border border-amber-200";
+                    votesBadge.className = "text-xs font-bold px-3 py-1 rounded-full bg-slate-100 text-slate-700 border border-slate-300";
                 }
             }
 
-            const quoteEl = document.getElementById('peerTargetQuote');
-            if (quoteEl) {
-                quoteEl.innerText = `"${getGroupHighlightQuote(activeTarget)}"`;
-            }
+            // Render 8-Table Padlet Wall Grid
+            const wallGrid = document.getElementById('padletWallGrid');
+            if (wallGrid) {
+                wallGrid.innerHTML = '';
+                for (let i = 1; i <= 8; i++) {
+                    const tableKey = `Group ${i}`;
+                    const isMyTable = (tableKey === getTableKey(currentRole));
+                    const isAssigned = (tableKey === assignedTarget);
+                    const hasMyVote = myVotes.includes(tableKey);
+                    const tableVotesCount = Array.isArray(classData[tableKey]?.votes) ? classData[tableKey].votes.length : 0;
+                    const hasReviewed = !!(pr.reviewsByTarget && pr.reviewsByTarget[tableKey]?.submitted);
+                    const targetData = classData[tableKey] || {};
 
-            // Determine current spark tags and comment for active target
-            const existingRev = (pr.reviewsByTarget && pr.reviewsByTarget[activeTarget]) ? pr.reviewsByTarget[activeTarget] : (activeTarget === pr.targetGroup && pr.submitted ? pr : null);
-            const isTargetSubmitted = !!(existingRev && existingRev.submitted);
-            
-            let selectedTags = [];
-            if (isTargetSubmitted && Array.isArray(existingRev.sparkTags)) {
-                selectedTags = existingRev.sparkTags;
-            } else if (pr._currentDraftTagsByTarget && pr._currentDraftTagsByTarget[activeTarget]) {
-                selectedTags = pr._currentDraftTagsByTarget[activeTarget];
-            } else if (activeTarget === pr.targetGroup && Array.isArray(pr.sparkTags)) {
-                selectedTags = pr.sparkTags;
-            }
-            selectedTags = selectedTags.slice(0, 3);
-            pr.sparkTags = selectedTags;
-            const selectedCount = selectedTags.length;
+                    // Timings data
+                    const tData = targetData.data;
+                    const hasData = !!(tData && typeof tData[50] === 'number');
+                    const quote = getGroupHighlightQuote(tableKey);
 
-            const countBadge = document.getElementById('peerSparkCountBadge');
-            if (countBadge) {
-                countBadge.innerText = `Selected: ${selectedCount} / 3 tags (Min 1, Max 3)`;
-                if (selectedCount >= 1 && selectedCount <= 3) {
-                    countBadge.className = "text-[10px] text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full font-extrabold border border-emerald-300";
-                } else {
-                    countBadge.className = "text-[10px] text-indigo-700 bg-indigo-50 px-2.5 py-0.5 rounded-full font-bold border border-indigo-200";
+                    // Sub-group pair answers
+                    const pairA = classData[`${tableKey}A`];
+                    const pairB = classData[`${tableKey}B`];
+                    const pairAAnswer = (pairA?.latestAnswer && pairA.latestAnswer !== "No response yet") 
+                        ? pairA.latestAnswer 
+                        : (pairA?.chatLogs?.filter(m => m.sender === 'user').slice(-1)[0]?.en || null);
+                    const pairBAnswer = (pairB?.latestAnswer && pairB.latestAnswer !== "No response yet") 
+                        ? pairB.latestAnswer 
+                        : (pairB?.chatLogs?.filter(m => m.sender === 'user').slice(-1)[0]?.en || null);
+
+                    const card = document.createElement('div');
+                    card.className = `rounded-2xl p-4 transition-all duration-200 border-2 flex flex-col justify-between shadow-xs ${
+                        isMyTable 
+                            ? 'bg-sky-50/70 border-sky-300' 
+                            : isAssigned 
+                                ? 'bg-indigo-50/70 border-indigo-400 ring-2 ring-indigo-200/50' 
+                                : hasMyVote 
+                                    ? 'bg-emerald-50/50 border-emerald-300' 
+                                    : 'bg-white border-slate-200 hover:border-indigo-300 hover:shadow-md'
+                    }`;
+
+                    card.innerHTML = `
+                        <div class="space-y-3">
+                            <!-- Card Top Header -->
+                            <div class="flex items-center justify-between gap-1.5 flex-wrap">
+                                <div class="flex items-center gap-1.5">
+                                    <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white font-extrabold text-xs flex items-center justify-center shadow-xs">
+                                        T${i}
+                                    </span>
+                                    <span class="font-bold text-slate-800 text-xs sm:text-sm">Table ${i}</span>
+                                    ${isMyTable ? '<span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-sky-200 text-sky-900 border border-sky-300">本組</span>' : ''}
+                                    ${isAssigned ? '<span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-indigo-600 text-white shadow-xs">🎯 指定</span>' : ''}
+                                </div>
+                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${hasData ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-slate-100 text-slate-500'}">
+                                    ${hasData ? '✓ 數據已就緒' : '⏳ 進行中'}
+                                </span>
+                            </div>
+
+                            <!-- Timings Pill -->
+                            <div class="bg-slate-100/80 rounded-xl px-2.5 py-1.5 text-[11px] font-mono flex items-center justify-between text-slate-600">
+                                <span>50: ${hasData ? tData[50] + 's' : '-'}</span>
+                                <span>100: ${hasData ? tData[100] + 's' : '-'}</span>
+                                <span>150: ${hasData ? tData[150] + 's' : '-'}</span>
+                                <span>200: ${hasData ? tData[200] + 's' : '-'}</span>
+                            </div>
+
+                            <!-- Dialogue Quote / Science Finding -->
+                            <div class="bg-white/95 p-2.5 rounded-xl border border-slate-200 text-xs text-slate-700 italic space-y-1">
+                                <span class="text-[9px] font-black text-indigo-600 uppercase tracking-wider block not-italic">
+                                    💡 Core Socratic Finding / 探究發現:
+                                </span>
+                                <p class="line-clamp-3 leading-snug">
+                                    "${quote.replace(/\n.*$/, '')}"
+                                </p>
+                            </div>
+
+                            <!-- Pair Insights (if available) -->
+                            ${(pairAAnswer || pairBAnswer) ? `
+                                <div class="text-[10px] space-y-1 text-slate-500 border-t border-slate-100 pt-1.5">
+                                    ${pairAAnswer ? `<p class="truncate"><strong class="text-slate-700">Pair A:</strong> "${pairAAnswer}"</p>` : ''}
+                                    ${pairBAnswer ? `<p class="truncate"><strong class="text-slate-700">Pair B:</strong> "${pairBAnswer}"</p>` : ''}
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <!-- Card Bottom Actions: Quick Vote & Review -->
+                        <div class="pt-3 mt-3 border-t border-slate-200/80 space-y-2">
+                            <div class="flex items-center gap-1.5">
+                                <!-- Quick Multi-Select Vote Button -->
+                                ${isMyTable ? `
+                                    <button disabled class="flex-1 py-1.5 px-2 rounded-xl text-xs font-semibold bg-slate-100 text-slate-400 border border-slate-200 cursor-not-allowed text-center">
+                                        本組不計票
+                                    </button>
+                                ` : `
+                                    <button type="button" onclick="toggleTableVote('${tableKey}')" class="flex-1 py-1.5 px-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 shadow-xs ${
+                                        hasMyVote 
+                                            ? 'bg-emerald-600 hover:bg-emerald-700 text-white border border-emerald-600 ring-2 ring-emerald-200' 
+                                            : 'bg-white hover:bg-emerald-50 text-emerald-800 border border-emerald-300 hover:border-emerald-400'
+                                    }">
+                                        <span>${hasMyVote ? '✓ 已投' : '👍 投票'}</span>
+                                        <span class="px-1.5 py-0.2 rounded-full text-[10px] ${hasMyVote ? 'bg-emerald-800 text-white' : 'bg-emerald-100 text-emerald-900'}">${tableVotesCount}</span>
+                                    </button>
+                                `}
+
+                                <!-- Review Button (Opens Drawer) -->
+                                <button type="button" onclick="openTableReviewModal('${tableKey}')" class="py-1.5 px-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 shadow-xs ${
+                                    hasReviewed 
+                                        ? 'bg-indigo-600 hover:bg-indigo-700 text-white' 
+                                        : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200'
+                                }">
+                                    <span>${hasReviewed ? '✓ 已點評' : '✨ 點評'}</span>
+                                </button>
+                            </div>
+
+                            ${hasReviewed ? `
+                                <div class="text-[10px] text-emerald-700 font-medium flex items-center justify-between">
+                                    <span>✓ 已標記思維閃光點</span>
+                                    <span class="text-slate-400 text-[9px] cursor-pointer hover:underline" onclick="openTableReviewModal('${tableKey}')">編輯 / Edit</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+
+                    wallGrid.appendChild(card);
                 }
             }
 
-            const chipsContainer = document.getElementById('peerSparkChipsContainer');
-            if (chipsContainer) {
-                chipsContainer.innerHTML = '';
-                PEER_SPARK_TAGS.forEach(tag => {
-                    const isSelected = selectedTags.includes(tag.labelEn) || selectedTags.includes(tag.labelZh);
-                    const isAtMax = selectedCount >= 3 && !isSelected;
-                    const btn = document.createElement('button');
-                    btn.type = 'button';
-                    btn.onclick = () => togglePeerSparkTag(tag.labelEn);
-                    if (isSelected) {
-                        btn.className = "px-3 py-1.5 rounded-full text-xs font-bold transition flex items-center gap-1.5 bg-indigo-600 text-white shadow-sm border border-indigo-600 transform scale-105";
-                    } else if (isAtMax) {
-                        btn.className = "px-3 py-1.5 rounded-full text-xs font-medium transition flex items-center gap-1.5 bg-slate-50 text-slate-400 border border-slate-200 opacity-55";
-                    } else {
-                        btn.className = "px-3 py-1.5 rounded-full text-xs font-medium transition flex items-center gap-1.5 bg-white text-slate-700 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50/50";
-                    }
-                    btn.innerHTML = `<span>${tag.icon}</span> <span>${tag.labelEn} / ${tag.labelZh}</span>`;
-                    chipsContainer.appendChild(btn);
-                });
-            }
-
-            // Comment Textarea
-            const commentEl = document.getElementById('peerReviewCommentInput');
-            if (commentEl && document.activeElement !== commentEl) {
-                if (isTargetSubmitted) {
-                    commentEl.value = existingRev.comment || '';
-                } else if (pr._currentDraftCommentByTarget && pr._currentDraftCommentByTarget[activeTarget] !== undefined) {
-                    commentEl.value = pr._currentDraftCommentByTarget[activeTarget];
-                } else if (activeTarget === pr.targetGroup) {
-                    commentEl.value = pr.comment || '';
-                } else {
-                    commentEl.value = '';
-                }
-            }
-
-            const statusEl = document.getElementById('peerReviewSubmitStatus');
-            if (statusEl) {
-                if (isTargetSubmitted) {
-                    statusEl.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ Submitted review for ${activeTarget}!</span></span>`;
-                } else {
-                    statusEl.innerHTML = `<span class="text-slate-400 text-[11px]">未提交對 ${activeTarget} 的點評 / Pending submission for ${activeTarget}</span>`;
-                }
-                if (window.lucide) lucide.createIcons();
-            }
+            if (window.lucide) lucide.createIcons();
         }
 
         function refreshPeerReviewTargetData() {
-            // 1. Reload latest data from localStorage
             try {
                 const raw = localStorage.getItem(getStorageKey());
                 if (raw) {
@@ -9064,139 +9130,224 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             } catch (e) {}
 
-            // 2. Request active sync from other tabs/devices via BroadcastChannel & MQTT
             requestClassSync();
-
-            // 3. Re-render Peer Review UI and show visual confirmation toast
             renderStudentPeerReviewUI();
             const toast = document.getElementById('peerRefreshStatusToast');
             if (toast) {
                 const nowStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                toast.innerText = `✓ 已於 ${nowStr} 同步最新組別對話與觀點 (Synced latest Agent Water findings!)`;
+                toast.innerText = `✓ Synced (${nowStr})`;
                 toast.classList.remove('hidden');
                 setTimeout(() => {
                     toast.classList.add('hidden');
-                }, 4000);
+                }, 3000);
             }
         }
 
-        function togglePeerSparkTag(tagLabel) {
+        function toggleTableVote(targetTableKey) {
             if (!classData[currentRole]) return;
-            if (!classData[currentRole].peerReview) {
-                renderStudentPeerReviewUI();
+            const myTable = getTableKey(currentRole);
+            if (targetTableKey === myTable) {
+                alert("⚠️ You cannot vote for your own table! (不能為本組投票)");
+                return;
             }
-            const pr = classData[currentRole].peerReview;
-            if (!pr) return;
-            const activeTarget = pr.activeReviewTarget || pr.targetGroup || 'Group 2';
-            if (!pr._currentDraftTagsByTarget) pr._currentDraftTagsByTarget = {};
-            if (!Array.isArray(pr.sparkTags)) pr.sparkTags = [];
 
-            const tagObj = PEER_SPARK_TAGS.find(t => t.labelEn === tagLabel || t.labelZh === tagLabel);
-            const tagVal = tagObj ? tagObj.labelEn : tagLabel;
+            if (!Array.isArray(classData[currentRole].votedGroups)) {
+                classData[currentRole].votedGroups = [];
+            }
+            if (!classData[targetTableKey]) {
+                classData[targetTableKey] = createDefaultGroupEntry(parseInt(targetTableKey.replace('Group ', '')) || 1);
+            }
+            if (!Array.isArray(classData[targetTableKey].votes)) {
+                classData[targetTableKey].votes = [];
+            }
 
-            const limitToast = document.getElementById('peerSparkLimitToast');
-            const idx = pr.sparkTags.findIndex(t => t === tagVal || (tagObj && t === tagObj.labelZh));
-            if (idx > -1) {
-                pr.sparkTags.splice(idx, 1);
-                if (limitToast) limitToast.classList.add('hidden');
+            const hasVoted = classData[currentRole].votedGroups.includes(targetTableKey);
+            if (hasVoted) {
+                // Remove vote
+                classData[currentRole].votedGroups = classData[currentRole].votedGroups.filter(g => g !== targetTableKey);
+                classData[targetTableKey].votes = classData[targetTableKey].votes.filter(v => v !== currentRole);
             } else {
-                if (pr.sparkTags.length >= 3) {
-                    if (limitToast) {
-                        limitToast.classList.remove('hidden');
-                        clearTimeout(window._peerSparkLimitTimer);
-                        window._peerSparkLimitTimer = setTimeout(() => {
-                            limitToast.classList.add('hidden');
-                        }, 3800);
-                    }
-                    return;
+                // Add vote (multi-select allowed)
+                classData[currentRole].votedGroups.push(targetTableKey);
+                if (!classData[targetTableKey].votes.includes(currentRole)) {
+                    classData[targetTableKey].votes.push(currentRole);
                 }
-                pr.sparkTags.push(tagVal);
-                if (limitToast) limitToast.classList.add('hidden');
             }
 
-            pr._currentDraftTagsByTarget[activeTarget] = [...pr.sparkTags];
+            classData[currentRole].updatedAt = Date.now();
+            classData[targetTableKey].updatedAt = Date.now();
+
+            saveToStorage();
+            broadcastSync({ groupUpdated: targetTableKey, senderRole: currentRole });
+            updateAllUI();
             renderStudentPeerReviewUI();
         }
 
-        function insertPeerCommentChip(text) {
-            const el = document.getElementById('peerReviewCommentInput');
-            if (!el) return;
-            const current = el.value.trim();
-            if (!current) {
-                el.value = text;
-            } else if (!current.includes(text.trim())) {
-                el.value = current + ' ' + text;
+        function openTableReviewModal(targetTableKey) {
+            if (!classData[currentRole]) return;
+            activeDrawerTarget = targetTableKey;
+
+            const modal = document.getElementById('peerReviewDrawerModal');
+            if (!modal) return;
+
+            const pr = classData[currentRole].peerReview || {};
+            const existingRev = pr.reviewsByTarget?.[targetTableKey] || (targetTableKey === pr.targetGroup && pr.submitted ? pr : null);
+
+            const titleEl = document.getElementById('drawerTargetTitle');
+            if (titleEl) titleEl.innerText = `點評組別：${targetTableKey}`;
+
+            const quoteEl = document.getElementById('drawerTargetQuote');
+            if (quoteEl) quoteEl.innerText = `"${getGroupHighlightQuote(targetTableKey)}"`;
+
+            let selectedTags = existingRev?.sparkTags ? [...existingRev.sparkTags] : [];
+            if (!pr._currentDraftTagsByTarget) pr._currentDraftTagsByTarget = {};
+            if (pr._currentDraftTagsByTarget[targetTableKey]) {
+                selectedTags = pr._currentDraftTagsByTarget[targetTableKey];
             }
-            el.focus();
-            el.dispatchEvent(new Event('input', { bubbles: true }));
+            pr._currentDraftTagsByTarget[targetTableKey] = selectedTags;
+
+            renderDrawerSparkChips();
+
+            const commentInput = document.getElementById('drawerCommentInput');
+            if (commentInput) {
+                commentInput.value = existingRev?.comment || pr._currentDraftCommentByTarget?.[targetTableKey] || '';
+            }
+
+            const warn = document.getElementById('drawerEnglishWarning');
+            if (warn) warn.classList.add('hidden');
+
+            modal.classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
         }
 
-        function submitPeerReview() {
-            if (!classData[currentRole]) return;
-            const comment = (document.getElementById('peerReviewCommentInput')?.value || '').trim();
-            const pr = classData[currentRole].peerReview;
-            if (!pr) return;
-            const activeTarget = pr.activeReviewTarget || pr.targetGroup || 'Group 2';
-            
-            const tagCount = (pr && Array.isArray(pr.sparkTags)) ? pr.sparkTags.length : 0;
-            const hasTags = tagCount >= 1 && tagCount <= 3;
-            const hasComment = comment.length >= 5;
+        function closePeerReviewDrawer() {
+            const modal = document.getElementById('peerReviewDrawerModal');
+            if (modal) modal.classList.add('hidden');
+        }
 
-            // Task 6: Check Chinese characters
-            if (typeof hasChineseCharacters === 'function' && hasChineseCharacters(comment)) {
-                const warn = document.getElementById('peerEnglishWarning');
-                if (warn) warn.classList.remove('hidden');
-                alert("⚠️ English Only: Please write your peer review in English!\n請使用純英文填寫同儕互評，提交前請移除中文字元。");
-                document.getElementById('peerReviewCommentInput')?.focus();
-                return;
-            } else {
-                const warn = document.getElementById('peerEnglishWarning');
-                if (warn) warn.classList.add('hidden');
+        function renderDrawerSparkChips() {
+            const container = document.getElementById('drawerSparkChipsContainer');
+            if (!container) return;
+            const pr = classData[currentRole]?.peerReview;
+            const selectedTags = pr?._currentDraftTagsByTarget?.[activeDrawerTarget] || [];
+            const countBadge = document.getElementById('drawerSparkCountBadge');
+            if (countBadge) {
+                countBadge.innerText = `Selected: ${selectedTags.length} / 3 (Min 1, Max 3)`;
+                countBadge.className = (selectedTags.length >= 1 && selectedTags.length <= 3) 
+                    ? "text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-300"
+                    : "text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-full border border-indigo-200";
             }
 
-            if (!hasTags) {
+            container.innerHTML = '';
+            PEER_SPARK_TAGS.forEach(tag => {
+                const isSelected = selectedTags.includes(tag.labelEn) || selectedTags.includes(tag.labelZh);
+                const isAtMax = selectedTags.length >= 3 && !isSelected;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => toggleDrawerSparkTag(tag.labelEn);
+                if (isSelected) {
+                    btn.className = "px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-600 text-white shadow-xs border border-indigo-600";
+                } else if (isAtMax) {
+                    btn.className = "px-2.5 py-1 rounded-full text-xs font-medium bg-slate-50 text-slate-400 border border-slate-200 opacity-50 cursor-not-allowed";
+                } else {
+                    btn.className = "px-2.5 py-1 rounded-full text-xs font-medium bg-white text-slate-700 border border-slate-200 hover:border-indigo-400 hover:bg-indigo-50";
+                }
+                btn.innerHTML = `<span>${tag.icon}</span> <span>${tag.labelEn} / ${tag.labelZh}</span>`;
+                container.appendChild(btn);
+            });
+        }
+
+        function toggleDrawerSparkTag(tagLabel) {
+            const pr = classData[currentRole]?.peerReview;
+            if (!pr) return;
+            if (!pr._currentDraftTagsByTarget) pr._currentDraftTagsByTarget = {};
+            if (!Array.isArray(pr._currentDraftTagsByTarget[activeDrawerTarget])) {
+                pr._currentDraftTagsByTarget[activeDrawerTarget] = [];
+            }
+            const list = pr._currentDraftTagsByTarget[activeDrawerTarget];
+            const tagObj = PEER_SPARK_TAGS.find(t => t.labelEn === tagLabel || t.labelZh === tagLabel);
+            const tagVal = tagObj ? tagObj.labelEn : tagLabel;
+
+            const idx = list.findIndex(t => t === tagVal || (tagObj && t === tagObj.labelZh));
+            if (idx > -1) {
+                list.splice(idx, 1);
+            } else {
+                if (list.length >= 3) {
+                    alert("⚠️ Maximum 3 spark tags! Please deselect one tag first.");
+                    return;
+                }
+                list.push(tagVal);
+            }
+            renderDrawerSparkChips();
+        }
+
+        function insertDrawerStarter(text) {
+            const input = document.getElementById('drawerCommentInput');
+            if (!input) return;
+            const cur = input.value.trim();
+            if (!cur) input.value = text;
+            else if (!cur.includes(text.trim())) input.value = cur + ' ' + text;
+            input.focus();
+        }
+
+        function submitDrawerPeerReview() {
+            if (!classData[currentRole]) return;
+            const comment = (document.getElementById('drawerCommentInput')?.value || '').trim();
+            const pr = classData[currentRole].peerReview;
+            if (!pr) return;
+            const tags = pr._currentDraftTagsByTarget?.[activeDrawerTarget] || [];
+
+            if (typeof hasChineseCharacters === 'function' && hasChineseCharacters(comment)) {
+                const warn = document.getElementById('drawerEnglishWarning');
+                if (warn) warn.classList.remove('hidden');
+                alert("⚠️ English Only: Please write your peer review in English!\n請使用純英文填寫同儕互評，提交前請移除中文字元。");
+                document.getElementById('drawerCommentInput')?.focus();
+                return;
+            }
+
+            if (tags.length < 1 || tags.length > 3) {
                 alert("✨ 請點選 1 至 3 個思維亮點標記！\nPlease select between 1 and 3 thinking spark tags before submitting!");
                 return;
             }
 
-            if (!hasComment) {
+            if (comment.length < 5) {
                 alert("💬 請填寫給對方的具體讚賞或好奇追問 (至少5個字元)！\nPlease write a constructive praise or wonder comment (at least 5 characters)!");
-                document.getElementById('peerReviewCommentInput')?.focus();
+                document.getElementById('drawerCommentInput')?.focus();
                 return;
             }
 
             if (!pr.reviewsByTarget) pr.reviewsByTarget = {};
-            pr.reviewsByTarget[activeTarget] = {
-                targetGroup: activeTarget,
-                sparkTags: [...pr.sparkTags],
+            pr.reviewsByTarget[activeDrawerTarget] = {
+                targetGroup: activeDrawerTarget,
+                sparkTags: [...tags],
                 comment: comment,
                 submitted: true,
                 submittedAt: Date.now()
             };
 
-            // Mirror top-level fields for backwards compatibility
             pr.comment = comment;
-            pr.sparkTags = [...pr.sparkTags];
+            pr.sparkTags = [...tags];
             pr.submitted = true;
             pr.submittedAt = Date.now();
             classData[currentRole].updatedAt = Date.now();
 
             saveToStorage();
             broadcastSync({ groupUpdated: currentRole, senderRole: currentRole });
+            closePeerReviewDrawer();
             updateAllUI();
             renderStudentPeerReviewUI();
             renderPeerReviewMatrixGrid();
-
-            const statusEl = document.getElementById('peerReviewSubmitStatus');
-            if (statusEl) {
-                statusEl.innerHTML = `<span class="text-emerald-700 font-bold flex items-center gap-1 animate-fade-in"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-600"></i><span>✓ 成功提交對 ${activeTarget} 的點評！已解鎖 Step 6 全班高階思考題</span></span>`;
-                if (window.lucide) lucide.createIcons();
-            }
+            showSubmitFeedback('success', `✓ Successfully submitted review for ${activeDrawerTarget}! Step 6 HOTQ unlocked.`);
 
             setTimeout(() => {
                 proceedToStep(6);
-            }, 350);
+            }, 400);
         }
+
+        // Backward compatibility functions
+        function togglePeerSparkTag(tagLabel) { toggleDrawerSparkTag(tagLabel); }
+        function insertPeerCommentChip(text) { insertDrawerStarter(text); }
+        function submitPeerReview() { submitDrawerPeerReview(); }
 
         // Teacher Pairing Presets & Matrix
         function applyPeerReviewPreset(type) {

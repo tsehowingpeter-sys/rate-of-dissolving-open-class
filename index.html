@@ -4697,6 +4697,13 @@ ${JSON.stringify(summaryData, null, 2)}
             if (classInput) classInput.value = currentClass;
             const teacherBadge = document.getElementById('teacherClassBadge');
             if (teacherBadge) teacherBadge.innerText = currentClass;
+            document.querySelectorAll('.teacher-class-btn').forEach(btn => {
+                if (btn.dataset.class === currentClass) {
+                    btn.className = "teacher-class-btn px-2 py-0.5 rounded text-[11px] font-black bg-sky-500 text-white shadow-xs transition";
+                } else {
+                    btn.className = "teacher-class-btn px-2 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition";
+                }
+            });
 
             // Sync Quick Class Switcher buttons in Teacher Banner
             document.querySelectorAll('.teacher-class-btn').forEach(btn => {
@@ -5730,8 +5737,13 @@ ${JSON.stringify(summaryData, null, 2)}
         function updateTaskGatingUI() {
             const groupData = classData[currentRole]?.data || classData[getTableKey(currentRole)]?.data;
             const hasData = !!(groupData && !isNaN(groupData[50]) && !isNaN(groupData[100]) && !isNaN(groupData[150]) && !isNaN(groupData[200]));
-            const maxBypassStep = classData[currentRole]?.unlockedUpToStep || 1;
-            const isStepBypassed = (s) => (maxBypassStep >= s) || !!(classData[currentRole]?.forceUnlockedSteps && classData[currentRole]?.forceUnlockedSteps[s]);
+            const maxBypassStep = Math.max(
+                classData[currentRole]?.unlockedUpToStep || 1,
+                classData[getTableKey(currentRole)]?.unlockedUpToStep || 1
+            );
+            const isStepBypassed = (s) => (maxBypassStep >= s) || 
+                !!(classData[currentRole]?.forceUnlockedSteps && classData[currentRole]?.forceUnlockedSteps[s]) ||
+                !!(classData[getTableKey(currentRole)]?.forceUnlockedSteps && classData[getTableKey(currentRole)]?.forceUnlockedSteps[s]);
 
             const stage = classData[currentRole]?.stage || 0;
             const userChatLogs = (classData[currentRole]?.chatLogs || []).filter(m => m.sender === 'user');
@@ -9511,9 +9523,15 @@ ${JSON.stringify(summaryData, null, 2)}
             };
 
             if (targetGroup === 'ALL') {
-                for (let i = 1; i <= 8; i++) applyBypassToGroup(`Group ${i}`);
+                for (let i = 1; i <= 8; i++) {
+                    applyBypassToGroup(`Group ${i}`);
+                    applyBypassToGroup(`Group ${i}A`);
+                    applyBypassToGroup(`Group ${i}B`);
+                }
             } else {
                 applyBypassToGroup(targetGroup);
+                applyBypassToGroup(`${targetGroup}A`);
+                applyBypassToGroup(`${targetGroup}B`);
             }
 
             broadcastSync();
@@ -9524,11 +9542,13 @@ ${JSON.stringify(summaryData, null, 2)}
 
         function resetTeacherStepBypass() {
             for (let i = 1; i <= 8; i++) {
-                const gKey = `Group ${i}`;
-                if (classData[gKey]) {
-                    classData[gKey].forceUnlockedSteps = { 1: true };
-                    classData[gKey].unlockedUpToStep = 1;
-                }
+                ['', 'A', 'B'].forEach(suf => {
+                    const gKey = `Group ${i}${suf}`;
+                    if (classData[gKey]) {
+                        classData[gKey].forceUnlockedSteps = { 1: true };
+                        classData[gKey].unlockedUpToStep = 1;
+                    }
+                });
             }
             broadcastSync();
             updateAllUI();
@@ -10524,6 +10544,13 @@ ${JSON.stringify(summaryData, null, 2)}
             if (classInput) classInput.value = currentClass;
             const teacherBadge = document.getElementById('teacherClassBadge');
             if (teacherBadge) teacherBadge.innerText = currentClass;
+            document.querySelectorAll('.teacher-class-btn').forEach(btn => {
+                if (btn.dataset.class === currentClass) {
+                    btn.className = "teacher-class-btn px-2 py-0.5 rounded text-[11px] font-black bg-sky-500 text-white shadow-xs transition";
+                } else {
+                    btn.className = "teacher-class-btn px-2 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition";
+                }
+            });
 
             loadAiSettings();
             loadAiTokenStats();

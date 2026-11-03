@@ -860,9 +860,21 @@
                             <span class="px-2.5 py-0.5 bg-amber-400 text-slate-950 font-black text-[10px] rounded-full uppercase tracking-wider flex items-center gap-1 shadow-sm">
                                 <i data-lucide="shield-check" class="w-3 h-3"></i> TEACHER COMMAND CENTER / 教師指揮中心
                             </span>
-                            <span id="teacherClassBadge" class="px-2.5 py-0.5 bg-sky-500/30 text-sky-200 border border-sky-400/30 text-[10px] font-bold rounded-full">
+                            <span id="teacherClassBadge" class="hidden">
                                 1CL
                             </span>
+                            <!-- Teacher Quick Class Switcher (Seamless Zero-Friction Class Switching) -->
+                            <div class="flex items-center gap-1 bg-slate-800/90 p-0.5 rounded-lg border border-sky-400/30 shadow-xs" title="點擊無縫切換當前班別數據 (Switch Class Seamlessly)">
+                                <span class="text-[9px] text-sky-300 font-extrabold px-1.5 uppercase flex items-center gap-0.5">
+                                    <i data-lucide="layers" class="w-2.5 h-2.5"></i>
+                                    <span>Class:</span>
+                                </span>
+                                <button type="button" onclick="handleClassChange('1CL')" data-class="1CL" class="teacher-class-btn px-2 py-0.5 rounded text-[11px] font-black bg-sky-500 text-white shadow-xs transition">1CL</button>
+                                <button type="button" onclick="handleClassChange('1CW')" data-class="1CW" class="teacher-class-btn px-2 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition">1CW</button>
+                                <button type="button" onclick="handleClassChange('1LF')" data-class="1LF" class="teacher-class-btn px-2 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition">1LF</button>
+                                <button type="button" onclick="handleClassChange('1LH')" data-class="1LH" class="teacher-class-btn px-2 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition">1LH</button>
+                                <button type="button" onclick="handleClassChange('1LL')" data-class="1LL" class="teacher-class-btn px-2 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition">1LL</button>
+                            </div>
                         </div>
                         <h2 class="text-2xl md:text-3xl font-bold font-fun tracking-wide text-white">
                             Real-time AI Pedagogy Diagnostic & Class Telemetry / 全班學情即時診斷與數據監控
@@ -3550,7 +3562,18 @@ ${JSON.stringify(summaryData, null, 2)}
                     const senderTable = getTableKey(senderRole);
                     const isOwnSubGroup = (gKey === senderRole);
                     const isOwnTable = (gKey === senderTable);
-                    if (!isOwnSubGroup && !isOwnTable) return;
+                    if (!isOwnSubGroup && !isOwnTable) {
+                        // Allow vote list update on target table if senderRole voted/unvoted
+                        if (Array.isArray(incomingG.votes)) {
+                            if (!Array.isArray(localG.votes)) localG.votes = [];
+                            if (incomingG.votes.includes(senderRole)) {
+                                if (!localG.votes.includes(senderRole)) localG.votes.push(senderRole);
+                            } else {
+                                localG.votes = localG.votes.filter(v => v !== senderRole);
+                            }
+                        }
+                        return;
+                    }
                 }
 
                 // Teacher Explicit Clear Action
@@ -4590,7 +4613,7 @@ ${JSON.stringify(summaryData, null, 2)}
                             updateAiStatusUI();
                         } else if (parsed && parsed.type === 'REQUEST_SYNC_DATA' && parsed.class === currentClass) {
                             handleIncomingSyncRequest(parsed);
-                        } else if (parsed && parsed.payload) {
+                        } else if (parsed && parsed.payload && (!parsed.class || parsed.class === currentClass)) {
                             classData = mergeClassData(classData, parsed.payload, {
                                 senderRole: parsed.senderRole || '',
                                 groupUpdated: parsed.groupUpdated || null,
@@ -4666,18 +4689,41 @@ ${JSON.stringify(summaryData, null, 2)}
         // ================= CLASS & ROLE MANAGEMENT =================
         function handleClassChange(newClassName) {
             const cleaned = newClassName.trim() || "1CL";
+            const oldClass = currentClass;
             currentClass = cleaned;
             localStorage.setItem('openclass_current_class', currentClass);
-            document.getElementById('classInput').value = currentClass;
-            document.getElementById('teacherClassBadge').innerText = currentClass;
+            
+            const classInput = document.getElementById('classInput');
+            if (classInput) classInput.value = currentClass;
+            const teacherBadge = document.getElementById('teacherClassBadge');
+            if (teacherBadge) teacherBadge.innerText = currentClass;
+
+            // Sync Quick Class Switcher buttons in Teacher Banner
+            document.querySelectorAll('.teacher-class-btn').forEach(btn => {
+                if (btn.dataset.class === currentClass) {
+                    btn.className = "teacher-class-btn px-2 py-0.5 rounded text-[11px] font-black bg-sky-500 text-white shadow-xs transition";
+                } else {
+                    btn.className = "teacher-class-btn px-2 py-0.5 rounded text-[11px] font-bold text-slate-300 hover:text-white hover:bg-slate-700 transition";
+                }
+            });
 
             loadFromStorage();
             updateAllUI();
             renderStudentChatHistory();
+            if (typeof renderTeacherHotqAnswerWall === 'function') renderTeacherHotqAnswerWall();
+            if (typeof renderStudentPeerReviewUI === 'function') renderStudentPeerReviewUI();
+            if (typeof renderStudentHotqStepUI === 'function') renderStudentHotqStepUI();
 
             if (mqttClient && isMqttConnected) {
+                if (oldClass && oldClass !== currentClass) {
+                    const oldTopic = `openclass_v4/${oldClass.replace(/\s+/g, '_')}/sync`;
+                    try { mqttClient.unsubscribe(oldTopic); } catch(e) {}
+                }
                 const topic = `openclass_v4/${currentClass.replace(/\s+/g, '_')}/sync`;
-                mqttClient.subscribe(topic);
+                try {
+                    mqttClient.subscribe(topic, { qos: 0 });
+                    requestClassSync();
+                } catch(e) {}
             }
         }
 
@@ -8958,7 +9004,17 @@ ${JSON.stringify(summaryData, null, 2)}
                     const isMyTable = (tableKey === getTableKey(currentRole));
                     const isAssigned = (tableKey === assignedTarget);
                     const hasMyVote = myVotes.includes(tableKey);
-                    const tableVotesCount = Array.isArray(classData[tableKey]?.votes) ? classData[tableKey].votes.length : 0;
+                    // Reconcile total votes for tableKey across both direct votes and all 16 sub-groups' votedGroups
+                    const voterSet = new Set(Array.isArray(classData[tableKey]?.votes) ? classData[tableKey].votes : []);
+                    for (let k = 1; k <= 8; k++) {
+                        ['A', 'B'].forEach(suf => {
+                            const subK = `Group ${k}${suf}`;
+                            if (Array.isArray(classData[subK]?.votedGroups) && classData[subK].votedGroups.includes(tableKey)) {
+                                voterSet.add(subK);
+                            }
+                        });
+                    }
+                    const tableVotesCount = voterSet.size;
                     const hasReviewed = !!(pr.reviewsByTarget && pr.reviewsByTarget[tableKey]?.submitted);
                     const targetData = classData[tableKey] || {};
 

@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S1 Science: Rate of Dissolving & Teacher Command Center</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f8fafc;
+        }
+        .font-fun { font-family: 'Fredoka', cursive, 'Noto Sans TC', sans-serif; }
+        .chat-bubble-ai {
+            background-color: #e0f2fe;
+            border-radius: 18px 18px 18px 2px;
+        }
+        .chat-bubble-user {
+            background-color: #0284c7;
+            color: white;
+            border-radius: 18px 18px 2px 18px;
+        }
+    </style>
+</head>
+<body class="text-slate-800 pb-12">
+
+    <!-- Header / Navbar -->
+    <header class="bg-gradient-to-r from-teal-600 via-sky-600 to-indigo-700 text-white shadow-lg py-4 px-4 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-white/20 p-2.5 rounded-2xl backdrop-blur-md border border-white/30">
+                    <i data-lucide="droplets" class="w-7 h-7 text-white"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-lg md:text-xl font-bold font-fun tracking-wide">
+                            Exp 2.5: Factors Affecting Rate of Dissolving
+                        </h1>
+                        <span id="roleBadge" class="text-[10px] bg-emerald-400 text-slate-900 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Student View</span>
+                    </div>
+                    <p class="text-teal-100 text-xs">
+                        實驗 2.5：影響溶解速率的因素 • AI 賦能科學探究與課堂實時診斷
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Selector Dropdown with Teacher Password Access -->
+            <div class="bg-slate-900/40 px-3 py-1.5 rounded-xl border border-white/20 flex items-center gap-2.5 shadow-inner">
+                <label class="text-xs font-semibold text-teal-100 whitespace-nowrap flex items-center gap-1">
+                    <i data-lucide="user-check" class="w-3.5 h-3.5"></i> Select Mode / 選擇切換:
+                </label>
+                <select id="groupSelect" onchange="handleRoleChange()" class="bg-white text-slate-800 text-xs font-bold px-3 py-1.5 rounded-lg focus:outline-none shadow cursor-pointer">
+                    <option value="Group 1">Group 1 (第1組)</option>
+                    <option value="Group 2">Group 2 (第2組)</option>
+                    <option value="Group 3">Group 3 (第3組)</option>
+                    <option value="Group 4">Group 4 (第4組)</option>
+                    <option value="Group 5">Group 5 (第5組)</option>
+                    <option value="Group 6">Group 6 (第6組)</option>
+                    <option value="Group 7">Group 7 (第7組)</option>
+                    <option value="Group 8">Group 8 (第8組)</option>
+                    <option value="Teacher" class="font-bold text-amber-600 bg-amber-50">🔒 Teacher Mode (教師智慧後台)</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 mt-6">
+
+        <!-- ================= STUDENT VIEW ================= -->
+        <div id="studentViewSection" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- Left Column: Data Entry & Graph (6 Cols) -->
+            <section class="lg:col-span-6 space-y-6">
+                
+                <!-- Data Entry Form -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                            <i data-lucide="edit-3" class="w-5 h-5 text-teal-600"></i>
+                            <span>1. Enter Group Data / 輸入本組數據</span>
+                        </h2>
+                        <span class="text-xs px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded-full flex items-center gap-1 font-medium">
+                            <span class="w-2 h-2 bg-emerald-500 rounded-full animate-ping"></span> Sync Active
+                        </span>
+                    </div>
+
+                    <form id="dataForm" onsubmit="event.preventDefault(); submitGroupData();" class="space-y-3">
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                                <label class="block text-xs font-bold text-slate-600">50 cm³ Water</label>
+                                <span class="text-[10px] text-slate-400 block mb-1">50 cm³ 水</span>
+                                <input type="number" id="t50" placeholder="e.g. 120" class="w-full px-2 py-1 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+                            </div>
+                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                                <label class="block text-xs font-bold text-slate-600">100 cm³ Water</label>
+                                <span class="text-[10px] text-slate-400 block mb-1">100 cm³ 水</span>
+                                <input type="number" id="t100" placeholder="e.g. 80" class="w-full px-2 py-1 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+                            </div>
+                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                                <label class="block text-xs font-bold text-slate-600">150 cm³ Water</label>
+                                <span class="text-[10px] text-slate-400 block mb-1">150 cm³ 水</span>
+                                <input type="number" id="t150" placeholder="e.g. 50" class="w-full px-2 py-1 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+                            </div>
+                            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+                                <label class="block text-xs font-bold text-slate-600">200 cm³ Water</label>
+                                <span class="text-[10px] text-slate-400 block mb-1">200 cm³ 水</span>
+                                <input type="number" id="t200" placeholder="e.g. 30" class="w-full px-2 py-1 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-teal-400 focus:outline-none" required>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-2 pt-1">
+                            <button type="submit" class="flex-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold py-2 rounded-xl text-xs sm:text-sm shadow transition flex items-center justify-center gap-1">
+                                <i data-lucide="upload" class="w-4 h-4"></i> Submit Data / 上傳數據
+                            </button>
+                            <button type="button" onclick="generateSimulatedClassData()" class="bg-sky-100 hover:bg-sky-200 text-sky-700 font-semibold px-3 py-2 rounded-xl text-xs transition flex items-center gap-1" title="Fill other groups with sample data">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i> Auto-fill Class / 模擬全班數據
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Graph Section -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80">
+                    <h2 class="text-base font-bold text-slate-800 mb-2 flex items-center gap-2">
+                        <i data-lucide="line-chart" class="w-5 h-5 text-sky-600"></i>
+                        <span>2. Class Comparison Graph / 跨組數據分析圖表</span>
+                    </h2>
+                    <p class="text-xs text-slate-500 mb-4">Comparing My Group (My Data) with Class Average (8 Groups).</p>
+                    <div class="relative h-64 w-full">
+                        <canvas id="classChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Class Data Table -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 overflow-x-auto">
+                    <h2 class="text-xs font-bold text-slate-700 mb-2 flex items-center justify-between">
+                        <span>8 Groups Overview / 8組數據總覽</span>
+                        <span id="submittedCount" class="text-teal-600 font-semibold">0/8 Submitted</span>
+                    </h2>
+                    <table class="w-full text-[11px] text-center border-collapse">
+                        <thead>
+                            <tr class="bg-slate-100 text-slate-600">
+                                <th class="p-1.5 border">Volume</th>
+                                <th class="p-1.5 border">G1</th>
+                                <th class="p-1.5 border">G2</th>
+                                <th class="p-1.5 border">G3</th>
+                                <th class="p-1.5 border">G4</th>
+                                <th class="p-1.5 border">G5</th>
+                                <th class="p-1.5 border">G6</th>
+                                <th class="p-1.5 border">G7</th>
+                                <th class="p-1.5 border">G8</th>
+                                <th class="p-1.5 border bg-teal-50 text-teal-800 font-bold">AVG</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody" class="text-slate-700">
+                            <!-- Dynamic Rows -->
+                        </tbody>
+                    </table>
+                </div>
+
+            </section>
+
+            <!-- Right Column: Agent Water AI Companion (6 Cols) -->
+            <section class="lg:col-span-6 flex flex-col h-[780px] bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
+                
+                <!-- Agent Header -->
+                <div class="bg-gradient-to-r from-sky-500 to-blue-600 p-4 text-white flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-xl shadow">
+                            💧
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-sm sm:text-base font-fun">Agent Water (水精靈)</h3>
+                            <p class="text-[11px] text-sky-100">Your Science Thinking Buddy • 你的科學思考好夥伴</p>
+                        </div>
+                    </div>
+                    <span id="studentGroupTag" class="text-[11px] font-bold bg-white/20 border border-white/30 px-2.5 py-1 rounded-full">Group 1</span>
+                </div>
+
+                <!-- Chat Messages Window -->
+                <div id="chatContainer" class="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50/50">
+                    <!-- Initial Welcome -->
+                </div>
+
+                <!-- Response Options & Input -->
+                <div class="p-3 bg-white border-t border-slate-100 space-y-2">
+                    <div id="optionsContainer" class="grid grid-cols-1 gap-1.5 max-h-36 overflow-y-auto pr-1">
+                        <p class="text-[10px] text-slate-400 italic text-center">Submit your group data to start chat with Agent Water! / 請先提交數據以開啟對話！</p>
+                    </div>
+
+                    <form id="chatForm" onsubmit="handleCustomTextSubmit(event)" class="flex gap-2 pt-1 border-t border-slate-100">
+                        <input type="text" id="userInput" placeholder="Or type your response... / 或輸入你的回答..." class="flex-1 px-3 py-2 border border-slate-200 rounded-xl text-xs focus:ring-2 focus:ring-sky-400 focus:outline-none">
+                        <button type="submit" class="bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 rounded-xl text-xs font-semibold shadow transition flex items-center gap-1">
+                            <i data-lucide="send" class="w-3.5 h-3.5"></i> Send
+                        </button>
+                    </form>
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- ================= TEACHER DASHBOARD VIEW (HIDDEN BY DEFAULT) ================= -->
+        <div id="teacherViewSection" class="hidden space-y-6">
+
+            <!-- Top Projection Header & Metrics Banner -->
+            <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 shadow-xl border border-indigo-500/30 relative overflow-hidden">
+                <div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 pb-6 border-b border-white/10">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="px-2.5 py-0.5 bg-amber-400 text-slate-900 font-bold text-[10px] rounded-full uppercase tracking-wider flex items-center gap-1">
+                                <i data-lucide="tv" class="w-3 h-3"></i> Live Presentation Mode / 觀課投屏模式
+                            </span>
+                            <span class="px-2.5 py-0.5 bg-sky-500/30 text-sky-200 border border-sky-400/30 text-[10px] rounded-full">AI Classroom Analytics Engine</span>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-bold font-fun tracking-wide text-white">
+                            Teacher Command Center • 教師智慧指揮中心
+                        </h2>
+                        <p class="text-slate-300 text-xs md:text-sm mt-1">
+                            Real-time AI Pedagogy Synthesis • 全班 8 組學情實時分析與促進式學與教診斷
+                        </p>
+                    </div>
+
+                    <button onclick="refreshAITeacherDiagnostics()" class="bg-gradient-to-r from-teal-500 to-sky-500 hover:from-teal-400 hover:to-sky-400 text-white font-bold px-4 py-2.5 rounded-xl text-xs shadow-lg transition flex items-center gap-2 border border-white/20">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> Re-Analyze All / 一鍵更新全班 AI 診斷
+                    </button>
+                </div>
+
+                <!-- Executive Stats Strip -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-3.5 backdrop-blur-md">
+                        <p class="text-[11px] text-slate-400 font-medium">Active Groups / 數據提交率</p>
+                        <p id="teacherStatSubmitted" class="text-xl md:text-2xl font-bold text-teal-400 mt-1">0 / 8 <span class="text-xs text-slate-400 font-normal">Groups</span></p>
+                    </div>
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-3.5 backdrop-blur-md">
+                        <p class="text-[11px] text-slate-400 font-medium">Avg AI Dialogues / 平均對話深度</p>
+                        <p id="teacherStatDialogueCount" class="text-xl md:text-2xl font-bold text-sky-400 mt-1">0 <span class="text-xs text-slate-400 font-normal">turns/group</span></p>
+                    </div>
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-3.5 backdrop-blur-md">
+                        <p class="text-[11px] text-slate-400 font-medium">Core Concept Mastery / 核心概念掌握</p>
+                        <p id="teacherStatMastery" class="text-xl md:text-2xl font-bold text-amber-400 mt-1">-- %</p>
+                    </div>
+                    <div class="bg-white/5 border border-white/10 rounded-2xl p-3.5 backdrop-blur-md">
+                        <p class="text-[11px] text-slate-400 font-medium">Common Misconception / 主要誤解焦點</p>
+                        <p id="teacherStatMisconception" class="text-sm font-bold text-rose-300 mt-1 truncate">Stirring Speed / 攪拌速率</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 1: Whole-Class Discussion Generator -->
+            <div class="bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 rounded-3xl p-6 shadow-md border border-amber-200">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2.5">
+                        <div class="p-2.5 bg-amber-500 text-white rounded-2xl shadow">
+                            <i data-lucide="messages-square" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base md:text-lg font-bold text-amber-950 font-fun">
+                                Whole-Class Discussion Prompts (AI 即時生成大組討論議題)
+                            </h3>
+                            <p class="text-xs text-amber-800">
+                                Suggested questions for teacher to orchestrate whole-class inquiry based on live student data & chat logs.
+                            </p>
+                        </div>
+                    </div>
+                    <span class="hidden sm:inline-block text-[10px] bg-amber-200 text-amber-900 font-bold px-3 py-1 rounded-full border border-amber-300">Pedagogical Facilitation</span>
+                </div>
+
+                <div id="wholeClassDiscussionContainer" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Dynamic Discussion Prompt Cards -->
+                </div>
+            </div>
+
+            <!-- SECTION 2: Class & Group Diagnostic Analytics -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Class Strengths & Growth Areas (4 Cols) -->
+                <div class="lg:col-span-4 bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <i data-lucide="target" class="w-5 h-5 text-indigo-600"></i>
+                            <span>Class Strengths & Weaknesses / 全班診斷</span>
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <!-- Strengths -->
+                            <div class="p-3.5 bg-emerald-50 rounded-2xl border border-emerald-100">
+                                <p class="text-xs font-bold text-emerald-800 flex items-center gap-1.5 mb-1.5">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i> Class Strengths (全班強項)
+                                </p>
+                                <ul id="classStrengthsList" class="text-xs text-slate-700 space-y-1 pl-4 list-disc">
+                                    <li>Majority identified that higher water volume reduces dissolving time correctly.</li>
+                                    <li>Good collaborative entry of experiment timings.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Weaknesses / Growth Areas -->
+                            <div class="p-3.5 bg-rose-50 rounded-2xl border border-rose-100">
+                                <p class="text-xs font-bold text-rose-800 flex items-center gap-1.5 mb-1.5">
+                                    <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-600"></i> Growth Areas (需要提升之處)
+                                </p>
+                                <ul id="classWeaknessList" class="text-xs text-slate-700 space-y-1 pl-4 list-disc">
+                                    <li>Confusing 'reaction time delay' with 'magical factors'.</li>
+                                    <li>Struggling to articulate why calculating class average reduces random errors.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 p-3 bg-slate-50 rounded-2xl border border-slate-200/60 text-center">
+                        <p class="text-[11px] text-slate-500">
+                            💡 <span class="font-bold text-slate-700">Teacher Action:</span> Focus wrap-up on distinguishing systematic vs human errors.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 8-Group Live Matrix & AI Dialogue Summaries (8 Cols) -->
+                <div class="lg:col-span-8 bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                            <i data-lucide="layout-grid" class="w-5 h-5 text-sky-600"></i>
+                            <span>8 Groups Real-time AI Dialogue & Diagnostics / 8組實時對話與小組點評</span>
+                        </h3>
+                        <span class="text-xs text-slate-400">Updated in real-time</span>
+                    </div>
+
+                    <!-- 8 Group Cards Grid -->
+                    <div id="teacherGroupGrid" class="grid grid-cols-1 md:grid-cols-2 gap-3.5 max-h-[520px] overflow-y-auto pr-1">
+                        <!-- Dynamic Group Cards (Group 1 - 8) -->
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- JS Logic -->
+    <script>
+        // Broadcast Channel for Multi-tab Sync
+        const channel = new BroadcastChannel('science_dissolving_exp');
+        let currentRole = "Group 1"; // Default view role
+        let lastSelectedRole = "Group 1";
+
+        // Global Data Structure for 8 Groups
+        let classData = {};
+        for(let i=1; i<=8; i++) {
+            classData[`Group ${i}`] = {
+                data: null,
+                chatLogs: [],
+                stage: 0,
+                summaryEn: "Awaiting data submission...",
+                summaryZh: "尚未上傳實驗數據...",
+                strengthEn: "Ready to explore",
+                strengthZh: "準備開始探究",
+                growthEn: "Not evaluated yet",
+                growthZh: "暫未評估"
+            };
+        }
+
+        // Dialogue Flow Setup
+        const dialogueStages = {
+            1: {
+                aiEnglish: "Look at the graph! When water gets MORE (50cm³ -> 200cm³), what happens to the melting time?",
+                aiChinese: "看看圖表！當水量變多（50cm³ -> 200cm³）時，糖完全溶解的時間有何變化？",
+                options: [
+                    { labelEn: "⏱️ Time gets SHORTER! (Water dissolves faster!)", labelZh: "⏱️ 時間變短！(水量多，溶解更快！)", type: "scientific", feedbackEn: "Super job! High five! ✋ Yes! More water makes sugar dissolve FASTER!", feedbackZh: "太棒了！答得非常準確！水量越多，糖溶解得越快！", nextStage: 2, summaryEn: "Identified inversely proportional relation accurately.", summaryZh: "準確辨識出水量與溶解時間之反比關係。" },
+                    { labelEn: "⏳ Time gets LONGER!", labelZh: "⏳ 時間變長！", type: "incorrect", feedbackEn: "Good try! Look at the blue line again. Does it go DOWN or UP?", feedbackZh: "很好的嘗試！我們再細心看看藍色折線，它是向下走還是向上走呢？", nextStage: 1, summaryEn: "Re-evaluating trend line direction.", summaryZh: "正在重新引導觀察折線走向。" },
+                    { labelEn: "🤷 Water is magical and random!", labelZh: "🤷 水很有魔法，時間是隨機的！", type: "subjective", feedbackEn: "Haha, water is fun! But scientists look at numbers! Does the line go down?", feedbackZh: "哈哈，水很有趣！但科學家注重數據，我們看看折線是不是向下走？", nextStage: 1, summaryEn: "Addressing subjective preconceptions.", summaryZh: "引導轉向客觀數據觀察。" }
+                ]
+            },
+            2: {
+                aiEnglish: "Look at the Green Line (Class Average)! Why do scientists collect data from 8 groups instead of 1?",
+                aiChinese: "看看綠色線（全班平均值）！為什麼科學家要收集全班 8 組的數據，而不是只看 1 組？",
+                options: [
+                    { labelEn: "🎯 To reduce errors & make data MORE reliable!", labelZh: "🎯 為了減少誤差，讓數據更可靠！", type: "scientific", feedbackEn: "Bingo! You are a brilliant young scientist! 🌟 Average helps reduce random mistakes!", feedbackZh: "答對了！你太有科學頭腦了！計算全班平均值可以減少隨機誤差！", nextStage: 3, summaryEn: "Understood role of class average in error reduction.", summaryZh: "理解取全班平均值可降低隨機誤差。" },
+                    { labelEn: "👥 Because 8 groups are more fun!", labelZh: "👥 因為8組人一起做比較熱鬧！", type: "subjective", feedbackEn: "Haha, yes it is fun! But if 1 student makes a mistake, is 1 group enough?", feedbackZh: "哈哈！但如果只有1組按錯碼錶，數據會準確嗎？", nextStage: 2, summaryEn: "Prompting deeper error awareness.", summaryZh: "引導思考單組實驗誤差風險。" }
+                ]
+            },
+            3: {
+                aiEnglish: "My group line and Green average line are slightly different! What human error caused this?",
+                aiChinese: "本組數據與全班平均線有點微小差異！在攪拌過程中，什麼人為誤差會導致這個差異？",
+                options: [
+                    { labelEn: "🥣 Stirring speed was not constant!", labelZh: "🥣 人手攪拌速度不平均！", type: "scientific", feedbackEn: "A-MA-ZING! 🏆 Human stirring speed is always slightly different!", feedbackZh: "太厲害了！完全切中要害！人手攪拌速度難以保持完全一致！", nextStage: 4, summaryEn: "Mastered human error evaluation in stirring.", summaryZh: "成功掌握人手攪拌速度不均等誤差分析。" },
+                    { labelEn: "⏱️ Reaction time when clicking timer is different!", labelZh: "⏱️ 每個人按停碼錶的反應時間不同！", type: "scientific", feedbackEn: "Fantastic observation! Reaction time causes random errors!", feedbackZh: "觀察非常到位！人的反應延遲會帶來隨機誤差！", nextStage: 4, summaryEn: "Identified stopwatch reaction time delay.", summaryZh: "指出計時器反應時間延遲為誤差來源。" }
+                ]
+            }
+        };
+
+        // Initialize Chart
+        let classChart;
+        function initChart() {
+            const ctx = document.getElementById('classChart').getContext('2d');
+            classChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['50 cm³', '100 cm³', '150 cm³', '200 cm³'],
+                    datasets: [
+                        {
+                            label: 'My Group (本組)',
+                            data: [null, null, null, null],
+                            borderColor: '#0284c7',
+                            backgroundColor: '#0284c7',
+                            borderWidth: 3,
+                            pointRadius: 6,
+                            tension: 0.2
+                        },
+                        {
+                            label: 'Class Average (8 Groups / 全班平均)',
+                            data: [null, null, null, null],
+                            borderColor: '#10b981',
+                            backgroundColor: '#10b981',
+                            borderDash: [6, 6],
+                            borderWidth: 2,
+                            pointRadius: 4,
+                            tension: 0.2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, title: { display: true, text: 'Time (seconds / 秒)' } },
+                        x: { title: { display: true, text: 'Water Volume (水體積)' } }
+                    }
+                }
+            });
+        }
+
+        // Local Storage Persistence
+        function loadFromStorage() {
+            const saved = localStorage.getItem('dissolving_class_data_v3');
+            if (saved) {
+                try {
+                    classData = JSON.parse(saved);
+                } catch(e) { console.error("Could not parse storage", e); }
+            }
+        }
+
+        channel.onmessage = (event) => {
+            if (event.data && event.data.type === 'UPDATE_DATA_V3') {
+                classData = event.data.payload;
+                localStorage.setItem('dissolving_class_data_v3', JSON.stringify(classData));
+                updateAllUI();
+            }
+        };
+
+        // Role Switcher with Password Verification for Teacher
+        function handleRoleChange() {
+            const select = document.getElementById('groupSelect');
+            const selectedVal = select.value;
+
+            if (selectedVal === 'Teacher') {
+                // Prompt Password
+                setTimeout(() => {
+                    const pwd = prompt("🔒 請輸入教師後台密碼 / Enter Teacher Password:");
+                    if (pwd === "teacherwater") {
+                        currentRole = "Teacher";
+                        document.getElementById('roleBadge').innerText = "Teacher Command Center";
+                        document.getElementById('roleBadge').className = "text-[10px] bg-amber-400 text-slate-900 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider";
+                        
+                        document.getElementById('studentViewSection').classList.add('hidden');
+                        document.getElementById('teacherViewSection').classList.remove('hidden');
+                        
+                        refreshAITeacherDiagnostics();
+                    } else {
+                        alert("❌ 密碼錯誤！ / Incorrect Password!");
+                        select.value = lastSelectedRole;
+                    }
+                }, 50);
+            } else {
+                lastSelectedRole = selectedVal;
+                currentRole = selectedVal;
+                document.getElementById('roleBadge').innerText = "Student View";
+                document.getElementById('roleBadge').className = "text-[10px] bg-emerald-400 text-slate-900 font-bold px-2 py-0.5 rounded-full uppercase tracking-wider";
+                
+                document.getElementById('studentGroupTag').innerText = currentRole;
+                document.getElementById('teacherViewSection').classList.add('hidden');
+                document.getElementById('studentViewSection').classList.remove('hidden');
+
+                // Reload form with group data
+                const gData = classData[currentRole].data;
+                if (gData) {
+                    document.getElementById('t50').value = gData[50];
+                    document.getElementById('t100').value = gData[100];
+                    document.getElementById('t150').value = gData[150];
+                    document.getElementById('t200').value = gData[200];
+                } else {
+                    document.getElementById('dataForm').reset();
+                }
+                
+                renderStudentChatHistory();
+                updateAllUI();
+            }
+        }
+
+        // Fixed syntax error in this function
+        function submitGroupData() {
+            const t50 = parseFloat(document.getElementById('t50').value);
+            const t100 = parseFloat(document.getElementById('t100').value);
+            const t150 = parseFloat(document.getElementById('t150').value);
+            const t200 = parseFloat(document.getElementById('t200').value);
+
+            if ([t50, t100, t150, t200].some(isNaN)) {
+                alert("Please fill in all time values! / 請填寫所有數據！");
+                return;
+            }
+
+            classData[currentRole].data = { 50: t50, 100: t100, 150: t150, 200: t200 };
+            
+            // Start conversation if stage 0
+            if (classData[currentRole].stage === 0) {
+                classData[currentRole].stage = 1;
+                appendAIBubbleToGroup(currentRole, dialogueStages[1].aiEnglish, dialogueStages[1].aiChinese);
+                classData[currentRole].summaryEn = "Analyzing dissolving trend vs water volume...";
+                classData[currentRole].summaryZh = "正分析水量與溶解時間之變化關係..."; // Fixed '=' here
+            }
+
+            saveAndBroadcast();
+            updateAllUI();
+            renderStudentChatHistory();
+        }
+
+        function generateSimulatedClassData() {
+            const baselines = { 50: 120, 100: 75, 150: 45, 200: 30 };
+            const sampleSummaries = [
+                { stage: 3, en: "Mastered relation & identified manual stirring error.", zh: "已理解反比關係並指出人手攪拌誤差。", strEn: "High Accuracy", strZh: "數據測量精準", groEn: "Explain reaction time better", groZh: "可更詳細說明反應延遲" },
+                { stage: 2, en: "Understanding why 8 groups average reduces error.", zh: "理解全班8組平均能減少隨機誤差。", strEn: "Great Scientific Reasoning", strZh: "邏輯推導能力強", groEn: "Detail human error causes", groZh: "可更深化人為誤差討論" },
+                { stage: 1, en: "Observing graph trend, needs scaffolding on error.", zh: "觀察圖表走勢中，仍需引導誤差概念。", strEn: "Active Participation", strZh: "對話參與度高", groEn: "Focus on control variables", groZh: "需留意控制變因" },
+                { stage: 3, en: "Successfully generated key learning points card.", zh: "成功完成探究，已生成學習重點筆記。", strEn: "Comprehensive Knowledge", strZh: "概念整合極佳", groEn: "Keep up good work", groZh: "繼續保持優異表現" }
+            ];
+
+            for(let i=1; i<=8; i++) {
+                const gName = `Group ${i}`;
+                if (!classData[gName].data || gName !== currentRole) {
+                    classData[gName].data = {
+                        50: Math.round(baselines[50] + (Math.random() * 20 - 10)),
+                        100: Math.round(baselines[100] + (Math.random() * 16 - 8)),
+                        150: Math.round(baselines[150] + (Math.random() * 12 - 6)),
+                        200: Math.round(baselines[200] + (Math.random() * 8 - 4))
+                    };
+                    const sample = sampleSummaries[(i - 1) % sampleSummaries.length];
+                    classData[gName].stage = sample.stage;
+                    classData[gName].summaryEn = sample.en;
+                    classData[gName].summaryZh = sample.zh;
+                    classData[gName].strengthEn = sample.strEn;
+                    classData[gName].strengthZh = sample.strZh;
+                    classData[gName].growthEn = sample.groEn;
+                    classData[gName].growthZh = sample.groZh;
+
+                    if (classData[gName].chatLogs.length === 0) {
+                        classData[gName].chatLogs.push({ sender: 'ai', en: dialogueStages[1].aiEnglish, zh: dialogueStages[1].aiChinese });
+                        classData[gName].chatLogs.push({ sender: 'user', en: dialogueStages[1].options[0].labelEn, zh: dialogueStages[1].options[0].labelZh });
+                        classData[gName].chatLogs.push({ sender: 'ai', en: dialogueStages[1].options[0].feedbackEn, zh: dialogueStages[1].options[0].feedbackZh });
+                    }
+                }
+            }
+
+            if (classData[currentRole].stage === 0 && classData[currentRole].data) {
+                classData[currentRole].stage = 1;
+                appendAIBubbleToGroup(currentRole, dialogueStages[1].aiEnglish, dialogueStages[1].aiChinese);
+            }
+
+            saveAndBroadcast();
+            updateAllUI();
+            renderStudentChatHistory();
+        }
+
+        function calculateClassAverage() {
+            let sums = { 50: 0, 100: 0, 150: 0, 200: 0 };
+            let count = 0;
+
+            for(let i=1; i<=8; i++) {
+                const g = classData[`Group ${i}`].data;
+                if (g) {
+                    sums[50] += g[50];
+                    sums[100] += g[100];
+                    sums[150] += g[150];
+                    sums[200] += g[200];
+                    count++;
+                }
+            }
+
+            if (count === 0) return null;
+
+            return {
+                50: Math.round(sums[50] / count),
+                100: Math.round(sums[100] / count),
+                150: Math.round(sums[150] / count),
+                200: Math.round(sums[200] / count),
+                count: count
+            };
+        }
+
+        function saveAndBroadcast() {
+            localStorage.setItem('dissolving_class_data_v3', JSON.stringify(classData));
+            channel.postMessage({ type: 'UPDATE_DATA_V3', payload: classData });
+        }
+
+        function updateAllUI() {
+            // Update Student View UI
+            const myData = classData[currentRole] ? classData[currentRole].data : null;
+            const avgData = calculateClassAverage();
+
+            if (myData && classChart) {
+                classChart.data.datasets[0].data = [myData[50], myData[100], myData[150], myData[200]];
+            } else if (classChart) {
+                classChart.data.datasets[0].data = [null, null, null, null];
+            }
+
+            if (avgData && classChart) {
+                classChart.data.datasets[1].data = [avgData[50], avgData[100], avgData[150], avgData[200]];
+                document.getElementById('submittedCount').innerText = `${avgData.count}/8 Groups Submitted`;
+            } else if (classChart) {
+                classChart.data.datasets[1].data = [null, null, null, null];
+                document.getElementById('submittedCount').innerText = `0/8 Submitted`;
+            }
+
+            if (classChart) classChart.update();
+
+            // Update Table
+            const tbody = document.getElementById('dataTableBody');
+            if (tbody) {
+                tbody.innerHTML = '';
+                [50, 100, 150, 200].forEach(v => {
+                    let tr = document.createElement('tr');
+                    tr.className = "border-b hover:bg-slate-50";
+                    
+                    let html = `<td class="p-1.5 font-bold border-r bg-slate-50">${v} cm³</td>`;
+                    for(let i=1; i<=8; i++) {
+                        const gVal = classData[`Group ${i}`].data ? classData[`Group ${i}`].data[v] : '-';
+                        const isMyGroup = `Group ${i}` === currentRole;
+                        html += `<td class="p-1.5 border-r ${isMyGroup ? 'bg-sky-100 font-bold text-sky-900' : ''}">${gVal}</td>`;
+                    }
+
+                    const avgVal = avgData ? avgData[v] : '-';
+                    html += `<td class="p-1.5 font-bold bg-teal-50 text-teal-800">${avgVal}</td>`;
+                    
+                    tr.innerHTML = html;
+                    tbody.appendChild(tr);
+                });
+            }
+
+            // Update Teacher Dashboard if active
+            if (currentRole === "Teacher") {
+                renderTeacherDashboardUI();
+            }
+        }
+
+        function appendAIBubbleToGroup(groupKey, en, zh) {
+            classData[groupKey].chatLogs.push({ sender: 'ai', en: en, zh: zh });
+            if (groupKey === currentRole) {
+                renderStudentChatHistory();
+            }
+        }
+
+        function appendUserBubbleToGroup(groupKey, en, zh) {
+            classData[groupKey].chatLogs.push({ sender: 'user', en: en, zh: zh });
+            if (groupKey === currentRole) {
+                renderStudentChatHistory();
+            }
+        }
+
+        function renderStudentChatHistory() {
+            const container = document.getElementById('chatContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const logs = classData[currentRole] ? classData[currentRole].chatLogs : [];
+            
+            if (logs.length === 0) {
+                container.innerHTML = `
+                    <div class="flex items-start gap-2.5">
+                        <div class="w-8 h-8 bg-sky-200 text-sky-800 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">💧</div>
+                        <div class="chat-bubble-ai p-3.5 text-xs text-slate-700 max-w-[88%] space-y-2">
+                            <p class="font-bold text-sky-900">Hello my friend! 👋</p>
+                            <p>I am Agent Water! Submit group data to start learning!</p>
+                            <p class="text-slate-500 text-[11px] border-t border-sky-200/60 pt-1">你好！我是水精靈！請上傳數據以開始探究！</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                logs.forEach(log => {
+                    if (log.sender === 'ai') {
+                        const div = document.createElement('div');
+                        div.className = "flex items-start gap-2.5";
+                        div.innerHTML = `
+                            <div class="w-8 h-8 bg-sky-200 text-sky-800 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">💧</div>
+                            <div class="chat-bubble-ai p-3.5 text-xs text-slate-700 max-w-[88%] space-y-1.5">
+                                <p class="font-semibold text-sky-900">${log.en}</p>
+                                <p class="text-slate-500 text-[11px] border-t border-sky-200/60 pt-1">${log.zh}</p>
+                            </div>
+                        `;
+                        container.appendChild(div);
+                    } else {
+                        const div = document.createElement('div');
+                        div.className = "flex items-start justify-end gap-2.5";
+                        div.innerHTML = `
+                            <div class="chat-bubble-user p-3.5 text-xs max-w-[88%] space-y-1">
+                                <p class="font-semibold">${log.en}</p>
+                                ${log.zh !== log.en ? `<p class="text-sky-100 text-[11px] border-t border-sky-400/60 pt-1">${log.zh}</p>` : ''}
+                            </div>
+                            <div class="w-8 h-8 bg-sky-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">Me</div>
+                        `;
+                        container.appendChild(div);
+                    }
+                });
+            }
+
+            renderStudentOptions();
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function renderStudentOptions() {
+            const container = document.getElementById('optionsContainer');
+            if (!container) return;
+            const stage = classData[currentRole] ? classData[currentRole].stage : 0;
+            const stageData = dialogueStages[stage];
+
+            if (!stageData || stage >= 4) {
+                if (stage >= 4) {
+                    container.innerHTML = `
+                        <div class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-center">
+                            <p class="text-xs font-bold text-emerald-800">🎉 Inquiry Completed! / 探究順利完成！</p>
+                            <p class="text-[10px] text-emerald-600">Great job! Check Teacher Dashboard for class Insights.</p>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `<p class="text-[10px] text-slate-400 italic text-center">Submit your group data to start chat with Agent Water! / 請先提交數據！</p>`;
+                }
+                return;
+            }
+
+            container.innerHTML = '';
+            stageData.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-2.5 rounded-xl border border-sky-200 bg-sky-50/60 hover:bg-sky-100 text-xs text-slate-700 transition flex flex-col gap-0.5 shadow-sm";
+                btn.onclick = () => selectStudentOption(opt);
+                btn.innerHTML = `
+                    <span class="font-bold text-sky-900">${opt.labelEn}</span>
+                    <span class="text-[10px] text-slate-500">${opt.labelZh}</span>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function selectStudentOption(opt) {
+            appendUserBubbleToGroup(currentRole, opt.labelEn, opt.labelZh);
+
+            setTimeout(() => {
+                appendAIBubbleToGroup(currentRole, opt.feedbackEn, opt.feedbackZh);
+                classData[currentRole].stage = opt.nextStage;
+                classData[currentRole].summaryEn = opt.summaryEn;
+                classData[currentRole].summaryZh = opt.summaryZh;
+
+                saveAndBroadcast();
+                updateAllUI();
+
+                setTimeout(() => {
+                    if (opt.nextStage <= 3 && dialogueStages[opt.nextStage]) {
+                        appendAIBubbleToGroup(currentRole, dialogueStages[opt.nextStage].aiEnglish, dialogueStages[opt.nextStage].aiChinese);
+                        saveAndBroadcast();
+                        updateAllUI();
+                    }
+                }, 800);
+
+            }, 400);
+        }
+
+        function handleCustomTextSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('userInput');
+            const val = input.value.trim();
+            if (!val) return;
+
+            appendUserBubbleToGroup(currentRole, val, val);
+            input.value = '';
+
+            setTimeout(() => {
+                appendAIBubbleToGroup(
+                    currentRole,
+                    "Awesome thinking! You expressed it in your own words! 🌟",
+                    "太棒了！你能用自己的話表達思考！🌟"
+                );
+                saveAndBroadcast();
+                updateAllUI();
+            }, 500);
+        }
+
+        // Teacher Dashboard Renderers
+        function renderTeacherDashboardUI() {
+            let submittedCount = 0;
+            let totalTurns = 0;
+            for(let i=1; i<=8; i++) {
+                if (classData[`Group ${i}`].data) submittedCount++;
+                totalTurns += classData[`Group ${i}`].chatLogs.length;
+            }
+            document.getElementById('teacherStatSubmitted').innerHTML = `${submittedCount} / 8 <span class="text-xs text-slate-400 font-normal">Groups</span>`;
+            document.getElementById('teacherStatDialogueCount').innerHTML = `${Math.round(totalTurns / 8)} <span class="text-xs text-slate-400 font-normal">turns/group</span>`;
+            document.getElementById('teacherStatMastery').innerText = `${Math.min(100, Math.round((submittedCount / 8) * 85 + 15))}%`;
+
+            renderWholeClassDiscussionPrompts();
+            renderTeacherGroupMatrix();
+        }
+
+        function renderWholeClassDiscussionPrompts() {
+            const container = document.getElementById('wholeClassDiscussionContainer');
+            if (!container) return;
+            container.innerHTML = `
+                <div class="bg-white p-4 rounded-2xl border border-amber-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-md">Prompt 1 • 數據對比</span>
+                            <i data-lucide="help-circle" class="w-4 h-4 text-amber-600"></i>
+                        </div>
+                        <h4 class="text-xs font-bold text-slate-800 mb-1">🔍 Why is Group 2's line higher than Group 5?</h4>
+                        <p class="text-[11px] text-slate-600 mb-2">為什麼第 2 組的溶解時間整體高於第 5 組？是方糖大小不同還是攪拌速度快慢差異？</p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 text-[10px] text-amber-800 font-medium">
+                        💡 Target: Guide students to discuss control variables (Stirring rate).
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl border border-amber-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-md">Prompt 2 • 誤差深化</span>
+                            <i data-lucide="scale" class="w-4 h-4 text-amber-600"></i>
+                        </div>
+                        <h4 class="text-xs font-bold text-slate-800 mb-1">⚖️ Is 1 group enough to draw scientific conclusions?</h4>
+                        <p class="text-[11px] text-slate-600 mb-2">只看單一小組的數據足夠得出科學結論嗎？全班8組平均值如何幫我們『過濾』人為誤差？</p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 text-[10px] text-amber-800 font-medium">
+                        💡 Target: Reinforce reliability & class average concept.
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-2xl border border-amber-200/80 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[10px] font-bold bg-amber-100 text-amber-900 px-2 py-0.5 rounded-md">Prompt 3 • 實驗改進</span>
+                            <i data-lucide="lightbulb" class="w-4 h-4 text-amber-600"></i>
+                        </div>
+                        <h4 class="text-xs font-bold text-slate-800 mb-1">🛠️ How to design a 'constant-speed stirrer'?</h4>
+                        <p class="text-[11px] text-slate-600 mb-2">既然人手攪拌速度不一，我們可以如何改良實驗裝置（如磁力攪拌器），消除人為誤差？</p>
+                    </div>
+                    <div class="pt-2 border-t border-slate-100 text-[10px] text-amber-800 font-medium">
+                        💡 Target: STEM engineering thinking & experimental design.
+                    </div>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+        }
+
+        function renderTeacherGroupMatrix() {
+            const container = document.getElementById('teacherGroupGrid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            for(let i=1; i<=8; i++) {
+                const gKey = `Group ${i}`;
+                const gInfo = classData[gKey];
+                const hasData = gInfo.data !== null;
+
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 rounded-2xl p-4 border border-slate-200/90 hover:border-sky-300 transition shadow-sm space-y-2.5";
+                
+                const lastUserMsg = gInfo.chatLogs.filter(l => l.sender === 'user').slice(-1)[0];
+                const userMsgSnippet = lastUserMsg ? lastUserMsg.en : "No responses yet";
+
+                card.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-200 pb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="font-bold text-xs text-slate-800">${gKey}</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full ${hasData ? 'bg-emerald-100 text-emerald-800 font-bold' : 'bg-slate-200 text-slate-600'}">
+                                ${hasData ? 'Data Submitted' : 'Pending'}
+                            </span>
+                        </div>
+                        <span class="text-[10px] font-bold text-sky-700 bg-sky-100 px-2 py-0.5 rounded-md">Stage ${gInfo.stage}/3</span>
+                    </div>
+
+                    <div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">AI Pedagogy Trajectory Summary / 思考軌跡</p>
+                        <p class="text-xs font-bold text-slate-800 mt-0.5">${gInfo.summaryEn}</p>
+                        <p class="text-[11px] text-slate-500">${gInfo.summaryZh}</p>
+                    </div>
+
+                    <div class="bg-white p-2 rounded-xl border border-slate-200/80 text-[11px]">
+                        <span class="text-[10px] text-sky-600 font-bold">Latest Answer:</span>
+                        <p class="text-slate-700 italic truncate font-medium">"${userMsgSnippet}"</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 text-[10px] pt-1">
+                        <div class="bg-emerald-50/80 border border-emerald-200/60 p-1.5 rounded-lg">
+                            <span class="font-bold text-emerald-800">💪 Strength (強項):</span>
+                            <p class="text-slate-600 truncate">${gInfo.strengthZh}</p>
+                        </div>
+                        <div class="bg-amber-50/80 border border-amber-200/60 p-1.5 rounded-lg">
+                            <span class="font-bold text-amber-800">🎯 Growth (建議):</span>
+                            <p class="text-slate-600 truncate">${gInfo.growthZh}</p>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        }
+
+        function refreshAITeacherDiagnostics() {
+            generateSimulatedClassData();
+            renderTeacherDashboardUI();
+        }
+
+        // Page Load Initializer
+        window.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) lucide.createIcons();
+            initChart();
+            loadFromStorage();
+            renderStudentChatHistory();
+            updateAllUI();
+        });
+    </script>
+</body>
+</html>

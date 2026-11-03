@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <title>觀課任務與觀察記錄表 - Lesson Observation Sheet</title>
+  <style>
+    /* Google Fonts 載入現代無襯線字體 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+    /* A4 列印頁面設定 */
+    @page {
+      size: A4 portrait;
+      margin: 12mm 12mm 12mm 12mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #2c3e50;
+      font-size: 10.5pt;
+      line-height: 1.4;
+    }
+
+    /* 頁面容器 */
+    .page {
+      width: 186mm; /* 210mm - 24mm margin */
+      height: 273mm; /* 297mm - 24mm margin */
+      page-break-after: always;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* 頂部 Header Banner */
+    .header-banner {
+      background: linear-gradient(135deg, #005A36 0%, #00804D 60%, #0091DA 100%);
+      color: #ffffff;
+      padding: 12px 16px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .header-title h1 {
+      margin: 0;
+      font-size: 14pt;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .header-title p {
+      margin: 3px 0 0 0;
+      font-size: 9pt;
+      opacity: 0.9;
+    }
+
+    .badges-container {
+      display: flex;
+      gap: 6px;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .badge {
+      font-size: 8pt;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .badge-a { background-color: #0091DA; color: #ffffff; }
+    .badge-b { background-color: #ffffff; color: #005A36; font-weight: 700; }
+    .badge-c { background-color: #F7A823; color: #000000; }
+
+    /* 區塊標題 */
+    .section-title {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #005A36;
+      border-left: 4px solid #005A36;
+      padding-left: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* 第一部分：網格對照表 */
+    .observation-grid {
+      display: grid;
+      grid-template-columns: 82mm 101mm;
+      gap: 3mm;
+      flex-grow: 1;
+    }
+
+    .stage-card {
+      border: 1px solid #dcdfe6;
+      border-radius: 6px;
+      padding: 8px 10px;
+      background-color: #fcfcfc;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      margin-bottom: 3mm;
+    }
+
+    .stage-card.highlight {
+      border: 2px solid #0091DA;
+      background-color: #f0f8ff;
+    }
+
+    .stage-header {
+      font-weight: 700;
+      font-size: 9.5pt;
+      color: #005A36;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .stage-card.highlight .stage-header {
+      color: #0073b1;
+    }
+
+    .focus-tag {
+      display: inline-block;
+      font-size: 8pt;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      margin-bottom: 4px;
+    }
+
+    .stage-card.highlight .focus-tag {
+      background-color: #e1f5fe;
+      color: #0277bd;
+    }
+
+    .guide-questions {
+      font-size: 8.5pt;
+      color: #444444;
+      margin: 0;
+      padding-left: 14px;
+    }
+
+    .guide-questions li {
+      margin-bottom: 3px;
+    }
+
+    /* 灰色點陣網格背景 (Dot Grid) */
+    .dot-grid-box {
+      border: 1px solid #dcdfe6;
+      border-radius: 6px;
+      background-color: #ffffff;
+      background-image: radial-gradient(#c8c8c8 1px, transparent 1px);
+      background-size: 4mm 4mm;
+      position: relative;
+      height: 100%;
+    }
+
+    .dot-grid-label {
+      position: absolute;
+      top: 6px;
+      left: 8px;
+      font-size: 8pt;
+      color: #909399;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    /* Page 2 反思區塊 */
+    .reflection-card {
+      border: 1px solid #dcdfe6;
+      border-radius: 8px;
+      padding: 10px 12px;
+      background-color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .reflection-header {
+      font-size: 10pt;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .reflection-card:nth-child(1) .reflection-header { color: #005A36; }
+    .reflection-card:nth-child(2) .reflection-header { color: #0091DA; }
+    .reflection-card:nth-child(3) .reflection-header { color: #d97706; }
+
+    .reflection-desc {
+      font-size: 8.5pt;
+      color: #555555;
+      margin-bottom: 8px;
+    }
+
+    .reflection-response-box {
+      height: 52mm;
+      border: 1px dashed #bfcbd9;
+      border-radius: 6px;
+      background-color: #fafafa;
+      background-image: radial-gradient(#c8c8c8 1px, transparent 1px);
+      background-size: 4mm 4mm;
+      position: relative;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 8pt;
+      color: #a8abb2;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PAGE 1 ==================== -->
+  <div class="page">
+    <div>
+      <!-- Header Banner -->
+      <div class="header-banner">
+        <div class="header-title">
+          <h1>觀課任務與觀察記錄表</h1>
+          <p>S1 Integrated Science – Factors Affecting the Rate of Dissolving</p>
+        </div>
+        <div class="badges-container">
+          <span class="badge badge-a">(A) AI 互動與高階思維</span>
+          <span class="badge badge-b">(B) 同學表達思考歷程的能力</span>
+          <span class="badge badge-c">(C) 探究能力及小組協作學習</span>
+        </div>
+      </div>
+
+      <div class="section-title">第一部分：階段時間軸與質性引導觀察表</div>
+    </div>
+
+    <!-- 雙欄 Layout -->
+    <div class="observation-grid">
+      <!-- 左欄：課堂階段與引導問題 -->
+      <div style="display: flex; flex-direction: column;">
+        
+        <!-- Stage 1 -->
+        <div class="stage-card" style="height: 52mm;">
+          <div class="stage-header">
+            <span>Stage 1: Pre-lab & Design</span>
+            <span>約 10 分鐘</span>
+          </div>
+          <span class="focus-tag">探究與變量控制 (Focus C)</span>
+          <ul class="guide-questions">
+            <li>學生能否準確識別獨立變量、應變變量與控制變量？</li>
+            <li>小組在實驗步驟中是否展現明確分工？</li>
+          </ul>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="stage-card" style="height: 52mm;">
+          <div class="stage-header">
+            <span>Stage 2: Hands-on & iBoard</span>
+            <span>約 15 分鐘</span>
+          </div>
+          <span class="focus-tag">實驗執行與數據收集 (Focus C/B)</span>
+          <ul class="guide-questions">
+            <li>小組執行公平測試時的操作嚴謹度如何？</li>
+            <li>學生在操作過程中是否主動使用英語關鍵詞（Keywords/Phonics）進行溝通？</li>
+          </ul>
+        </div>
+
+        <!-- Stage 3 (AI 核心高亮) -->
+        <div class="stage-card highlight" style="height: 74mm;">
+          <div class="stage-header">
+            <span>Stage 3: AI Dialogue with Agent Water</span>
+            <span>約 10 分鐘</span>
+          </div>
+          <span class="focus-tag">AI 互動與高階誤差分析 (Focus A - 核心)</span>
+          <ul class="guide-questions">
+            <li><strong>數據輸入與追問：</strong>學生如何將實驗數據輸入給 Agent Water？遇到 AI 提問時能否進一步回應？</li>
+            <li><strong>誤差識別：</strong>學生能否在 AI 引導下找出以下誤差？
+              <br>1. Manual Stirring Lag（攪拌不均/時差）
+              <br>2. Endpoint Judgment（肉眼判斷終點的主觀誤差）
+              <br>3. Random Error（其他隨機誤差）
+            </li>
+            <li><strong>改進方案：</strong>學生能否根據 AI 提示寫出具體的實驗改進建議？</li>
+          </ul>
+        </div>
+
+        <!-- Stage 4 -->
+        <div class="stage-card" style="height: 52mm; margin-bottom: 0;">
+          <div class="stage-header">
+            <span>Stage 4: Presentation & Synthesis</span>
+            <span>約 10 分鐘</span>
+          </div>
+          <span class="focus-tag">成果展現與思考表達 (Focus B/A)</span>
+          <ul class="guide-questions">
+            <li>報告小組能否運用提供的 Sentence Frames 清楚說明實驗結果與 AI 對話帶來的反思？</li>
+            <li>台下學生能否對其他組別的誤差分析提出回饋？</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- 右欄：灰色點陣網格筆記區 (Dot Grid) -->
+      <div style="display: flex; flex-direction: column; height: 100%;">
+        <div class="dot-grid-box" style="height: 236mm;">
+          <div class="dot-grid-label">具體學生表現與記錄 (Observer Notes)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">粉嶺救恩書院 - 中一級科學科公開課觀課材料 | Page 1 of 2</div>
+  </div>
+
+
+  <!-- ==================== PAGE 2 ==================== -->
+  <div class="page">
+    <div>
+      <!-- Header Banner (縮小版) -->
+      <div class="header-banner" style="padding: 8px 16px; margin-bottom: 12px;">
+        <div class="header-title">
+          <h1 style="font-size: 12pt;">第二部分：AI 促進學與教（AI in L&T）整體反思記錄</h1>
+        </div>
+        <div style="font-size: 8.5pt; opacity: 0.9;">請觀課同工根據整節課的觀察，針對以下三個維度留下寶貴質性意見</div>
+      </div>
+
+      <!-- Reflection Card 1 -->
+      <div class="reflection-card">
+        <div class="reflection-header">
+          <span>01. AI 角色轉化 (Teacher Facilitation vs. AI Engagement)</span>
+        </div>
+        <div class="reflection-desc">
+          Agent Water 在本節課中是否有效減輕教師個別輔導的壓力？學生是否表現出更高的探究主動性？
+        </div>
+        <div class="reflection-response-box">
+          <div class="dot-grid-label">⇒ 您的答案：</div>
+        </div>
+      </div>
+
+      <!-- Reflection Card 2 -->
+      <div class="reflection-card">
+        <div class="reflection-header">
+          <span>02. 高階思維的展現 (Higher-order Thinking)</span>
+        </div>
+        <div class="reflection-desc">
+          相比於傳統沒有 AI 輔助的實驗課，Agent Water 是否幫助學生達到更深入的「實驗評估與改進（Evaluation & Improvement）」層次？
+        </div>
+        <div class="reflection-response-box">
+          <div class="dot-grid-label">⇒ 您的答案：</div>
+        </div>
+      </div>
+
+      <!-- Reflection Card 3 -->
+      <div class="reflection-card" style="margin-bottom: 0;">
+        <div class="reflection-header">
+          <span>03. 可複製性與推廣建議 (Scalability & Suggestions)</span>
+        </div>
+        <div class="reflection-desc">
+          您認為本套「公平測試 + AI 智能夥伴 + iBoard」的教學模式在貴校科學科推行的可行性如何？有何改進建議？
+        </div>
+        <div class="reflection-response-box">
+          <div class="dot-grid-label">⇒ 您的建議：</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">粉嶺救恩書院 - 中一級科學科公開課觀課材料 | Page 2 of 2</div>
+  </div>
+
+</body>
+</html>

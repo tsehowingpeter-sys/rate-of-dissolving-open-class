@@ -450,7 +450,10 @@
                     </div>
 
                     <!-- Custom Text Input Form -->
-                    <form id="chatForm" onsubmit="handleCustomTextSubmit(event)" class="space-y-1 pt-2 border-t border-slate-100">
+                    <form id="chatForm" onsubmit="handleCustomTextSubmit(event)" class="space-y-1.5 pt-2 border-t border-slate-100">
+                        <!-- Scaffolded Response Chips Container (Quick Starters for S1) -->
+                        <div id="chatScaffoldChipsContainer" class="space-y-1 pb-1"></div>
+
                         <div class="flex gap-2">
                             <input type="text" id="userInput" placeholder="Type your scientific thought in English... (English only)" 
                                 class="flex-1 px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs sm:text-sm focus:ring-2 focus:ring-sky-400 focus:border-sky-400 focus:outline-none transition">
@@ -3951,7 +3954,7 @@ ${JSON.stringify(summaryData, null, 2)}
 
         // ================= AUTONOMOUS SOCRATIC REASONING ENGINE =================
         function generateAutonomousAgentWaterResponse(userText, groupData, stage) {
-            const raw = userText.trim();
+            const raw = (userText || '').trim();
             const lower = raw.toLowerCase();
             const t50 = groupData ? groupData[50] : 120;
             const t100 = groupData ? groupData[100] : 70;
@@ -3961,17 +3964,17 @@ ${JSON.stringify(summaryData, null, 2)}
             // If already at completion stage, gracefully wrap up
             if (stage >= 4) {
                 return {
-                    feedbackEn: "🎉 You have completed our Agent Water scientific dialogue! Please proceed to Task 3: Thinking Routine Reflection Card below!",
-                    feedbackZh: "🎉 你們組的對話探究已經圓滿完成！請在下方填寫【任務 3：思維反思卡】，記錄你們的精彩發現！",
-                    summaryZh: "對話探究已達成，水精靈引導填寫反思卡。",
-                    advanceStage: false
+                    feedbackEn: "🎉 You have completed our Agent Water scientific dialogue! Please proceed to Step 4: Key Learning Summary and Step 5 below!",
+                    feedbackZh: "🎉 你們組的對話探究已經圓滿完成！請在下方查閱【Step 4：關鍵學習小結】並進行後續互評任務！",
+                    summaryZh: "對話探究已達成，水精靈引導進入關鍵學習小結。",
+                    advanceStage: false,
+                    nextStage: 4
                 };
             }
 
             // 0. Pre-submission guidance if groupData is null and student chats before submitting
             if (!groupData) {
-                if (typeof highlightDataFormInputs === 'function') highlightDataFormInputs();
-                if (/水量|快|慢|長|短|faster|slower|longer|shorter|water/i.test(lower)) {
+                if (/water|fast|faster|slow|slower|long|longer|short|shorter|水量|快|慢|長|短/i.test(lower)) {
                     return {
                         feedbackEn: "Brilliant question! 💧 Water volume is exactly what we are testing! Look at your beaker: do you think more water provides more space for salt to dissolve? Enter your group's timings (in seconds) on the left to find out!",
                         feedbackZh: "問得太好了！💧 水量正正是我們今天要測試的關鍵變因！你猜想水量多會讓鹽溶得更快還是更慢呢？快在左側填寫你們組在各水量的溶解時間（秒），水精靈就能為你繪製圖表並揭曉答案！",
@@ -3979,9 +3982,10 @@ ${JSON.stringify(summaryData, null, 2)}
                         strengthZh: "具備主動猜想與探究意識",
                         growthZh: "在左側輸入溶解時間以驗證猜想",
                         focusTag: "Inquiry Prompt / 探究猜想",
-                        advanceStage: false
+                        advanceStage: false,
+                        nextStage: stage
                     };
-                } else if (/完全溶解|標準|幾時停|碼錶|停錶|stopwatch|disappear|end/i.test(lower)) {
+                } else if (/stopwatch|timer|disappear|end|second|完全溶解|標準|幾時停|碼錶|停錶/i.test(lower)) {
                     return {
                         feedbackEn: "Great scientific question! ⏱️ 'Completely dissolved' means all white salt crystals have disappeared into the water! Press stop on your stopwatch the exact moment you cannot see any salt grains! Then enter the seconds on the left!",
                         feedbackZh: "非常專業的科學問題！⏱️『完全溶解』是指燒杯底部的白色食鹽晶體完全看不見的瞬間！當你看到最後一粒白鹽消失時，立刻按停碼錶，並把時間（秒）填在左邊表格喔！",
@@ -3989,107 +3993,141 @@ ${JSON.stringify(summaryData, null, 2)}
                         strengthZh: "注重實驗測量標準與公平測試細節",
                         growthZh: "記錄準確秒數並填寫至左側表格",
                         focusTag: "Measurement Standard / 測量標準",
-                        advanceStage: false
-                    };
-                } else if (/^(hello|hi|hey|good\s*morning|yo|你好|哈囉|早晨|午安|安安|嗨)/i.test(lower) || /水精靈|你是誰|你係邊個|who are you/i.test(lower)) {
-                    return {
-                        feedbackEn: "Hello young scientist! 👋 I am Agent Water! 💧 Please enter and submit your group's 4 dissolving timings (in seconds) on the left to start our scientific adventure!",
-                        feedbackZh: "你好呀小小科學家！👋 我是水精靈 💧！請先在左邊表格填寫並上傳你們組量得的 4 個水量溶解時間（單位為秒），我們就可以一起展開精彩的科學探究與圖表分析！",
-                        summaryZh: "學生向水精靈打招呼，水精靈引導其在左側輸入溶解時間。",
-                        strengthZh: "積極參與課堂交流",
-                        growthZh: "在左側輸入 4 個水量的溶解時間（秒）並按上傳",
-                        focusTag: "Welcome / 歡迎指引",
-                        advanceStage: false
+                        advanceStage: false,
+                        nextStage: stage
                     };
                 } else {
                     return {
-                        feedbackEn: "Welcome young scientist! 💧 I am Agent Water! Please enter your group's dissolving times (in seconds) for 50, 100, 150, and 200 cm³ of water on the left, then click 'Submit Timings' so we can plot your graph and investigate together!",
-                        feedbackZh: "歡迎小小科學家！💧 水精靈正在等待你們組的實驗結果！請在左側輸入 50、100、150 及 200 cm³ 水量的溶解時間（秒），然後點擊『上傳本組溶解時間』，我們就能立即生成折線圖並開始探討！",
+                        feedbackEn: "Hello young scientist! 👋 I am Agent Water! 💧 Please enter your group's dissolving times (in seconds) for 50, 100, 150, and 200 cm³ on the left, then click 'Submit Timings' so we can plot your graph and investigate together!",
+                        feedbackZh: "你好呀小小科學家！👋 我是水精靈 💧！請在左側輸入 50、100、150 及 200 cm³ 水量的溶解時間（秒），然後點擊『上傳本組溶解時間』，我們就能立即生成折線圖並開始探討！",
                         summaryZh: "學生在未提交數據前與水精靈對話，水精靈提示輸入實驗數據。",
-                        strengthZh: "對探究主題保持好奇心與參與感",
+                        strengthZh: "積極參與課堂對話交流",
                         growthZh: "在左側填寫 4 個溶解時間（秒）並提交數據",
-                        focusTag: "Data Entry Guidance / 數據輸入引導",
-                        advanceStage: false
+                        focusTag: "Welcome / 歡迎指引",
+                        advanceStage: false,
+                        nextStage: stage
                     };
                 }
             }
 
             // 1. Social Greetings & Identity
-            if (/^(hello|hi|hey|good\s*morning|yo|你好|哈囉|早晨|午安|安安|嗨)/i.test(lower) || /水精靈|你是誰|你係邊個|who are you/i.test(lower)) {
-                return {
-                    feedbackEn: "Hello young scientist! 👋 I am Agent Water, your science buddy 💧! Look at the blue line on your chart: when water increases from 50 to 200 cm³, what happens to the dissolving time?",
-                    feedbackZh: "你好呀小小科學家！👋 我是水精靈 💧，你的科學好夥伴！請看看左側圖表的藍色折線：當水量由 50 增加到 200 cm³ 時，食鹽完全溶解所需的時間有何變化？",
-                    summaryZh: "學生向水精靈打招呼，水精靈引導觀察折線圖走勢。",
-                    strengthZh: "積極參與課堂對話交流",
-                    growthZh: "請嘗試直接回答問題：時間是變長還是變短？",
-                    advanceStage: false
-                };
+            if (/^(hello|hi|hey|good\s*morning|yo|who\s*are\s*you|你好|哈囉|早晨|午安|嗨|水精靈)/i.test(lower)) {
+                if (stage === 1) {
+                    return {
+                        feedbackEn: "Hello young scientist! 👋 I am Agent Water, your science buddy 💧! Look at the blue line on your chart: when water increases from 50 to 200 cm³, what happens to the dissolving time?",
+                        feedbackZh: "你好呀小小科學家！👋 我是水精靈 💧，你的科學好夥伴！請看看左側圖表的藍色折線：當水量由 50 增加到 200 cm³ 時，食鹽完全溶解所需的時間有何變化？",
+                        summaryZh: "學生向水精靈打招呼，水精靈引導觀察折線圖走勢。",
+                        strengthZh: "積極參與課堂對話交流",
+                        growthZh: "請嘗試直接回答問題：時間是變長還是變短？",
+                        advanceStage: false,
+                        nextStage: 1
+                    };
+                } else if (stage === 2) {
+                    return {
+                        feedbackEn: "Hello there! 💧 Now look at the green dashed line (Class Average of 8 groups): why do scientists use the class average instead of just 1 group's result?",
+                        feedbackZh: "你好呀！💧 現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均值，而不是只相信單一小組的結果？",
+                        advanceStage: false,
+                        nextStage: 2
+                    };
+                } else {
+                    return {
+                        feedbackEn: "Hi! 💧 Compare your group's blue line with the green class average: what human factor in stirring or timing caused the slight differences?",
+                        feedbackZh: "你好！💧 對比你組藍線與綠色平均線，在實驗操作中，什麼人為因素會導致各組有些微差異？",
+                        advanceStage: false,
+                        nextStage: 3
+                    };
+                }
             }
 
-            // 2. Help, Confusion & Frustration ("我不知道要怎樣做", "好難", "唔識", "教我", "help", "點做", "what should I do", "唔知點做")
-            if (/不知道|唔知|不懂|唔識|點做|怎樣做|怎麼做|好難|救命|教我|help|how to|idk|confused|don't know|點算|唔明|唔曉/i.test(lower)) {
-                return {
-                    feedbackEn: `Don't worry young scientist, Agent Water is right here with you! 💧 Let's take it step-by-step: look at your blue line on the left. At 50 cm³ it was ${t50}s, and at 200 cm³ it was ${t200}s. From ${t50} down to ${t200}, did the seconds increase or decrease?`,
-                    feedbackZh: `別擔心小小科學家，有水精靈陪著你呢！💧 我們一步一步來：請看左邊的藍色折線圖。50 cm³ 時你記錄了 ${t50} 秒，而 200 cm³ 時是 ${t200} 秒。數值由 ${t50} 跌到 ${t200}，秒數到底是變多還是變少了呢？`,
-                    summaryZh: "學生提出學習疑問，水精靈以階梯式讀圖提示化解困惑。",
-                    strengthZh: "勇於表達學習困惑並主動尋求指引，展現良好的求真態度",
-                    growthZh: "根據水精靈提示，先觀察 50 與 200 cm³ 兩點的秒數數值大小變化",
-                    focusTag: "Scaffolding Guidance / 階梯導引",
-                    advanceStage: false
-                };
+            // 2. Help, Confusion & Frustration ("help", "idk", "confused", "don't know", "hard", "唔識", "教我")
+            if (/help|how\s*to|idk|confused|don't\s*know|dont\s*know|hard|lost|不知道|唔知|不懂|唔識|教我|好難/i.test(lower)) {
+                if (stage === 1) {
+                    return {
+                        feedbackEn: `Don't worry young scientist, Agent Water is right here with you! 💧 Look at your blue line on the chart: at 50 cm³ it took ${t50}s, and at 200 cm³ it took only ${t200}s. From ${t50} down to ${t200}, did the dissolving time become SHORTER or LONGER?`,
+                        feedbackZh: `別擔心小小科學家，有水精靈陪著你呢！💧 請看左邊的藍色折線圖：50 cm³ 時用了 ${t50} 秒，而 200 cm³ 只有 ${t200} 秒。數值由 ${t50} 跌到 ${t200}，時間是變短還是變長呢？`,
+                        summaryZh: "學生提出學習疑問，水精靈以階梯式讀圖提示化解困惑。",
+                        strengthZh: "勇於表達學習困惑並主動尋求指引",
+                        growthZh: "觀察 50 與 200 cm³ 兩點的秒數數值大小變化",
+                        focusTag: "Scaffolding Guidance / 階梯導引",
+                        advanceStage: false,
+                        nextStage: 1
+                    };
+                } else if (stage === 2) {
+                    return {
+                        feedbackEn: "Let's think step-by-step! 🎯 If only 1 group tests, what if someone clicked the timer a bit late? Does calculating the average of all 8 groups cancel out these mistakes?",
+                        feedbackZh: "我們一步一步想！🎯 如果全班只有 1 組做測試，萬一有人按慢了碼錶怎麼辦？全班 8 組的平均值是不是能把這些失誤抵消呢？",
+                        advanceStage: false,
+                        nextStage: 2
+                    };
+                } else {
+                    return {
+                        feedbackEn: "Think about your hands during the experiment! 🥄 Did everyone stir at the exact same speed? Or did someone's hand get tired?",
+                        feedbackZh: "回想一下剛才動手實驗時！🥄 大家攪拌的速度完全一樣嗎？還是手會變酸變慢呢？",
+                        advanceStage: false,
+                        nextStage: 3
+                    };
+                }
             }
 
             // ================= 2.5 DATA ANOMALY / INVERSION DETECTOR =================
-            // Specifically addresses when student notices that a higher volume took LONGER (e.g., 200 cm³ took 130s while 150 cm³ took 120s!)
             const is200LongerThan150 = (typeof t200 === 'number' && typeof t150 === 'number' && t200 > t150);
             const isAnyInversion = (typeof t200 === 'number' && typeof t150 === 'number' && t200 > t150) || 
                                    (typeof t150 === 'number' && typeof t100 === 'number' && t150 > t100) || 
                                    (typeof t100 === 'number' && typeof t50 === 'number' && t100 > t50);
-            const mentionsAnomaly = /好奇怪|奇怪|特別長|長咗|長左|變長|反而長|更長|多咗|多左|變慢|仲慢|慢咗|慢左|升咗|升左|反彈|反常|倒退|長過|慢過|點解.*(200|150|長|慢)|(200|150).*(長|慢)|longer|slower|weird|strange|anomaly|why.*(longer|slower|increase)/i.test(lower);
-            const asksWhy200Longer = /(200|150).*(反而|比|仲|更|反常|倒退).*(長|慢|耐|多)|為何.*(200|150).*(長|慢|耐)|為什麼.*(200|150).*(長|慢|耐)|點解.*(200|150).*(長|慢|耐)|為何.*時間.*長|為什麼.*時間.*長/i.test(lower);
+            const mentionsAnomaly = /strange|weird|longer|slower|increase|anomaly|why.*(longer|slower|increase)|奇怪|反常|倒退|長咗|變慢/i.test(lower);
 
-            if (((is200LongerThan150 || isAnyInversion) && mentionsAnomaly) || asksWhy200Longer) {
-                const diffAnomaly = (typeof t200 === 'number' && typeof t150 === 'number') ? Math.abs(t200 - t150) : null;
-                const compareTextEn = (is200LongerThan150 && diffAnomaly !== null)
-                    ? `150 cm³ took ${t150}s, but 200 cm³ took ${t200}s (+${diffAnomaly}s longer)`
-                    : `200 cm³ dissolving time took longer than 150 cm³`;
-                const compareTextZh = (is200LongerThan150 && diffAnomaly !== null)
-                    ? `150 cm³ 用了 ${t150} 秒，但 200 cm³ 反而用了 ${t200} 秒（多了 ${diffAnomaly} 秒）`
-                    : `200 cm³ 的溶解時間反而比 150 cm³ 更長`;
-
+            if ((is200LongerThan150 || isAnyInversion) && mentionsAnomaly) {
                 return {
-                    feedbackEn: `What an eagle eye! 🦅 That is an incredible scientific observation! You noticed that ${compareTextEn}! In theory, more water provides more solvent space to dissolve salt faster. But in real lab experiments: did someone stir a bit slower at 200 cm³? Did the water temperature drop? Or was the stopwatch pressed late? This is what scientists call "Random Error" (隨機誤差)! What human factor or operational detail do you think caused this?`,
-                    feedbackZh: `哇！你的科學眼光太銳利了！🦅 這是一個極具探究價值的重大發現！你敏銳抓到了折線上的反常現象：${compareTextZh}！理論上水量越多溶得越快，但在真實實驗操作中：你們在測 200 cm³ 時是不是攪拌速度放慢了？還是水溫稍微變涼了？或者是按停碼錶延遲了？這種局部的「隨機誤差（Random Error）」，正正說明了為什麼科學不能只依賴單次試驗，而需要全班 8 組平均！回想一下，你覺得最可能是哪個操作細節影響了呢？`,
-                    summaryZh: "敏銳發現 200 cm³ 數據反常並主動質疑，水精靈深度引導排查操作隨機誤差。",
-                    strengthZh: "具備極敏銳的數據批判眼光，能主動發現非預期走勢而不盲從盲信",
-                    growthZh: "能將數據反常與人手攪拌、水溫控制或計時反射等隨機誤差連結排查",
+                    feedbackEn: `What an eagle eye! 🦅 That is an incredible scientific observation! You noticed an unexpected increase! In theory, more water dissolves salt faster. But in real lab experiments: did someone stir a bit slower, or was the stopwatch pressed late? This is "Random Error"! Looking at the Green Line (Class Average of 8 groups): why does taking the average help fix this?`,
+                    feedbackZh: `哇！你的科學眼光太銳利了！🦅 這是一個極具探究價值的重大發現！你敏銳抓到了折線上的反常現象！理論上水量越多溶得越快，但在真實實驗操作中可能攪拌慢了或碼錶按遲了，這正是「隨機誤差」！看看全班 8 組平均線：為什麼平均值能解決這個問題？`,
+                    summaryZh: "敏銳發現數據反常並主動質疑，水精靈引導排查隨機誤差。",
+                    strengthZh: "具備極敏銳的數據批判眼光，能主動發現非預期走勢",
+                    growthZh: "能將數據反常與人為操作隨機誤差連結排查",
                     focusTag: "Data Anomaly Inquiry / 異常數據質疑",
-                    personalizedPoint3En: "Random Error Analysis: Inconsistent stirring or stopwatch latency can cause unexpected inversions in individual groups.",
-                    personalizedPoint3Zh: "隨機誤差分析：人手攪拌頻率波動或碼錶延遲會造成單組數據出現反常倒退現象。",
-                    advanceStage: false
+                    nextStage: 2,
+                    advanceStage: (stage <= 1)
                 };
             }
 
-            // 3. Tentative / Hesitant Responses with Modals ("變多了吧", "好像是變長", "可能變多", "應該長咗", "好像變短", "或者快咗", "maybe shorter", "guess")
-            const isTentative = /吧|好像|應該|可能|或者|估|maybe|guess|perhaps|seems/i.test(lower);
-            if (isTentative) {
-                if (/多|長|慢|增加|上升|more|longer|slower|up/i.test(lower)) {
+            // ================= STAGE-SPECIFIC INTELLIGENCE =================
+
+            // ----------------- STAGE 1: Water Volume & Dissolving Rate -----------------
+            if (stage <= 1) {
+                // Match Faster / Shorter / Speed Up / Molecular collisions
+                const isFasterOrShorter = /fast|quic|speed|rapid|accelerat|short|less|drop|decreas|fall|down|smaller|tiny|collide|collision|molecule|particle|space|快|短|少|減|跌|降|碰撞|水分子/i.test(lower);
+                // Match Misconception: Longer / Slower / Takes More Time
+                const isLongerOrSlower = /long|slow|more\s*time|take.*more|increas|rise|grow|up|慢|長|多|增/i.test(lower);
+
+                if (isFasterOrShorter) {
                     return {
-                        feedbackEn: `I noticed your thoughtful guess! 💧 But look closely at the vertical axis numbers: 50 cm³ took ${t50}s, while 200 cm³ took only ${t200}s! The number dropped from ${t50} down to ${t200}! When the seconds decrease, does it mean dissolving was FASTER or SLOWER?`,
-                        feedbackZh: `我留意到你帶著猶豫在推測呢！💧 讓我們一起對照縱軸上的數字：50 cm³ 用了 ${t50} 秒，而 200 cm³ 只有 ${t200} 秒，數值由 ${t50} 往下掉到了 ${t200}！秒數變少了，代表食鹽溶解得更快還是更慢呢？再想想看！`,
-                        summaryZh: "學生試探性猜測時間變多，水精靈透過數字比對引導其重新校正。",
-                        strengthZh: "勇於表達初步思考與假設",
-                        growthZh: "仔細觀察縱軸數值從左到右是下降而非上升",
-                        focusTag: "Tentative Reasoning / 假設推導",
-                        advanceStage: false
+                        feedbackEn: `Spot-on! Super job! 🏆 Larger water volume takes SHORTER time (from ${t50}s down to ${t200}s), meaning the salt dissolves FASTER because more water molecules collide with salt crystals!\n\nNow look at the Green Line (Class Average of 8 groups): why do scientists calculate the class average instead of trusting just 1 group?`,
+                        feedbackZh: `答得非常準確！太棒了！🏆 水量越多，食鹽完全溶解所需的時間越短（從 ${t50}s 減至 ${t200}s），代表溶解速率越快！因為更多水分子能同時碰撞並包圍鹽結晶！\n\n現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均值，而不是只相信單一小組的結果？`,
+                        summaryZh: "準確指出水量越多、溶解時間越短的反比規律，成功推進至平均值探究。",
+                        strengthZh: "概念清晰，能用自訂文字精確表達水量與溶解速率之反比關係",
+                        growthZh: "進一步探究全班平均值如何抵消人為隨機誤差",
+                        focusTag: "Water Volume / 水量反比",
+                        nextStage: 2,
+                        advanceStage: true
                     };
-                } else if (/少|短|快|減少|下降|跌|降|shorter|faster|less|drop|down/i.test(lower)) {
+                } else if (isLongerOrSlower) {
                     return {
-                        feedbackEn: `Your intuition is spot on! 🌟 Look at your chart: the blue line indeed slopes downward from ${t50}s to ${t200}s! Fewer seconds means FASTER dissolving! Now, look at the Green Dashed Line (Class Average of 8 groups): why do scientists calculate the average instead of trusting just 1 group?`,
-                        feedbackZh: `你的科學直覺非常準確！🌟 看看圖表：藍色折線確實從 ${t50} 秒一路往下滑到 ${t200} 秒！秒數變少代表溶解『更快』！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要算全班平均，而不只相信 1 組呢？`,
-                        summaryZh: "學生試探性推測時間變短/加快，水精靈肯定其直覺並引導進入平均值探究。",
-                        strengthZh: "能憑藉圖表走勢做出正確推斷，具備良好科學直覺",
-                        growthZh: "嘗試更自信地使用科學因果句（如『水量越多，所需秒數越少，溶解速率越高』）",
+                        feedbackEn: `Good try! 😊 But look closely at the numbers: 50 cm³ took ${t50}s, while 200 cm³ took only ${t200}s! The seconds decreased from ${t50} down to ${t200}! Fewer seconds means salt dissolved FASTER, so the time is SHORTER!\n\nNow look at the Green Line (Class Average of 8 groups): why do scientists calculate the average instead of trusting just 1 group?`,
+                        feedbackZh: `很好的嘗試！😊 但細看縱軸秒數：50 cm³ 用了 ${t50} 秒，而 200 cm³ 只用了 ${t200} 秒，數值由 ${t50} 降到 ${t200} 變小了！秒數減少代表溶解是『更快』，時間『更短』！\n\n現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均值，而不是只相信單一小組的結果？`,
+                        summaryZh: "學生誤以為時間變長，水精靈以實測數據引導理解『秒數減少 = 溶解加速』並推進。",
+                        strengthZh: "勇於表達初步思考與推導",
+                        growthZh: "需注意『秒數變小』代表『溶解更快』之物理意義",
+                        focusTag: "Rate vs Time / 速率與時間辨析",
+                        nextStage: 2,
+                        advanceStage: true
+                    };
+                } else {
+                    // Stage 1 Smart Fallback (Handles any other non-empty phrase without circular interrogation)
+                    return {
+                        feedbackEn: `Good scientific thinking! 💧 Looking closely at our chart: at 50 cm³ it was ${t50}s, and at 200 cm³ it was ${t200}s. More water gives salt crystals more room and collisions, so the dissolving time is SHORTER (dissolves faster)!\n\nNow look at the Green Line (Class Average of 8 groups): why do scientists calculate the class average instead of trusting just 1 group?`,
+                        feedbackZh: `很好的科學思考！💧 細看圖表：50 cm³ 時為 ${t50} 秒，200 cm³ 時只有 ${t200} 秒。水量越多提供了更多碰撞空間，使溶解時間更短（溶解更快）！\n\n現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均值，而不是只相信單一小組的結果？`,
+                        summaryZh: "水精靈總結水量增加使溶解時間縮短之規律，順利引導進入平均值探究。",
+                        strengthZh: "主動參與課堂科學探究與數據思考",
+                        growthZh: "深化理解水量與溶解速率之反比關係",
                         focusTag: "Water Volume / 水量反比",
                         nextStage: 2,
                         advanceStage: true
@@ -4097,311 +4135,163 @@ ${JSON.stringify(summaryData, null, 2)}
                 }
             }
 
-            // 4. Direct "No Change" / "一樣" / "無變化"
-            if (/無變|沒變|一樣|相同|no\s*change|same|constant/i.test(lower)) {
-                return {
-                    feedbackEn: `Wait, look closely at your data! 🧐 At 50 cm³ it was ${t50}s, and at 200 cm³ it was ${t200}s! ${t50}s and ${t200}s are clearly DIFFERENT! Did the time become SHORTER or LONGER?`,
-                    feedbackZh: `等等，細心看看你剛才輸入的數據！🧐 50 cm³ 時是 ${t50} 秒，而 200 cm³ 時是 ${t200} 秒！${t50} 秒與 ${t200} 秒明顯不同喔！時間到底是縮短了還是變長了呢？`,
-                    summaryZh: "學生誤以為無變化，水精靈指引其比對 50 與 200 cm³ 的實測秒數。",
-                    strengthZh: "勇於表達觀察感受",
-                    growthZh: "需仔細比對不同水量的實測數字大小",
-                    focusTag: "Data Check / 數據比對",
-                    advanceStage: false
-                };
-            }
+            // ----------------- STAGE 2: Class Average & Reliability / Random Error -----------------
+            if (stage === 2) {
+                // Errors, delays, inaccuracies, human limitations
+                const isErrorOrDelay = /error|random|mistake|wrong|delay|late|press|click|reflex|reaction|timing|human|hand|stir|slow|fast|uneven|differ|var|inaccurat|not\s*accurat|imprecise|not\s*sure|唔夠準|不準|誤差|失誤|延遲|按慢/i.test(lower);
+                // Average, sample size, reliability, canceling errors
+                const isAverageOrReliable = /average|avg|mean|8\s*group|eight\s*group|all\s*group|whole\s*class|combine|together|sample|cancel|balance|offset|reduc|eliminat|reliab|trust|fair|accurat|better|valid|proof|平均|8組|全班|抵消|可靠|更準/i.test(lower);
 
-            // 5. Microscopic Particle Explanation from Student ("水分子", "碰撞", "包圍", "粒子", "晶格", "擴散", "molecule", "collide", "collision")
-            if (/水分子|碰撞|包圍|晶格|擴散|molecule|collide|collision|particle/i.test(lower)) {
-                return {
-                    feedbackEn: "Brilliant! You think like a real Physicist! 🌊 In a larger volume of water, more water molecules collide with the salt crystals simultaneously, pulling them apart and diffusing them much faster! Now look at the Green Line (Class Average): why do scientists calculate the class average instead of relying on just 1 group?",
-                    feedbackZh: "太出色了！你已經具備高中科學家的微觀思維！🌊 水量越多，水分子就越多；億萬個水分子同時從四周包圍並碰撞食鹽晶格，迅速把鹽粒子拉入水中擴散！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均，而不是只相信 1 組呢？",
-                    summaryZh: "學生自主運用微觀水分子碰撞與擴散原理解釋溶解加速，表現極高科研思維。",
-                    strengthZh: "思維達到微觀分子層面，能將巨觀數據與微觀水分子碰撞模型連結",
-                    growthZh: "嘗試進一步思考全班平均值如何幫助抵消實驗中的隨機失誤",
-                    focusTag: "Microscopic Mechanism / 微觀水分子碰撞",
-                    nextStage: 2,
-                    advanceStage: (stage <= 1)
-                };
-            }
-
-            // 6. Questions from Student: "Why?" / "點解" / "為什麼"
-            if (/點解|為什麼|為何|why/i.test(lower)) {
-                if (/水多|快|短|water|faster/i.test(lower) || stage <= 1) {
+                if (isErrorOrDelay || isAverageOrReliable) {
                     return {
-                        feedbackEn: "Brilliant scientific curiosity! 🌊 More water contains more water molecules! More water molecules collide with the salt crystal simultaneously, dissolving and diffusing it much faster!",
-                        feedbackZh: "問得太好了！這正是科學家的好奇心！水量越多，容器裡的水分子就越多；更多水分子能同時從四面八方碰撞並包圍食鹽，將鹽粒子快速拉入水中擴散，因此溶解時間就大幅縮短！",
-                        summaryZh: "學生主動探究水量多溶解快的微觀原因，具備高度科學好奇心。",
-                        strengthZh: "具備高階科學探究好奇心，主動詢問微觀機制",
-                        growthZh: "嘗試將分子擴散概念結合圖表數據深入思考",
-                        focusTag: "Scientific Mechanism / 溶解微觀機制",
-                        advanceStage: false
+                        feedbackEn: `Bingo! Young scientist! 🎯 You hit the scientific bullseye! Single trials have random human errors—like pressing the stopwatch a fraction of a second late, or slight stirring changes. Calculating the 8-group average cancels out these random mistakes to make our evidence strong and reliable!\n\nNow, compare your group's blue line with the green class average line: what human factor or experiment limitation caused the slight differences?`,
+                        feedbackZh: `答得太棒了！🎯 完全切中科學本質！單一小組難免有碼錶按停延遲或攪拌節奏等隨機人為誤差，計算全班 8 組平均值能互相抵消這些微小偏差，使結論更具信度！\n\n最後一步：對比你組藍線與綠色平均線，在實驗操作中，什麼人為因素會導致各組有些微差異？`,
+                        summaryZh: "深刻理解計算全班平均值能抵消隨機人為誤差、提升數據信度。",
+                        strengthZh: "深刻理解大樣本平均值與實驗可靠性，科學思維清晰",
+                        growthZh: "深化人為誤差根源探究（攪拌或計時）",
+                        focusTag: "Class Average / 誤差抵消",
+                        personalizedPoint3En: "Scientific Reliability: A single group's data has random errors; calculating the 8-group average cancels them out to reveal the true trend.",
+                        personalizedPoint3Zh: "科學信度與誤差控制：單一組別存在人為操作的隨機誤差，全班 8 組平均能互相抵消偏差，得出高信度結論。",
+                        nextStage: 3,
+                        advanceStage: true
                     };
                 } else {
+                    // Stage 2 Smart Fallback
                     return {
-                        feedbackEn: "Because in a classroom, different students press stopwatches with slight delays or stir at different speeds! Taking the average cancels out these random mistakes!",
-                        feedbackZh: "因為在課堂實驗中，不同同學按停碼錶難免有少許延遲，攪拌速度也各不相同！計算全班平均值能將這些隨機誤差抵消！",
-                        summaryZh: "學生探究平均值必要性，已解釋隨機人為誤差抵消原理。",
-                        strengthZh: "主動追問科學方法論",
-                        growthZh: "嘗試在工作紙上記錄平均值的作用",
-                        advanceStage: false
+                        feedbackEn: `Well noted! 🌟 In classroom experiments, every pair has slight timing delays or stirring variations. Taking the average of all 8 groups cancels out these random errors and gives us dependable scientific evidence!\n\nNow, look at your group's blue line and the green class average: what human factor or experiment limitation caused the slight differences?`,
+                        feedbackZh: `記錄得很好！🌟 在課堂實驗中，每組同學按停碼錶難免有少許延遲，攪拌速度也各不相同。計算全班 8 組平均值能互相抵消這些隨機誤差，得出更可靠的結論！\n\n最後一步：對比你組藍線與綠色平均線，在實驗操作中，什麼人為因素會導致各組有些微差異？`,
+                        summaryZh: "水精靈闡釋 8 組平均值抵消人為隨機誤差之原理，引導進入人為局限反思。",
+                        strengthZh: "積極參與小組科學討論",
+                        growthZh: "理解大樣本平均能提升科學信度",
+                        focusTag: "Class Average / 誤差抵消",
+                        nextStage: 3,
+                        advanceStage: true
                     };
                 }
             }
 
-            // 7. Misconception: "Longer" / "Increase" / "變長" / "慢咗"
-            if (/變長|長咗|增加|多咗|變多|慢咗|更慢|上升|longer|increase|more\s*time|slower/i.test(lower)) {
-                return {
-                    feedbackEn: `Thoughtful try! But look at the numbers: 50 cm³ took ${t50}s, while 200 cm³ took only ${t200}s. The number goes DOWN from ${t50} to ${t200}! Does fewer seconds mean FASTER or SLOWER dissolving?`,
-                    feedbackZh: `很好的推測！但細看縱軸秒數：50 cm³ 用了 ${t50} 秒，而 200 cm³ 只用了 ${t200} 秒，數值由 ${t50} 降到 ${t200} 變小了！秒數減少代表溶解是『更快』還是『更慢』呢？`,
-                    summaryZh: "學生誤以為時間變長，水精靈以實測數據引導理解『秒數減少 = 溶解加速』。",
-                    strengthZh: "具備主動推導意願",
-                    growthZh: "需注意『秒數變小』代表『溶解更快』之概念",
-                    focusTag: "Rate vs Time / 速率與時間辨析",
-                    advanceStage: false
-                };
-            }
+            // ----------------- STAGE 3: Human Factors & Limitations -----------------
+            if (stage === 3) {
+                const isStirring = /stir|speed|uneven|tired|hand|cadence|power|force|fast\s*then\s*slow|spoon|rod|shake|攪拌|手速|手酸|手累/i.test(lower);
+                const isTiming = /timer|stopwatch|stop\s*watch|stopwacth|delay|late|reaction|reflex|press|click|finger|eye|subjective|see|disappear|judgment|碼錶|計時|反應|延遲|手慢/i.test(lower);
+                const isSplash = /splash|spill|leak|drop\s*out|pour\s*out|water\s*loss|lost\s*water|out\b|濺|潑|灑|倒瀉|漏出/i.test(lower);
+                const isCrush = /smash|crush|break|powder|crystal|grain|small\s*piece|戳碎|碎|顆粒/i.test(lower);
+                const isTemp = /temp|temperature|cold|hot|warm|room\s*temp|水溫|溫度/i.test(lower);
+                const isMeniscus = /meniscus|cylinder|scale|parallax|reading|eye\s*level|量筒|刻度|凹液面/i.test(lower);
+                const isStem = /sensor|machine|motor|magnetic|robot|auto|turbidity|傳感器|磁力|機器|自動/i.test(lower);
 
-            // 8. Correct Trend: "Shorter" / "Faster" / "變短" / "快咗"
-            if (/變短|短咗|減少|變少|快咗|更快|降|跌|shorter|faster|less\s*time|decrease|drop/i.test(lower)) {
-                return {
-                    feedbackEn: `Spot-on! Super job! 🏆 Larger water volume takes SHORTER time (from ${t50}s down to ${t200}s), meaning the salt dissolves FASTER! Now look at the Green Line (Class Average of 8 groups): why do scientists calculate the class average instead of trusting just 1 group?`,
-                    feedbackZh: `答得非常準確！太棒了！🏆 水量越多，食鹽完全溶解所需的時間越短（從 ${t50}s 減至 ${t200}s，溶解速率越高）！現在請看那條綠色虛線（全班 8 組平均值）：為什麼科學家要計算全班平均值，而不是只相信單一小組的結果？`,
-                    summaryZh: "準確指出水量越多、溶解時間越短的反比規律，成功推進至平均值探究。",
-                    strengthZh: "概念清晰，能用自訂文字精確表達水量與溶解速率之反比關係",
-                    growthZh: "進一步探究全班平均值如何抵消人為隨機誤差",
-                    focusTag: "Water Volume / 水量反比",
-                    nextStage: 2,
-                    advanceStage: true
-                };
-            }
-
-            // 9. Stage 3: Specific Human Errors / Limitations
-            // 9a-1. Water Splashed Out / Spilled / Volume Loss (Directly addresses Image 1: "Some water is splashed out during stirring")
-            if (/splash|spill|leak|out\b|drop\s*out|pour\s*out|濺|潑|灑|倒瀉|漏出|水花|漏水|溢出|彈出/i.test(lower)) {
-                return {
-                    feedbackEn: "Sharp observation! 💧 Splashing water out during stirring reduces the actual solvent volume! Less water means fewer water molecules to dissolve the salt, changing your data! Outstanding reflection on experimental error!",
-                    feedbackZh: "太細心了！敏銳捕捉到關鍵細節！💧 攪拌時水濺出來會讓燒杯裡的實際水量（溶劑）變少，導致水分子數量減少，直接干擾了溶解時間！這是一個非常深刻的實驗操作誤差反思！恭喜你圓滿完成科學探究！",
-                    summaryZh: "學生敏銳指出攪拌時水花濺出導致溶劑水量流失，破壞了控制變因。",
-                    strengthZh: "觀察入微，能捕捉到攪拌時水花濺出造成的水量微小流失",
-                    growthZh: "注意控制攪拌力道防止液體濺出，維持水量恆定",
-                    focusTag: "Solvent Loss / 水量濺出流失",
-                    personalizedPoint3En: "Human Error Limitation: Splashing water out during stirring reduces the actual solvent volume and alters dissolution time.",
-                    personalizedPoint3Zh: "實驗人為局限：攪拌時水花濺出減少了實際溶劑水量，破壞了水量控制變因。",
-                    nextStage: 4,
-                    advanceStage: true
-                };
-            }
-
-            // 9a-2. Measuring cylinder parallax / meniscus reading
-            if (/meniscus|cylinder|scale|parallax|reading|量筒|刻度|凹液面|睇錯|視線|水刻度/i.test(lower)) {
-                return {
-                    feedbackEn: "Brilliant laboratory insight! 📐 Reading the measuring cylinder requires eye level with the bottom of the meniscus! Parallax reading errors alter the initial water volume! Superb critical thinking!",
-                    feedbackZh: "非常出色的實驗室技能反思！📐 讀取量筒刻度時視線必須與凹液面最低處平視！如果俯視或仰視產生視差誤差，量取的水量就會不準確！恭喜你圓滿完成探究！",
-                    summaryZh: "學生反思量筒讀數視差對初始水量控制變因之影響。",
-                    strengthZh: "具備嚴謹的實驗量度素養，洞察到量筒凹液面讀數視差",
-                    growthZh: "操作時務必平視量筒凹液面水平讀數",
-                    focusTag: "Meniscus Reading / 量筒讀數視差",
-                    personalizedPoint3En: "Measurement Limitation: Parallax errors when reading the measuring cylinder meniscus alter initial water volume.",
-                    personalizedPoint3Zh: "測量人為局限：量筒讀數時的視差或未平視凹液面會使初始水量產生偏差。",
-                    nextStage: 4,
-                    advanceStage: true
-                };
-            }
-
-            // 9a. Stirring
-            if (/stir|speed|manual|hand|攪拌|手速|轉速|手攪|快慢|手酸|手累/i.test(lower)) {
-                return {
-                    feedbackEn: "A-MA-ZING! 🏆 Human manual stirring speed is never 100% constant! Different people stir faster or slower, creating slight time differences! You have completed the scientific inquiry!",
-                    feedbackZh: "太厲害了！完全切中要害！人手攪拌速度難以保持絕對恆定，不同同學手速快慢有別，這正是各組數據微小差異的核心局限！你已圓滿完成科學探究！",
-                    summaryZh: "學生自訂輸入並精準鎖定人手攪拌速度不均為主要實驗人為誤差。",
-                    strengthZh: "敏銳識別手動攪拌不均之關鍵人為誤差，具高階歸因能力",
-                    growthZh: "可構思自動化恆速磁力攪拌器之工程改進方案",
-                    focusTag: "Stirring Speed / 攪拌速率不均",
-                    personalizedPoint3En: "Human Error Limitation: Inconsistent manual stirring speed directly changes the dissolution rate across trials.",
-                    personalizedPoint3Zh: "人手攪拌速度不均勻會直接造成各組溶解速率的微小差異。",
-                    nextStage: 4,
-                    advanceStage: true
-                };
-            }
-
-            // 9b. Timer / Reaction
-            if (/timer|stopwatch|delay|reaction|late|碼錶|計時|反應|延遲|按慢|手慢/i.test(lower)) {
-                return {
-                    feedbackEn: "Terrific observation! ⏱️ The human brain takes about 0.2-0.3s to react, and naked-eye judgment of 'completely dissolved' is subjective! Outstanding scientific thinking!",
-                    feedbackZh: "觀察非常敏銳！人體神經反射延遲約 0.2-0.3 秒，加上肉眼主觀判斷『完全溶解』的標準微小差異，構成了隨機誤差！恭喜你圓滿完成探究！",
-                    summaryZh: "學生自訂指出計時器反應延遲與肉眼主觀判斷為隨機誤差來源。",
-                    strengthZh: "準確指出碼錶反應延遲與觀察主觀性，具科研素養",
-                    growthZh: "可構思光電濁度傳感計時改進方案",
-                    focusTag: "Reaction Delay / 碼錶反應延遲",
-                    personalizedPoint3En: "Human Error Limitation: Stopwatch reaction delay and visual endpoint judgment introduce random errors.",
-                    personalizedPoint3Zh: "計時器反應時間延遲及肉眼主觀判斷終點是主要隨機誤差來源。",
-                    nextStage: 4,
-                    advanceStage: true
-                };
-            }
-
-            // 9c. Smashed salt / Particle size
-            if (/smash|crush|break|戳碎|搗碎|碎咗|顆粒|表面積/i.test(lower)) {
-                return {
-                    feedbackEn: "Aha! Smashing the salt crystals changes the particle surface area! That alters a controlled variable and violates the Fair Test rules! What a deep reflection!",
-                    feedbackZh: "哈哈！戳碎鹽粒就改變了食鹽的顆粒大小（表面積），破壞了公平測試（Fair Test）的控制變因！這個反思非常深刻！恭喜你圓滿完成探究！",
-                    summaryZh: "學生反思操作中戳碎鹽粒對公平測試控制變因的破壞。",
-                    strengthZh: "誠實反思操作細節並敏銳意識到控制變因被破壞",
-                    growthZh: "進行公平測試時務必保持非測試變因完全不變",
-                    focusTag: "Fair Test Control / 公平測試變因",
-                    personalizedPoint3En: "Fair Test Limitation: Unintentionally altering salt crystal size affects dissolution speed.",
-                    personalizedPoint3Zh: "公平測試局限：非意圖改變鹽粒大小會破壞控制變因。",
-                    nextStage: 4,
-                    advanceStage: true
-                };
-            }
-
-            // 9d. Water temperature
-            if (/temp|temperature|水溫|溫度|熱水|冷水/i.test(lower)) {
-                return {
-                    feedbackEn: "Brilliant check on Controlled Variables! 🌡️ Water temperature directly influences molecular energy! If temperatures differ, it wasn't a completely fair test!",
-                    feedbackZh: "非常敏銳的控制變因檢查！🌡️ 水溫會直接影響水分子的運動能量！如果各次測試水溫不一致，就破壞了公平測試！恭喜你圓滿完成探究！",
-                    summaryZh: "學生敏銳指出水溫微小變化可能造成實驗誤差。",
-                    strengthZh: "嚴謹遵守公平測試原則，具備良好變因控制意識",
-                    growthZh: "在實驗記錄表中增加溫度監測項",
-                    focusTag: "Temperature Control / 水溫控制",
-                    personalizedPoint3En: "Fair Test Limitation: Inadvertent temperature fluctuations impact molecular dissolution rates.",
-                    personalizedPoint3Zh: "水溫微小波動會影響水分子溶解速率，需嚴格控管控制變因。",
-                    nextStage: 4,
-                    advanceStage: true
-                };
-            }
-
-            // 9e. STEM Sensors / Automation
-            if (/sensor|machine|motor|magnetic|robot|auto|傳感器|磁力|機器|機械|自動|濁度/i.test(lower)) {
-                return {
-                    feedbackEn: "Brilliant! You think like a STEM Engineer! 🛠️ Using magnetic stirrers and turbidity sensors eliminates human error entirely!",
-                    feedbackZh: "太有遠見了！具備出色的 STEM 工程思維！使用定速磁力攪拌器與光學濁度傳感器，能完全消弭人為操作誤差！恭喜你圓滿完成探究！",
-                    summaryZh: "學生提出了以自動化磁力傳感設備消除誤差的工程改進方案。",
-                    strengthZh: "具備優異的 STEM 工程設計與自動化改善思維",
-                    growthZh: "繼續保持跨學科工程創新能力",
-                    focusTag: "STEM Engineering / 工程自動化改進",
-                    personalizedPoint3En: "Engineering Solution: Replacing manual steps with magnetic stirrers and turbidity sensors eliminates human errors.",
-                    personalizedPoint3Zh: "工程創新解決方案：以磁力攪拌器及光感器取代人手操作，可實現零人為誤差。",
-                    nextStage: 4,
-                    advanceStage: true
-                };
-            }
-
-            // ================= 9f. STAGE 2 DEDICATED: "1組可能唔夠準" & RANDOM ERROR DETECTOR =================
-            // Specifically validates student when they answer that 1 group might not be accurate enough (唔夠準 / 會有誤差)
-            const mentionsInaccuracyOrError = /唔夠準|不夠準|唔準|不準|有誤差|會有誤差|可能唔準|可能不準|可能會有誤差|唔係幾準|唔太準|不太準|偏差|誤差|random\s*error|not\s*accurate|inaccurate|imprecise/i.test(lower) ||
-                (/(1|一|只|淨係|得|single|only\s*1)\s*(組|group)/i.test(lower) && /唔|不|未|缺|少|差|準|not|never|less/i.test(lower)) ||
-                (/(1|一|只|淨係|得|single|only\s*1)\s*(次|個|個組|組)/i.test(lower) && /唔夠|不夠|唔準|不準/i.test(lower));
-
-            if (mentionsInaccuracyOrError) {
-                return {
-                    feedbackEn: `Spot on! Give yourself a big round of applause! 👏 You hit the exact scientific bullseye! You rightly noted that testing only 1 group "might not be accurate enough"! In science, every single manual test carries "Random Error" (隨機誤差) — like slight delays in pressing the stopwatch or tiny fluctuations in stirring speed. Now tell me: when all 8 groups combine their data and calculate the Class Average, how do these individual random errors cancel each other out?`,
-                    feedbackZh: `太棒了！掌聲鼓勵！👏 你的回答已經一針見血地切中了科學探究的核心！沒錯，只做 1 組實驗確實「唔夠準」！這在科學上正是因為每一次人手操作都存在不可避免的「隨機誤差（Random Error）」——例如每個人按停碼錶的手指反應快慢、人手攪拌節奏的些微起伏，都會讓單獨一組的數據產生微小偏差。那麼請你更具體地思考：當全班 8 組都做同一個測試並計算「平均值」時，這些有人按快了、有人按慢了的隨機誤差，是如何互相「抵消」從而讓結果更加可靠的？`,
-                    summaryZh: `學生敏銳指出單一組別實驗「唔夠準」並直擊隨機誤差核心，水精靈深度引導其闡釋全班平均值抵消隨機誤差的科學機制。`,
-                    strengthZh: `思維極具批判性與深度，能主動質疑單次實驗數據信度並精準洞察隨機誤差存在`,
-                    growthZh: `能進一步用科學術語說明全班平均值如何抵消正負隨機誤差、提升數據可靠性`,
-                    focusTag: "Random Error & Reliability / 隨機誤差與信度",
-                    personalizedPoint3En: "Scientific Reliability: A single group's data has random errors; calculating the 8-group average cancels them out to reveal the true trend.",
-                    personalizedPoint3Zh: "科學信度與誤差控制：單一組別存在人為操作的隨機誤差（Random Error），全班 8 組平均能互相抵消正負偏差，得出高信度結論。",
-                    nextStage: 3,
-                    advanceStage: true
-                };
-            }
-
-            // 10. Stage 2: Class Average / Reliability ("平均", "可靠", "8組", "信度", "抵消", "減少誤差", "更準確", "避免失誤")
-            if (/平均|可靠|信度|抵消|減少誤差|全班|準確|失誤|避免|average|reliable|sample|8\s*group|cancel|accurate/i.test(lower)) {
-                return {
-                    feedbackEn: "Bingo! Young scientist! 🎯 Calculating the average of 8 groups cancels random human errors and increases reliability! Now, compare your group's blue line with the green average line: what human factor in stirring or timing caused the slight differences?",
-                    feedbackZh: "答得太棒了！🎯 計算全班 8 組平均值能互相抵消單一小組的隨機失誤，使數據更具信度！最後一步：對比你組藍線與綠色平均線，在實驗操作中，什麼人為因素會導致各組有些微差異？",
-                    summaryZh: "深刻理解計算全班平均值能抵消隨機人為誤差、提升數據信度。",
-                    strengthZh: "深刻理解大樣本平均值與實驗可靠性",
-                    growthZh: "深化人為誤差根源探究（攪拌或計時）",
-                    focusTag: "Class Average / 誤差抵消",
-                    nextStage: 3,
-                    advanceStage: true
-                };
-            }
-
-            // 11. Off-topic & Casual Chit-chat
-            if (/食飯|吃飯|好熱|好肚餓|好累|好靚仔|無聊|haha|哈哈|bye|再見|打機|玩遊戲|落堂|放學|食嘢/i.test(lower)) {
-                return {
-                    feedbackEn: "Haha, Agent Water enjoys chatting with you! 💧 But our science mission is calling! Look at the beaker on your desk: did more water make the salt disappear faster or slower?",
-                    feedbackZh: "哈哈，水精靈也喜歡跟你聊天！💧 不過我們的科學任務還在召喚你呢！看看桌上的燒杯：水量越多，食鹽是溶得更快還是更慢呢？",
-                    summaryZh: "學生進行日常閒聊，水精靈以親切幽默語氣引導其回歸實驗探究。",
-                    strengthZh: "性格開朗活潑，樂於交流互動",
-                    growthZh: "將注意力集中回實驗數據與圖表走勢",
-                    focusTag: "Attentive Focus / 專注引導",
-                    advanceStage: false
-                };
-            }
-
-            // 12. Affirmations / Acknowledgment ("好的", "ok", "知道了", "明白", "yes", "好", "sure")
-            if (/^(好的|ok|知道了|明白|yes|好|好呀|可以|sure|fine|收到)$/i.test(lower)) {
-                return {
-                    feedbackEn: "Awesome! Ready for the challenge? 🚀 Tell me: looking at your blue line, does it slant downward or upward?",
-                    feedbackZh: "太好了！準備好接受挑戰了嗎？🚀 快告訴我：看看你的藍色折線，它是向下傾斜還是向上爬升呢？",
-                    summaryZh: "學生表示明白，水精靈鼓勵其主動提出具體觀察。",
-                    strengthZh: "積極配合對話引導",
-                    growthZh: "嘗試用文字直接回答時間的具體變化",
-                    advanceStage: false
-                };
-            }
-
-            // 13. Dynamic Contextual Socratic Fallback (Zero Robotic Scripts)
-            const cleanQuote = raw.trim().length > 16 ? raw.trim().slice(0, 16) + '...' : raw.trim();
-            if (stage <= 1) {
-                return {
-                    feedbackEn: `Interesting perspective on "${cleanQuote}"! 💧 Let's check your actual measurements: 50 cm³ took ${t50}s while 200 cm³ took ${t200}s. Comparing ${t50}s to ${t200}s, did more water make the dissolving time SHORTER or LONGER?`,
-                    feedbackZh: `你提到「${cleanQuote}」，這個觀察很有意思！💧 我們對照一下你組的實測數字：50 cm³ 用了 ${t50} 秒，而 200 cm³ 用了 ${t200} 秒。由 ${t50} 秒變到 ${t200} 秒，水量增加到底讓溶解時間變短（加快）還是變長了呢？`,
-                    summaryZh: `學生提出「${cleanQuote}」，水精靈引用其實測數據進行比對導引。`,
-                    strengthZh: "主動用個人觀察與語言嘗試探索問題",
-                    growthZh: "對比 50 與 200 cm³ 的實測秒數，判斷時間總體是變短還是變長",
-                    advanceStage: false
-                };
-            } else if (stage === 2) {
-                return {
-                    feedbackEn: `Thanks for sharing your thought on "${cleanQuote}"! 🌟 Now look at the green dashed line (Class Average of 8 groups): if only 1 group performs the test, stirring speed or timing delays might cause random variations. How does taking the average of all 8 groups help reduce these errors and make our scientific conclusion more reliable?`,
-                    feedbackZh: `你剛才提出的「${cleanQuote}」很有啟發性！🌟 我們一起看圖表上的綠色虛線（全班 8 組平均值）：如果全班只有 1 組做實驗，人手攪拌快慢或停錶反應很容易帶來隨機偏差；那麼全班 8 組的平均值，能怎樣幫我們抵消這些誤差、讓結論更可靠呢？`,
-                    summaryZh: `學生分享「${cleanQuote}」，水精靈引導其從全班 8 組平均值抵消偏差的角度深入思考。`,
-                    strengthZh: "積極參與小組對話並提出個人想法",
-                    growthZh: "嘗試思考 8 組平均值如何抵消單一小組的隨機操作誤差",
-                    advanceStage: false
-                };
-            } else if (stage === 3) {
-                const hasMentionedErrors = /stir|speed|delay|stopwatch|timer|reaction|splashed|spilled|攪拌|手速|轉速|碼錶|計時|反應|延遲|水花|濺出/i.test(lower);
-                if (hasMentionedErrors) {
+                if (isStirring) {
                     return {
-                        feedbackEn: `A very thoughtful reflection on "${cleanQuote}"! 🔍 Inconsistent manual stirring cadence and stopwatch reaction latency are indeed key experimental limitations! You've achieved a deep scientific understanding! When you feel ready, you can synthesize your thoughts in Task 3: Thinking Routine below, or keep discussing with me!`,
-                        feedbackZh: `你提出的「${cleanQuote}」切中了實驗的實際過程！🔍 手動攪拌不均與停錶神經反應延遲，正是科學實驗中最關鍵的操作局限！你們組的探究非常深刻！若已準備好，可前往下方填寫【任務 3：思維反思卡】記錄成果，亦可繼續向我發問！`,
-                        summaryZh: `學生提出「${cleanQuote}」，水精靈肯定其對人為誤差來源的深刻反思。`,
-                        strengthZh: "能連結自身實驗操作經驗進行反思，精準鎖定人為操作局限",
+                        feedbackEn: "A-MA-ZING! 🏆 Human manual stirring speed is never 100% constant! Different people stir faster or slower, and hands get tired, creating slight time differences! 🎉 You have completed our Agent Water scientific dialogue! Please proceed to Step 4: Key Learning Summary below!",
+                        feedbackZh: "太厲害了！完全切中要害！人手攪拌速度難以保持絕對恆定，不同同學手速快慢有別且手會發酸，這正是各組數據微小差異的核心局限！🎉 你們組的對話探究已經圓滿完成！請在下方查閱【Step 4：關鍵學習小結】！",
+                        summaryZh: "學生精準鎖定人手攪拌速度不均為主要實驗人為誤差。",
+                        strengthZh: "敏銳識別手動攪拌不均之關鍵人為誤差，具高階歸因能力",
+                        growthZh: "可構思自動化恆速磁力攪拌器之工程改進方案",
+                        focusTag: "Stirring Speed / 攪拌速率不均",
+                        personalizedPoint3En: "Human Error Limitation: Inconsistent manual stirring speed directly changes the dissolution rate across trials.",
+                        personalizedPoint3Zh: "人手攪拌速度不均勻會直接造成各組溶解速率的微小差異。",
+                        nextStage: 4,
+                        advanceStage: true
+                    };
+                } else if (isTiming) {
+                    return {
+                        feedbackEn: "Terrific observation! ⏱️ The human brain takes about 0.2-0.3s to react, and naked-eye judgment of 'completely dissolved' is subjective! Outstanding scientific reflection! 🎉 You have completed our Agent Water scientific dialogue! Please proceed to Step 4: Key Learning Summary below!",
+                        feedbackZh: "觀察非常敏銳！人體神經反射延遲約 0.2-0.3 秒，加上肉眼主觀判斷『完全溶解』的標準微小差異，構成了隨機誤差！🎉 你們組的對話探究已經圓滿完成！請在下方查閱【Step 4：關鍵學習小結】！",
+                        summaryZh: "學生指出計時器反應延遲與肉眼主觀判斷為隨機誤差來源。",
+                        strengthZh: "準確指出碼錶反應延遲與觀察主觀性，具科研素養",
+                        growthZh: "可構思光電濁度傳感計時改進方案",
+                        focusTag: "Reaction Delay / 碼錶反應延遲",
+                        personalizedPoint3En: "Human Error Limitation: Stopwatch reaction delay and visual endpoint judgment introduce random errors.",
+                        personalizedPoint3Zh: "計時器反應時間延遲及肉眼主觀判斷終點是主要隨機誤差來源。",
+                        nextStage: 4,
+                        advanceStage: true
+                    };
+                } else if (isSplash) {
+                    return {
+                        feedbackEn: "Sharp observation! 💧 Splashing water out during stirring reduces the actual solvent volume! Less water means fewer water molecules to dissolve the salt, changing your timings! 🎉 You have completed our Agent Water scientific dialogue! Please proceed to Step 4: Key Learning Summary below!",
+                        feedbackZh: "太細心了！敏銳捕捉到關鍵細節！💧 攪拌時水濺出來會讓燒杯裡的實際水量變少，導致水分子數量減少，直接干擾了溶解時間！🎉 你們組的對話探究已經圓滿完成！請在下方查閱【Step 4：關鍵學習小結】！",
+                        summaryZh: "學生敏銳指出攪拌時水花濺出導致溶劑水量流失，破壞了控制變因。",
+                        strengthZh: "觀察入微，能捕捉到攪拌時水花濺出造成的水量微小流失",
+                        growthZh: "注意控制攪拌力道防止液體濺出，維持水量恆定",
+                        focusTag: "Solvent Loss / 水量濺出流失",
+                        personalizedPoint3En: "Human Error Limitation: Splashing water out during stirring reduces the actual solvent volume and alters dissolution time.",
+                        personalizedPoint3Zh: "實驗人為局限：攪拌時水花濺出減少了實際溶劑水量，破壞了水量控制變因。",
+                        nextStage: 4,
+                        advanceStage: true
+                    };
+                } else if (isCrush) {
+                    return {
+                        feedbackEn: "Aha! Smashing the salt crystals changes the particle surface area! That alters a controlled variable and violates the Fair Test rules! What a deep reflection! 🎉 You have completed our Agent Water scientific dialogue! Please proceed to Step 4: Key Learning Summary below!",
+                        feedbackZh: "哈哈！戳碎鹽粒就改變了食鹽的顆粒大小（表面積），破壞了公平測試（Fair Test）的控制變因！這個反思非常深刻！🎉 你們組的對話探究已經圓滿完成！請在下方查閱【Step 4：關鍵學習小結】！",
+                        summaryZh: "學生反思操作中戳碎鹽粒對公平測試控制變因的破壞。",
+                        strengthZh: "誠實反思操作細節並敏銳意識到控制變因被破壞",
+                        growthZh: "進行公平測試時務必保持非測試變因完全不變",
+                        focusTag: "Fair Test Control / 公平測試變因",
+                        personalizedPoint3En: "Fair Test Limitation: Unintentionally altering salt crystal size affects dissolution speed.",
+                        personalizedPoint3Zh: "公平測試局限：非意圖改變鹽粒大小會破壞控制變因。",
+                        nextStage: 4,
+                        advanceStage: true
+                    };
+                } else if (isTemp) {
+                    return {
+                        feedbackEn: "Brilliant check on Controlled Variables! 🌡️ Water temperature directly influences molecular energy! If temperatures differ, it wasn't a completely fair test! 🎉 You have completed our Agent Water scientific dialogue! Please proceed to Step 4: Key Learning Summary below!",
+                        feedbackZh: "非常敏銳的控制變因檢查！🌡️ 水溫會直接影響水分子的運動能量！如果各次測試水溫不一致，就破壞了公平測試！🎉 你們組的對話探究已經圓滿完成！請在下方查閱【Step 4：關鍵學習小結】！",
+                        summaryZh: "學生敏銳指出水溫微小變化可能造成實驗誤差。",
+                        strengthZh: "嚴謹遵守公平測試原則，具備良好變因控制意識",
+                        growthZh: "在實驗記錄表中增加溫度監測項",
+                        focusTag: "Temperature Control / 水溫控制",
+                        personalizedPoint3En: "Fair Test Limitation: Inadvertent temperature fluctuations impact molecular dissolution rates.",
+                        personalizedPoint3Zh: "水溫微小波動會影響水分子溶解速率，需嚴格控管控制變因。",
+                        nextStage: 4,
+                        advanceStage: true
+                    };
+                } else if (isMeniscus) {
+                    return {
+                        feedbackEn: "Brilliant laboratory insight! 📐 Reading the measuring cylinder requires eye level with the bottom of the meniscus! Parallax errors alter the initial water volume! Superb reflection! 🎉 You have completed our Agent Water scientific dialogue! Please proceed to Step 4: Key Learning Summary below!",
+                        feedbackZh: "非常出色的實驗室技能反思！📐 讀取量筒刻度時視線必須與凹液面最低處平視！如果產生視差誤差，量取的水量就會不準確！🎉 你們組的對話探究已經圓滿完成！請在下方查閱【Step 4：關鍵學習小結】！",
+                        summaryZh: "學生反思量筒讀數視差對初始水量控制變因之影響。",
+                        strengthZh: "具備嚴謹的實驗量度素養，洞察到量筒凹液面讀數視差",
+                        growthZh: "操作時務必平視量筒凹液面水平讀數",
+                        focusTag: "Meniscus Reading / 量筒讀數視差",
+                        personalizedPoint3En: "Measurement Limitation: Parallax errors when reading the measuring cylinder meniscus alter initial water volume.",
+                        personalizedPoint3Zh: "測量人為局限：量筒讀數時的視差或未平視凹液面會使初始水量產生偏差。",
+                        nextStage: 4,
+                        advanceStage: true
+                    };
+                } else if (isStem) {
+                    return {
+                        feedbackEn: "Brilliant! You think like a STEM Engineer! 🛠️ Using magnetic stirrers and turbidity sensors eliminates human error entirely! 🎉 You have completed our Agent Water scientific dialogue! Please proceed to Step 4: Key Learning Summary below!",
+                        feedbackZh: "太有遠見了！具備出色的 STEM 工程思維！使用定速磁力攪拌器與光學濁度傳感器，能完全消弭人為操作誤差！🎉 你們組的對話探究已經圓滿完成！請在下方查閱【Step 4：關鍵學習小結】！",
+                        summaryZh: "學生提出了以自動化磁力傳感設備消除誤差的工程改進方案。",
+                        strengthZh: "具備優異的 STEM 工程設計與自動化改善思維",
+                        growthZh: "繼續保持跨學科工程創新能力",
+                        focusTag: "STEM Engineering / 工程自動化改進",
+                        personalizedPoint3En: "Engineering Solution: Replacing manual steps with magnetic stirrers and turbidity sensors eliminates human errors.",
+                        personalizedPoint3Zh: "工程創新解決方案：以磁力攪拌器及光感器取代人手操作，可實現零人為誤差。",
+                        nextStage: 4,
+                        advanceStage: true
+                    };
+                } else {
+                    // Stage 3 Smart Fallback (Handles any other non-empty response)
+                    return {
+                        feedbackEn: "Terrific scientific reflection! 🔍 Every laboratory experiment has real human factors—like slight differences in manual stirring rhythm or stopwatch reaction time. Recognizing these limitations is what makes a great scientist!\n\n🎉 You have completed our Agent Water scientific dialogue! Please proceed to Step 4: Key Learning Summary below!",
+                        feedbackZh: "非常出色的科學反思！🔍 在真實實驗中，人手攪拌節奏的些微起伏或碼錶反應時間，都是最關鍵的客觀局限！能識別這些人為因素正是優秀科學家的特質！\n\n🎉 你們組的對話探究已經圓滿完成！請在下方查閱【Step 4：關鍵學習小結】！",
+                        summaryZh: "水精靈肯定學生對實驗人為客觀局限之思考，圓滿完成三階探究。",
+                        strengthZh: "能連結自身實驗操作經驗進行反思，思維開闊",
                         growthZh: "在下方反思卡中記錄自己的思維轉變",
                         focusTag: "Human Limitations / 操作局限反思",
                         nextStage: 4,
                         advanceStage: true
                     };
-                } else {
-                    return {
-                        feedbackEn: `Interesting perspective on "${cleanQuote}"! 💧 During our 4 trials (50 to 200 cm³), did you notice any human limitations during testing—such as how steadily we stirred, or how fast we clicked the stopwatch?`,
-                        feedbackZh: `你提到「${cleanQuote}」！💧 在我們 4 次實驗過程中（50 到 200 cm³），你們有沒有察覺到任何人為操作的局限——例如攪拌的速度是否一直保持恆定，或者按停碼錶時的反應快慢？`,
-                        summaryZh: `學生提出「${cleanQuote}」，水精靈引導其反思攪拌與計時之人為操作局限。`,
-                        strengthZh: "積極參與對話探究",
-                        growthZh: "思考手動攪拌頻率與碼錶反應延遲對數據的影響",
-                        focusTag: "Human Limitations / 操作局限引導",
-                        advanceStage: false
-                    };
                 }
-            } else {
-                return {
-                    feedbackEn: `Great scientific insight on "${cleanQuote}"! 💧 Feel free to ask me any further questions, or proceed to synthesize your learning in Task 3: Thinking Routine below!`,
-                    feedbackZh: `關於「${cleanQuote}」的思考非常棒！💧 你可以繼續向我提問探究，亦可隨時前往下方【任務 3：思維反思卡】沉澱你的科學發現！`,
-                    summaryZh: `學生提出「${cleanQuote}」，水精靈給予肯定並支持持續探究。`,
-                    strengthZh: "持續保持自主科學探究精神",
-                    growthZh: "完成全階段探究與反思",
-                    advanceStage: false
-                };
             }
+
+            return {
+                feedbackEn: "Thank you for sharing your thoughts with Agent Water! 💧",
+                feedbackZh: "感謝你與水精靈分享你的科學思考！💧",
+                advanceStage: false,
+                nextStage: stage
+            };
         }
 
         // ================= CHART INITIALIZATION =================
@@ -5535,6 +5425,67 @@ ${JSON.stringify(summaryData, null, 2)}
             container.scrollTop = container.scrollHeight;
         }
 
+        // ================= STAGE-ADAPTIVE CHAT SCAFFOLD CHIPS (JUNIOR S1) =================
+        function renderChatScaffoldChips() {
+            const container = document.getElementById('chatScaffoldChipsContainer');
+            if (!container) return;
+            const stage = classData[currentRole]?.stage || 1;
+            const hasData = !!(classData[currentRole]?.data);
+
+            if (!hasData || stage >= 4) {
+                container.innerHTML = '';
+                container.classList.add('hidden');
+                return;
+            }
+
+            container.classList.remove('hidden');
+
+            const chipsByStage = {
+                1: [
+                    { icon: '⏱️', text: 'Faster / Time is shorter' },
+                    { icon: '🌊', text: 'More water molecules collide' },
+                    { icon: '⏳', text: 'Takes longer time' }
+                ],
+                2: [
+                    { icon: '🎯', text: 'Average cancels random errors' },
+                    { icon: '⏱️', text: '1 group has human timing delay' },
+                    { icon: '👥', text: '8 groups make data reliable' }
+                ],
+                3: [
+                    { icon: '🔄', text: 'Manual stirring was uneven' },
+                    { icon: '⏱️', text: 'Stopwatch reaction delay' },
+                    { icon: '💧', text: 'Water splashed during stirring' }
+                ]
+            };
+
+            const chips = chipsByStage[stage] || chipsByStage[1];
+            container.innerHTML = `
+                <div class="w-full flex items-center justify-between text-[10px] text-slate-500 font-medium mb-0.5">
+                    <span class="flex items-center gap-1">
+                        <span class="text-sky-600 font-bold">💡 Quick Starters:</span>
+                        <span>Click to insert ideas</span>
+                    </span>
+                    <span class="text-[9px] bg-sky-100 text-sky-800 px-1.5 py-0.5 rounded-full font-bold">Stage ${stage}/3</span>
+                </div>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                    ${chips.map(chip => `
+                        <button type="button" onclick="insertChatScaffoldChip('${chip.text.replace(/'/g, "\\'")}')"
+                            class="px-2.5 py-1 text-[11px] font-semibold bg-sky-50 text-sky-700 hover:bg-sky-100 hover:text-sky-900 border border-sky-200 rounded-full transition shadow-xs flex items-center gap-1 active:scale-95 group">
+                            <span class="text-xs group-hover:scale-110 transition-transform">${chip.icon}</span>
+                            <span>${chip.text}</span>
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function insertChatScaffoldChip(text) {
+            const input = document.getElementById('userInput');
+            if (!input || input.disabled) return;
+            input.value = text;
+            input.focus();
+        }
+
         function renderStudentOptions() {
             const container = document.getElementById('optionsContainer');
             if (!container) return;
@@ -5547,6 +5498,7 @@ ${JSON.stringify(summaryData, null, 2)}
                         🔒 請先在左側完成任務 1 數據上傳，以解鎖探究選項。
                     </div>
                 `;
+                renderChatScaffoldChips();
                 return;
             }
 
@@ -5590,16 +5542,17 @@ ${JSON.stringify(summaryData, null, 2)}
                     input.placeholder = "✅ 本組對話探究已圓滿完成！請在下方查閱關鍵學習小結 (Dialogue completed! Proceed to Step 4 below)";
                 }
                 if (sendBtn) sendBtn.disabled = true;
+                renderChatScaffoldChips();
                 if (window.lucide) lucide.createIcons();
                 return;
             }
 
             // Ensure input and send button are enabled if still in dialogue stages 1-3
             const input = document.getElementById('userInput');
-            const sendBtn = document.getElementById('sendBtn');
+            const sendBtn = document.getElementById('chatSendBtn');
             if (input && input.disabled) {
                 input.disabled = false;
-                input.placeholder = "輸入你的想法，或點選上方選項... (Type your scientific thought...)";
+                input.placeholder = "Type your scientific thought in English... (English only)";
             }
             if (sendBtn && sendBtn.disabled) sendBtn.disabled = false;
 
@@ -5631,6 +5584,8 @@ ${JSON.stringify(summaryData, null, 2)}
                 </button>
             `;
             container.appendChild(proceedBtn);
+
+            renderChatScaffoldChips();
 
             if (window.lucide) lucide.createIcons();
         }
@@ -6196,6 +6151,7 @@ ${JSON.stringify(summaryData, null, 2)}
                 const warn = document.getElementById('chatEnglishWarning');
                 if (warn) warn.classList.remove('hidden');
                 alert("⚠️ English Only: Please write your message in English!\n請使用純英文與水精靈對話，提交前請移除中文字元。");
+                isDialogueProcessing = false;
                 input?.focus();
                 return;
             } else {
